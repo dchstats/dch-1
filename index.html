@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>DCH</title>
+</head>
+
+<body class="w3-grey w3-padding" ng-app="dch" ng-controller='ctrl'>
+    <div class="page-head w3-container w3-center w3-blue w3-card-4 w3-round">
+        <p style="font-size:70px; line-height:0.8;">Shift End Report</p>
+    </div>
+    <div id="page-neck" class="w3-section w3-round w3-card-4 w3-pale-yellow">
+        <table class="w3-table-all">
+            <tr class="w3-center">
+                <td class="w3-blue">
+                    <h4>{{date}}, {{shifts[shift]}} Shift Report</h2>
+                </td>
+                <td class="w3-right">
+                    <span ng-show="user!='none'">User:{{user}}</span>
+                    <input ng-show="user=='none'" type="text" name="pin" id="pin">
+                    <button ng-show="user=='none'">login</button>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div id="shovel-section" class="w3-section w3-round w3-card-4 w3-pale-yellow">
+        <div class="section-header w3-container w3-deep-orange w3-margin">
+            <span class="w3-xxlarge">SHOVELS</span>
+            <button class="w3-button w3-right w3-brown w3-hover-blue" ng-click="access=!access">login</button>
+        </div>
+        <div class="section-body w3-padding">
+
+        </div>
+    </div>
+</body>
+
+</html>

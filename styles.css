@@ -1,0 +1,54 @@
+*{
+    box-sizing:border-box;
+    font-family: monospace
+}
+
+.hidden {
+    display:none;
+}
+
+select {
+    width:80%;
+    border:1px solid powderblue;
+    padding:5px;
+    background:palegoldenrod;
+}
+input{
+    display:inline-block;
+    border:1px solid powderblue;
+    padding:5px;
+    background:palegoldenrod;
+}
+
+select:disabled {
+    border-color:#ffffff00;
+    background:none;
+    color:black;
+}
+input:disabled{
+    border-color:#ffffff00;
+    background:none;
+    color:black;
+}
+
+button {
+    border:1px solid powderblue;
+    padding:5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
