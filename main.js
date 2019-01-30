@@ -20,9 +20,7 @@ app.controller('ctrl', function ($scope) {
         { name: 'P&H-07', location: 'west', added: false },
         { name: 'P&H-08', location: 'west', added: false },
         { name: 'P&H-09', location: 'west', added: false },
-        { name: 'P&H-10', location: 'west', added: false },
-        { name: 'P&H-11', location: 'west', added: false },
-        { name: 'P&H-12', location: 'west', added: false }
+        { name: 'P&H-10', location: 'west', added: false }
     ]
     $scope.eastShovels = [];
     $scope.westShovels = [];
