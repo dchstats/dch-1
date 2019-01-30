@@ -10,18 +10,17 @@
     <title>shift end report</title>
 </head>
 
-<body class="w3-grey w3-padding" ng-app="dch" ng-controller='ctrl'>
+<body class="w3-grey w3-padding" ng-app="dch" ng-controller='ctrl' ng-click="refresh()">
     <!-- ///////////////////////////////////////////////////////////////////////////// page head -->
-    <div class="page-head w3-container w3-center w3-blue w3-card-4 w3-round">
-        <p style="font-size:70px; line-height:0.8;">Shift End Report</p>
-    </div>
-    <!-- ///////////////////////////////////////////////////////////////////////////////////page neck -->
     <div id="page-neck" class="w3-display-container w3-container w3-sand w3-padding w3-card-4 w3-round">
 
-        <div class="w3-cell">
-            <h4>{{date}}, {{shifts[shift]}} Shift Report</h4>
+        <div class="w3-cell w3-quarter">
+            <h4>{{date}}, {{shifts[shift]}} Shift</h4>
         </div>
-        <div class="w3-cell w3-display-right w3-padding">
+        <div class="w3-cell w3-display-middle">
+            <h1>Shift End Report</h1>
+        </div>
+        <div class="w3-cell w3-display-right w3-padding" w3-quarter>
             <span ng-show="user!='none'">User:{{user}}</span>
             <input class="w3-round" ng-show="user=='none'" type="password" name="pin" id="pin" placeholder="pin">
             <button class="w3-round w3-large w3-blue" style="padding:2px 5px;" ng-show="user=='none'">login</button>
@@ -35,29 +34,72 @@
         <!-- /////////////////////////////////////////////////////////////////////////////////////shovel east-->
         <div id="shovel-east" class="w3-section w3-border" style="min-height:200px;">
             <h3 class="w3-center w3-blue w3-border w3-round" style="margin:0px;">East Shovels</h3>
-            <div class="w3-center">
-                <button class="w3-round" ng-repeat="x in shovels" ng-click="addShovelEast(x);" ng-disabled="x.added">
+            <div class="shovel-pool w3-center">
+                <button class="" ng-repeat="x in shovels" ng-click="addShovelEast(x);" ng-disabled="x.added">
                     {{x.name}}
                 </button>
             </div>
             <table class="w3-table-all">
+                <tr>
+                    <th>NAME</th>
+                    <th>COAL-100</th>
+                    <th>COAL-120</th>
+                    <th>OB-100</th>
+                    <th>0B-120</th>
+                    <th>REMOVE</th>
+                </tr>
                 <tr ng-repeat="x in eastShovels">
                     <td>{{x.name}}</td>
+                    <td><input type="number" ng-model="x.coal100" ></td>
+                    <td><input type="number" ng-model="x.coal120" ></td>
+                    <td><input type="number" ng-model="x.ob100" ></td>
+                    <td><input type="number" ng-model="x.ob120" ></td>
+                    <td><button ng-click="eastShovels.splice($index,1);shovels[x.id].added=false;">x</button></td>
+                </tr>
+                <tr class="">
+                    <th>TOTAL</th>
+                    <th>{{eastShovelsTotal.coal100}}</th>
+                    <th>{{eastShovelsTotal.coal120}}</th>
+                    <th>{{eastShovelsTotal.ob100}}</th>
+                    <th>{{eastShovelsTotal.ob120}}</th>
+                    <th></th>
                 </tr>
             </table>
         </div>
         <!-- //////////////////////////////////////////////////////////////////////////////////shovel west-->
 
-        <div id="shovel-east" class="w3-section w3-border" style="min-height:200px;">
+        <div id="shovel-west" class="w3-section w3-border" style="min-height:200px;">
             <h3 class="w3-center w3-blue w3-border w3-round" style="margin:0px;">West Shovels</h3>
-            <div class="w3-center">
-                <button class="w3-round" ng-repeat="x in shovels" ng-click="addShovelWest(x);" ng-disabled="x.added">
+            <div class="shovel-pool w3-center">
+                <button class="" ng-repeat="x in shovels" ng-click="addShovelWest(x);" ng-disabled="x.added">
                     {{x.name}}
                 </button>
             </div>
             <table class="w3-table-all">
+                <tr>
+                    <th>NAME</th>
+                    <th>COAL-100</th>
+                    <th>COAL-85</th>
+                    <th>OB-100</th>
+                    <th>0B-85</th>
+                    <th>REMOVE</th>
+                </tr>
                 <tr ng-repeat="x in westShovels">
                     <td>{{x.name}}</td>
+                    <td><input type="number" ng-model="x.coal100" ></td>
+                    <td><input type="number" ng-model="x.coal85" ></td>
+                    <td><input type="number" ng-model="x.ob100" ></td>
+                    <td><input type="number" ng-model="x.ob85" ></td>
+                    <td><button ng-click="westShovels.splice($index,1);shovels[x.id].added=false;">X</button></td>
+                </tr>
+                <tr>
+                    <th>TOTAL</th>
+                    <th>{{westShovelsTotal.coal100}}</th>
+                    <th>{{westShovelsTotal.coal85}}</th>
+                    <th>{{westShovelsTotal.ob100}}</th>
+                    <th>{{westShovelsTotal.ob85}}</th>
+                    <th></th>
+                    
                 </tr>
             </table>
         </div>

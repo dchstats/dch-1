@@ -39,15 +39,24 @@ input:disabled{
 }
 
 
-button {
-    border:none;
+.shovel-pool button {
+    border:1px solid green;
+    padding:5px 8px;
+    margin:5px;
+    background:#5db161;
+    color:white;
+    border-radius:5%;
+}
+
+.shovel-pool button:hover {
+    border:1px solid yellow;
     padding:5px 8px;
     margin:1px 5px;
     background:#5db761;
     color:white
 }
 
-button:disabled {
+.shovel-pool button:disabled {
     background:none;
     border:1px solid grey;
     color:black;
