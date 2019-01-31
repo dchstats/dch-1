@@ -1,6 +1,6 @@
 *{
     box-sizing:border-box;
-    font-family: monospace
+    font-family: monospace;
 }
 
 .hidden {
@@ -9,6 +9,14 @@
 
 .inline {
     display:inline-block;
+}
+
+.bordered {
+    border:1px solid lightgrey;
+}
+
+.page-head {
+    border:1px solid lightgrey;
 }
 
 .section-body{
