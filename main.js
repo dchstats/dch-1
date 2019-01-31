@@ -12,25 +12,24 @@ app.controller('ctrl', function ($scope) {
     $scope.shifts = ['other', 'First', 'Second', 'Night'];
     $scope.users = ['other', 'user1', 'user2'];
     $scope.shovels = [
-        { id:00, name: 'P&H-01', location: 'east', added: false, coal100:0, coal120:0, coal85:0, ob100:0, ob120:0, ob85:0 },
-        { id:01, name: 'P&H-02', location: 'east', added: false, coal100:0, coal120:0, coal85:0, ob100:0, ob120:0, ob85:0 },
-        { id:02, name: 'P&H-03', location: 'east', added: false, coal100:0, coal120:0, coal85:0, ob100:0, ob120:0, ob85:0 },
-        { id:03, name: 'P&H-04', location: 'east', added: false, coal100:0, coal120:0, coal85:0, ob100:0, ob120:0, ob85:0 },
-        { id:04, name: 'P&H-05', location: 'east', added: false, coal100:0, coal120:0, coal85:0, ob100:0, ob120:0, ob85:0 },
-        { id:05, name: 'P&H-06', location: 'east', added: false, coal100:0, coal120:0, coal85:0, ob100:0, ob120:0, ob85:0 },
-        { id:06, name: 'P&H-07', location: 'west', added: false, coal100:0, coal120:0, coal85:0, ob100:0, ob120:0, ob85:0 },
-        { id:07, name: 'P&H-08', location: 'west', added: false, coal100:0, coal120:0, coal85:0, ob100:0, ob120:0, ob85:0 },
-        { id:08, name: 'P&H-09', location: 'west', added: false, coal100:0, coal120:0, coal85:0, ob100:0, ob120:0, ob85:0 },
-        { id:09, name: 'P&H-10', location: 'west', added: false, coal100:0, coal120:0, coal85:0, ob100:0, ob120:0, ob85:0 }
+        { id:00, name: 'P&H-01', east:true, west:false, e_coal_100:10, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
+        { id:01, name: 'P&H-02', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
+        { id:02, name: 'P&H-03', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
+        { id:03, name: 'P&H-04', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
+        { id:04, name: 'P&H-05', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
+        { id:05, name: 'P&H-06', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
+        { id:06, name: 'P&H-07', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
+        { id:07, name: 'P&H-08', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
+        { id:08, name: 'P&H-09', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
+        { id:09, name: 'P&H-10', east: false, west: false, e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0, w_coal_100: 0, w_ob_100: 0, w_coal_85: 0, w_ob_85: 0 }
+        
     ]
 
     /////////////////////////////////////////////////////////////////////////////// Properties    
     $scope.shift = getShift();
     $scope.date = formattedDate();
     $scope.user = "none";
-    $scope.eastShovels = [];
-    $scope.westShovels = [];
-    
+  
 
     /////////////////////////////////////////////////////////////////////////////// Methods
     function formattedDate() {
@@ -67,20 +66,25 @@ app.controller('ctrl', function ($scope) {
     }
 
     $scope.refresh = function () {
-        console.log('heyyy');
-        $scope.eastShovelsTotal = { coal100: 0, coal120: 0, ob100: 0, ob120: 0 };
-        $scope.westShovelsTotal = { coal100: 0, coal85: 0, ob100: 0, ob85: 0 };
-        angular.forEach($scope.eastShovels, function (shovel) {
-            $scope.eastShovelsTotal.coal100 += shovel.coal100;
-            $scope.eastShovelsTotal.coal120 += shovel.coal120;
-            $scope.eastShovelsTotal.ob100 += shovel.ob100;
-            $scope.eastShovelsTotal.ob120 += shovel.ob120;
+        $scope.eastShovelsTotal = { e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0 };
+        $scope.westShovelsTotal = { w_coal_100: 0, w_coal_85: 0, w_ob_100: 0, w_ob_85: 0 };
+        angular.forEach($scope.shovels, function (shovel) {
+            if (shovel.east) {
+                $scope.eastShovelsTotal.e_coal_100 += shovel.e_coal_100;
+                $scope.eastShovelsTotal.e_coal_120 += shovel.e_coal_120;
+                $scope.eastShovelsTotal.e_ob_100 += shovel.e_ob_100;
+                $scope.eastShovelsTotal.e_ob_120 += shovel.e_ob_120;
+            }
+         
         });
-        angular.forEach($scope.westShovels, function (shovel) {
-            $scope.westShovelsTotal.coal100 += shovel.coal100;
-            $scope.westShovelsTotal.coal85 += shovel.coal85;
-            $scope.westShovelsTotal.ob100 += shovel.ob100;
-            $scope.westShovelsTotal.ob85 += shovel.ob85;
+        angular.forEach($scope.shovels, function (shovel) {
+            if (shovel.west) {
+                $scope.westShovelsTotal.w_coal_100 += shovel.w_coal_100;
+                $scope.westShovelsTotal.w_coal_85 += shovel.w_coal_85;
+                $scope.westShovelsTotal.w_ob_100 += shovel.w_ob_100;
+                $scope.westShovelsTotal.w_ob_85 += shovel.w_ob_85;
+            }
+
         });
     };
 });

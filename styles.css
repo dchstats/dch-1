@@ -1,10 +1,20 @@
 *{
     box-sizing:border-box;
     font-family: monospace;
+    text-align:center;
+    vertical-align:middle;
+    margin-right:auto;
+    margin-left:auto;
+}
+
+td, th{
+    width:200px;
+    border:1px solid lightgrey;
 }
 
 .hidden {
     display:none;
+    
 }
 
 .inline {
@@ -15,61 +25,45 @@
     border:1px solid lightgrey;
 }
 
-.page-head {
+
+.full {
+    width:100%;
+    padding:5px;
+}
+
+.tall {
+    height:100%;
+}
+
+select, input {
+    display:inline-block;
+    width:90%;
+    border:1px solid lightgrey;
+    padding:5px;
+}
+
+
+select:disabled, input:disabled{
+    border-color:#ffffff00;
+    background:none;
+    color:black;
+}
+
+button {
+    display: inline-block;
+    width:60px;
+    height:30px;
+    margin:5px;
+}
+
+button:disabled {
+    background:none;
     border:1px solid lightgrey;
 }
 
-.section-body{
-    width:100%;
+.page-head{
+    height:100px;
 }
-select {
-    width:80%;
-    border:1px solid powderblue;
-    padding:5px;
-    background:palegoldenrod;
-}
-input{
-    display:inline-block;
-    border:1px solid powderblue;
-    padding:5px;
-    background:palegoldenrod;
-}
-
-select:disabled {
-    border-color:#ffffff00;
-    background:none;
-    color:black;
-}
-input:disabled{
-    border-color:#ffffff00;
-    background:none;
-    color:black;
-}
-
-
-.shovel-pool button {
-    border:1px solid green;
-    padding:5px 8px;
-    margin:5px;
-    background:#5db161;
-    color:white;
-    border-radius:5%;
-}
-
-.shovel-pool button:hover {
-    border:1px solid yellow;
-    padding:5px 8px;
-    margin:1px 5px;
-    background:#5db761;
-    color:white
-}
-
-.shovel-pool button:disabled {
-    background:none;
-    border:1px solid grey;
-    color:black;
-}
-
 
 
 

@@ -11,29 +11,27 @@
 
 <body class="" ng-app="dch" ng-controller='ctrl' ng-click="refresh()">
     <!-- ///////////////////////////////////////////////////////////////////////////// page head -->
-    <div class="page-head">
-        <div class="inline" style="width:25%">
+    <div class="page-head bordered full">
+        <div class="inline bordered tall">
             <h4>{{date}}, {{shifts[shift]}} Shift</h4>
         </div>
-        <div class="inline" style="width:50%">
+        <div class="inline bordered tall">
             <h1>Shift End Report</h1>
         </div>
-        <div class="inline" style="">
+        <div class="inline bordered tall">
             <span ng-show="user!='none'">User:{{user}}</span>
             <input class="" ng-show="user=='none'" type="password" name="pin" id="pin" placeholder="pin">
-            <button class="" style="padding:2px 5px;" ng-show="user=='none'">login</button>
+            <button ng-show="user=='none'">login</button>
         </div>
     </div>
     <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// shovel section -->
-    <div id="shovel-section" class="">
-        <div class="section-header" style="margin:0px;">
-            <span class="">SHOVELS</span>
-        </div>
+    <div id="shovel-section">
+        <h2>Shovels</h2>
         <!-- /////////////////////////////////////////////////////////////////////////////////////shovel east-->
-        <div id="shovel-east" class="" style="min-height:200px;">
-            <h3 class="" style="margin:0px;">East Shovels</h3>
+        <div id="shovel-east">
+            <h3>East</h3>
             <div class="shovel-pool">
-                <button class="" ng-repeat="x in shovels" ng-click="addShovelEast(x);" ng-disabled="x.added">
+                <button ng-repeat="x in shovels" ng-click="x.east=true;" ng-disabled="x.east">
                     {{x.name}}
                 </button>
             </div>
@@ -46,30 +44,47 @@
                     <th>0B-120</th>
                     <th>REMOVE</th>
                 </tr>
-                <tr ng-repeat="x in eastShovels">
+                <tr ng-repeat="x in shovels|filter:{east:true}">
                     <td>{{x.name}}</td>
-                    <td><input type="number" ng-model="x.coal100"></td>
-                    <td><input type="number" ng-model="x.coal120"></td>
-                    <td><input type="number" ng-model="x.ob100"></td>
-                    <td><input type="number" ng-model="x.ob120"></td>
-                    <td><button ng-click="eastShovels.splice($index,1);shovels[x.id].added=false;">x</button></td>
+                    <td><input type="number" ng-model="x.e_coal_100"></td>
+                    <td><input type="number" ng-model="x.e_coal_120"></td>
+                    <td><input type="number" ng-model="x.e_ob_100"></td>
+                    <td><input type="number" ng-model="x.e_ob_120"></td>
+                    <td><button ng-click="x.east=false">x</button></td>
                 </tr>
                 <tr class="">
-                    <th>TOTAL</th>
-                    <th>{{eastShovelsTotal.coal100}}</th>
-                    <th>{{eastShovelsTotal.coal120}}</th>
-                    <th>{{eastShovelsTotal.ob100}}</th>
-                    <th>{{eastShovelsTotal.ob120}}</th>
+                    <th>TOTAL TRIPS</th>
+                    <th>{{eastShovelsTotal.e_coal_100}}</th>
+                    <th>{{eastShovelsTotal.e_coal_120}}</th>
+                    <th>{{eastShovelsTotal.e_ob_100}}</th>
+                    <th>{{eastShovelsTotal.e_ob_120}}</th>
+                    <th></th>
+                </tr>
+                <tr class="">
+                    <th>TOTAL QUANTITY</th>
+                    <th>{{eastShovelsTotal.e_coal_100 * 45}} Te</th>
+                    <th>{{eastShovelsTotal.e_coal_120 * 55}} Te</th>
+                    <th>{{eastShovelsTotal.e_ob_100 * 25}} CuM</th>
+                    <th>{{eastShovelsTotal.e_ob_120 * 29}} CuM</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>Total Coal</th>
+                    <th>{{eastShovelsTotal.e_coal_100 * 45 + eastShovelsTotal.e_coal_120 * 55}} Te</th>
+                    <th>Total OB</th>
+                    <th>{{eastShovelsTotal.e_ob_100 * 25 + eastShovelsTotal.e_ob_120 * 29 }} CuM</th>
                     <th></th>
                 </tr>
             </table>
+
         </div>
         <!-- //////////////////////////////////////////////////////////////////////////////////shovel west-->
 
-        <div id="shovel-west" class="" style="min-height:200px;">
-            <h3 class="" style="margin:0px;">West Shovels</h3>
+        <div id="shovel-west">
+            <h3>west</h3>
             <div class="shovel-pool">
-                <button class="" ng-repeat="x in shovels" ng-click="addShovelWest(x);" ng-disabled="x.added">
+                <button ng-repeat="x in shovels" ng-click="x.west=true;" ng-disabled="x.west">
                     {{x.name}}
                 </button>
             </div>
@@ -82,24 +97,40 @@
                     <th>0B-85</th>
                     <th>REMOVE</th>
                 </tr>
-                <tr ng-repeat="x in westShovels">
+                <tr ng-repeat="x in shovels|filter:{west:true}">
                     <td>{{x.name}}</td>
-                    <td><input type="number" ng-model="x.coal100"></td>
-                    <td><input type="number" ng-model="x.coal85"></td>
-                    <td><input type="number" ng-model="x.ob100"></td>
-                    <td><input type="number" ng-model="x.ob85"></td>
-                    <td><button ng-click="westShovels.splice($index,1);shovels[x.id].added=false;">X</button></td>
+                    <td><input type="number" ng-model="x.w_coal_100"></td>
+                    <td><input type="number" ng-model="x.w_coal_85"></td>
+                    <td><input type="number" ng-model="x.w_ob_100"></td>
+                    <td><input type="number" ng-model="x.w_ob_85"></td>
+                    <td><button ng-click="x.west=false">x</button></td>
+                </tr>
+                <tr class="">
+                    <th>TOTAL TRIPS</th>
+                    <th>{{westShovelsTotal.w_coal_100}}</th>
+                    <th>{{westShovelsTotal.w_coal_85}}</th>
+                    <th>{{westShovelsTotal.w_ob_100}}</th>
+                    <th>{{westShovelsTotal.w_ob_85}}</th>
+                    <th></th>
+                </tr>
+                <tr class="">
+                    <th>TOTAL QUANTITY</th>
+                    <th>{{westShovelsTotal.w_coal_100 * 45}} Te</th>
+                    <th>{{westShovelsTotal.w_coal_85 * 40}} Te</th>
+                    <th>{{westShovelsTotal.w_ob_100 * 25}} CuM</th>
+                    <th>{{westShovelsTotal.w_ob_85 * 21}} CuM</th>
+                    <th></th>
                 </tr>
                 <tr>
-                    <th>TOTAL</th>
-                    <th>{{westShovelsTotal.coal100}}</th>
-                    <th>{{westShovelsTotal.coal85}}</th>
-                    <th>{{westShovelsTotal.ob100}}</th>
-                    <th>{{westShovelsTotal.ob85}}</th>
                     <th></th>
-
+                    <th>Total Coal</th>
+                    <th>{{westShovelsTotal.w_coal_100 * 45 + westShovelsTotal.w_coal_85 * 40}} Te</th>
+                    <th>Total OB</th>
+                    <th>{{westShovelsTotal.w_ob_100 * 25 + westShovelsTotal.w_ob_85 * 21 }} CuM</th>
+                    <th></th>
                 </tr>
             </table>
+
         </div>
 
 
