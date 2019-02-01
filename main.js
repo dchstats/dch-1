@@ -15,8 +15,8 @@ app.controller('ctrl', function ($scope) {
     $scope.user = "none";
     $scope.eastShovels = [];
     $scope.westShovels = [];
-    $scope.eastShovelsTotal = [];
-    $scope.westShovelsTotal = [];
+    $scope.eastShovelsTotal = [0, 0, 0, 0];
+    $scope.westShovelsTotal = [0, 0, 0, 0];
     $scope.esm = [45, 55, 25, 29];
     $scope.wsm = [45, 40, 25, 21];
     $scope.shovels = [

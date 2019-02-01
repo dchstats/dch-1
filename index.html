@@ -6,36 +6,39 @@
     <script src="libs/jquery.js"></script>
     <script src="main.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="libs/general_styles.css">
     <title>shift end report</title>
 </head>
 
 <body class="" ng-app="dch" ng-controller='ctrl' ng-click="refresh()">
     <!-- ///////////////////////////////////////////////////////////////////////////// page head -->
-    <div class="page-head bordered full">
-        <div class="inline bordered tall">
-            <h4>{{date}}, {{shifts[shift]}} Shift</h4>
+    <div class="page-head  fwd">
+        <div class="inl  qwd fht cbx">
+            <h3>{{date}}, {{shifts[shift]}} Shift</h3>
         </div>
-        <div class="inline bordered tall">
+        <div class=" fht hwd inl cbx">
             <h1>Shift End Report</h1>
         </div>
-        <div class="inline bordered tall">
-            <span ng-show="user!='none'">User:{{user}}</span>
-            <input class="" ng-show="user=='none'" type="password" name="pin" id="pin" placeholder="pin">
-            <button ng-show="user=='none'">login</button>
+
+        <div class=" fht qwd inl cbx">
+      
         </div>
     </div>
     <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// shovel section -->
-    <div id="shovel-section">
-        <h2>Shovels</h2>
+    <div class="section fwd ">
+        <div class="section-head fwd lft">
+            <h2>Shovels</h2>
+        </div>
+
         <!-- /////////////////////////////////////////////////////////////////////////////////////shovel east-->
-        <div id="shovel-east">
-            <h3>East</h3>
-            <div class="shovel-pool">
+        <div class="fwd ">
+            <h3 class="sub-head">East</h3>
+            <div class="cbx fwd">
                 <button ng-repeat="x in shovels" ng-click="x.east=true; addShovel('east',$index);" ng-disabled="x.east">
                     {{x.name}}
                 </button>
             </div>
-            <table class="">
+            <table class="cbx fwd">
                 <tr>
                     <th>NAME</th>
                     <th>COAL-100</th>
@@ -52,7 +55,7 @@
                     <td><input type="number" ng-model="x.east_data[3]"></td>
                     <td><button ng-click="removeShovel('east',$index)">x</button></td>
                 </tr>
-                <tr class="">
+                <tr>
                     <th>TOTAL TRIPS</th>
                     <th>{{eastShovelsTotal[0]}}</th>
                     <th>{{eastShovelsTotal[1]}}</th>
@@ -81,14 +84,14 @@
         </div>
         <!-- //////////////////////////////////////////////////////////////////////////////////shovel west-->
 
-        <div id="shovel-west">
-            <h3>west</h3>
-            <div class="shovel-pool">
+        <div class="fwd ">
+            <h3 class="sub-head">west</h3>
+            <div class="cbx fwd">
                 <button ng-repeat="x in shovels" ng-click="x.west=true; addShovel('west',$index);" ng-disabled="x.west">
                     {{x.name}}
                 </button>
             </div>
-            <table class="">
+            <table class="cbx fwd">
                 <tr>
                     <th>NAME</th>
                     <th>COAL-100</th>
