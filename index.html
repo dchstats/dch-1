@@ -31,7 +31,7 @@
         <div id="shovel-east">
             <h3>East</h3>
             <div class="shovel-pool">
-                <button ng-repeat="x in shovels" ng-click="x.east=true;" ng-disabled="x.east">
+                <button ng-repeat="x in shovels" ng-click="x.east=true; addShovel('east',$index);" ng-disabled="x.east">
                     {{x.name}}
                 </button>
             </div>
@@ -44,13 +44,13 @@
                     <th>0B-120</th>
                     <th>REMOVE</th>
                 </tr>
-                <tr ng-repeat="x in shovels|filter:{east:true}">
+                <tr ng-repeat="x in eastShovels">
                     <td>{{x.name}}</td>
                     <td><input type="number" ng-model="x.east_data[0]"></td>
                     <td><input type="number" ng-model="x.east_data[1]"></td>
                     <td><input type="number" ng-model="x.east_data[2]"></td>
                     <td><input type="number" ng-model="x.east_data[3]"></td>
-                    <td><button ng-click="x.east=false">x</button></td>
+                    <td><button ng-click="removeShovel('east',$index)">x</button></td>
                 </tr>
                 <tr class="">
                     <th>TOTAL TRIPS</th>
@@ -62,18 +62,18 @@
                 </tr>
                 <tr class="">
                     <th>TOTAL QUANTITY</th>
-                    <th>{{eastShovelsTotal[0] * 45}} Te</th>
-                    <th>{{eastShovelsTotal[1] * 55}} Te</th>
-                    <th>{{eastShovelsTotal[2] * 25}} CuM</th>
-                    <th>{{eastShovelsTotal[3] * 29}} CuM</th>
+                    <th>{{eastShovelsTotal[0] * esm[0]}} Te</th>
+                    <th>{{eastShovelsTotal[1] * esm[1]}} Te</th>
+                    <th>{{eastShovelsTotal[2] * esm[2]}} CuM</th>
+                    <th>{{eastShovelsTotal[3] * esm[3]}} CuM</th>
                     <th></th>
                 </tr>
                 <tr>
                     <th></th>
                     <th>Total Coal</th>
-                    <th>{{eastShovelsTotal[0] * 45 + eastShovelsTotal[1] * 55}} Te</th>
+                    <th>{{eastShovelsTotal[0] * esm[0] + eastShovelsTotal[1] * esm[1]}} Te</th>
                     <th>Total OB</th>
-                    <th>{{eastShovelsTotal[2] * 25 + eastShovelsTotal[3] * 29 }} CuM</th>
+                    <th>{{eastShovelsTotal[2] * esm[2] + eastShovelsTotal[3] * esm[3] }} CuM</th>
                     <th></th>
                 </tr>
             </table>
@@ -84,7 +84,7 @@
         <div id="shovel-west">
             <h3>west</h3>
             <div class="shovel-pool">
-                <button ng-repeat="x in shovels" ng-click="x.west=true;" ng-disabled="x.west">
+                <button ng-repeat="x in shovels" ng-click="x.west=true; addShovel('west',$index);" ng-disabled="x.west">
                     {{x.name}}
                 </button>
             </div>
@@ -97,13 +97,13 @@
                     <th>0B-85</th>
                     <th>REMOVE</th>
                 </tr>
-                <tr ng-repeat="x in shovels|filter:{west:true}">
+                <tr ng-repeat="x in westShovels">
                     <td>{{x.name}}</td>
                     <td><input type="number" ng-model="x.west_data[0]"></td>
                     <td><input type="number" ng-model="x.west_data[1]"></td>
                     <td><input type="number" ng-model="x.west_data[2]"></td>
                     <td><input type="number" ng-model="x.west_data[3]"></td>
-                    <td><button ng-click="x.west=false">x</button></td>
+                    <td><button ng-click="removeShovel('west',$index);">x</button></td>
                 </tr>
                 <tr class="">
                     <th>TOTAL TRIPS</th>
@@ -115,18 +115,18 @@
                 </tr>
                 <tr class="">
                     <th>TOTAL QUANTITY</th>
-                    <th>{{westShovelsTotal[0] * 45}} Te</th>
-                    <th>{{westShovelsTotal[1] * 55}} Te</th>
-                    <th>{{westShovelsTotal[2] * 25}} CuM</th>
-                    <th>{{westShovelsTotal[3] * 29}} CuM</th>
+                    <th>{{westShovelsTotal[0] * wsm[0]}} Te</th>
+                    <th>{{westShovelsTotal[1] * wsm[1]}} Te</th>
+                    <th>{{westShovelsTotal[2] * wsm[2]}} CuM</th>
+                    <th>{{westShovelsTotal[3] * wsm[3]}} CuM</th>
                     <th></th>
                 </tr>
                 <tr>
                     <th></th>
                     <th>Total Coal</th>
-                    <th>{{westShovelsTotal[0] * 45 + westShovelsTotal[1] * 55}} Te</th>
+                    <th>{{westShovelsTotal[0] * wsm[0] + westShovelsTotal[1] * wsm[1]}} Te</th>
                     <th>Total OB</th>
-                    <th>{{westShovelsTotal[2] * 25 + westShovelsTotal[3] * 29 }} CuM</th>
+                    <th>{{westShovelsTotal[2] * wsm[2] + westShovelsTotal[3] * wsm[3] }} CuM</th>
                     <th></th>
                 </tr>
             </table>
