@@ -31,7 +31,7 @@
         <div id="shovel-east">
             <h3>East</h3>
             <div class="shovel-pool">
-                <button ng-repeat="x in shovels" ng-click="x.east=true;" ng-disabled="x.east">
+                <button ng-repeat="x in shovels" ng-click="x.east[0]=true;" ng-disabled="x.east[0]">
                     {{x.name}}
                 </button>
             </div>
@@ -46,34 +46,34 @@
                 </tr>
                 <tr ng-repeat="x in shovels|filter:{east:true}">
                     <td>{{x.name}}</td>
-                    <td><input type="number" ng-model="x.e_coal_100"></td>
-                    <td><input type="number" ng-model="x.e_coal_120"></td>
-                    <td><input type="number" ng-model="x.e_ob_100"></td>
-                    <td><input type="number" ng-model="x.e_ob_120"></td>
-                    <td><button ng-click="x.east=false">x</button></td>
+                    <td><input type="number" ng-model="x.east[1]"></td>
+                    <td><input type="number" ng-model="x.east[2]"></td>
+                    <td><input type="number" ng-model="x.east[3]"></td>
+                    <td><input type="number" ng-model="x.east[4]"></td>
+                    <td><button ng-click="x.east[0]=false">x</button></td>
                 </tr>
                 <tr class="">
                     <th>TOTAL TRIPS</th>
-                    <th>{{shovelsTotal.e_coal_100}}</th>
-                    <th>{{shovelsTotal.e_coal_120}}</th>
-                    <th>{{shovelsTotal.e_ob_100}}</th>
-                    <th>{{shovelsTotal.e_ob_120}}</th>
+                    <th>{{eastShovelsTotal[1]}}</th>
+                    <th>{{eastShovelsTotal[2]}}</th>
+                    <th>{{eastShovelsTotal[3]}}</th>
+                    <th>{{eastShovelsTotal[4]}}</th>
                     <th></th>
                 </tr>
                 <tr class="">
                     <th>TOTAL QUANTITY</th>
-                    <th>{{shovelsTotal.e_coal_100 * 45}} Te</th>
-                    <th>{{shovelsTotal.e_coal_120 * 55}} Te</th>
-                    <th>{{shovelsTotal.e_ob_100 * 25}} CuM</th>
-                    <th>{{shovelsTotal.e_ob_120 * 29}} CuM</th>
+                    <th>{{eastShovelsTotal[1] * 45}} Te</th>
+                    <th>{{eastShovelsTotal[2] * 55}} Te</th>
+                    <th>{{eastShovelsTotal[3] * 25}} CuM</th>
+                    <th>{{eastShovelsTotal[4] * 29}} CuM</th>
                     <th></th>
                 </tr>
                 <tr>
                     <th></th>
                     <th>Total Coal</th>
-                    <th>{{shovelsTotal.e_coal_100 * 45 + shovelsTotal.e_coal_120 * 55}} Te</th>
+                    <th>{{eastShovelsTotal[1] * 45 + eastShovelsTotal[2] * 55}} Te</th>
                     <th>Total OB</th>
-                    <th>{{shovelsTotal.e_ob_100 * 25 + shovelsTotal.e_ob_120 * 29 }} CuM</th>
+                    <th>{{eastShovelsTotal[3] * 25 + eastShovelsTotal[4] * 29 }} CuM</th>
                     <th></th>
                 </tr>
             </table>
@@ -84,7 +84,7 @@
         <div id="shovel-west">
             <h3>west</h3>
             <div class="shovel-pool">
-                <button ng-repeat="x in shovels" ng-click="x.west=true;" ng-disabled="x.west">
+                <button ng-repeat="x in shovels" ng-click="x.west[0]=true;" ng-disabled="x.west[0]">
                     {{x.name}}
                 </button>
             </div>
@@ -99,38 +99,37 @@
                 </tr>
                 <tr ng-repeat="x in shovels|filter:{west:true}">
                     <td>{{x.name}}</td>
-                    <td><input type="number" ng-model="x.w_coal_100"></td>
-                    <td><input type="number" ng-model="x.w_coal_85"></td>
-                    <td><input type="number" ng-model="x.w_ob_100"></td>
-                    <td><input type="number" ng-model="x.w_ob_85"></td>
-                    <td><button ng-click="x.west=false">x</button></td>
+                    <td><input type="number" ng-model="x.west[1]"></td>
+                    <td><input type="number" ng-model="x.west[2]"></td>
+                    <td><input type="number" ng-model="x.west[3]"></td>
+                    <td><input type="number" ng-model="x.west[4]"></td>
+                    <td><button ng-click="x.west[0]=false">x</button></td>
                 </tr>
                 <tr class="">
                     <th>TOTAL TRIPS</th>
-                    <th>{{shovelsTotal.w_coal_100}}</th>
-                    <th>{{shovelsTotal.w_coal_85}}</th>
-                    <th>{{shovelsTotal.w_ob_100}}</th>
-                    <th>{{shovelsTotal.w_ob_85}}</th>
+                    <th>{{westShovelsTotal[1]}}</th>
+                    <th>{{westShovelsTotal[2]}}</th>
+                    <th>{{westShovelsTotal[3]}}</th>
+                    <th>{{westShovelsTotal[4]}}</th>
                     <th></th>
                 </tr>
                 <tr class="">
                     <th>TOTAL QUANTITY</th>
-                    <th>{{shovelsTotal.w_coal_100 * 45}} Te</th>
-                    <th>{{shovelsTotal.w_coal_85 * 40}} Te</th>
-                    <th>{{shovelsTotal.w_ob_100 * 25}} CuM</th>
-                    <th>{{shovelsTotal.w_ob_85 * 21}} CuM</th>
+                    <th>{{westShovelsTotal[1] * 45}} Te</th>
+                    <th>{{westShovelsTotal[2] * 55}} Te</th>
+                    <th>{{westShovelsTotal[3] * 25}} CuM</th>
+                    <th>{{westShovelsTotal[4] * 29}} CuM</th>
                     <th></th>
                 </tr>
                 <tr>
                     <th></th>
                     <th>Total Coal</th>
-                    <th>{{shovelsTotal.w_coal_100 * 45 + shovelsTotal.w_coal_85 * 40}} Te</th>
+                    <th>{{westShovelsTotal[1] * 45 + westShovelsTotal[2] * 55}} Te</th>
                     <th>Total OB</th>
-                    <th>{{shovelsTotal.w_ob_100 * 25 + shovelsTotal.w_ob_85 * 21 }} CuM</th>
+                    <th>{{westShovelsTotal[3] * 25 + westShovelsTotal[4] * 29 }} CuM</th>
                     <th></th>
                 </tr>
             </table>
-
         </div>
 
 
