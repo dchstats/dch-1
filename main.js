@@ -10,26 +10,36 @@ var app = angular.module('dch', []);
 app.controller('ctrl', function ($scope) {
     /////////////////////////////////////////////////////////////////////////////// Constants
     $scope.shifts = ['other', 'First', 'Second', 'Night'];
-    $scope.users = ['other', 'user1', 'user2'];
+
     $scope.shovels = [
-        { id:00, name: 'P&H-01', east:true, west:false, e_coal_100:10, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
-        { id:01, name: 'P&H-02', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
-        { id:02, name: 'P&H-03', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
-        { id:03, name: 'P&H-04', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
-        { id:04, name: 'P&H-05', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
-        { id:05, name: 'P&H-06', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
-        { id:06, name: 'P&H-07', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
-        { id:07, name: 'P&H-08', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
-        { id:08, name: 'P&H-09', east:false, west:false, e_coal_100:0, e_coal_120:0, e_ob_100:0, e_ob_120:0, w_coal_100:0, w_ob_100:0, w_coal_85:0, w_ob_85:0 },
-        { id:09, name: 'P&H-10', east: false, west: false, e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0, w_coal_100: 0, w_ob_100: 0, w_coal_85: 0, w_ob_85: 0 }
-        
+        { id: 00, name: 'P&H-01', east: false, west: false, e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0, w_coal_100: 0, w_ob_100: 0, w_coal_85: 0, w_ob_85: 0 },
+        { id: 01, name: 'P&H-02', east: false, west: false, e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0, w_coal_100: 0, w_ob_100: 0, w_coal_85: 0, w_ob_85: 0 },
+        { id: 02, name: 'P&H-03', east: false, west: false, e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0, w_coal_100: 0, w_ob_100: 0, w_coal_85: 0, w_ob_85: 0 },
+        { id: 03, name: 'P&H-04', east: false, west: false, e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0, w_coal_100: 0, w_ob_100: 0, w_coal_85: 0, w_ob_85: 0 },
+        { id: 04, name: 'P&H-05', east: false, west: false, e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0, w_coal_100: 0, w_ob_100: 0, w_coal_85: 0, w_ob_85: 0 },
+        { id: 05, name: 'P&H-06', east: false, west: false, e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0, w_coal_100: 0, w_ob_100: 0, w_coal_85: 0, w_ob_85: 0 },
+        { id: 06, name: 'P&H-07', east: false, west: false, e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0, w_coal_100: 0, w_ob_100: 0, w_coal_85: 0, w_ob_85: 0 },
+        { id: 07, name: 'P&H-08', east: false, west: false, e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0, w_coal_100: 0, w_ob_100: 0, w_coal_85: 0, w_ob_85: 0 },
+        { id: 08, name: 'P&H-09', east: false, west: false, e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0, w_coal_100: 0, w_ob_100: 0, w_coal_85: 0, w_ob_85: 0 },
+        { id: 09, name: 'P&H-10', east: false, west: false, e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0, w_coal_100: 0, w_ob_100: 0, w_coal_85: 0, w_ob_85: 0 }
     ]
 
     /////////////////////////////////////////////////////////////////////////////// Properties    
     $scope.shift = getShift();
     $scope.date = formattedDate();
     $scope.user = "none";
-  
+    $scope.shovelsTotal = {
+        e_coal_100: 0,
+        e_coal_120: 0,
+        e_ob_100: 0,
+        e_ob_120: 0,
+        w_coal_100: 0,
+        w_ob_100: 0,
+        w_coal_85: 0,
+        w_ob_85: 0
+    };
+
+
 
     /////////////////////////////////////////////////////////////////////////////// Methods
     function formattedDate() {
@@ -55,36 +65,27 @@ app.controller('ctrl', function ($scope) {
         return shift;
     }
 
-    $scope.addShovelEast = function (shovel) {
-        $scope.eastShovels.push(shovel);
-        shovel.added = true;
-    }
 
-    $scope.addShovelWest = function (shovel) {
-        $scope.westShovels.push(shovel);
-        shovel.added = true;
-    }
 
     $scope.refresh = function () {
-        $scope.eastShovelsTotal = { e_coal_100: 0, e_coal_120: 0, e_ob_100: 0, e_ob_120: 0 };
-        $scope.westShovelsTotal = { w_coal_100: 0, w_coal_85: 0, w_ob_100: 0, w_ob_85: 0 };
-        angular.forEach($scope.shovels, function (shovel) {
-            if (shovel.east) {
-                $scope.eastShovelsTotal.e_coal_100 += shovel.e_coal_100;
-                $scope.eastShovelsTotal.e_coal_120 += shovel.e_coal_120;
-                $scope.eastShovelsTotal.e_ob_100 += shovel.e_ob_100;
-                $scope.eastShovelsTotal.e_ob_120 += shovel.e_ob_120;
-            }
-         
-        });
-        angular.forEach($scope.shovels, function (shovel) {
-            if (shovel.west) {
-                $scope.westShovelsTotal.w_coal_100 += shovel.w_coal_100;
-                $scope.westShovelsTotal.w_coal_85 += shovel.w_coal_85;
-                $scope.westShovelsTotal.w_ob_100 += shovel.w_ob_100;
-                $scope.westShovelsTotal.w_ob_85 += shovel.w_ob_85;
-            }
+        $scope.shovelsTotal.e_coal_100 = 0;
+        $scope.shovelsTotal.e_coal_120 = 0;
+        $scope.shovelsTotal.e_ob_100 = 0;
+        $scope.shovelsTotal.e_ob_120 = 0;
+        $scope.shovelsTotal.w_coal_100 = 0;
+        $scope.shovelsTotal.w_coal_85 = 0;
+        $scope.shovelsTotal.w_ob_100 = 0;
+        $scope.shovelsTotal.w_ob_85 = 0;
 
+        angular.forEach($scope.shovels, function (shovel) {
+            $scope.shovelsTotal.e_coal_100 += shovel.e_coal_100;
+            $scope.shovelsTotal.e_coal_120 += shovel.e_coal_120;
+            $scope.shovelsTotal.e_ob_100 += shovel.e_ob_100;
+            $scope.shovelsTotal.e_ob_120 += shovel.e_ob_120;
+            $scope.shovelsTotal.w_coal_100 += shovel.w_coal_100;
+            $scope.shovelsTotal.w_coal_85 += shovel.w_coal_85;
+            $scope.shovelsTotal.w_ob_100 += shovel.w_ob_100;
+            $scope.shovelsTotal.w_ob_85 += shovel.w_ob_85;
         });
     };
 });
