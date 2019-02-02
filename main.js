@@ -47,7 +47,7 @@ app.controller('ctrl', function ($scope) {
         if (mm < 10) {
             mm = "0" + mm;
         }
-        return dd + "/" + mm + "/" + yyyy;
+        return dd + "-" + mm + "-" + yyyy;
     }
 
     function getShift() {

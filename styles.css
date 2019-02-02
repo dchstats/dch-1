@@ -4,7 +4,12 @@
     color:white;
 }
 
-.section {
- background:#9ae4bd;
- padding:15px;
+.shovel-name {
+    color:dodgerblue;
+    font-size:1.5em;
+    border-radius:3px;
+    margin:auto;
+    padding:6px;
+
 }
+

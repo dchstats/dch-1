@@ -3,24 +3,27 @@
     font-family: monospace;
     vertical-align:middle;
     border-collapse: collapse;
-    text-align:center;
 }
 
 td, th{
     width:200px;
-    border:1px dotted rgb(189, 136, 136);
+    color:rgb(97, 34, 34);
+    padding:5px;
+    text-align:center;
 }
 
 th{
-    background-color: rgb(229, 247, 230);
+    background-color: dodgerblue;
+    color:#f3f3f3;
 }
 
 tr:nth-child(even){
-    background-color: #f2f2f2;
+    background-color: white;
 }
 tr:nth-child(odd){
-    background-color: #f5dede;
+    background-color: rgb(248, 246, 246);
 }
+
 
 
 
@@ -66,26 +69,40 @@ tr:nth-child(odd){
 
 select, input {
     display:inline-block;
-    border:1px solid lightgrey;
-    padding:5px;
+    width:100px;
+    height:30px;
+    padding:6px;
+    border:1px solid green;
+    font-size:1.5em;
+    background:white;
+    color:dodgerblue;
+    border-radius:3px;
+    margin:4px;
 }
 
 
 select:disabled, input:disabled{
-    border-color:#ffffff00;
     background:none;
     color:black;
 }
 
 button {
     display: inline-block;
-    width:60px;
-    height:30px;
+    width:80px;
+    height:45px;
     margin:5px;
     background:#710af8a4;
     color:white;
-    border:1px solid lightgrey;
+    border:none;
     border-radius:3px;
+    font-size:1em;
+}
+
+button.cancel {
+    width:30px;
+    height:30px;
+    background:dodgerblue;
+    font-size:1em;
 }
 button:hover{
     background:#03c91e;
@@ -93,6 +110,44 @@ button:hover{
 
 button:disabled {
     background:none;
-    border:1px solid white;
+    color:dodgerblue;
+    border:1px solid dodgerblue;
 }
 
+tr.total {
+    font-size:1.2em;
+    background-color:dodgerblue;
+    border-bottom:1px dashed white;
+    
+}
+tr.total td{
+    padding:8px;
+    color:white;
+}
+
+.section {
+margin: 16px 0px;    
+border:1px solid dodgerblue;
+border-radius:3px;
+background:rgb(235, 247, 219);
+padding-bottom:50px;
+padding-top:0px;
+}
+
+.main-header{
+    color:white;
+    background:dodgerblue;
+    text-align:center;
+    font-size:2em;
+    padding:16px;
+    border-radius:3px;
+    margin:0px;
+}
+
+.sub-header {
+    color:white;
+    font-size:2em;
+    background:rgb(46, 209, 46);
+    padding:6px;
+    border-radius:3px;
+}
