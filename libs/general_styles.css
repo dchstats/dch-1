@@ -5,6 +5,10 @@
     border-collapse: collapse;
 }
 
+body {
+    font-size:1.2em;
+}
+
 td, th{
     width:200px;
     color:rgb(97, 34, 34);
@@ -13,8 +17,9 @@ td, th{
 }
 
 th{
-    background-color: dodgerblue;
-    color:#f3f3f3;
+    background-color: darkorchid;
+    color:white;
+    padding:10px 0px;
 }
 
 tr:nth-child(even){
@@ -68,18 +73,25 @@ tr:nth-child(odd){
 
 
 select, input {
+    font-size:1em;
     display:inline-block;
     width:100px;
     height:30px;
-    padding:6px;
-    border:1px solid green;
-    font-size:1.5em;
+    padding:10px 6px;
+    border:1px solid lightsalmon;
     background:white;
-    color:dodgerblue;
+    color:darkorchid;
     border-radius:3px;
     margin:4px;
 }
 
+textarea{
+    font-size:1em;
+     border:1px solid lightsalmon;
+    background:white;
+    color:darkorchid;
+    border-radius:3px;
+}
 
 select:disabled, input:disabled{
     background:none;
@@ -88,10 +100,9 @@ select:disabled, input:disabled{
 
 button {
     display: inline-block;
-    width:80px;
-    height:45px;
     margin:5px;
-    background:#710af8a4;
+    padding:10px;
+    background:limegreen;
     color:white;
     border:none;
     border-radius:3px;
@@ -101,23 +112,20 @@ button {
 button.cancel {
     width:30px;
     height:30px;
-    background:dodgerblue;
-    font-size:1em;
+    background:darkorchid;
+    padding:0px;
 }
 button:hover{
-    background:#03c91e;
+    background:lawngreen;
 }
 
 button:disabled {
-    background:none;
-    color:dodgerblue;
-    border:1px solid dodgerblue;
+    background:lightgrey;
 }
 
 tr.total {
-    font-size:1.2em;
-    background-color:dodgerblue;
-    border-bottom:1px dashed white;
+    background-color:darkorchid;
+    border-top:1px dashed white;
     
 }
 tr.total td{
@@ -127,7 +135,7 @@ tr.total td{
 
 .section {
 margin: 16px 0px;    
-border:1px solid dodgerblue;
+border:1px solid darkorchid;
 border-radius:3px;
 background:rgb(235, 247, 219);
 padding-bottom:50px;
@@ -136,17 +144,17 @@ padding-top:0px;
 
 .main-header{
     color:white;
-    background:dodgerblue;
+    background:darkorchid;
     text-align:center;
     font-size:2em;
-    padding:16px;
+    padding:10px;
     border-radius:3px;
     margin:0px;
 }
 
 .sub-header {
     color:white;
-    font-size:2em;
+    font-size:1.5em;
     background:rgb(46, 209, 46);
     padding:6px;
     border-radius:3px;

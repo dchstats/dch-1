@@ -31,6 +31,26 @@ app.controller('ctrl', function ($scope) {
         { id: '08', name: 'P&H-09', east: false, east_data: [0, 0, 0, 0], west: false, west_data: [0, 0, 0, 0] },
         { id: '09', name: 'P&H-10', east: false, east_data: [0, 0, 0, 0], west: false, west_data: [0, 0, 0, 0] }
     ]
+
+    $scope.draglines = [
+        { id: '0', name: 'JYOTI',   data: [0, 0, 0, 0, 0], remark: ''},
+        { id: '1', name: 'PAWAN',   data: [0, 0, 0, 0, 0], remark: ''},
+        { id: '2', name: 'VINDHYA', data: [0, 0, 0, 0, 0], remark: ''},
+        { id: '3', name: 'JWALA',   data: [0, 0, 0, 0, 0], remark: ''}
+    ];
+
+    $scope.surfaceMiners = [{ id: 0, name: 'L&T-SM', data: [0, 0, 0], remark: 'dfdfdf' }];
+    
+    $scope.outsourcing = [
+        { id: 0, name: 'BGR-EAST-APT', data: [0], remark: '' },
+        { id: 0, name: 'GAJRAJ-WEST-APT', data: [0], remark: '' },
+        { id: 0, name: 'GAJRAJ-EAST-APB', data: [0], remark: '' },
+        { id: 0, name: 'GAJRAJ-WEST-APB', data: [0], remark: '' },
+        { id: 0, name: 'DL-EAST', data: [0], remark: '' },
+        { id: 0, name: 'DL-WEST', data: [0], remark: '' }
+    ];
+
+
     /////////////////////////////////////////////////////////////////////////////// Methods
     function formattedDate() {
         var today = new Date();
