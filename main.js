@@ -17,40 +17,48 @@ app.controller('ctrl', function ($scope) {
     $scope.westShovels = [];
     $scope.eastShovelsTotal = [0, 0, 0, 0];
     $scope.westShovelsTotal = [0, 0, 0, 0];
-    $scope.esm = [45, 55, 25, 29];
-    $scope.wsm = [45, 40, 25, 21];
+    $scope.eastShovelMultipliers = [45, 55, 25, 29];
+    $scope.westShovelMultipliers = [45, 40, 25, 21];
     $scope.shovels = [
-        { id: '00', name: 'P&H-01', east: false, east_data: [0, 0, 0, 0], west: false, west_data: [0, 0, 0, 0] },
-        { id: '01', name: 'P&H-02', east: false, east_data: [0, 0, 0, 0], west: false, west_data: [0, 0, 0, 0] },
-        { id: '02', name: 'P&H-03', east: false, east_data: [0, 0, 0, 0], west: false, west_data: [0, 0, 0, 0] },
-        { id: '03', name: 'P&H-04', east: false, east_data: [0, 0, 0, 0], west: false, west_data: [0, 0, 0, 0] },
-        { id: '04', name: 'P&H-05', east: false, east_data: [0, 0, 0, 0], west: false, west_data: [0, 0, 0, 0] },
-        { id: '05', name: 'P&H-06', east: false, east_data: [0, 0, 0, 0], west: false, west_data: [0, 0, 0, 0] },
-        { id: '06', name: 'P&H-07', east: false, east_data: [0, 0, 0, 0], west: false, west_data: [0, 0, 0, 0] },
-        { id: '07', name: 'P&H-08', east: false, east_data: [0, 0, 0, 0], west: false, west_data: [0, 0, 0, 0] },
-        { id: '08', name: 'P&H-09', east: false, east_data: [0, 0, 0, 0], west: false, west_data: [0, 0, 0, 0] },
-        { id: '09', name: 'P&H-10', east: false, east_data: [0, 0, 0, 0], west: false, west_data: [0, 0, 0, 0] }
+        {name: 'P&H-01', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
+        {name: 'P&H-02', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
+        {name: 'P&H-03', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
+        {name: 'P&H-04', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
+        {name: 'P&H-05', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
+        {name: 'P&H-06', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
+        {name: 'P&H-07', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
+        {name: 'P&H-08', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
+        {name: 'P&H-09', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
+        {name: 'P&H-10', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] }
     ]
 
     $scope.draglines = [
-        { id: '0', name: 'JYOTI',   data: [0, 0, 0, 0, 0], remark: ''},
-        { id: '1', name: 'PAWAN',   data: [0, 0, 0, 0, 0], remark: ''},
-        { id: '2', name: 'VINDHYA', data: [0, 0, 0, 0, 0], remark: ''},
-        { id: '3', name: 'JWALA',   data: [0, 0, 0, 0, 0], remark: ''}
+        {name: 'JYOTI', data: [null,null,null,null,null,null], remark: null },
+        {name: 'PAWAN', data: [null,null,null,null,null,null], remark: null },
+        {name: 'VINDHYA', data: [null,null,null,null,null,null], remark: null },
+        {name: 'JWALA', data: [null,null,null,null,null,null], remark: null }
     ];
 
-    $scope.surfaceMiners = [{ id: 0, name: 'L&T-SM', data: [0, 0, 0], remark: 'dfdfdf' }];
-    
+    $scope.surfaceMiners = [{name: 'L&T-SM', data: [null,null,null], remark: null }];
+
     $scope.outsourcing = [
-        { id: 0, name: 'BGR-EAST-APT', data: [0], remark: '' },
-        { id: 0, name: 'GAJRAJ-WEST-APT', data: [0], remark: '' },
-        { id: 0, name: 'GAJRAJ-EAST-APB', data: [0], remark: '' },
-        { id: 0, name: 'GAJRAJ-WEST-APB', data: [0], remark: '' },
-        { id: 0, name: 'DL-EAST', data: [0], remark: '' },
-        { id: 0, name: 'DL-WEST', data: [0], remark: '' }
+        {name: 'BGR-EAST-APT', data: [null], remark: null },
+        {name: 'GAJRAJ-WEST-APT', data: [null], remark: null },
+        {name: 'GAJRAJ-EAST-APB', data: [null], remark: null },
+        {name: 'GAJRAJ-WEST-APB', data: [null], remark: null },
+        {name: 'DL-EAST', data: [null], remark: null },
+        {name: 'DL-WEST', data: [null], remark: null }
     ];
 
+    $scope.datahead = {
+        eastShovels: ['coal-100', 'coal-120', 'ob-100', 'ob-120'],
+        westShovels: ['coal-100', 'coal-85', 'ob-100', 'ob-85'],
+        draglines: ['solid', 'rehandling', 'wrk-hrs', 'bdn-hrs', 'mnt-hrs', 'idl-hrs', 'remark'],
+        surfaceMiners: ['wrk-hrs', 'cutting', 'production', 'remark'],
+        outsourcing: ['quantity', 'remark']
+    };
 
+ 
     /////////////////////////////////////////////////////////////////////////////// Methods
     function formattedDate() {
         var today = new Date();
@@ -122,6 +130,11 @@ app.controller('ctrl', function ($scope) {
             $scope.westShovelsTotal[2] += x.west_data[2];
             $scope.westShovelsTotal[3] += x.west_data[3];
         });
+
+        angular.forEach($scope.draglines, function (x, y, z) {
+            z[y].data[5] = 8 - z[y].data[4];
+        }
+        );
     };
 });
 
