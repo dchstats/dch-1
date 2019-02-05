@@ -18,24 +18,27 @@
         </div>
     </div>
 
-    <!-- //////////////////////////////////////////////////////////// east shovels  -->
-    <div id="east-shovels" class="section">
-        <div class="sub-header">
-            East Shovels
-        </div>
-
-        <div class="shovel-pool cbx fwd">
-            <button ng-repeat="x in shovels" ng-click="x.east=true; addShovel('east',$index);" ng-disabled="x.east">
-                {{x.name}}
-            </button>
-        </div>
+    <div class="section">
         <table class="data-table">
-                <tr class="head-row">
-                    <th></th>
-                    <th ng-repeat="x in datahead.eastShovels">{{x}}</th>
-                    <th></th>
+            <thead>
+                <tr>
+                    <th colspan="6">East Shovels</th>
                 </tr>
-           
+                <tr>
+                    <th colspan="6">
+                        <button ng-repeat="x in shovels" ng-click="x.east=true; addShovel('east',$index);" ng-disabled="x.east">
+                            {{x.name}}
+                        </button>
+                    </th>
+
+                </tr>
+            </thead>
+            <tr class="head-row">
+                <th></th>
+                <th ng-repeat="x in datahead.eastShovels">{{x}}</th>
+                <th></th>
+            </tr>
+
             <tr ng-repeat="x in eastShovels" ng-init="x.east_data=[null,null,null,null]">
                 <td class="name-col">{{x.name}}</td>
                 <td><input type="number" ng-model="x.east_data[0]"></td>
@@ -62,16 +65,10 @@
             </tr>
         </table>
 
-    </div>
-    <!-- ///////////////////////////////////////////////////west shovels-->
-    
-    <!-- //////////////////////////////////////////////////////////draglines -->
-
-    <div id="dragline" class="section">
-        <div class="sub-header">
-            Draglines
-        </div>
         <table class="data-table">
+            <thead>
+                <th colspan="8">Draglines</th>
+            </thead>
             <tr class="head-row">
                 <th></th>
                 <th ng-repeat="x in datahead.draglines">{{x}}</th>
@@ -87,13 +84,11 @@
                 <td><textarea name="" id="" cols="10" rows="1" ng-model="x.remark"></textarea></td>
             </tr>
         </table>
-    </div>
-<!-- /////////////////////////////////////////////////////////////// surface miners -->
-    <div id="surface-miners" class="section">
-        <div class="sub-header">
-            Surface Miners
-        </div>
+
         <table class="data-table">
+            <thead>
+                <th colspan="8">Surface Miners</th>
+            </thead>
             <tr class="head-row">
                 <th></th>
                 <th ng-repeat="x in datahead.surfaceMiners">{{x}}</th>
@@ -106,13 +101,11 @@
                 <td><textarea name="" id="" cols="20" rows="1" ng-model="x.remark"></textarea></td>
             </tr>
         </table>
-    </div>
-<!-- ////////////////////////////////////////////////////////////////oursourcing -->
-    <div id="outsourcing" class="section">
-        <div class="sub-header">
-            Out Sourcing
-        </div>
+
         <table class="data-table">
+            <thead>
+                <th colspan="8">Outsourcing</th>
+            </thead>
             <tr class="head-row">
                 <th></th>
                 <th ng-repeat="x in datahead.outsourcing">{{x}}</th>
