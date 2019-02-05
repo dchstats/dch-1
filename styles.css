@@ -1,4 +1,206 @@
+#east-shovels tr{
+    background-color:rgba(255, 255, 0, 0.05);
+}
 
-.shovel-pool {
+#west-shovels{
+    background-color:rgba(255, 0, 0, 0.05);
+}
+
+#draglines{
+    background-color:rgba(0, 255, 0, 0.05);
+}
+
+#surface-miners{
+background-color:rgba(0, 255, 255, 0.05);
+}
+
+#outsourcing{
+    background-color:rgba(0,0,0, 0.05);
+}
+
+*{
+    box-sizing:border-box;
+    font-family: monospace;
+    vertical-align:middle;
+    border-collapse: collapse;
+    color:deepskyblue;
+    border-style:solid;
+    border-color:deepskyblue;
+    border-width:0px;
+}
+
+
+/* ///////////////////////////////////////////////////////// Generic */
+body {
+    font-size:1.2em;
+}
+
+.hdn {
+    display:none;  
+}
+
+.inl {
+    display:inline-block;
+}
+
+.bdr {
+    border:1px solid rgb(189, 136, 136);
+}
+
+.cbx {
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.lft{
+    text-align:left;
+}
+
+
+/* /////////////////////////////////////// Elements */
+
+.section {
+margin-bottom: 100px; 
+border-radius:3px;
+padding:20px;
+}
+
+.main-header{
+    margin:20px 0px;
+    text-align:center;
+    font-size:2em;
     padding:10px;
+    border-radius:3px;
+    border-style:double;
+    border-width:3px 0px;
+}
+
+.sub-header {
+    text-align:center;
+    font-size:1.5em;
+    padding:6px;
+    border-radius:3px;
+}
+
+input, select, textarea{
+    width:50%;
+    font-size:1em;
+    margin:5px;
+    padding:4px;
+    border-width:1px;
+    border-radius:2px; 
+    color:blue;
+    text-align:center;
+}
+
+textarea {
+    width:95%;
+}
+
+select:disabled, input:disabled{
+
+
+}
+
+button {
+    background-color:deepskyblue;
+    color:white;
+    display: inline-block;
+    margin:5px;
+    padding:10px;
+    border-radius:3px;
+    font-size:1em;
+    border-width:1px;
+    cursor: pointer;
+}
+
+button.cancel {
+    width:30px;
+    height:30px;
+    padding:0px;
+}
+
+button:hover{
+background-color:white;
+border-style:solid;
+background:lime;
+border-color:lime;
+}
+
+button:disabled {
+    background-color:white;
+    color:deepskyblue;
+}
+
+/* /////////////////////////////////////// Table */
+
+.data-table {
+    margin:0 auto 50px;
+    width:90%;
+}
+
+td {
+    max-width: 200px;
+    padding:5px;
+    text-align:center;
+    border-width:1px 0px;
+}
+
+th {
+    text-transform: uppercase;
+    padding:5px;
+    text-align:center;
+}
+
+tr.table-name span {
+    background-color:brown;
+    border-radius:20px;
+    padding:0px 100px;
+    color:white;
+}
+
+tr:nth-child(even){
+
+}
+tr:nth-child(odd){
+    
+}
+tr.head-row th{
+    background-color:deepskyblue;
+    color:white;
+}
+
+tr.total-row td {
+    border-width:0px;
+    color:blue;
+}
+
+td.name-col{
+    text-align:right;
+}
+
+
+
+
+
+
+/* ///////////////////////////////////////////////////////// Sizing */
+.fwd {
+    width:100%;
+}
+.hwd{
+    width:50%;
+}  
+.qwd{
+    width:24%;
+}
+.twd{
+    width:33%;
+}  
+.fht {
+    height:100%;
+}
+.hht{
+    height:50%;
 }

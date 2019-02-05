@@ -5,7 +5,7 @@
     <script src="libs/angular.js"></script>
     <script src="libs/jquery.js"></script>
     <script src="main.js"></script>
-    <link rel="stylesheet" href="libs/general_styles.css">
+    <!-- <link rel="stylesheet" href="libs/general_styles.css"> -->
     <link rel="stylesheet" href="styles.css">
     <title>shift end report</title>
 </head>
@@ -19,20 +19,20 @@
     </div>
 
     <div class="section">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th colspan="6">East Shovels</th>
-                </tr>
-                <tr>
-                    <th colspan="6">
-                        <button ng-repeat="x in shovels" ng-click="x.east=true; addShovel('east',$index);" ng-disabled="x.east">
-                            {{x.name}}
-                        </button>
-                    </th>
+        <table id="east-shovels" class="data-table">
+            <tr class="table-name">
+                <th colspan="6">
+                    <span> East Shovels</span>   
+                </th>
+            </tr>
+            <tr>
+                <th colspan="6">
+                    <button ng-repeat="x in shovels" ng-click="x.east=true; addShovel('east',$index);" ng-disabled="x.east">
+                        {{x.name}}
+                    </button>
+                </th>
 
-                </tr>
-            </thead>
+            </tr>
             <tr class="head-row">
                 <th></th>
                 <th ng-repeat="x in datahead.eastShovels">{{x}}</th>
@@ -48,15 +48,15 @@
                 <td><button class="cancel" ng-click="x.east=false;removeShovel('east',$index);">x</button></td>
             </tr>
             <tr class="total-row">
-                <td>TRIPS</td>
+                <td class="name-col">TRIPS</td>
                 <td>{{eastShovelsTotal[0]}}</td>
                 <td>{{eastShovelsTotal[1]}}</td>
                 <td>{{eastShovelsTotal[2]}}</td>
                 <td>{{eastShovelsTotal[3]}}</td>
                 <td></td>
             </tr>
-            <tr style="border-top:1px dashed white">
-                <td>QUANTITY</td>
+            <tr class="total-row" style="border-top:1px dashed white">
+                <td class="name-col">QUANTITY</td>
                 <td>{{eastShovelsTotal[0] * eastShovelMultipliers[0]}} Te</td>
                 <td>{{eastShovelsTotal[1] * eastShovelMultipliers[1]}} Te</td>
                 <td>{{eastShovelsTotal[2] * eastShovelMultipliers[2]}} CuM</td>
@@ -64,11 +64,58 @@
                 <td></td>
             </tr>
         </table>
+        <table id="west-shovels" class="data-table">
+            <tr class="table-name">
+                <th colspan="6">
+                    <span> west Shovels</span>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="6">
+                    <button ng-repeat="x in shovels" ng-click="x.west=true; addShovel('west',$index);" ng-disabled="x.west">
+                        {{x.name}}
+                    </button>
+                </th>
+        
+            </tr>
+            <tr class="head-row">
+                <th></th>
+                <th ng-repeat="x in datahead.westShovels">{{x}}</th>
+                <th></th>
+            </tr>
+        
+            <tr ng-repeat="x in westShovels" ng-init="x.west_data=[null,null,null,null]">
+                <td class="name-col">{{x.name}}</td>
+                <td><input type="number" ng-model="x.west_data[0]"></td>
+                <td><input type="number" ng-model="x.west_data[1]"></td>
+                <td><input type="number" ng-model="x.west_data[2]"></td>
+                <td><input type="number" ng-model="x.west_data[3]"></td>
+                <td><button class="cancel" ng-click="x.west=false;removeShovel('west',$index);">x</button></td>
+            </tr>
+            <tr class="total-row">
+                <td class="name-col">TRIPS</td>
+                <td>{{westShovelsTotal[0]}}</td>
+                <td>{{westShovelsTotal[1]}}</td>
+                <td>{{westShovelsTotal[2]}}</td>
+                <td>{{westShovelsTotal[3]}}</td>
+                <td></td>
+            </tr>
+            <tr class="total-row" style="border-top:1px dashed white">
+                <td class="name-col">QUANTITY</td>
+                <td>{{westShovelsTotal[0] * westShovelMultipliers[0]}} Te</td>
+                <td>{{westShovelsTotal[1] * westShovelMultipliers[1]}} Te</td>
+                <td>{{westShovelsTotal[2] * westShovelMultipliers[2]}} CuM</td>
+                <td>{{westShovelsTotal[3] * westShovelMultipliers[3]}} CuM</td>
+                <td></td>
+            </tr>
+        </table>
 
-        <table class="data-table">
-            <thead>
-                <th colspan="8">Draglines</th>
-            </thead>
+        <table id="draglines" class="data-table">
+        <tr class="table-name">
+            <th colspan="10">
+                <span> Dragines</span>
+            </th>
+        </tr>
             <tr class="head-row">
                 <th></th>
                 <th ng-repeat="x in datahead.draglines">{{x}}</th>
@@ -85,10 +132,12 @@
             </tr>
         </table>
 
-        <table class="data-table">
-            <thead>
-                <th colspan="8">Surface Miners</th>
-            </thead>
+        <table id="surface-miners" class="data-table">
+            <tr class="table-name">
+                <th colspan="10">
+                    <span>Surface Miners</span>
+                </th>
+            </tr>
             <tr class="head-row">
                 <th></th>
                 <th ng-repeat="x in datahead.surfaceMiners">{{x}}</th>
@@ -102,10 +151,12 @@
             </tr>
         </table>
 
-        <table class="data-table">
-            <thead>
-                <th colspan="8">Outsourcing</th>
-            </thead>
+        <table id="outsourcing" class="data-table">
+            <tr class="table-name">
+                <th colspan="10">
+                    <span>Outsourcing</span>
+                </th>
+            </tr>
             <tr class="head-row">
                 <th></th>
                 <th ng-repeat="x in datahead.outsourcing">{{x}}</th>

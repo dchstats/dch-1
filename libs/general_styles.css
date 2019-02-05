@@ -7,7 +7,6 @@
 /* ///////////////////////////////////////////////////////// Generic */
 body {
     font-size:1.2em;
-    background:teal;
 }
 
 .hdn {
@@ -37,16 +36,13 @@ body {
 
 .section {
 margin-bottom: 100px; 
-border:1px solid lime;
 border-radius:3px;
-background:rgb(58, 55, 43);
-padding-bottom:10px;
+padding:20px;
 }
 
 .main-header{
     margin:20px 0px;
-    color:dodgerblue;
-    background:snow;
+    color:darkorchid;
     text-align:center;
     font-size:2em;
     padding:10px;
@@ -57,7 +53,6 @@ padding-bottom:10px;
     text-align:center;
     color:white;
     font-size:1.5em;
-    background:rgb(46, 209, 46);
     padding:6px;
     border-radius:3px;
 }
@@ -67,9 +62,9 @@ input, select, textarea{
     font-size:1em;
     margin:5px;
     padding:4px;
-    border:1px solid salmon;
+    border:1px solid violet;
     background:white;
-    color:darkorchid;
+    color:blue;
     border-radius:2px; 
 }
 
@@ -86,9 +81,9 @@ button {
     display: inline-block;
     margin:5px;
     padding:10px;
-    background:limegreen;
+    background:deepskyblue;
     color:white;
-    border:none;
+    border:1px solid deepskyblue;
     border-radius:3px;
     font-size:1em;
 }
@@ -96,47 +91,59 @@ button {
 button.cancel {
     width:30px;
     height:30px;
-    background:deepskyblue;
     padding:0px;
 }
 
 button:hover{
-    background:lawngreen;
-    color:black;
+    background-color:white;
+    color:darkorchid;
 }
 
 button:disabled {
-    background:lightgrey;
-    color:white;
+    background:white;
+    color:deepskyblue;
 }
 
 /* /////////////////////////////////////// Table */
 
 .data-table {
-    margin:20px auto;
-    width:90%;
+    margin:0 auto 50px;
+    width:100%;
 }
 
-td, th{
-    width:200px;
+td {
+    max-width: 200px;
     color:rgb(97, 34, 34);
     padding:5px;
     text-align:center;
 }
 
+th {
+    color:rgb(97, 34, 34);
+    text-transform: uppercase;
+    padding:5px;
+    text-align:center;
+}
+
+tr.table-name {
+    background-color:white;
+    color:blue;
+}
+
 tr:nth-child(even){
-    background-color: white;
+ border-bottom:1px dashed deepskyblue;
 }
 tr:nth-child(odd){
-    background-color: rgb(248, 246, 246);
+    
 }
 tr.head-row th{
-    background-color: darkorchid;
+    background-color: deepskyblue;
     color:white;
 }
 
-tr.total-row td{
-    background-color:deepskyblue;
+tr.total-row td {
+    background-color:violet;
+    color:white;
 }
 
 td.name-col{
