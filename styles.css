@@ -1,22 +1,3 @@
-#east-shovels{
-
-}
-
-#west-shovels{
-
-}
-
-#draglines{
-
-}
-
-#surface-miners{
-
-}
-
-#outsourcing{
- 
-}
 
 *{
     box-sizing:border-box;
@@ -27,6 +8,7 @@
     border-style:solid;
     border-color:deepskyblue;
     border-width:0px;
+    border-radius:3px;
 }
 
 
@@ -62,28 +44,34 @@ body {
 /* /////////////////////////////////////// Elements */
 
 .section {
-    margin-bottom: 100px; 
-    border-radius:3px;
+    height:800px;
     padding:20px;
+    overflow:auto;
 }
 
 .main-header{
     background-color:deepskyblue;
     color:white;
-    margin:20px 0px;
     text-align:center;
     font-size:2em;
     padding:10px;
-    border-radius:3px;
-    border-style:double;
-    border-width:3px 0px;
+}
+
+.footer {
+    width:100%;
+    margin:auto;
+    overflow:auto;
+    position:fixed;
+    bottom:10px;
+    left:0px;
+    border-radius:0px;
+    padding:20px;
 }
 
 .sub-header {
     text-align:center;
     font-size:1.5em;
     padding:6px;
-    border-radius:3px;
 }
 
 input, select, textarea{
@@ -92,7 +80,6 @@ input, select, textarea{
     padding:4px;
     font-size:1em;
     border-width:1px;
-    border-radius:2px; 
     color:blue;
     text-align:left;
 }
@@ -108,14 +95,13 @@ select:disabled, input:disabled{
 
 button {
     background-color:deepskyblue;
-    font-size:1em;
     color:white;
     display: inline-block;
     margin:5px;
     padding:10px;
-    border-radius:3px;
     border-width:1px;
     cursor: pointer;
+    font-size:1em;
 }
 
 button.cancel {
@@ -140,31 +126,32 @@ button:disabled {
 /* /////////////////////////////////////// Table */
 
 .data-table {
-    margin:0 auto 50px;
-    width:90%;
+    margin:0 auto;
+    width:100%;
 }
 
 td {
     max-width: 200px;
     padding:5px;
     text-align:center;
-    border-width:1px 0px;
+    border-radius:0px;
 }
 
 th {
-    text-transform: uppercase;
     padding:5px;
     text-align:center;
 }
 
+
+
 tr.table-name {
     background-color:deepskyblue;
+    border-bottom:1px solid white;
    
 }
 
 tr.table-name span {
     font-size:1.5em;
-    border-radius:20px;
     padding:0px 100px;
     color:white;
 }
@@ -175,10 +162,14 @@ tr:nth-child(even){
 tr:nth-child(odd){
     
 }
+
+tr.data-row {
+    border-width:0 0 1px;
+}
+
 tr.head-row td{
     background-color:deepskyblue;
     color:white;
-    text-transform: uppercase;
 }
 
 tr.total-row td {
@@ -187,6 +178,7 @@ tr.total-row td {
 }
 
 td.name-col{
+    Text-align:right;
     
 }
 
@@ -218,3 +210,25 @@ td.close-col {
 .hht{
     height:50%;
 }
+
+/* //////////////////////////////////specific */
+#east-shovels{
+
+}
+
+#west-shovels{
+
+}
+
+#draglines{
+
+}
+
+#surface-miners{
+
+}
+
+#outsourcing{
+ 
+}
+

@@ -8,6 +8,16 @@ var app = angular.module('dch', []);
 app.controller('ctrl', function ($scope) {
     /////////////////////////////////////////////////////////////////////////////// Constants
     $scope.shifts = ['other', 'First', 'Second', 'Night'];
+    $scope.show = {
+        eastShovels: true,
+        westShovels: false,
+        draglines: false,
+        surfaceMiners: false,
+        outsourcing: false
+    };
+    $scope.pos = 0;
+    $scope.ind = Object.keys($scope.show);
+    $scope.limit = $scope.ind.length - 1;
 
     /////////////////////////////////////////////////////////////////////////////// Properties    
     $scope.shift = getShift();
@@ -20,45 +30,47 @@ app.controller('ctrl', function ($scope) {
     $scope.eastShovelMultipliers = [45, 55, 25, 29];
     $scope.westShovelMultipliers = [45, 40, 25, 21];
     $scope.shovels = [
-        {name: 'P&H-01', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
-        {name: 'P&H-02', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
-        {name: 'P&H-03', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
-        {name: 'P&H-04', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
-        {name: 'P&H-05', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
-        {name: 'P&H-06', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
-        {name: 'P&H-07', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
-        {name: 'P&H-08', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
-        {name: 'P&H-09', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] },
-        {name: 'P&H-10', east: false, east_data: [null,null,null,null], west: false, west_data: [null,null,null,null] }
+        { name: 'P&H-01', east: false, east_data: [null, null, null, null], west: false, west_data: [null, null, null, null] },
+        { name: 'P&H-02', east: false, east_data: [null, null, null, null], west: false, west_data: [null, null, null, null] },
+        { name: 'P&H-03', east: false, east_data: [null, null, null, null], west: false, west_data: [null, null, null, null] },
+        { name: 'P&H-04', east: false, east_data: [null, null, null, null], west: false, west_data: [null, null, null, null] },
+        { name: 'P&H-05', east: false, east_data: [null, null, null, null], west: false, west_data: [null, null, null, null] },
+        { name: 'P&H-06', east: false, east_data: [null, null, null, null], west: false, west_data: [null, null, null, null] },
+        { name: 'P&H-07', east: false, east_data: [null, null, null, null], west: false, west_data: [null, null, null, null] },
+        { name: 'P&H-08', east: false, east_data: [null, null, null, null], west: false, west_data: [null, null, null, null] },
+        { name: 'P&H-09', east: false, east_data: [null, null, null, null], west: false, west_data: [null, null, null, null] },
+        { name: 'P&H-10', east: false, east_data: [null, null, null, null], west: false, west_data: [null, null, null, null] }
     ]
 
     $scope.draglines = [
-        {name: 'JYOTI', data: [null,null,null,null,null,null], remark: null },
-        {name: 'PAWAN', data: [null,null,null,null,null,null], remark: null },
-        {name: 'VINDHYA', data: [null,null,null,null,null,null], remark: null },
-        {name: 'JWALA', data: [null,null,null,null,null,null], remark: null }
+        { name: 'Jyoti', data: [null, null, null, null, null, null], remark: null },
+        { name: 'Pawan', data: [null, null, null, null, null, null], remark: null },
+        { name: 'Vindhya', data: [null, null, null, null, null, null], remark: null },
+        { name: 'Jwala', data: [null, null, null, null, null, null], remark: null }
     ];
 
-    $scope.surfaceMiners = [{name: 'L&T-SM', data: [null,null,null], remark: null }];
+    $scope.surfaceMiners = [{ name: 'L&T-SM', data: [null, null, null], remark: null }];
 
     $scope.outsourcing = [
-        {name: 'BGR-EAST-APT', data: [null], remark: null },
-        {name: 'GAJRAJ-WEST-APT', data: [null], remark: null },
-        {name: 'GAJRAJ-EAST-APB', data: [null], remark: null },
-        {name: 'GAJRAJ-WEST-APB', data: [null], remark: null },
-        {name: 'DL-EAST', data: [null], remark: null },
-        {name: 'DL-WEST', data: [null], remark: null }
+        { name: 'BGR-EAST-APT', data: [null], remark: null },
+        { name: 'GAJRAJ-WEST-APT', data: [null], remark: null },
+        { name: 'GAJRAJ-EAST-APB', data: [null], remark: null },
+        { name: 'GAJRAJ-WEST-APB', data: [null], remark: null },
+        { name: 'DL-EAST', data: [null], remark: null },
+        { name: 'DL-WEST', data: [null], remark: null }
     ];
 
     $scope.datahead = {
-        eastShovels: ['coal-100', 'coal-120', 'ob-100', 'ob-120'],
-        westShovels: ['coal-100', 'coal-85', 'ob-100', 'ob-85'],
-        draglines: ['solid', 'rehandling', 'wrk-hrs', 'bdn-hrs', 'mnt-hrs', 'idl-hrs', 'remark'],
-        surfaceMiners: ['wrk-hrs', 'cutting', 'production', 'remark'],
-        outsourcing: ['quantity', 'remark']
+        eastShovels: ['Coal-100', 'Coal-120', 'OB-100', 'OB-120'],
+        westShovels: ['Coal-100', 'Coal-85', 'OB-100', 'OB-85'],
+        draglines: ['Solid', 'Re-handling', 'Working', 'Breakdown', 'Maintenance', 'Idle', 'Remark'],
+        surfaceMiners: ['Working', 'Cutting', 'Production', 'Remark'],
+        outsourcing: ['Quantity', 'Remark']
     };
 
- 
+
+
+
     /////////////////////////////////////////////////////////////////////////////// Methods
     function formattedDate() {
         var today = new Date();
@@ -135,6 +147,19 @@ app.controller('ctrl', function ($scope) {
             z[y].data[5] = 8 - z[y].data[4];
         }
         );
+    };
+
+    $scope.cycle = function (arg) {
+        if (arg == 'next' && $scope.pos != $scope.limit) {
+                $scope.pos++;
+        }
+        else if (arg == 'prev' && $scope.pos != 0) {
+            $scope.pos--;
+        }
+        $scope.ind.forEach(function (e) {
+            $scope.show[e] = false;
+        });
+        $scope.show[$scope.ind[$scope.pos]] = true;
     };
 });
 
