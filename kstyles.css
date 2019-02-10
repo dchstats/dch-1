@@ -2,6 +2,7 @@
 *{
     box-sizing: border-box;
     border-collapse:collapse;
+    font:inherit;
 }
 
 body {
@@ -96,7 +97,10 @@ button:disabled{
     width:30px;
     height:30px;
     padding:0px;
+    font-size:16px;
 }
+
+
 
 /* ///////////////////////////////////////////////////////////////// Table */
 
@@ -139,7 +143,7 @@ td.name-col{
 }
 
 tr.data-row td.name-col{
-    color:deepskyblue;
+    color:blue;
 }
 
 
