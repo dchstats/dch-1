@@ -40,9 +40,10 @@ body {
 }
 
 /* ///////////////////////////////////////  UI Elements */
+
+
 input, select, textarea{
-    width:40%;
-    margin:5px;
+    width:100px;
     padding:6px 10px;
     font-size:1em;
     color:blue;
@@ -59,6 +60,13 @@ input:focus,textarea:focus {
   outline: 3px solid gold;
 }
 
+input+span{
+    color:white;
+}
+
+input:focus+span{
+    color:deepskyblue;
+}
 
 select:disabled, input:disabled{
 background:grey;
@@ -114,7 +122,7 @@ td {
 }
 
 tr.name-row td{
-    padding:12px 0;
+    padding:6px 0;
     background:deepskyblue;
     color:white; 
     border:1px solid white;
@@ -130,7 +138,7 @@ tr.head-row td{
 tr.data-row td{
     color:grey;
     padding:12px 0;
-    border:1px solid deepskyblue;
+    border:15px ridge;
     border-width:0 0 1px;
 }
 
