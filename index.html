@@ -1,33 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <script src="libs/angular.js"></script>
-    <script src="libs/jquery.js"></script>
-    <script src="main.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
     <title>shift end report</title>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> -->
+    <script src="libs/angular.js"></script>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <script src="libs/jquery.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <script src="jscript.js"></script>
+    <link rel="stylesheet" href="kstyles.css">
+
 </head>
 
-<body class="" ng-app="dch" ng-controller='ctrl' ng-click="refresh()">
-    <!-- ////////////////////////////////////////////////////////// page head -->
+<body ng-app="dch" ng-controller='ctrl' ng-click="refresh()">
     <div class="main-header">
         {{date}}, {{shifts[shift]}} Shift Report
     </div>
 
 
-    <div class="section">
-        <div id="east-shovels" ng-show="show.eastShovels">
+    <div class="main-content">
+
+
+        <div id="east-shovels" class="section">
             <table class="data-table">
-                <tr class="table-name">
-                    <td colspan="6">
-                        <span> East Shovels</span>
-                    </td>
+                <tr class="name-row">
+                    <td colspan="10">East Shovels</td>
                 </tr>
                 <tr>
-                    <td colspan="6">
-                        <button ng-repeat="x in shovels" ng-click="x.east=true; addShovel('east',$index);" ng-disabled="x.east">
+                    <td class="pool" colspan="10">
+                        <button ng-repeat="x in shovels" ng-click="addShovel('east',$index);" ng-disabled="x.east">
                             {{x.name}}
                         </button>
                     </td>
@@ -46,7 +54,7 @@
                     <td><input type="number" ng-model="x.east_data[1]">trips</td>
                     <td><input type="number" ng-model="x.east_data[2]">trips</td>
                     <td><input type="number" ng-model="x.east_data[3]">trips</td>
-                    <td class="close-col"><button class="cancel" ng-click="x.east=false;removeShovel('east',$index);">x</button></td>
+                    <td><button class="cancel-btn" ng-click="x.east=false;removeShovel('east',$index);">x</button></td>
                 </tr>
                 <tr class="total-row">
                     <td class="name-col">Total Trips</td>
@@ -66,16 +74,18 @@
                 </tr>
             </table>
         </div>
-        <div id="west-shovels" ng-show="show.westShovels">
-            <table id="west-shovels" class="data-table" ng-show="show.westShovels">
-                <tr class="table-name">
-                    <td colspan="6">
+
+
+        <div id="west-shovels" class="section">
+            <table id="west-shovels" class="data-table">
+                <tr class="name-row">
+                    <td colspan="10">
                         <span> West Shovels</span>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="6">
-                        <button ng-repeat="x in shovels" ng-click="x.west=true; addShovel('west',$index);" ng-disabled="x.west">
+                    <td class="pool" colspan="10">
+                        <button ng-repeat="x in shovels" ng-click="addShovel('west',$index);" ng-disabled="x.west">
                             {{x.name}}
                         </button>
                     </td>
@@ -94,7 +104,7 @@
                     <td><input type="number" ng-model="x.west_data[1]">trips</td>
                     <td><input type="number" ng-model="x.west_data[2]">trips</td>
                     <td><input type="number" ng-model="x.west_data[3]">trips</td>
-                    <td><button class="cancel" ng-click="x.west=false;removeShovel('west',$index);">x</button></td>
+                    <td><button class="cancel-btn" ng-click="x.west=false;removeShovel('west',$index);">x</button></td>
                 </tr>
                 <tr class="total-row">
                     <td class="name-col">Total Trips</td>
@@ -115,9 +125,11 @@
             </table>
 
         </div>
-        <div id="draglines" ng-show="show.draglines">
-            <table id="draglines" class="data-table" ng-show="show.draglines">
-                <tr class="table-name">
+
+
+        <div id="draglines" class="section">
+            <table id="draglines" class="data-table">
+                <tr class="name-row">
                     <td colspan="10">
                         <span> Draglines</span>
                     </td>
@@ -138,9 +150,11 @@
                 </tr>
             </table>
         </div>
-        <div id="surface-miners" ng-show="show.surfaceMiners">
-            <table id="surface-miners" class="data-table" ng-show="show.surfaceMiners">
-                <tr class="table-name">
+
+
+        <div id="surface-miners" class="section">
+            <table id="surface-miners" class="data-table">
+                <tr class="name-row">
                     <td colspan="10">
                         <span>Surface Miners</span>
                     </td>
@@ -158,9 +172,11 @@
                 </tr>
             </table>
         </div>
-        <div id="oursourcing" ng-show="show.outsourcing">
-            <table id="outsourcing" class="data-table" ng-show="show.outsourcing">
-                <tr class="table-name">
+
+
+        <div id="oursourcing" class="section">
+            <table id="outsourcing" class="data-table">
+                <tr class="name-row">
                     <td colspan="10">
                         <span>Outsourcing</span>
                     </td>
@@ -176,11 +192,16 @@
                 </tr>
             </table>
         </div>
-    </div>  
+
+
+    </div>
+
+    <div class="footer">
+        <button style="float:left" ng-click="cycle('prev')">Previous</button>
+        <button style="float:right;" ng-click="cycle('next')">Next</button>
+    </div>
+
 </body>
-<div class="footer">
-    <button style="float:left" ng-click="cycle('prev')" ng-hide="pos==0">Previous</button>
-    <button style="float:right;" ng-click="cycle('next')" ng-hide="pos==limit">Next</button>
-</div>
+
 
 </html>

@@ -1,0 +1,184 @@
+
+*{
+    box-sizing: border-box;
+    border-collapse:collapse;
+}
+
+body {
+    background:lightgrey;
+    font-family: 'Muli', sans-serif;      
+}
+
+.main-header {
+    margin:10px 0px;
+    background-color:deepskyblue;
+    color:white;
+    text-align:center;
+    font-size:2em;
+    padding:10px;
+    box-shadow:0px 4px 8px 2px rgba(0,0,0,0.5);   
+}
+
+.main-content{
+
+}
+
+.section {
+    background:white;
+    width:98%;
+    margin:50px auto 50px;
+    padding:0 32px 50px;
+    box-shadow:0px 4px 8px 2px rgba(0,0,0,0.5);  
+    border-radius:3px;
+}
+
+.sub-header {
+    text-align:center;
+    font-size:1.5em;
+    padding:6px;
+}
+
+/* ///////////////////////////////////////  UI Elements */
+input, select, textarea{
+    width:40%;
+    margin:5px;
+    padding:6px 10px;
+    font-size:1em;
+    color:blue;
+    text-align:left;
+    border:1px solid lightgrey;
+    border-radius:3px;
+}
+
+textarea {
+    width:95%;
+}
+
+input:focus,textarea:focus {
+  outline: 3px solid gold;
+}
+
+
+select:disabled, input:disabled{
+background:grey;
+color:lightgrey;
+}
+
+button {
+    margin:5px;
+    cursor:pointer;
+    padding:10px;
+    font-size:1em;
+    background:deepskyblue;
+    color:white;
+    border:1px solid deepskyblue;
+    border-radius:3px;
+}
+
+button:hover{
+    background:white;
+    color:deepskyblue;
+}
+
+button:active{
+    background:blueviolet;
+    color:white;
+    border-color:blueviolet;
+}
+
+button:disabled{
+    background:lightgrey;
+    color:white;
+    border-color:lightgrey;
+}
+
+.cancel-btn {
+    width:30px;
+    height:30px;
+    padding:0px;
+}
+
+/* ///////////////////////////////////////////////////////////////// Table */
+
+.data-table {
+    margin:0 auto;
+    width:100%;
+}
+
+td {
+    text-align:center;
+}
+
+tr.name-row td{
+    padding:12px 0;
+    background:deepskyblue;
+    color:white; 
+    border:1px solid white;
+    border-width: 0 0 1px;
+    font-size:1.5em;
+}
+tr.head-row td{
+    padding:6px 0;
+    background-color:deepskyblue;
+    color:white;
+}
+
+tr.data-row td{
+    color:grey;
+    padding:12px 0;
+    border:1px solid deepskyblue;
+    border-width:0 0 1px;
+}
+
+tr.total-row td {
+    color:blue;
+}
+
+td.name-col{
+    Text-align:right;  
+}
+
+tr.data-row td.name-col{
+    color:deepskyblue;
+}
+
+
+/* ///////////////////////////////////////////////////////// Generic */
+.hdn {
+    display:none;  
+}
+
+.cbx {
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.card {
+    box-shadow:0px 4px 8px 2px rgba(0,0,0,0.5);   
+}
+
+/* //////////////////////////////////specific */
+#east-shovels{
+
+}
+
+#west-shovels{
+
+}
+
+#draglines{
+
+}
+
+#surface-miners{
+
+}
+
+#outsourcing{
+ 
+}
+
+td.pool{
+    padding:10px 0px;
+}
