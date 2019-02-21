@@ -76,6 +76,16 @@ app.controller('ctrl', function ($scope) {
         outsourcing: ['Quantity', 'Remark']
     };
 
+    $scope.unit = {
+        eastShovels: ['( trips )', '( trips )', '( trips )', '( trips )'],
+        westShovels: ['( trips )', '( trips )', '( trips )', '( trips )'],
+        draglines: ['( buckets )', '( buckets )', '( hrs )', '( hrs )', '( hrs )', '( hrs )',''],
+        surfaceMiners: ['( hrs )', '( mtrs )', '( Te )', ''],
+        outsourcing: ['( cum )', '']
+    };
+
+  
+
 
 
 

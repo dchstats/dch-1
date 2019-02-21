@@ -15,7 +15,7 @@ body {
     background-color:deepskyblue;
     color:white;
     text-align:center;
-    font-size:2em;
+    font-size:2rem;
     padding:10px;
     box-shadow:0px 8px 8px 2px rgba(0,0,0,0.5);   
 }
@@ -28,7 +28,7 @@ body {
     background:white;
     width:98%;
     min-height:500px;
-    margin:20px auto;
+    margin:5px auto;
     padding:0 32px 50px;
     box-shadow:0px 4px 8px 2px rgba(0,0,0,0.5);  
     border-radius:3px;
@@ -36,7 +36,7 @@ body {
 
 .sub-header {
     text-align:center;
-    font-size:1.5em;
+    font-size:1.5rem;
     padding:6px;
 }
 
@@ -46,7 +46,7 @@ body {
 input, select, textarea{
     width:100px;
     padding:6px 10px;
-    font-size:1em;
+    font-size:1rem;
     color:blue;
     text-align:left;
     border:1px solid lightgrey;
@@ -55,19 +55,31 @@ input, select, textarea{
 
 textarea {
     width:95%;
+    resize: vertical;
 }
 
 input:focus,textarea:focus {
   outline: 3px solid gold;
 }
 
-input+span{
+input::placeholder{
+    color:white;
+    text-align:center;
+}
+
+input:focus::placeholder{
+    color:grey;
+}
+
+span.unit{
     color:white;
 }
 
 input:focus+span{
     color:deepskyblue;
 }
+
+
 
 select:disabled, input:disabled{
 background:grey;
@@ -78,7 +90,7 @@ button {
     margin:5px;
     cursor:pointer;
     padding:10px;
-    font-size:1em;
+    font-size:1rem;
     background:deepskyblue;
     color:white;
     border:1px solid deepskyblue;
@@ -89,12 +101,11 @@ button {
 button:hover{
     background:white;
     color:deepskyblue;
+    
 }
 
 button:active{
-    background:blueviolet;
-    color:white;
-    border-color:blueviolet;
+    transform:scale(0.9);
 }
 
 button:disabled{
@@ -127,14 +138,22 @@ tr.name-row td{
     padding:6px 0;
     background:deepskyblue;
     color:white; 
-    border:1px solid white;
-    border-width: 0 0 1px;
-    font-size:1.5em;
+    font-size:1.5rem;
 }
 tr.head-row td{
     padding:6px 0;
     background-color:deepskyblue;
     color:white;
+    border-bottom:1px dashed white;
+    
+}
+
+tr.unit-row td{
+    padding:6px 0;
+    background-color:deepskyblue;
+    color:white;
+    border-bottom:1px dashed white;
+    font-size:0.9rem; 
 }
 
 tr.data-row td{
@@ -173,8 +192,8 @@ tr.data-row td.name-col{
 }
 
 /* //////////////////////////////////specific */
-#east-shovels{
-
+#east-shovels {
+    
 }
 
 #west-shovels{
