@@ -1,28 +1,13 @@
 $(begin);
 
 function begin() {
-    section = 0;
-    t = $('.section');
-    t.hide();
-    $(t[section]).show();
-    
-}
-function nav(arg) {
-    var last = section;
-    if (arg == 'next' && section < t.length - 1) {
-        section++;
-    }
-    else if (arg == 'prev' && section > 0) {
-        $(t[section]).slideUp();
-        section--;
-    }
-    if (last != section) {
-        $(t[last]).hide();
-        $(t[section]).show();
-    }
+   
 }
 
-
+function loadShift() {
+    var target = $('#content');
+    target.load('shift.html');
+}
 var app = angular.module('dch', []);
 app.controller('ctrl', function ($scope) {
     /////////////////////////////////////////////////////////////////////////////// Constants
