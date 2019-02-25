@@ -15,7 +15,7 @@
 
 <body ng-app="dch" ng-controller='ctrl' ng-click="refresh()">
     <div class="main-header">
-            <p>Dudhichua Live Reports</p>     
+        <p>Dudhichua Live Reports</p>
     </div>
     <div class="main-nav">
         <button onclick="loadShift()">shift</button>
@@ -23,221 +23,222 @@
         <button>live</button>
     </div>
 
-<div id="shift" class="module">
-    <div class="module-header">
-        <div>
+    <div id="shift" class="module">
+        <div class="module-header">
             <span>{{date}}, {{shifts[shift]}} Shift</span>
         </div>
-       <div>
-        <button onClick="moduleNav('prev')">Prev</button>
-        <button onclick="moduleNav('next')">Next</button>
-       </div>
+        <div class="module-nav">
+            <button onClick="moduleNav('prev')">Prev</button>
+            <button onclick="moduleNav('next')">Next</button>
+        </div>
+        <div class="module-body">
+            <div id="east-shovels" class="section">
+                <div class="section-header">
+                    <p>East Shovels</p>
+                </div>
+                <div class="section-nav">
+                    <button ng-repeat="x in shovels" ng-click="addShovel('east',$index);" ng-disabled="x.east">
+                        {{x.name}}
+                    </button>
+                </div>
+                <table class="data-table">
+                    <tr class="head-row">
+                        <td class="name-col">Machines</td>
+                        <td ng-repeat="x in datahead.eastShovels">{{x}}</td>
+                        <td></td>
+                    </tr>
+                    <tr class="unit-row">
+                        <td></td>
+                        <td ng-repeat="x in unit.eastShovels track by $index">{{x}}</td>
+                        <td></td>
+                    </tr>
 
-    </div>
-    <div class="module-body">
-        <div id="east-shovels" class="section">
-            <div class="section-header">
-                <p>East Shovels</p>
+                    <tr class="data-row" ng-repeat="x in eastShovels">
+                        <td class="name-col">{{x.name}}</td>
+                        <td><input type="number" ng-model="x.eastData[0]"></td>
+                        <td><input type="number" ng-model="x.eastData[1]"></td>
+                        <td><input type="number" ng-model="x.eastData[2]"></td>
+                        <td><input type="number" ng-model="x.eastData[3]"></td>
+                        <td><button class="cancel-btn" ng-click="x.east=false;removeShovel('east',$index);"><span>X</span></button>
+                        </td>
+                    </tr>
+                    <tr class="total-row">
+                        <td class="name-col">Total Trips</td>
+                        <td>{{shovelsTotal.east[0]}}</td>
+                        <td>{{shovelsTotal.east[1]}}</td>
+                        <td>{{shovelsTotal.east[2]}}</td>
+                        <td>{{shovelsTotal.east[3]}}</td>
+                        <td></td>
+                    </tr>
+                    <tr class="total-row" style="border-top:1px dashed white">
+                        <td class="name-col">Quantity</td>
+                        <td>{{shovelsTotal.east[0] * eastShovelMultipliers[0]}} Te</td>
+                        <td>{{shovelsTotal.east[1] * eastShovelMultipliers[1]}} Te</td>
+                        <td>{{shovelsTotal.east[2] * eastShovelMultipliers[2]}} cum</td>
+                        <td>{{shovelsTotal.east[3] * eastShovelMultipliers[3]}} cum</td>
+                        <td></td>
+                    </tr>
+                </table>
             </div>
-            <div class="section-nav">
-                <button ng-repeat="x in shovels" ng-click="addShovel('east',$index);" ng-disabled="x.east">
-                    {{x.name}}
-                </button>
-            </div>
-            <table class="data-table">
-                <tr class="head-row">
-                    <td class="name-col">Machines</td>
-                    <td ng-repeat="x in datahead.eastShovels">{{x}}</td>
-                    <td></td>
-                </tr>
-                <tr class="unit-row">
-                    <td></td>
-                    <td ng-repeat="x in unit.eastShovels track by $index">{{x}}</td>
-                    <td></td>
-                </tr>
-        
-                <tr class="data-row" ng-repeat="x in eastShovels">
-                    <td class="name-col">{{x.name}}</td>
-                    <td><input type="number" ng-model="x.eastData[0]"></td>
-                    <td><input type="number" ng-model="x.eastData[1]"></td>
-                    <td><input type="number" ng-model="x.eastData[2]"></td>
-                    <td><input type="number" ng-model="x.eastData[3]"></td>
-                    <td><button class="cancel-btn" ng-click="x.east=false;removeShovel('east',$index);"><span>X</span></button>
-                    </td>
-                </tr>
-                <tr class="total-row">
-                    <td class="name-col">Total Trips</td>
-                    <td>{{shovelsTotal.east[0]}}</td>
-                    <td>{{shovelsTotal.east[1]}}</td>
-                    <td>{{shovelsTotal.east[2]}}</td>
-                    <td>{{shovelsTotal.east[3]}}</td>
-                    <td></td>
-                </tr>
-                <tr class="total-row" style="border-top:1px dashed white">
-                    <td class="name-col">Quantity</td>
-                    <td>{{shovelsTotal.east[0] * eastShovelMultipliers[0]}} Te</td>
-                    <td>{{shovelsTotal.east[1] * eastShovelMultipliers[1]}} Te</td>
-                    <td>{{shovelsTotal.east[2] * eastShovelMultipliers[2]}} cum</td>
-                    <td>{{shovelsTotal.east[3] * eastShovelMultipliers[3]}} cum</td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
-        <div id="west-shovels" class="section">
-            <div class="section-header">
-                <p>West Shovels</p>
-            </div>
-            <div class="section-nav">
-                <button ng-repeat="x in shovels" ng-click="addShovel('west',$index);" ng-disabled="x.west">
-                    {{x.name}}
-                </button>
-            </div>
-            <table class="data-table">
-                <tr class="head-row">
-                    <td class="name-col">Machines</td>
-                    <td ng-repeat="x in datahead.westShovels">{{x}}</td>
-                    <td></td>
-                </tr>
-                <tr class="unit-row">
-                    <td></td>
-                    <td ng-repeat="x in unit.westShovels track by $index">{{x}}</td>
-                    <td></td>
-                </tr>
-        
-                <tr class="data-row" ng-repeat="x in westShovels">
-                    <td class="name-col">{{x.name}}</td>
-                    <td><input type="number" ng-model="x.westData[0]"></td>
-                    <td><input type="number" ng-model="x.westData[1]"></td>
-                    <td><input type="number" ng-model="x.westData[2]"></td>
-                    <td><input type="number" ng-model="x.westData[3]"></td>
-                    <td><button class="cancel-btn" ng-click="x.west=false;removeShovel('west',$index);"><span>X</span></button>
-                    </td>
-                </tr>
-                <tr class="total-row">
-                    <td class="name-col">Total Trips</td>
-                    <td>{{shovelsTotal.west[0]}}</td>
-                    <td>{{shovelsTotal.west[1]}}</td>
-                    <td>{{shovelsTotal.west[2]}}</td>
-                    <td>{{shovelsTotal.west[3]}}</td>
-                    <td></td>
-                </tr>
-                <tr class="total-row" style="border-top:1px dashed white">
-                    <td class="name-col">Quantity</td>
-                    <td>{{shovelsTotal.west[0] * westShovelMultipliers[0]}} Te</td>
-                    <td>{{shovelsTotal.west[1] * westShovelMultipliers[1]}} Te</td>
-                    <td>{{shovelsTotal.west[2] * westShovelMultipliers[2]}} cum</td>
-                    <td>{{shovelsTotal.west[3] * westShovelMultipliers[3]}} cum</td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
+            <div id="west-shovels" class="section">
+                <div class="section-header">
+                    <p>West Shovels</p>
+                </div>
+                <div class="section-nav">
+                    <button ng-repeat="x in shovels" ng-click="addShovel('west',$index);" ng-disabled="x.west">
+                        {{x.name}}
+                    </button>
+                </div>
+                <table class="data-table">
+                    <tr class="head-row">
+                        <td class="name-col">Machines</td>
+                        <td ng-repeat="x in datahead.westShovels">{{x}}</td>
+                        <td></td>
+                    </tr>
+                    <tr class="unit-row">
+                        <td></td>
+                        <td ng-repeat="x in unit.westShovels track by $index">{{x}}</td>
+                        <td></td>
+                    </tr>
 
-        <div id="draglines" class="section">
-            <div class="section-header">
-                <p>Draglines</p>
+                    <tr class="data-row" ng-repeat="x in westShovels">
+                        <td class="name-col">{{x.name}}</td>
+                        <td><input type="number" ng-model="x.westData[0]"></td>
+                        <td><input type="number" ng-model="x.westData[1]"></td>
+                        <td><input type="number" ng-model="x.westData[2]"></td>
+                        <td><input type="number" ng-model="x.westData[3]"></td>
+                        <td><button class="cancel-btn" ng-click="x.west=false;removeShovel('west',$index);"><span>X</span></button>
+                        </td>
+                    </tr>
+                    <tr class="total-row">
+                        <td class="name-col">Total Trips</td>
+                        <td>{{shovelsTotal.west[0]}}</td>
+                        <td>{{shovelsTotal.west[1]}}</td>
+                        <td>{{shovelsTotal.west[2]}}</td>
+                        <td>{{shovelsTotal.west[3]}}</td>
+                        <td></td>
+                    </tr>
+                    <tr class="total-row" style="border-top:1px dashed white">
+                        <td class="name-col">Quantity</td>
+                        <td>{{shovelsTotal.west[0] * westShovelMultipliers[0]}} Te</td>
+                        <td>{{shovelsTotal.west[1] * westShovelMultipliers[1]}} Te</td>
+                        <td>{{shovelsTotal.west[2] * westShovelMultipliers[2]}} cum</td>
+                        <td>{{shovelsTotal.west[3] * westShovelMultipliers[3]}} cum</td>
+                        <td></td>
+                    </tr>
+                </table>
             </div>
-            <table class="data-table">
-                <tr class="name-row">
-                </tr>
-                <tr class="head-row">
-                    <td class="name-col">Machine</td>
-                    <td ng-repeat="x in datahead.draglines">{{x}}</td>
-                </tr>
-                <tr class="unit-row">
-                    <td></td>
-                    <td ng-repeat="x in unit.draglines track by $index">{{x}}</td>
-                </tr>
-                <tr class="data-row" ng-repeat="x in draglines">
-                    <td class="name-col">{{x.name}}</td>
-                    <td><input type="number" ng-model="x.data[0]"></td>
-                    <td><input type="number" ng-model="x.data[1]"></td>
-                    <td><input type="number" ng-model="x.data[2]"></td>
-                    <td><input type="number" ng-model="x.data[3]"></td>
-                    <td><input type="number" ng-model="x.data[4]"></td>
-                    <td>{{x.data[5]}}</td>
-                    <td><textarea name="" id="" cols="10" rows="1" ng-model="x.remark"></textarea></td>
-                </tr>
-            </table>
-        </div>
-        <div id="surface-miners" class="section">
-            <div class="section-header">
-                <p>Surface Miners</p>
+
+            <div id="draglines" class="section">
+                <div class="section-header">
+                    <p>Draglines</p>
+                </div>
+                <div class="section-nav"></div>
+                <table class="data-table">
+                    <tr class="name-row">
+                    </tr>
+                    <tr class="head-row">
+                        <td class="name-col">Machine</td>
+                        <td ng-repeat="x in datahead.draglines">{{x}}</td>
+                    </tr>
+                    <tr class="unit-row">
+                        <td></td>
+                        <td ng-repeat="x in unit.draglines track by $index">{{x}}</td>
+                    </tr>
+                    <tr class="data-row" ng-repeat="x in draglines">
+                        <td class="name-col">{{x.name}}</td>
+                        <td><input type="number" ng-model="x.data[0]"></td>
+                        <td><input type="number" ng-model="x.data[1]"></td>
+                        <td><input type="number" ng-model="x.data[2]"></td>
+                        <td><input type="number" ng-model="x.data[3]"></td>
+                        <td><input type="number" ng-model="x.data[4]"></td>
+                        <td>{{x.data[5]}}</td>
+                        <td><textarea name="" id="" cols="10" rows="1" ng-model="x.remark"></textarea></td>
+                    </tr>
+                </table>
             </div>
-            <table class="data-table">
-                <tr class="head-row">
-                    <td class="name-col">Machine</td>
-                    <td ng-repeat="x in datahead.surfaceMiners">{{x}}</td>
-                </tr>
-                <tr class="unit-row">
-                    <td></td>
-                    <td ng-repeat="x in unit.surfaceMiners track by $index">{{x}}</td>
-                </tr>
-                <tr class="data-row" ng-repeat="x in surfaceMiners">
-                    <td class="name-col">{{x.name}}</td>
-                    <td><input type="number" name="" id="" ng-model="x.data[0]"></td>
-                    <td><input type="number" name="" id="" ng-model="x.data[1]"></td>
-                    <td><input type="number" name="" id="" ng-model="x.data[2]"></td>
-                    <td><textarea name="" id="" cols="20" rows="1" ng-model="x.remark"></textarea></td>
-                </tr>
-            </table>
-        </div>
-        <div id="oursourcing" class="section">
-            <div class="section-header">
-                <p>Out Sourcing</p>
+            <div id="surface-miners" class="section">
+                <div class="section-header">
+                    <p>Surface Miners</p>
+                </div>
+                <div class="section-nav"></div>
+                <table class="data-table">
+                    <tr class="head-row">
+                        <td class="name-col">Machine</td>
+                        <td ng-repeat="x in datahead.surfaceMiners">{{x}}</td>
+                    </tr>
+                    <tr class="unit-row">
+                        <td></td>
+                        <td ng-repeat="x in unit.surfaceMiners track by $index">{{x}}</td>
+                    </tr>
+                    <tr class="data-row" ng-repeat="x in surfaceMiners">
+                        <td class="name-col">{{x.name}}</td>
+                        <td><input type="number" name="" id="" ng-model="x.data[0]"></td>
+                        <td><input type="number" name="" id="" ng-model="x.data[1]"></td>
+                        <td><input type="number" name="" id="" ng-model="x.data[2]"></td>
+                        <td><textarea name="" id="" cols="20" rows="1" ng-model="x.remark"></textarea></td>
+                    </tr>
+                </table>
             </div>
-            <table class="data-table">
-                <tr class="head-row">
-                    <td class="name-col">Company</td>
-                    <td ng-repeat="x in datahead.outsourcing">{{x}}</td>
-                </tr>
-                <tr class="unit-row">
-                    <td></td>
-                    <td ng-repeat="x in unit.outsourcing track by $index">{{x}}</td>
-                </tr>
-                <tr class="data-row" ng-repeat="x in outsourcing">
-                    <td class="name-col">{{x.name}}</td>
-                    <td><input type="number" name="" id="" ng-model="x.data[0]"></td>
-                    <td><textarea name="" id="" cols="40" rows="1" ng-model="x.remark"></textarea></td>
-                </tr>
-            </table>
-        </div>
-        <div id="shift-summary" class="section">
-            <div class="section-header">
-                <p>Shift Summary</p>               
+            <div id="oursourcing" class="section">
+                <div class="section-header">
+                    <p>Out Sourcing</p>
+                </div>
+                <div class="section-nav"></div>
+                <table class="data-table">
+                    <tr class="head-row">
+                        <td class="name-col">Company</td>
+                        <td ng-repeat="x in datahead.outsourcing">{{x}}</td>
+                    </tr>
+                    <tr class="unit-row">
+                        <td></td>
+                        <td ng-repeat="x in unit.outsourcing track by $index">{{x}}</td>
+                    </tr>
+                    <tr class="data-row" ng-repeat="x in outsourcing">
+                        <td class="name-col">{{x.name}}</td>
+                        <td><input type="number" name="" id="" ng-model="x.data[0]"></td>
+                        <td><textarea name="" id="" cols="40" rows="1" ng-model="x.remark"></textarea></td>
+                    </tr>
+                </table>
             </div>
-            <table class="data-table">
-                <tr class="head-row">
-                    <td class="name-col">Shovel</td>
-                    <td>East Coal</td>
-                    <td>East OB</td>
-                    <td>West Coal</td>
-                    <td>West OB</td>
-                    <td>Coal</td>
-                    <td>OB</td>
-                </tr>
-                <tr class="unit-row">
-                    <td></td>
-                    <td>Te</td>
-                    <td>cum</td>
-                    <td>Te</td>
-                    <td>cum</td>
-                    <td>Te</td>
-                    <td>cum</td>
-                </tr>          
-                <tr class="data-row" ng-repeat="x in shovels|filter:{$:true}">
-                    <td class="name-col">{{x.name}}</td>
-                    <td>{{x.eastData[4]}}</td>
-                    <td>{{x.eastData[5]}}</td>
-                    <td>{{x.westData[4]}}</td>
-                    <td>{{x.westData[5]}}</td>
-                    <td>{{x.coal}}</td>
-                    <td>{{x.ob}}</td>
-                </tr>
-            </table>
+            <div id="shift-summary" class="section">
+                <div class="section-header">
+                    <p>Shift Summary</p>
+                </div>
+                <div class="section-nav"></div>
+                <table class="data-table">
+                    <tr class="head-row">
+                        <td class="name-col">Shovel</td>
+                        <td>East Coal</td>
+                        <td>East OB</td>
+                        <td>West Coal</td>
+                        <td>West OB</td>
+                        <td>Coal</td>
+                        <td>OB</td>
+                    </tr>
+                    <tr class="unit-row">
+                        <td></td>
+                        <td>Te</td>
+                        <td>cum</td>
+                        <td>Te</td>
+                        <td>cum</td>
+                        <td>Te</td>
+                        <td>cum</td>
+                    </tr>
+                    <tr class="data-row" ng-repeat="x in shovels|filter:{$:true}">
+                        <td class="name-col">{{x.name}}</td>
+                        <td>{{x.eastData[4]}}</td>
+                        <td>{{x.eastData[5]}}</td>
+                        <td>{{x.westData[4]}}</td>
+                        <td>{{x.westData[5]}}</td>
+                        <td>{{x.coal}}</td>
+                        <td>{{x.ob}}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-</div>  
 
 </body>
-    
+
 </html>

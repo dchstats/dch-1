@@ -21,17 +21,17 @@ function moduleNav(arg) {
 }
 
 var app = angular.module('dch', []);
-app.controller('ctrl', function($scope) {
+app.controller('ctrl', function ($scope) {
 	/////////////////////////////////////////////////////////////////////////////// Constants
-	$scope.shifts = [ 'other', 'First', 'Second', 'Night' ];
+	$scope.shifts = ['other', 'First', 'Second', 'Night'];
 	/////////////////////////////////////////////////////////////////////////////// Properties
 	$scope.shift = getShift();
 	$scope.date = formattedDate();
 	$scope.user = 'none';
 	$scope.eastShovels = [];
 	$scope.westShovels = [];
-	$scope.eastShovelMultipliers = [ 45, 55, 25, 29 ];
-	$scope.westShovelMultipliers = [ 45, 40, 25, 21 ];
+	$scope.eastShovelMultipliers = [45, 55, 25, 29];
+	$scope.westShovelMultipliers = [45, 40, 25, 21];
 	$scope.shovels = [
 		{ name: 'P&H-01', east: false, eastData: [], west: false, westData: [], coal: 0, ob: 0 },
 		{ name: 'P&H-02', east: false, eastData: [], west: false, westData: [], coal: 0, ob: 0 },
@@ -48,37 +48,37 @@ app.controller('ctrl', function($scope) {
 	$scope.shovelsTotal = { east: [], west: [], coal: 0, ob: 0 };
 
 	$scope.draglines = [
-		{ name: 'Jyoti', data: [ null, null, null, null, null, null ], remark: null },
-		{ name: 'Pawan', data: [ null, null, null, null, null, null ], remark: null },
-		{ name: 'Vindhya', data: [ null, null, null, null, null, null ], remark: null },
-		{ name: 'Jwala', data: [ null, null, null, null, null, null ], remark: null }
+		{ name: 'Jyoti', data: [null, null, null, null, null, null], remark: null },
+		{ name: 'Pawan', data: [null, null, null, null, null, null], remark: null },
+		{ name: 'Vindhya', data: [null, null, null, null, null, null], remark: null },
+		{ name: 'Jwala', data: [null, null, null, null, null, null], remark: null }
 	];
 
-	$scope.surfaceMiners = [ { name: 'L&T-SM', data: [ null, null, null ], remark: null } ];
+	$scope.surfaceMiners = [{ name: 'L&T-SM', data: [null, null, null], remark: null }];
 
 	$scope.outsourcing = [
-		{ name: 'BGR-EAST-APT', data: [ null ], remark: null },
-		{ name: 'GAJRAJ-WEST-APT', data: [ null ], remark: null },
-		{ name: 'GAJRAJ-EAST-APB', data: [ null ], remark: null },
-		{ name: 'GAJRAJ-WEST-APB', data: [ null ], remark: null },
-		{ name: 'DL-EAST', data: [ null ], remark: null },
-		{ name: 'DL-WEST', data: [ null ], remark: null }
+		{ name: 'BGR-EAST-APT', data: [null], remark: null },
+		{ name: 'GAJRAJ-WEST-APT', data: [null], remark: null },
+		{ name: 'GAJRAJ-EAST-APB', data: [null], remark: null },
+		{ name: 'GAJRAJ-WEST-APB', data: [null], remark: null },
+		{ name: 'DL-EAST', data: [null], remark: null },
+		{ name: 'DL-WEST', data: [null], remark: null }
 	];
 
 	$scope.datahead = {
-		eastShovels: [ 'Coal-100', 'Coal-120', 'OB-100', 'OB-120' ],
-		westShovels: [ 'Coal-100', 'Coal-85', 'OB-100', 'OB-85' ],
-		draglines: [ 'Solid', 'Re-handling', 'Working', 'Breakdown', 'Maintenance', 'Idle', 'Remark' ],
-		surfaceMiners: [ 'Working', 'Cutting', 'Production', 'Remark' ],
-		outsourcing: [ 'Quantity', 'Remark' ]
+		eastShovels: ['Coal-100', 'Coal-120', 'OB-100', 'OB-120'],
+		westShovels: ['Coal-100', 'Coal-85', 'OB-100', 'OB-85'],
+		draglines: ['Solid', 'Re-handling', 'Working', 'Breakdown', 'Maintenance', 'Idle', 'Remark'],
+		surfaceMiners: ['Working', 'Cutting', 'Production', 'Remark'],
+		outsourcing: ['Quantity', 'Remark']
 	};
 
 	$scope.unit = {
-		eastShovels: [ '( trips )', '( trips )', '( trips )', '( trips )' ],
-		westShovels: [ '( trips )', '( trips )', '( trips )', '( trips )' ],
-		draglines: [ '( buckets )', '( buckets )', '( hrs )', '( hrs )', '( hrs )', '( hrs )', '' ],
-		surfaceMiners: [ '( hrs )', '( mtrs )', '( Te )', '' ],
-		outsourcing: [ '( cum )', '' ]
+		eastShovels: ['trips', 'trips', 'trips', 'trips'],
+		westShovels: ['trips', 'trips', 'trips', 'trips'],
+		draglines: ['buckets', 'buckets', 'hrs', 'hrs', 'hrs', 'hrs', ''],
+		surfaceMiners: ['hrs', 'mtrs', 'Te', ''],
+		outsourcing: ['cum', '']
 	};
 
 	/////////////////////////////////////////////////////////////////////////////// Methods
@@ -115,9 +115,9 @@ app.controller('ctrl', function($scope) {
 		return shift;
 	}
 
-	$scope.addShovel = function(location, id) {
-		if ($scope.shovels[id].east == false) $scope.shovels[id].eastData = [ null, null, null, null ];
-		if ($scope.shovels[id].west == false) $scope.shovels[id].westData = [ null, null, null, null ];
+	$scope.addShovel = function (location, id) {
+		if ($scope.shovels[id].east == false) $scope.shovels[id].eastData = [null, null, null, null];
+		if ($scope.shovels[id].west == false) $scope.shovels[id].westData = [null, null, null, null];
 
 		if (location == 'east') {
 			$scope.eastShovels.push($scope.shovels[id]);
@@ -128,7 +128,7 @@ app.controller('ctrl', function($scope) {
 		}
 	};
 
-	$scope.removeShovel = function(location, id) {
+	$scope.removeShovel = function (location, id) {
 		if (location == 'east') {
 			$scope.eastShovels.splice(id, 1);
 		} else if (location == 'west') {
@@ -136,9 +136,9 @@ app.controller('ctrl', function($scope) {
 		}
 	};
 
-	$scope.refresh = function() {
-		$scope.shovelsTotal = { east: [ 0, 0, 0, 0, 0, 0 ], west: [ 0, 0, 0, 0, 0, 0 ], coal: 0, ob: 0 };
-		angular.forEach($scope.shovels, function(x) {
+	$scope.refresh = function () {
+		$scope.shovelsTotal = { east: [0, 0, 0, 0, 0, 0], west: [0, 0, 0, 0, 0, 0], coal: 0, ob: 0 };
+		angular.forEach($scope.shovels, function (x) {
 			x.eastData[4] =
 				x.eastData[0] * $scope.eastShovelMultipliers[0] + x.eastData[1] * $scope.eastShovelMultipliers[1];
 			x.eastData[5] =
@@ -157,7 +157,7 @@ app.controller('ctrl', function($scope) {
 			$scope.shovelsTotal.ob += x.ob;
 		});
 
-		angular.forEach($scope.draglines, function(x, y, z) {
+		angular.forEach($scope.draglines, function (x, y, z) {
 			z[y].data[5] = 8 - z[y].data[4];
 		});
 	};
