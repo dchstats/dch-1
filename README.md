@@ -1,4 +1,5 @@
-www.sushant.info/dch
+# www.sushant.info/dch
+# sushant4032.github.io/dch
 
 # Overview
 This web app is to facilitate real-time reporting and monitoring of Duchichua Mines production related data.
