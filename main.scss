@@ -1,54 +1,45 @@
-
+$color-1:purple;
+$color-2:deepskyblue;
+card{
+    box-shadow:0px 2px 4px 0px #333; }
 *{
     box-sizing: border-box;
     border-collapse:collapse;
-    font:inherit;
-}
-
-body { 
+    font:inherit;}
+body{ 
     font-family: 'consolas', sans-serif; 
     margin:0;
-    padding:0;     
-}
-
+    padding:0;}
 .main-header{
     height:4rem;
     display:flex;
     justify-content:center;
     align-items: center;
-    background:purple;
+    background:$color-1;
     color:white;
-    font-size:2rem;
-    box-shadow:0px 2px 4px 0px #333;  
-}
+    font-size:2rem; 
+    @extend card;}
 .main-nav{
     display:flex;
     align-items: center;
     background:white;
     margin:5px auto;
-    padding:3px;
-}
-
-
+    padding:3px;}
 .module{
     width:99%;
     min-height:800px;
     margin:0 auto;
-    background:rgb(23, 17, 27);
-}
-
+    background:rgb(23, 17, 27);}
 .module-header{
     margin-bottom:10px;
     padding:0 1rem;
     display:flex;
     align-items: center;
-    background:purple;
+    background:$color-1;
     color:white;
     font-size:1.5rem;
-    box-shadow:0px 2px 4px 4px #333;  
-    border-radius:3px 3px 0px 0px;
-}
-
+    @extend card; 
+    border-radius:3px 3px 0px 0px;}
 .module-nav{
     display:flex;
     justify-content:flex-end;
@@ -63,7 +54,7 @@ body {
     background:white;
     width:99%;
     border-radius:3px;
-    box-shadow:0px 2px 4px 0 rgba(0,0,0,0.5);  
+    @extend card;
     overflow:auto;
 }
 
@@ -72,7 +63,7 @@ body {
     padding:5px;
     display:flex;
     align-items: center;
-    background-color:deepskyblue;
+    background-color:$color-2;
     color:white;
     font-size:1.2rem;
 }
@@ -94,39 +85,18 @@ input, select, textarea{
     text-align:left;
     border:1px solid lightgrey;
     border-radius:2px;
+    &:disabled{
+        background:grey;
+        color:lightgrey;
+    }
+    &:focus{
+          outline: 3px solid gold;
+    }
 }
 
 textarea {
     width:100%;
     resize: vertical;
-}
-
-input:focus,textarea:focus {
-  outline: 3px solid gold;
-}
-
-input::placeholder{
-    color:white;
-    text-align:center;
-}
-
-input:focus::placeholder{
-    color:grey;
-}
-
-span.unit{
-    color:white;
-}
-
-input:focus+span{
-    color:deepskyblue;
-}
-
-
-
-select:disabled, input:disabled{
-background:grey;
-color:lightgrey;
 }
 
 button {
@@ -135,26 +105,23 @@ button {
     margin:5px;
     cursor:pointer;
     font-size:1rem;
-    background:deepskyblue;
+    background:$color-2;
     color:white;
     border:none;
     outline:none;
     border-radius:2px;
-    box-shadow:2px 2px 4px 0px grey;
-}
-
-button:hover{
-    background:darkorchid;  
-}
-
-button:active{
-    transform:scale(0.95);
-}
-
-button:disabled{
+    @extend card;
+    &:hover{
+        background:darkorchid; 
+    }
+    &:active{
+        transform:scale(0.95);
+    }
+    &:disabled{
     background:lightgrey;
     color:white;
     box-shadow:none;
+    }
 }
 
 .cancel-btn {
@@ -183,14 +150,14 @@ td {
 
 tr.head-row td{
     padding:4px 0;
-    background:deepskyblue;
+    background:$color-2;
     color:white;
     border-bottom:1px dashed white;   
 }
 
 tr.unit-row td{
     padding:3px 0;
-    background-color:deepskyblue;
+    background-color:$color-2;
     color:white;
     font-size:0.9rem; 
 }
@@ -211,10 +178,3 @@ td.name-col{
 tr.data-row td.name-col{
     color:blue;
 }
-
-
-/* ///////////////////////////////////////////////////////// Generic */
-.hdn {
-    display:none;  
-}
-/* //////////////////////////////////specific */

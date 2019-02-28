@@ -10,7 +10,7 @@
     <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
     <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
     <script src="js/main.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body ng-app="dch" ng-controller='ctrl' ng-click="refresh()">
@@ -59,7 +59,8 @@
                         <td><input type="number" ng-model="x.eastData[1]"></td>
                         <td><input type="number" ng-model="x.eastData[2]"></td>
                         <td><input type="number" ng-model="x.eastData[3]"></td>
-                        <td><button class="cancel-btn" ng-click="x.east=false;removeShovel('east',$index);"><span>X</span></button>
+                        <td><button class="cancel-btn"
+                                ng-click="x.east=false;removeShovel('east',$index);"><span>X</span></button>
                         </td>
                     </tr>
                     <tr class="total-row">
@@ -107,7 +108,8 @@
                         <td><input type="number" ng-model="x.westData[1]"></td>
                         <td><input type="number" ng-model="x.westData[2]"></td>
                         <td><input type="number" ng-model="x.westData[3]"></td>
-                        <td><button class="cancel-btn" ng-click="x.west=false;removeShovel('west',$index);"><span>X</span></button>
+                        <td><button class="cancel-btn"
+                                ng-click="x.west=false;removeShovel('west',$index);"><span>X</span></button>
                         </td>
                     </tr>
                     <tr class="total-row">

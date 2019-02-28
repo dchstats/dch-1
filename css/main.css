@@ -1,0 +1,156 @@
+card, .main-header, .module-header, .section, button {
+  box-shadow: 0px 2px 4px 0px #333; }
+
+* {
+  box-sizing: border-box;
+  border-collapse: collapse;
+  font: inherit; }
+
+body {
+  font-family: 'consolas', sans-serif;
+  margin: 0;
+  padding: 0; }
+
+.main-header {
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: purple;
+  color: white;
+  font-size: 2rem; }
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  background: white;
+  margin: 5px auto;
+  padding: 3px; }
+
+.module {
+  width: 99%;
+  min-height: 800px;
+  margin: 0 auto;
+  background: #17111b; }
+
+.module-header {
+  margin-bottom: 10px;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  background: purple;
+  color: white;
+  font-size: 1.5rem;
+  border-radius: 3px 3px 0px 0px; }
+
+.module-nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0 1rem; }
+
+.section {
+  margin: auto;
+  padding: 0 10px 4rem;
+  background: white;
+  width: 99%;
+  border-radius: 3px;
+  overflow: auto; }
+
+.section-header {
+  height: 2rem;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  background-color: deepskyblue;
+  color: white;
+  font-size: 1.2rem; }
+
+.section-nav {
+  min-height: 5px;
+  background: white;
+  text-align: center; }
+
+/* ///////////////////////////////////////  UI Elements */
+input, select, textarea {
+  width: 50%;
+  padding: 8px 5px;
+  color: blue;
+  text-align: left;
+  border: 1px solid lightgrey;
+  border-radius: 2px; }
+  input:disabled, select:disabled, textarea:disabled {
+    background: grey;
+    color: lightgrey; }
+  input:focus, select:focus, textarea:focus {
+    outline: 3px solid gold; }
+
+textarea {
+  width: 100%;
+  resize: vertical; }
+
+button {
+  width: 5rem;
+  height: 2.2rem;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  background: deepskyblue;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 2px; }
+  button:hover {
+    background: darkorchid; }
+  button:active {
+    transform: scale(0.95); }
+  button:disabled {
+    background: lightgrey;
+    color: white;
+    box-shadow: none; }
+
+.cancel-btn {
+  width: 30px;
+  height: 30px;
+  padding: 0px;
+  font-size: 16px;
+  box-shadow: none;
+  border-radius: 50%; }
+
+/* ///////////////////////////////////////////////////////////////// Table */
+.data-table {
+  margin: 0 auto;
+  width: 100%; }
+
+td {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 0 5px; }
+
+tr.head-row td {
+  padding: 4px 0;
+  background: deepskyblue;
+  color: white;
+  border-bottom: 1px dashed white; }
+
+tr.unit-row td {
+  padding: 3px 0;
+  background-color: deepskyblue;
+  color: white;
+  font-size: 0.9rem; }
+
+tr.data-row td {
+  padding: 12px 0;
+  border-bottom: 1px ridge lightgrey; }
+
+tr.total-row td {
+  color: blue; }
+
+td.name-col {
+  Text-align: right; }
+
+tr.data-row td.name-col {
+  color: blue; }
+
+/*# sourceMappingURL=main.css.map */
