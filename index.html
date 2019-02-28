@@ -207,7 +207,30 @@
                 <div class="section-header">
                     <p>Shift Summary</p>
                 </div>
-                <div class="section-nav"></div>
+                <table class="data-table">
+                    <tr class="head-row">
+                        <td></td>
+                        <td>Coal</td>
+                        <td>Deptt OB</td>
+                        <td>Out OB</td>
+                    </tr>
+                    <tr class="data-row">
+                        <td>Shovel-Dumper</td>
+                        <td>{{shovelsTotal.coal}}</td>  
+                        <td>{{shovelsTotal.ob}}</td>
+                        
+                    </tr>
+                    <tr>
+                        <td>SM/Dragline</td>
+                        <td>{{surfaceMiners[0].data[2]}}</td>
+                        <td>{{draglinesTotal.data[0]}}</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>Total</td>
+                        <td>{{shovelsTotal.coal+surfaceMiners[0].data[2]}}</td>
+                        <td>{{shovelsTotal.ob+draglinesTotal.data[0]}}</td>
+                    </tr>
+                </table>
                 <table class="data-table">
                     <tr class="head-row">
                         <td class="name-col">Shovel</td>
@@ -235,6 +258,16 @@
                         <td>{{x.westData[5]}}</td>
                         <td>{{x.coal}}</td>
                         <td>{{x.ob}}</td>
+                    </tr>
+                    <tr class="total-row" style="border-top:1px dashed white">
+                        <td class="name-col">Quantity</td>
+                        <td>{{shovelsTotal.east[0] * eastShovelMultipliers[0]}} Te</td>
+                        <td>{{shovelsTotal.east[1] * eastShovelMultipliers[1]}} Te</td>
+                        <td>{{shovelsTotal.east[2] * eastShovelMultipliers[2]}} cum</td>
+                        <td>{{shovelsTotal.east[3] * eastShovelMultipliers[3]}} cum</td>
+                        <td>{{shovelsTotal.coal}} Te</td>
+                        <td>{{shovelsTotal.ob}} cum</td>
+                        <td></td>
                     </tr>
                 </table>
             </div>

@@ -33,19 +33,20 @@ app.controller('ctrl', function ($scope) {
 	$scope.eastShovelMultipliers = [45, 55, 25, 29];
 	$scope.westShovelMultipliers = [45, 40, 25, 21];
 	$scope.shovels = [
-		{ name: 'P&H-01', east: false, eastData: [], west: false, westData: [], coal: 0, ob: 0 },
-		{ name: 'P&H-02', east: false, eastData: [], west: false, westData: [], coal: 0, ob: 0 },
-		{ name: 'P&H-03', east: false, eastData: [], west: false, westData: [], coal: 0, ob: 0 },
-		{ name: 'P&H-04', east: false, eastData: [], west: false, westData: [], coal: 0, ob: 0 },
-		{ name: 'P&H-05', east: false, eastData: [], west: false, westData: [], coal: 0, ob: 0 },
-		{ name: 'P&H-06', east: false, eastData: [], west: false, westData: [], coal: 0, ob: 0 },
-		{ name: 'P&H-07', east: false, eastData: [], west: false, westData: [], coal: 0, ob: 0 },
-		{ name: 'P&H-08', east: false, eastData: [], west: false, westData: [], coal: 0, ob: 0 },
-		{ name: 'P&H-09', east: false, eastData: [], west: false, westData: [], coal: 0, ob: 0 },
-		{ name: 'P&H-10', east: false, eastData: [], west: false, westData: [], coal: 0, ob: 0 }
+		{ name: 'P&H-01', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
+		{ name: 'P&H-02', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
+		{ name: 'P&H-03', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
+		{ name: 'P&H-04', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
+		{ name: 'P&H-05', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
+		{ name: 'P&H-06', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
+		{ name: 'P&H-07', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
+		{ name: 'P&H-08', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
+		{ name: 'P&H-09', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
+		{ name: 'P&H-10', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 }
 	];
 
 	$scope.shovelsTotal = { east: [], west: [], coal: 0, ob: 0 };
+	$scope.draglinesTotal = { data: [null, null, null, null, null, null] };
 
 	$scope.draglines = [
 		{ name: 'Jyoti', data: [null, null, null, null, null, null], remark: null },
@@ -54,7 +55,7 @@ app.controller('ctrl', function ($scope) {
 		{ name: 'Jwala', data: [null, null, null, null, null, null], remark: null }
 	];
 
-	$scope.surfaceMiners = [{ name: 'L&T-SM', data: [null, null, null], remark: null }];
+	$scope.surfaceMiners = [{ name: 'LnT', data: [null, null, null], remark: null }];
 
 	$scope.outsourcing = [
 		{ name: 'BGR-EAST-APT', data: [null], remark: null },
@@ -138,6 +139,7 @@ app.controller('ctrl', function ($scope) {
 
 	$scope.refresh = function () {
 		$scope.shovelsTotal = { east: [0, 0, 0, 0, 0, 0], west: [0, 0, 0, 0, 0, 0], coal: 0, ob: 0 };
+		$scope.draglinesTotal = { data:[0, 0]};
 		angular.forEach($scope.shovels, function (x) {
 			x.eastData[4] =
 				x.eastData[0] * $scope.eastShovelMultipliers[0] + x.eastData[1] * $scope.eastShovelMultipliers[1];
@@ -156,6 +158,10 @@ app.controller('ctrl', function ($scope) {
 			$scope.shovelsTotal.coal += x.coal;
 			$scope.shovelsTotal.ob += x.ob;
 		});
+		angular.forEach($scope.draglines, function (x) {
+			$scope.draglinesTotal.data[0] += 13 * x.data[0];
+			$scope.draglinesTotal.data[1] += 13 * x.data[1];
+		})
 
 		angular.forEach($scope.draglines, function (x, y, z) {
 			z[y].data[5] = 8 - z[y].data[4];
