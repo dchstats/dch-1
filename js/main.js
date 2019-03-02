@@ -1,7 +1,7 @@
 $(begin);
 
 function begin() {
-	section = 5;
+	section = 0;
 	t = $('.section');
 	t.hide();
 	$(t[section]).show();
@@ -21,39 +21,72 @@ function moduleNav(arg) {
 }
 
 var app = angular.module('dch', []);
+
 app.controller('ctrl', function ($scope) {
-	/////////////////////////////////////////////////////////////////////////////// Constants
+	class Shovel {
+		constructor(name) {
+			this.name = name;
+			this.east = false;
+			this.west = false;
+			this.east_trips = [null, null, null, null];
+			this.west_trips = [null, null, null, null];
+		}
+		inflate = function () {
+			this.east_qty = [
+				this.east_trips[0] * 45,
+				this.east_trips[1] * 55,
+				this.east_trips[2] * 25,
+				this.east_trips[3] * 29
+			];
+			this.west_qty = [
+				this.west_trips[0] * 45,
+				this.west_trips[1] * 40,
+				this.west_trips[2] * 25,
+				this.west_trips[3] * 21
+			];
+			this.east_coal = this.east_qty[0] + this.east_qty[1];
+			this.east_ob = this.east_qty[2] + this.east_qty[3];
+			this.west_coal = this.west_qty[0] + this.west_qty[1];
+			this.west_ob = this.west_qty[2] + this.west_qty[3];
+			this.coal = this.east_coal + this.west_coal;
+			this.ob = this.east_ob + this.west_ob;
+		}
+	}
+	class Dragline {
+		constructor(name) {
+			this.name = name;
+			this.solid_buckets = null;
+			this.rehandling_buckets = null;
+			this.wrk_hrs = null;
+			this.bd_hrs = null;
+			this.mnt_hrs = null;
+			this.remark = null;
+		}
+		inflate = function () {
+			this.solid_qty = this.solid_buckets * 13;
+			this.rehandling_qty = this.rehandling_buckets * 13;
+			this.idl_hrs = 8 - this.wrk_hrs - this.bd_hrs - this.mnt_hrs;
+		}
+	}
+	$scope.shovel_names = ['P&H-1', 'P&H-2', 'P&H-3'];
+	$scope.dragline_names = ['Jyoti', 'Pawan', 'Vindhya', 'Jwala'];
+	$scope.shovels = [];
+	$scope.draglines = [];
+	angular.forEach($scope.shovel_names, function (x) {
+		var temp = new Shovel(x);
+		$scope.shovels.push(temp);
+	});
+	angular.forEach($scope.dragline_names, function (x) {
+		var temp = new Dragline(x);
+		$scope.draglines.push(temp);
+	});
 	$scope.shifts = ['other', 'First', 'Second', 'Night'];
-	/////////////////////////////////////////////////////////////////////////////// Properties
 	$scope.shift = getShift();
 	$scope.date = formattedDate();
-	$scope.user = 'none';
 	$scope.eastShovels = [];
 	$scope.westShovels = [];
-	$scope.eastShovelMultipliers = [45, 55, 25, 29];
-	$scope.westShovelMultipliers = [45, 40, 25, 21];
-	$scope.shovels = [
-		{ name: 'P&H-01', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
-		{ name: 'P&H-02', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
-		{ name: 'P&H-03', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
-		{ name: 'P&H-04', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
-		{ name: 'P&H-05', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
-		{ name: 'P&H-06', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
-		{ name: 'P&H-07', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
-		{ name: 'P&H-08', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
-		{ name: 'P&H-09', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 },
-		{ name: 'P&H-10', east: false, eastData: [null,null,null,null,null,null], west: false, westData: [null,null,null,null,null,null], coal: 0, ob: 0 }
-	];
-
-	$scope.shovelsTotal = { east: [], west: [], coal: 0, ob: 0 };
-	$scope.draglinesTotal = { data: [null, null, null, null, null, null] };
-
-	$scope.draglines = [
-		{ name: 'Jyoti', data: [null, null, null, null, null, null], remark: null },
-		{ name: 'Pawan', data: [null, null, null, null, null, null], remark: null },
-		{ name: 'Vindhya', data: [null, null, null, null, null, null], remark: null },
-		{ name: 'Jwala', data: [null, null, null, null, null, null], remark: null }
-	];
+	$scope.esm = [45, 55, 25, 29];
+	$scope.wsm = [45, 40, 25, 21];
 
 	$scope.surfaceMiners = [{ name: 'LnT', data: [null, null, null], remark: null }];
 
@@ -82,7 +115,6 @@ app.controller('ctrl', function ($scope) {
 		outsourcing: ['cum', '']
 	};
 
-	/////////////////////////////////////////////////////////////////////////////// Methods
 	function formattedDate() {
 		var today = new Date();
 		var dd = today.getDate();
@@ -117,16 +149,15 @@ app.controller('ctrl', function ($scope) {
 	}
 
 	$scope.addShovel = function (location, id) {
-		if ($scope.shovels[id].east == false) $scope.shovels[id].eastData = [null, null, null, null];
-		if ($scope.shovels[id].west == false) $scope.shovels[id].westData = [null, null, null, null];
-
+		var shovel = $scope.shovels[id];
 		if (location == 'east') {
-			$scope.eastShovels.push($scope.shovels[id]);
-			$scope.shovels[id].east = true;
+			shovel.east = true;
+			$scope.eastShovels.push(shovel);
 		} else if (location == 'west') {
-			$scope.westShovels.push($scope.shovels[id]);
-			$scope.shovels[id].west = true;
+			shovel.west = true;
+			$scope.westShovels.push(shovel);
 		}
+		console.log($scope.eastShovels);
 	};
 
 	$scope.removeShovel = function (location, id) {
@@ -138,33 +169,69 @@ app.controller('ctrl', function ($scope) {
 	};
 
 	$scope.refresh = function () {
-		$scope.shovelsTotal = { east: [0, 0, 0, 0, 0, 0], west: [0, 0, 0, 0, 0, 0], coal: 0, ob: 0 };
-		$scope.draglinesTotal = { data:[0, 0]};
-		angular.forEach($scope.shovels, function (x) {
-			x.eastData[4] =
-				x.eastData[0] * $scope.eastShovelMultipliers[0] + x.eastData[1] * $scope.eastShovelMultipliers[1];
-			x.eastData[5] =
-				x.eastData[2] * $scope.eastShovelMultipliers[2] + x.eastData[3] * $scope.eastShovelMultipliers[3];
-			x.westData[4] =
-				x.westData[0] * $scope.westShovelMultipliers[0] + x.westData[1] * $scope.westShovelMultipliers[1];
-			x.westData[5] =
-				x.westData[2] * $scope.westShovelMultipliers[2] + x.westData[3] * $scope.westShovelMultipliers[3];
-			x.coal = x.eastData[4] + x.westData[4];
-			x.ob = x.eastData[5] + x.westData[5];
-			for (var i = 0; i < 6; i++) {
-				if (x.east) $scope.shovelsTotal.east[i] += x.eastData[i];
-				if (x.west) $scope.shovelsTotal.west[i] += x.westData[i];
-			}
-			$scope.shovelsTotal.coal += x.coal;
-			$scope.shovelsTotal.ob += x.ob;
-		});
-		angular.forEach($scope.draglines, function (x) {
-			$scope.draglinesTotal.data[0] += 13 * x.data[0];
-			$scope.draglinesTotal.data[1] += 13 * x.data[1];
-		})
+		$scope.shovels_total = {
+			east_trips: [0, 0, 0, 0],
+			east_qty: [0, 0, 0, 0],
+			west_trips: [0, 0, 0, 0],
+			west_qty: [0, 0, 0, 0],
+			east_coal: 0,
+			west_coal: 0,
+			east_ob: 0,
+			west_ob: 0,
+			coal: 0,
+			ob: 0
+		};
+		$scope.draglines_total = {
+			solid_buckets: 0,
+			rehandling_buckets: 0,
+			solid_qty: 0,
+			rehandling_qty: 0,
+			wrk_hrs: 0,
+			bd_hrs: 0,
+			mnt_hrs: 0,
+			idl_hrs: 0
+		}
 
-		angular.forEach($scope.draglines, function (x, y, z) {
-			z[y].data[5] = 8 - z[y].data[4];
+
+		angular.forEach($scope.shovels, function (x) {
+
+			x.inflate();
+			for (var i = 0; i < 4; i++) {
+				$scope.shovels_total.east_trips[i] += x.east_trips[i];
+				$scope.shovels_total.east_qty[i] += x.east_qty[i];
+				$scope.shovels_total.west_trips[i] += x.west_trips[i];
+				$scope.shovels_total.west_qty[i] += x.west_qty[i];
+			}
+			$scope.shovels_total.east_coal += x.east_coal;
+			$scope.shovels_total.west_coal += x.west_coal;
+			$scope.shovels_total.east_ob += x.east_ob;
+			$scope.shovels_total.west_ob += x.west_ob;
+			$scope.shovels_total.coal += x.coal;
+			$scope.shovels_total.ob += x.ob;
+
+
+			$scope.draglines_total = {
+				solid_buckets: 0,
+				rehandling_buckets: 0,
+				solid_qty: 0,
+				rehandling_qty: 0,
+				wrk_hrs: 0,
+				bd_hrs: 0,
+				mnt_hrs: 0,
+				idl_hrs: 0
+			};
+
+			angular.forEach($scope.draglines, function (x) {
+				x.inflate();
+				$scope.draglines_total.solid_buckets += x.solid_buckets;
+				$scope.draglines_total.rehandling_buckets += x.rehandling_buckets;
+				$scope.draglines_total.solid_qty += x.solid_qty;
+				$scope.draglines_total.rehandling_qty += x.rehandling_qty;
+				$scope.draglines_total.wrk_hrs += x.wrk_hrs;
+				$scope.draglines_total.bd_hrs += x.bd_hrs;
+				$scope.draglines_total.mnt_hrs += x.mnt_hrs;
+				$scope.draglines_total.idl_hrs += x.idl_hrs;
+			});
 		});
-	};
-});
+	}
+})
