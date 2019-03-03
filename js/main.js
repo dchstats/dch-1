@@ -102,7 +102,7 @@ app.controller('ctrl', function ($scope) {
 	$scope.datahead = {
 		eastShovels: ['Coal-100', 'Coal-120', 'OB-100', 'OB-120'],
 		westShovels: ['Coal-100', 'Coal-85', 'OB-100', 'OB-85'],
-		draglines: ['Solid', 'Re-handling', 'Working', 'Breakdown', 'Maintenance', 'Idle', 'Remark'],
+		draglines: ['Solid', 'Re-handling', 'Timings', 'Remark'],
 		surfaceMiners: ['Working', 'Cutting', 'Production', 'Remark'],
 		outsourcing: ['Quantity', 'Remark']
 	};
@@ -110,7 +110,7 @@ app.controller('ctrl', function ($scope) {
 	$scope.unit = {
 		eastShovels: ['trips', 'trips', 'trips', 'trips'],
 		westShovels: ['trips', 'trips', 'trips', 'trips'],
-		draglines: ['buckets', 'buckets', 'hrs', 'hrs', 'hrs', 'hrs', ''],
+		draglines: ['buckets', 'buckets', 'hrs', ''],
 		surfaceMiners: ['hrs', 'mtrs', 'Te', ''],
 		outsourcing: ['cum', '']
 	};

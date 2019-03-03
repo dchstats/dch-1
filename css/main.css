@@ -1,18 +1,15 @@
-card, button, .section, .module-header, .main-header {
-  box-shadow: 0px 3px 5px 0px #444;
-}
+card, button {
+  box-shadow: 0px 3px 5px 0px #444; }
 
 * {
   box-sizing: border-box;
   border-collapse: collapse;
-  font: inherit;
-}
+  font: inherit; }
 
 body {
-  font-family: "consolas", sans-serif;
+  font-family: 'consolas', sans-serif;
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
 
 .main-header {
   height: 4rem;
@@ -21,21 +18,18 @@ body {
   align-items: center;
   background: purple;
   color: white;
-  font-size: 2rem;
-}
+  font-size: 2rem; }
 
 .main-nav {
   display: flex;
   align-items: center;
   background: white;
   margin: 5px auto;
-  padding: 3px;
-}
+  padding: 3px; }
 
 .module {
   min-height: 1200px;
-  margin: 0 auto;
-}
+  margin: 0 auto; }
 
 .module-header {
   height: 2.5rem;
@@ -43,27 +37,24 @@ body {
   padding: 0 1rem;
   display: flex;
   align-items: center;
-  background: purple;
+  background: deepskyblue;
   color: white;
   font-size: 1.5rem;
-  border-radius: 3px 3px 0px 0px;
-}
+  border-radius: 3px 3px 0px 0px; }
 
 .module-nav {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   margin-bottom: 10px;
-  padding: 0 1rem;
-}
+  padding: 0 1rem; }
 
 .section {
   margin: auto;
   padding: 0 10px 4rem;
   background: white;
   border-radius: 3px;
-  overflow: auto;
-}
+  overflow: auto; }
 
 .section-header {
   height: 3rem;
@@ -73,36 +64,28 @@ body {
   align-items: center;
   background-color: deepskyblue;
   color: white;
-  font-size: 1.5rem;
-}
+  font-size: 1.5rem; }
 
 .section-nav {
-  padding:5px;
   min-height: 5px;
   background: white;
-  text-align: center;
-}
+  text-align: center; }
 
 input, select, textarea {
-  width: 50%;
   padding: 3px 5px;
   color: blue;
   text-align: left;
   border: 1px solid lightgrey;
-  border-radius: 2px;
-}
-input:disabled, select:disabled, textarea:disabled {
-  background: grey;
-  color: lightgrey;
-}
-input:focus, select:focus, textarea:focus {
-  outline: 3px solid gold;
-}
+  border-radius: 2px; }
+  input:disabled, select:disabled, textarea:disabled {
+    background: grey;
+    color: lightgrey; }
+  input:focus, select:focus, textarea:focus {
+    outline: 3px solid gold; }
 
 textarea {
   width: 100%;
-  resize: vertical;
-}
+  resize: vertical; }
 
 button {
   width: 5rem;
@@ -114,19 +97,15 @@ button {
   color: white;
   border: none;
   outline: none;
-  border-radius: 3px;
-}
-button:hover {
-  background: darkorchid;
-}
-button:active {
-  transform: scale(0.95);
-}
-button:disabled {
-  background: lightgrey;
-  color: white;
-  box-shadow: none;
-}
+  border-radius: 2px; }
+  button:hover {
+    background: darkorchid; }
+  button:active {
+    transform: scale(0.95); }
+  button:disabled {
+    background: lightgrey;
+    color: white;
+    box-shadow: none; }
 
 .cancel-btn {
   width: 30px;
@@ -134,40 +113,31 @@ button:disabled {
   padding: 0px;
   font-size: 16px;
   box-shadow: none;
-  border-radius: 50%;
-}
+  border-radius: 50%; }
 
 .data-table {
   margin: 10 auto;
-  width: 100%;
-}
+  width: 100%; }
 
 td {
   text-align: center;
   font-size: 1.2rem;
-  padding: 0 5px;
-  padding: 8px 0;
-}
+  padding: 8px 0; }
 
 .head-row td, .unit-row td, .total-row td {
   background: deepskyblue;
-  color: white;
-}
+  color: white; }
 
 .unit-row td {
-  font-size: 0.9rem;
-}
+  font-size: 0.9rem; }
 
 tr.data-row td {
-  border-bottom: 1px solid lightgrey;
-}
+  border-bottom: 1px solid lightgrey; }
 
-td.name-col {
-  Text-align: right;
-}
+tr.data-row {
+  color: blue; }
 
-tr.data-row td.name-col {
-  color: blue;
-}
+.drg-hrs {
+  max-width: 50px; }
 
 /*# sourceMappingURL=main.css.map */

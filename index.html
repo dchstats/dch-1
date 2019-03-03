@@ -177,20 +177,19 @@
                         <td class="name-col">{{x.name}}</td>
                         <td><input type="number" ng-model="x.solid_buckets"></td>
                         <td><input type="number" ng-model="x.rehandling_buckets"></td>
-                        <td><input type="number" ng-model="x.wrk_hrs"></td>
-                        <td><input type="number" ng-model="x.bd_hrs"></td>
-                        <td><input type="number" ng-model="x.mnt_hrs"></td>
-                        <td>{{x.idl_hrs}}</td>
+                        <td>
+                            <input type="number" ng-model="x.wrk_hrs" class="drg-hrs">
+                            <input type="number" ng-model="x.bd_hrs" class="drg-hrs">
+                            <input type="number" ng-model="x.mnt_hrs" class="drg-hrs">
+                            <input type="text" ng-model="x.idl_hrs" ng-disabled="true" class="drg-hrs">
+                        </td>
                         <td><textarea name="" id="" cols="10" rows="1" ng-model="x.remark"></textarea></td>
                     </tr>
                     <tr class="total-row">
                         <td>Total</td>
                         <td>{{draglines_total.solid_buckets}}</td>
                         <td>{{draglines_total.rehandling_buckets}}</td>
-                        <td>{{draglines_total.wrk_hrs}}</td>
-                        <td>{{draglines_total.bd_hrs}}</td>
-                        <td>{{draglines_total.mnt_hrs}}</td>
-                        <td>{{draglines_total.idl_hrs}}</td>
+                        <td></td>
                         <td></td>
                     </tr>
                     <tr class="total-row">
@@ -199,10 +198,7 @@
                         <td>{{draglines_total.rehandling_qty}}</td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+
                     </tr>
                 </table>
             </div>
