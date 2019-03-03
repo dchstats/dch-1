@@ -1,7 +1,9 @@
 $color-1:purple;
 $color-2:deepskyblue;
 card{
-    box-shadow:0px 2px 4px 0px #333; }
+    box-shadow:0px 3px 5px 0px #444;
+ }
+ 
 *{
     box-sizing: border-box;
     border-collapse:collapse;
@@ -26,11 +28,11 @@ body{
     margin:5px auto;
     padding:3px;}
 .module{
-    width:99%;
-    min-height:800px;
+    min-height:1200px;
     margin:0 auto;
-    background:rgb(23, 17, 27);}
+}
 .module-header{
+    height:2.5rem;
     margin-bottom:10px;
     padding:0 1rem;
     display:flex;
@@ -52,20 +54,20 @@ body{
     margin:auto;
     padding:0 10px 4rem;
     background:white;
-    width:99%;
     border-radius:3px;
     @extend card;
     overflow:auto;
 }
 
 .section-header{
-    height:2rem;
+    height:3rem;
     padding:5px;
     display:flex;
+    justify-content:center;
     align-items: center;
     background-color:$color-2;
     color:white;
-    font-size:1.2rem;
+    font-size:1.5rem;
 }
 
 .section-nav{
@@ -74,13 +76,9 @@ body{
     text-align:center;
 }
 
-
-/* ///////////////////////////////////////  UI Elements */
-
-
 input, select, textarea{
     width:50%;
-    padding:8px 5px;
+    padding:3px 5px;
     color:blue;
     text-align:left;
     border:1px solid lightgrey;
@@ -90,7 +88,7 @@ input, select, textarea{
         color:lightgrey;
     }
     &:focus{
-          outline: 3px solid gold;
+          outline: 3px solid gold;     
     }
 }
 
@@ -133,42 +131,32 @@ button {
     border-radius:50%;
 }
 
-
-
-/* ///////////////////////////////////////////////////////////////// Table */
-
 .data-table {
-    margin:0 auto;
+    margin:10 auto;
     width:100%;
 }
+
 
 td {
     text-align:center;
     font-size:1.2rem;
     padding:0 5px;
+    padding:8px 0;
 }
 
-tr.head-row td{
-    padding:4px 0;
+.head-row td, .unit-row td, .total-row td  {
     background:$color-2;
     color:white;
-    border-bottom:1px dashed white;   
 }
 
-tr.unit-row td{
-    padding:3px 0;
-    background-color:$color-2;
-    color:white;
-    font-size:0.9rem; 
+
+
+.unit-row td{
+    font-size:0.9rem;
 }
 
 tr.data-row td{
-    padding:12px 0;
-    border-bottom:1px ridge lightgrey ;
-}
-
-tr.total-row td {
-    color:blue;
+    border-bottom:1px solid lightgrey;
 }
 
 td.name-col{

@@ -47,7 +47,7 @@
                 </div>
                 <table class="data-table">
                     <tr class="head-row">
-                        <td class="name-col">Machines</td>
+                        <td></td>
                         <td ng-repeat="x in datahead.eastShovels">{{x}}</td>
                         <td></td>
                     </tr>
@@ -75,7 +75,7 @@
                         <td>{{shovels_total.east_trips[3]}}</td>
                         <td></td>
                     </tr>
-                    <tr class="total-row" style="border-top:1px dashed white">
+                    <tr class="total-row">
                         <td class="name-col">Qunatity</td>
                         <td>{{shovels_total.east_coal}}</td>
                         <td>{{shovels_total.east_ob}}</td>
@@ -103,7 +103,7 @@
                 </div>
                 <table class="data-table">
                     <tr class="head-row">
-                        <td class="name-col">Machines</td>
+                        <td></td>
                         <td ng-repeat="x in datahead.westShovels">{{x}}</td>
                         <td></td>
                     </tr>
@@ -131,7 +131,7 @@
                         <td>{{shovels_total.west_trips[3]}}</td>
                         <td></td>
                     </tr>
-                    <tr class="total-row" style="border-top:1px dashed white">
+                    <tr class="total-row">
                         <td class="name-col">Qunatity</td>
                         <td>{{shovels_total.west_qty[0]}}</td>
                         <td>{{shovels_total.west_qty[1]}}</td>
@@ -166,7 +166,7 @@
                     <tr class="name-row">
                     </tr>
                     <tr class="head-row">
-                        <td class="name-col">Machine</td>
+                        <td></td>
                         <td ng-repeat="x in datahead.draglines">{{x}}</td>
                     </tr>
                     <tr class="unit-row">
@@ -191,11 +191,18 @@
                         <td>{{draglines_total.bd_hrs}}</td>
                         <td>{{draglines_total.mnt_hrs}}</td>
                         <td>{{draglines_total.idl_hrs}}</td>
+                        <td></td>
                     </tr>
                     <tr class="total-row">
                         <td>Quantity</td>
                         <td>{{draglines_total.solid_qty}}</td>
                         <td>{{draglines_total.rehandling_qty}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
@@ -208,7 +215,7 @@
                 <div class="section-nav"></div>
                 <table class="data-table">
                     <tr class="head-row">
-                        <td class="name-col">Machine</td>
+                        <td></td>
                         <td ng-repeat="x in datahead.surfaceMiners">{{x}}</td>
                     </tr>
                     <tr class="unit-row">
@@ -231,7 +238,7 @@
                 <div class="section-nav"></div>
                 <table class="data-table">
                     <tr class="head-row">
-                        <td class="name-col">Company</td>
+                        <td></td>
                         <td ng-repeat="x in datahead.outsourcing">{{x}}</td>
                     </tr>
                     <tr class="unit-row">
@@ -307,7 +314,7 @@
                         <td>{{x.coal}}</td>
                         <td>{{x.ob}}</td>
                     </tr>
-                    <tr class="total-row" style="border-top:1px dashed white">
+                    <tr class="total-row">
                         <td class="name-col">Quantity</td>
                         <td>{{shovels_total.east_coal}} Te</td>
                         <td>{{shovels_total.east_ob}} Te</td>
