@@ -92,6 +92,8 @@
 
 
 
+
+
             <div id="west-shovels" class="section">
                 <div class="section-header">
                     <p>west Shovels</p>
@@ -204,6 +206,13 @@
             </div>
 
 
+
+
+
+
+
+
+
             <div id="surface-miners" class="section">
                 <div class="section-header">
                     <p>Surface Miners</p>
@@ -218,11 +227,11 @@
                         <td></td>
                         <td ng-repeat="x in unit.surfaceMiners track by $index">{{x}}</td>
                     </tr>
-                    <tr class="data-row" ng-repeat="x in surfaceMiners">
+                    <tr class="data-row" ng-repeat="x in surface_miners">
                         <td class="name-col">{{x.name}}</td>
-                        <td><input type="number" name="" id="" ng-model="x.data[0]"></td>
-                        <td><input type="number" name="" id="" ng-model="x.data[1]"></td>
-                        <td><input type="number" name="" id="" ng-model="x.data[2]"></td>
+                        <td><input type="number" name="" id="" ng-model="x.wrk_hrs"></td>
+                        <td><input type="number" name="" id="" ng-model="x.cutting"></td>
+                        <td><input type="number" name="" id="" ng-model="x.prod"></td>
                         <td><textarea name="" id="" cols="20" rows="1" ng-model="x.remark"></textarea></td>
                     </tr>
                 </table>
@@ -241,13 +250,16 @@
                         <td></td>
                         <td ng-repeat="x in unit.outsourcing track by $index">{{x}}</td>
                     </tr>
-                    <tr class="data-row" ng-repeat="x in outsourcing">
+                    <tr class="data-row" ng-repeat="x in outsourcings">
                         <td class="name-col">{{x.name}}</td>
-                        <td><input type="number" name="" id="" ng-model="x.data[0]"></td>
+                        <td><input type="number" name="" id="" ng-model="x.qty"></td>
                         <td><textarea name="" id="" cols="40" rows="1" ng-model="x.remark"></textarea></td>
                     </tr>
                 </table>
             </div>
+
+
+
 
 
 
@@ -321,6 +333,12 @@
                         <td></td>
                     </tr>
                 </table>
+            </div>
+
+
+
+            <div id="debug-interface" class="section">
+                <textarea name="" id="" cols="30" rows="1000" ng-model="postset"></textarea>
             </div>
         </div>
     </div>
