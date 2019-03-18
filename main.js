@@ -68,10 +68,38 @@ app.controller('ctrl', function ($scope) {
 			this.idl_hrs = 8 - this.wrk_hrs - this.bd_hrs - this.mnt_hrs;
 		}
 	}
+	class SurfaceMiner {
+		constructor(name) {
+			this.name = name;
+			this.wrk_hrs = null;
+			this.cutting = null;
+			this.prod = null;
+			this.remark = null;
+		}
+	}
+	class Outsourcing {
+		constructor(name) {
+			this.name = name;
+			this.qty = null;
+			this.remark = null;
+		}
+	}
 	$scope.shovel_names = ['P&H-1', 'P&H-2', 'P&H-3'];
 	$scope.dragline_names = ['Jyoti', 'Pawan', 'Vindhya', 'Jwala'];
+	$scope.surface_miner_names = ['LnT'];
+	$scope.outsourcing_names = [
+		'BGR-EAST-APT',
+		'GAJRAJ-WEST-APT',
+		'GAJRAJ-EAST-APB',
+		'GAJRAJ-WEST-APB',
+		'DL-EAST',
+		'DL-WEST'
+	];
 	$scope.shovels = [];
 	$scope.draglines = [];
+	$scope.surface_miners = [];
+	$scope.outsourcings = [];
+
 	angular.forEach($scope.shovel_names, function (x) {
 		var temp = new Shovel(x);
 		$scope.shovels.push(temp);
@@ -80,24 +108,19 @@ app.controller('ctrl', function ($scope) {
 		var temp = new Dragline(x);
 		$scope.draglines.push(temp);
 	});
+	angular.forEach($scope.surface_miner_names, function (x) {
+		var temp = new SurfaceMiner(x);
+		$scope.surface_miners.push(temp);
+	});
+	angular.forEach($scope.outsourcing_names, function (x) {
+		var temp = new Outsourcing(x);
+		$scope.outsourcings.push(temp);
+	});
 	$scope.shifts = ['other', 'First', 'Second', 'Night'];
 	$scope.shift = getShift();
 	$scope.date = formattedDate();
 	$scope.eastShovels = [];
 	$scope.westShovels = [];
-	$scope.esm = [45, 55, 25, 29];
-	$scope.wsm = [45, 40, 25, 21];
-
-	$scope.surfaceMiners = [{ name: 'LnT', data: [null, null, null], remark: null }];
-
-	$scope.outsourcing = [
-		{ name: 'BGR-EAST-APT', data: [null], remark: null },
-		{ name: 'GAJRAJ-WEST-APT', data: [null], remark: null },
-		{ name: 'GAJRAJ-EAST-APB', data: [null], remark: null },
-		{ name: 'GAJRAJ-WEST-APB', data: [null], remark: null },
-		{ name: 'DL-EAST', data: [null], remark: null },
-		{ name: 'DL-WEST', data: [null], remark: null }
-	];
 
 	$scope.datahead = {
 		eastShovels: ['Coal-100', 'Coal-120', 'OB-100', 'OB-120'],
