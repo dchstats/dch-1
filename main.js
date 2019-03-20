@@ -26,30 +26,35 @@ app.controller('ctrl', function($scope) {
 	class Shovel {
 		constructor(name) {
 			this.name = name;
-			this.east = false;
-			this.west = false;
-			this.east_trips = [ null, null, null, null ];
-			this.west_trips = [ null, null, null, null ];
-			this.east_datahead = [ 'Coal-100', 'Coal-120', 'OB-100', 'OB-120' ];
-			this.west_datahead = [ 'Coal-100', 'Coal-85', 'OB-100', '85' ];
 		}
+		initialize = function() {
+			this.east = false;
+			this.east_coal_100_trips = null;
+			this.east_coal_120_trips = null;
+			this.east_ob_100_trips = null;
+			this.east_ob_120_trips = null;
+
+			this.west = false;
+			this.west_coal_100_trips = null;
+			this.west_coal_85_trips = null;
+			this.west_ob_100_trips = null;
+			this.west_ob_85_trips = null;
+		};
 		inflate = function() {
-			this.east_qty = [
-				this.east_trips[0] * 45,
-				this.east_trips[1] * 55,
-				this.east_trips[2] * 25,
-				this.east_trips[3] * 29
-			];
-			this.west_qty = [
-				this.west_trips[0] * 45,
-				this.west_trips[1] * 40,
-				this.west_trips[2] * 25,
-				this.west_trips[3] * 21
-			];
-			this.east_coal = this.east_qty[0] + this.east_qty[1];
-			this.east_ob = this.east_qty[2] + this.east_qty[3];
-			this.west_coal = this.west_qty[0] + this.west_qty[1];
-			this.west_ob = this.west_qty[2] + this.west_qty[3];
+			this.east_coal_100_qty = this.east_coal_100_trips * 45;
+			this.east_coal_120_qty = this.east_coal_120_trips * 55;
+			this.east_ob_100_qty = this.east_ob_100_trips * 25;
+			this.east_ob_120_qty = this.east_ob_120_trips * 29;
+
+			this.west_coal_100_qty = this.west_coal_100_trips * 45;
+			this.west_coal_85_qty = this.west_coal_85_trips * 40;
+			this.west_ob_100_qty = this.west_ob_100_trips * 25;
+			this.west_ob_85_qty = this.west_ob_85_trips * 21;
+
+			this.east_coal = this.east_coal_100_qty + this.east_coal_120_qty;
+			this.east_ob = this.east_ob_100_qty + this.east_ob_120_qty;
+			this.west_coal = this.west_coal_100_qty + this.west_coal_85_qty;
+			this.west_ob = this.west_ob_100_qty + this.west_ob_85_qty;
 			this.coal = this.east_coal + this.west_coal;
 			this.ob = this.east_ob + this.west_ob;
 		};
@@ -57,13 +62,15 @@ app.controller('ctrl', function($scope) {
 	class Dragline {
 		constructor(name) {
 			this.name = name;
+		}
+		initialize = function() {
 			this.solid_buckets = null;
 			this.rehandling_buckets = null;
 			this.wrk_hrs = null;
 			this.bd_hrs = null;
 			this.mnt_hrs = null;
 			this.remark = null;
-		}
+		};
 		inflate = function() {
 			this.solid_qty = this.solid_buckets * 13;
 			this.rehandling_qty = this.rehandling_buckets * 13;
@@ -73,20 +80,24 @@ app.controller('ctrl', function($scope) {
 	class SurfaceMiner {
 		constructor(name) {
 			this.name = name;
+		}
+		initialize = function() {
 			this.wrk_hrs = null;
 			this.cutting = null;
 			this.prod = null;
 			this.remark = null;
-		}
+		};
 	}
 	class Outsourcing {
 		constructor(name) {
 			this.name = name;
+		}
+		initialize = function() {
 			this.qty = null;
 			this.remark = null;
-		}
+		};
 	}
-	$scope.shovel_names = [ 'P&H-1', 'P&H-2', 'P&H-3' ];
+	$scope.shovel_names = [ 'P&H-1', 'P&H-2', 'P&H-13' ];
 	$scope.dragline_names = [ 'Jyoti', 'Pawan', 'Vindhya', 'Jwala' ];
 	$scope.surface_miner_names = [ 'LnT' ];
 	$scope.outsourcing_names = [
@@ -101,22 +112,25 @@ app.controller('ctrl', function($scope) {
 	$scope.draglines = [];
 	$scope.surface_miners = [];
 	$scope.outsourcings = [];
-	$scope.posts = [];
 
 	angular.forEach($scope.shovel_names, function(x) {
 		var temp = new Shovel(x);
+		temp.initialize();
 		$scope.shovels.push(temp);
 	});
 	angular.forEach($scope.dragline_names, function(x) {
 		var temp = new Dragline(x);
+		temp.initialize();
 		$scope.draglines.push(temp);
 	});
 	angular.forEach($scope.surface_miner_names, function(x) {
 		var temp = new SurfaceMiner(x);
+		temp.initialize();
 		$scope.surface_miners.push(temp);
 	});
 	angular.forEach($scope.outsourcing_names, function(x) {
 		var temp = new Outsourcing(x);
+		temp.initialize();
 		$scope.outsourcings.push(temp);
 	});
 	$scope.shifts = [ 'other', 'First', 'Second', 'Night' ];
@@ -193,64 +207,47 @@ app.controller('ctrl', function($scope) {
 		}
 	};
 
-	$scope.upadate_posts = function() {
-		$scope.posts.push($scope.shovels);
-		$scope.posts.push($scope.draglines);
-		$scope.posts.push($scope.surface_miners);
-		$scope.posts.push($scope.outsourcings);
-	};
+	$scope.shovels_total = new Shovel('total');
+	$scope.draglines_total = new Dragline('total');
+	$scope.surface_miners_total = new SurfaceMiner('total');
+	$scope.outsourcing_total = new Outsourcing('total');
 
 	$scope.refresh = function() {
-		$scope.shovels_total = {
-			east_trips: [ 0, 0, 0, 0 ],
-			east_qty: [ 0, 0, 0, 0 ],
-			west_trips: [ 0, 0, 0, 0 ],
-			west_qty: [ 0, 0, 0, 0 ],
-			east_coal: 0,
-			west_coal: 0,
-			east_ob: 0,
-			west_ob: 0,
-			coal: 0,
-			ob: 0
-		};
+		$scope.shovels_total.initialize();
+		$scope.draglines_total.initialize();
+		$scope.surface_miners_total.initialize();
+		$scope.outsourcing_total.initialize();
 
 		angular.forEach($scope.shovels, function(x) {
 			x.inflate();
-			for (var i = 0; i < 4; i++) {
-				$scope.shovels_total.east_trips[i] += x.east_trips[i];
-				$scope.shovels_total.east_qty[i] += x.east_qty[i];
-				$scope.shovels_total.west_trips[i] += x.west_trips[i];
-				$scope.shovels_total.west_qty[i] += x.west_qty[i];
-			}
-			$scope.shovels_total.east_coal += x.east_coal;
-			$scope.shovels_total.west_coal += x.west_coal;
-			$scope.shovels_total.east_ob += x.east_ob;
-			$scope.shovels_total.west_ob += x.west_ob;
-			$scope.shovels_total.coal += x.coal;
-			$scope.shovels_total.ob += x.ob;
-		});
+			$scope.shovels_total.east_coal_100_trips += x.east_coal_100_trips;
+			$scope.shovels_total.east_coal_120_trips += x.east_coal_120_trips;
+			$scope.shovels_total.east_ob_100_trips += x.east_ob_100_trips;
+			$scope.shovels_total.east_ob_120_trips += x.east_ob_120_trips;
 
-		$scope.draglines_total = {
-			solid_buckets: 0,
-			rehandling_buckets: 0,
-			solid_qty: 0,
-			rehandling_qty: 0,
-			wrk_hrs: 0,
-			bd_hrs: 0,
-			mnt_hrs: 0,
-			idl_hrs: 0
-		};
+			$scope.shovels_total.west_coal_100_trips += x.west_coal_100_trips;
+			$scope.shovels_total.west_coal_85_trips += x.west_coal_85_trips;
+			$scope.shovels_total.west_ob_100_trips += x.west_ob_100_trips;
+			$scope.shovels_total.west_ob_85_trips += x.west_ob_85_trips;
+		});
 
 		angular.forEach($scope.draglines, function(x) {
 			x.inflate();
 			$scope.draglines_total.solid_buckets += x.solid_buckets;
 			$scope.draglines_total.rehandling_buckets += x.rehandling_buckets;
-			$scope.draglines_total.solid_qty += x.solid_qty;
-			$scope.draglines_total.rehandling_qty += x.rehandling_qty;
 			$scope.draglines_total.wrk_hrs += x.wrk_hrs;
 			$scope.draglines_total.bd_hrs += x.bd_hrs;
 			$scope.draglines_total.mnt_hrs += x.mnt_hrs;
-			$scope.draglines_total.idl_hrs += x.idl_hrs;
 		});
+
+		$scope.packet = {
+			shovels: $scope.shovels,
+			draglines: $scope.draglines,
+			surface_miners: $scope.surfaceMiners,
+			outsourcings: $scope.outsourcings
+		};
+
+		$scope.shovels_total.inflate();
+		$scope.draglines_total.inflate();
 	};
 });

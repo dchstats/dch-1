@@ -59,20 +59,20 @@
 
                     <tr class="data-row" ng-repeat="x in eastShovels">
                         <td class="name-col">{{x.name}}</td>
-                        <td><input type="number" ng-model="x.east_trips[0]"></td>
-                        <td><input type="number" ng-model="x.east_trips[1]"></td>
-                        <td><input type="number" ng-model="x.east_trips[2]"></td>
-                        <td><input type="number" ng-model="x.east_trips[3]"></td>
+                        <td><input type="number" ng-model="x.east_coal_100_trips"></td>
+                        <td><input type="number" ng-model="x.east_coal_120_trips"></td>
+                        <td><input type="number" ng-model="x.east_ob_100_trips"></td>
+                        <td><input type="number" ng-model="x.east_ob_120_trips"></td>
                         <td><button class="cancel-btn"
                                 ng-click="x.east=false;removeShovel('east',$index);"><span>X</span></button>
                         </td>
                     </tr>
                     <tr class="total-row">
                         <td class="name-col">Total Trips</td>
-                        <td>{{shovels_total.east_trips[0]}}</td>
-                        <td>{{shovels_total.east_trips[1]}}</td>
-                        <td>{{shovels_total.east_trips[2]}}</td>
-                        <td>{{shovels_total.east_trips[3]}}</td>
+                        <td>{{shovels_total.east_coal_100_trips}}</td>
+                        <td>{{shovels_total.east_coal_120_trips}}</td>
+                        <td>{{shovels_total.east_ob_100_trips}}</td>
+                        <td>{{shovels_total.east_ob_120_trips}}</td>
                         <td></td>
                     </tr>
                     <tr class="total-row">
@@ -281,19 +281,28 @@
                         <td>Shovel-Dumper</td>
                         <td>{{shovels_total.coal}}</td>
                         <td>{{shovels_total.ob}}</td>
-
+                        <td>0</td>
                     </tr>
                     <tr>
                         <td>SM/Dragline</td>
                         <td>{{surfaceMiners[0].data[2]}}</td>
                         <td>{{draglinesTotal.data[0]}}</td>
+                        <td>0</td>
                     </tr>
                     <tr class="total-row">
                         <td>Total</td>
                         <td>{{shovels_total.coal+surfaceMiners[0].data[2]}}</td>
                         <td>{{shovels_total.ob+draglinesTotal.data[0]}}</td>
+                        <td>0</td>
                     </tr>
                 </table>
+
+
+                <div style="height:200px">
+                    
+                </div>
+
+
                 <table class="data-table">
                     <tr class="head-row">
                         <td class="name-col">Shovel</td>
