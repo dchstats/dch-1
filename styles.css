@@ -1,178 +1,179 @@
-card, button {
-  box-shadow: 0px 3px 5px 0px #444;
+card,
+button {
+	box-shadow: 0px 3px 5px 0px #444;
 }
 
 * {
-  box-sizing: border-box;
-  border-collapse: collapse;
-  font: inherit;
+	box-sizing: border-box;
+	border-collapse: collapse;
+	font: inherit;
 }
 
 body {
-  font-family: "consolas", sans-serif;
-  margin: 0;
-  padding: 0;
+	font-family: "consolas", sans-serif;
+	margin: 0;
+	padding: 0;
 }
 
 .main-header {
-  height: 4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: purple;
-  color: white;
-  font-size: 2rem;
+	height: 4rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: purple;
+	color: white;
+	font-size: 2rem;
 }
 
 .main-nav {
-  display: flex;
-  align-items: center;
-  background: white;
-  margin: 5px auto;
-  padding: 3px;
+	display: flex;
+	align-items: center;
+	background: white;
+	margin: 5px auto;
+	padding: 3px;
 }
 
 .module {
-  min-height: 1200px;
-  margin: 0 auto;
+	min-height: 1200px;
+	margin: 0 auto;
 }
 
 .module-header {
-  height: 2.5rem;
-  margin-bottom: 10px;
-  padding: 0 1rem;
-  display: flex;
-  align-items: center;
-  background: deepskyblue;
-  color: white;
-  font-size: 1.5rem;
-  border-radius: 3px 3px 0px 0px;
+	height: 2.5rem;
+	margin-bottom: 10px;
+	padding: 0 1rem;
+	display: flex;
+	align-items: center;
+	background: deepskyblue;
+	color: white;
+	font-size: 1.5rem;
+	border-radius: 3px 3px 0px 0px;
 }
 
 .module-nav {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 0 1rem;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin-bottom: 10px;
+	padding: 0 1rem;
 }
 
 .section {
-  margin: auto;
-  padding: 0 10px 4rem;
-  background: white;
-  border-radius: 3px;
-  overflow: auto;
+	margin: auto;
+	padding: 0 10px 4rem;
+	background: white;
+	border-radius: 3px;
+	overflow: auto;
 }
 
 .section-header {
-  height: 3rem;
-  padding: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: deepskyblue;
-  color: white;
-  font-size: 1.5rem;
+	height: 3rem;
+	padding: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: deepskyblue;
+	color: white;
+	font-size: 1.5rem;
 }
 
 .section-nav {
-  min-height: 5px;
-  background: white;
-  text-align: center;
+	min-height: 5px;
+	background: white;
+	text-align: center;
 }
 
 input,
 select,
 textarea {
-  padding: 3px 5px;
-  color: blue;
-  text-align: left;
-  border: 1px solid lightgrey;
-  border-radius: 2px;
+	padding: 3px 5px;
+	color: blue;
+	text-align: left;
+	border: 1px solid lightgrey;
+	border-radius: 2px;
 }
 input:disabled,
 select:disabled,
 textarea:disabled {
-  background: grey;
-  color: lightgrey;
+	background: grey;
+	color: lightgrey;
 }
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 3px solid gold;
+	outline: 3px solid gold;
 }
 
 textarea {
-  width: 100%;
-  resize: vertical;
+	width: 100%;
+	resize: vertical;
 }
 
 button {
-  min-width: 5rem;
-  height: 2.2rem;
-  margin: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  background: deepskyblue;
-  color: white;
-  border: none;
-  outline: none;
-  border-radius: 2px;
+	min-width: 5rem;
+	height: 2.2rem;
+	margin: 5px;
+	cursor: pointer;
+	font-size: 1rem;
+	background: deepskyblue;
+	color: white;
+	border: none;
+	outline: none;
+	border-radius: 2px;
 }
 button:hover {
-  background: darkorchid;
+	background: darkorchid;
 }
 button:active {
-  transform: scale(0.95);
+	transform: scale(0.95);
 }
 button:disabled {
-  background: lightgrey;
-  color: white;
-  box-shadow: none;
+	background: lightgrey;
+	color: white;
+	box-shadow: none;
 }
 
 .cancel-btn {
-  min-width: 30px;
-  height: 30px;
-  padding: 0px;
-  font-size: 16px;
-  box-shadow: none;
-  border-radius: 50%;
+	min-width: 30px;
+	height: 30px;
+	padding: 0px;
+	font-size: 16px;
+	box-shadow: none;
+	border-radius: 50%;
 }
 
 .data-table {
-  margin: 10 auto;
-  width: 100%;
+	margin: 10 auto;
+	width: 100%;
 }
 
 td {
-  text-align: center;
-  font-size: 1.2rem;
-  padding: 8px 0;
+	/* text-align: center; */
+	font-size: 1.2rem;
+	padding: 8px 0;
 }
 
 .head-row td,
 .unit-row td,
 .total-row td {
-  background: deepskyblue;
-  color: white;
+	background: deepskyblue;
+	color: white;
 }
 
 .unit-row td {
-  font-size: 0.9rem;
+	font-size: 0.9rem;
 }
 
 tr.data-row td {
-  border-bottom: 1px solid lightgrey;
+	border-bottom: 1px solid lightgrey;
 }
 
 tr.data-row {
-  color: blue;
+	color: blue;
 }
 
 .drg-hrs {
-  max-width: 50px;
+	max-width: 50px;
 }
 
 /*# sourceMappingURL=styles.css.map */
