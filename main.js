@@ -22,7 +22,7 @@ function moduleNav(arg) {
 
 var app = angular.module('dch', []);
 
-app.controller('ctrl', function ($scope) {
+app.controller('ctrl', function ($scope, $http) {
 
 	$scope.shifts = ['Night', 'First', 'Second'];
 	$scope.diff = 0;
@@ -450,4 +450,22 @@ app.controller('ctrl', function ($scope) {
 		$scope.surfaceMiners_total.inflate();
 		$scope.outsourcings_total.inflate();
 	};
+
+	$scope.sub = function () {
+		console.log('k')
+		var req = {
+			method: 'POST',
+			url: 'shift.php',
+			headers: {
+				'Content-Type': undefined
+			},
+			data: $scope.packet
+		}
+
+		$http(req).then(function () {
+			console.log('yay');
+		}, function () {
+			console.log('nay');
+		});
+	}
 });
