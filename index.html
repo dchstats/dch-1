@@ -42,11 +42,11 @@
                     <p>East Shovels</p>
                 </div>
                 <div class="section-nav">
-                    <button ng-repeat="x in shovels" ng-click="addShovel('east',$index);" ng-disabled="x.data.east">
+                    <button ng-repeat="x in shovels" ng-click="x.data.east=true;" ng-disabled="x.data.east">
                         {{x.name}}
                     </button>
                 </div>
-                <table class="data-table" ng-if="eastShovels.length">
+                <table class="data-table">
                     <tr class="head-row">
                         <td></td>
                         <td ng-repeat="x in datahead.eastShovels">{{x}}</td>
@@ -58,14 +58,14 @@
                         <td></td>
                     </tr>
 
-                    <tr class="data-row" ng-repeat="x in eastShovels">
+                    <tr class="data-row" ng-repeat="x in shovels" ng-if="x.data.east">
                         <td class="name-col">{{x.name}}</td>
                         <td><input type="number" ng-model="x.data.east_coal_100"></td>
                         <td><input type="number" ng-model="x.data.east_coal_120"></td>
                         <td><input type="number" ng-model="x.data.east_ob_100"></td>
                         <td><input type="number" ng-model="x.data.east_ob_120"></td>
                         <td><button class="cancel-btn"
-                                ng-click="x.east=false;removeShovel('east',$index);"><span>X</span></button>
+                                ng-click="x.data.east=false"><span>X</span></button>
                         </td>
                     </tr>
                     <tr class="total-row">
@@ -87,15 +87,6 @@
                 </table>
             </div>
 
-
-
-
-
-
-
-
-
-                  data.
 
 
 
@@ -179,7 +170,7 @@
                         <td></td>
                         <td ng-repeat="x in unit.surfaceMiners track by $index">{{x}}</td>
                     </tr>
-                    <tr class="data-row" ng-repeat="x in surface_miners">
+                    <tr class="data-row" ng-repeat="x in surfaceMiners">
                         <td class="name-col">{{x.name}}</td>
                         <td><input type="number" name="" id="" ng-model="x.wrk_hrs"></td>
                         <td><input type="number" name="" id="" ng-model="x.cutting"></td>
@@ -188,9 +179,9 @@
                     </tr>
                     <tr class="total-row">
                         <td>Total</td>
-                        <td>{{surface_miners_total.wrk_hrs}}</td>
-                        <td>{{surface_miners_total.cutting}}</td>
-                        <td>{{surface_miners_total.prod}}</td>
+                        <td>{{surfaceMiners_total.wrk_hrs}}</td>
+                        <td>{{surfaceMiners_total.cutting}}</td>
+                        <td>{{surfaceMiners_total.prod}}</td>
                         <td></td>
                     </tr>
                 </table>
