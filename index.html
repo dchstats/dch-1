@@ -22,6 +22,7 @@
         <button onclick="loadShift()">shift</button>
         <button>daily</button>
         <button>live</button>
+        <button ng-click="fetch()"">fetch</button>
     </div>
 
     <div id="shift" class="module">
@@ -35,14 +36,13 @@
         <div class="module-body">
 
 
-
-
+            
             <div id="east-shovels" class="section">
                 <div class="section-header">
                     <p>East Shovels</p>
                 </div>
                 <div class="section-nav">
-                    <button ng-repeat="x in shovels" ng-click="addShovel('east',$index);" ng-disabled="x.east">
+                    <button ng-repeat="x in shovels" ng-click="addShovel('east',$index);" ng-disabled="x.data.east">
                         {{x.name}}
                     </button>
                 </div>
@@ -60,28 +60,28 @@
 
                     <tr class="data-row" ng-repeat="x in eastShovels">
                         <td class="name-col">{{x.name}}</td>
-                        <td><input type="number" ng-model="x.east_coal_100_trips"></td>
-                        <td><input type="number" ng-model="x.east_coal_120_trips"></td>
-                        <td><input type="number" ng-model="x.east_ob_100_trips"></td>
-                        <td><input type="number" ng-model="x.east_ob_120_trips"></td>
+                        <td><input type="number" ng-model="x.data.east_coal_100"></td>
+                        <td><input type="number" ng-model="x.data.east_coal_120"></td>
+                        <td><input type="number" ng-model="x.data.east_ob_100"></td>
+                        <td><input type="number" ng-model="x.data.east_ob_120"></td>
                         <td><button class="cancel-btn"
                                 ng-click="x.east=false;removeShovel('east',$index);"><span>X</span></button>
                         </td>
                     </tr>
                     <tr class="total-row">
                         <td class="name-col">Total Trips</td>
-                        <td>{{shovels_total.east_coal_100_trips}}</td>
-                        <td>{{shovels_total.east_coal_120_trips}}</td>
-                        <td>{{shovels_total.east_ob_100_trips}}</td>
-                        <td>{{shovels_total.east_ob_120_trips}}</td>
+                        <td>{{shovels_total.data.east_coal_100}}</td>
+                        <td>{{shovels_total.data.east_coal_120}}</td>
+                        <td>{{shovels_total.data.east_ob_100}}</td>
+                        <td>{{shovels_total.data.east_ob_120}}</td>
                         <td></td>
                     </tr>
                     <tr class="total-row">
                         <td class="name-col">Qunatity</td>
-                        <td>{{shovels_total.east_coal}}</td>
-                        <td>{{shovels_total.east_ob}}</td>
-                        <td>{{shovels_total.west_coal}}</td>
-                        <td>{{shovels_total.west_ob}}</td>
+                        <td>{{shovels_total.qty.east_coal}}</td>
+                        <td>{{shovels_total.qty.east_ob}}</td>
+                        <td>{{shovels_total.qty.west_coal}}</td>
+                        <td>{{shovels_total.qty.west_ob}}</td>
                         <td></td>
                     </tr>
                 </table>
@@ -95,54 +95,7 @@
 
 
 
-                    <div id="west-shovels" class="section">
-                        <div class="section-header">
-                            <p>West Shovels</p>
-                        </div>
-                        <div class="section-nav">
-                            <button ng-repeat="x in shovels" ng-click="addShovel('west',$index);" ng-disabled="x.west">
-                                {{x.name}}
-                            </button>
-                        </div>
-                        <table class="data-table" ng-if="westShovels.length">
-                            <tr class="head-row">
-                                <td></td>
-                                <td ng-repeat="x in datahead.westShovels">{{x}}</td>
-                                <td></td>
-                            </tr>
-                            <tr class="unit-row">
-                                <td></td>
-                                <td ng-repeat="x in unit.westShovels track by $index">{{x}}</td>
-                                <td></td>
-                            </tr>
-                    
-                            <tr class="data-row" ng-repeat="x in westShovels">
-                                <td class="name-col">{{x.name}}</td>
-                                <td><input type="number" ng-model="x.west_coal_100_trips"></td>
-                                <td><input type="number" ng-model="x.west_coal_85_trips"></td>
-                                <td><input type="number" ng-model="x.west_ob_100_trips"></td>
-                                <td><input type="number" ng-model="x.west_ob_85_trips"></td>
-                                <td><button class="cancel-btn" ng-click="x.west=false;removeShovel('west',$index);"><span>X</span></button>
-                                </td>
-                            </tr>
-                            <tr class="total-row">
-                                <td class="name-col">Total Trips</td>
-                                <td>{{shovels_total.west_coal_100_trips}}</td>
-                                <td>{{shovels_total.west_coal_85_trips}}</td>
-                                <td>{{shovels_total.west_ob_100_trips}}</td>
-                                <td>{{shovels_total.west_ob_85_trips}}</td>
-                                <td></td>
-                            </tr>
-                            <tr class="total-row">
-                                <td class="name-col">Qunatity</td>
-                                <td>{{shovels_total.west_coal}}</td>
-                                <td>{{shovels_total.west_ob}}</td>
-                                <td>{{shovels_total.west_coal}}</td>
-                                <td>{{shovels_total.west_ob}}</td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </div>
+                  data.
 
 
 
@@ -361,8 +314,12 @@
                 <div class="section-header">
                     <p>Debug Interface</p>
                 </div>
-                <textarea name="" id="" cols="30" rows="1000" ng-model="postset"></textarea>
+                <textarea name="" id="" cols="20" rows="30" ng-model="packet_string" 
+                style="border:1px solid blue; margin:20px; width:70%;" ></textarea>
+                <button>submit</button>
             </div>
+
+
         </div>
     </div>
 
