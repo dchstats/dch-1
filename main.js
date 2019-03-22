@@ -42,9 +42,6 @@ app.controller('ctrl', function($scope) {
 				west_ob_85: null
 			};
 		};
-		set = function(data) {
-			this.data = data;
-		};
 		inflate = function() {
 			this.qty = {
 				east_coal_100: this.data.east_coal_100 * 45,
@@ -72,49 +69,59 @@ app.controller('ctrl', function($scope) {
 			};
 		};
 	}
+
 	class Dragline {
 		constructor(name) {
 			this.name = name;
 		}
 		initialize = function() {
-			this.solid_buckets = null;
-			this.rehandling_buckets = null;
-			this.wrk_hrs = null;
-			this.bd_hrs = null;
-			this.mnt_hrs = null;
-			this.remark = null;
+			this.data = {
+				name: this.name,
+				solid: null,
+				rehandling: null,
+				wrk: null,
+				bd: null,
+				mnt: null,
+				remark: null
+			};
 		};
 		inflate = function() {
-			this.solid_qty = this.solid_buckets * 13;
-			this.rehandling_qty = this.rehandling_buckets * 13;
-			this.idl_hrs = 8 - this.wrk_hrs - this.bd_hrs - this.mnt_hrs;
+			this.solid_qty = this.data.solid * 13;
+			this.rehandling_qty = this.data.rehandling * 13;
+			this.idl = 8 - this.data.wrk - this.data.bd - this.data.mnt;
 		};
 	}
+
 	class SurfaceMiner {
 		constructor(name) {
 			this.name = name;
 		}
 		initialize = function() {
-			this.wrk_hrs = null;
-			this.cutting = null;
-			this.prod = null;
-			this.remark = null;
+			this.data = {
+				name: this.name,
+				wrk: null,
+				cutting: null,
+				prod: null,
+				remark: null
+			};
 		};
-
 		inflate = function() {};
 	}
+
 	class Outsourcing {
 		constructor(name) {
 			this.name = name;
 		}
 		initialize = function() {
-			this.qty = null;
-			this.remark = null;
+			this.data = {
+				name: this.name,
+				qty: null,
+				remark: null
+			};
 		};
-
 		inflate = function() {};
 	}
-	$scope.shovel_names = [ 'P&H-1', 'P&H-2', 'P&H-13' ];
+	$scope.shovel_names = [ 'P&H-1', 'P&H-2', 'P&H-3', 'P&H-4', 'P&H-5', 'P&H-6', 'P&H-7', 'P&H-8', 'P&H-9', 'P&H-10' ];
 	$scope.dragline_names = [ 'Jyoti', 'Pawan', 'Vindhya', 'Jwala' ];
 	$scope.surface_miner_names = [ 'LnT' ];
 	$scope.outsourcing_names = [
@@ -217,18 +224,32 @@ app.controller('ctrl', function($scope) {
 				{
 					name: 'P&H-1',
 					east: true,
-					west: false,
-					east_coal_100: 1,
-					east_coal_120: 2,
-					east_ob_100: 3,
-					east_ob_120: 4,
-					west_coal_100: null,
+					west: true,
+					east_coal_100: 122,
+					east_coal_120: null,
+					east_ob_100: 5,
+					east_ob_120: null,
+					west_coal_100: 7,
 					west_coal_85: null,
-					west_ob_100: null,
+					west_ob_100: 3,
 					west_ob_85: null
 				},
 				{
 					name: 'P&H-2',
+					east: true,
+					west: true,
+					east_coal_100: 5,
+					east_coal_120: 5,
+					east_ob_100: 5,
+					east_ob_120: null,
+					west_coal_100: null,
+					west_coal_85: null,
+					west_ob_100: 5,
+					west_ob_85: null,
+					west_coal_120: 5
+				},
+				{
+					name: 'P&H-3',
 					east: false,
 					west: false,
 					east_coal_100: null,
@@ -241,24 +262,130 @@ app.controller('ctrl', function($scope) {
 					west_ob_85: null
 				},
 				{
-					name: 'P&H-13',
+					name: 'P&H-4',
+					east: true,
+					west: true,
+					east_coal_100: null,
+					east_coal_120: 458,
+					east_ob_100: null,
+					east_ob_120: null,
+					west_coal_100: null,
+					west_coal_85: null,
+					west_ob_100: null,
+					west_ob_85: null,
+					west_ob_120: 44,
+					west_coal_120: 44
+				},
+				{
+					name: 'P&H-5',
 					east: true,
 					west: false,
-					east_coal_100: 9,
-					east_coal_120: 10,
-					east_ob_100: 11,
-					east_ob_120: 12,
+					east_coal_100: 4,
+					east_coal_120: 4,
+					east_ob_100: 5,
+					east_ob_120: 5,
+					west_coal_100: null,
+					west_coal_85: null,
+					west_ob_100: null,
+					west_ob_85: null
+				},
+				{
+					name: 'P&H-6',
+					east: true,
+					west: false,
+					east_coal_100: null,
+					east_coal_120: 5,
+					east_ob_100: 55,
+					east_ob_120: null,
+					west_coal_100: null,
+					west_coal_85: null,
+					west_ob_100: null,
+					west_ob_85: null
+				},
+				{
+					name: 'P&H-7',
+					east: false,
+					west: true,
+					east_coal_100: null,
+					east_coal_120: null,
+					east_ob_100: null,
+					east_ob_120: null,
+					west_coal_100: 45,
+					west_coal_85: null,
+					west_ob_100: 22,
+					west_ob_85: null,
+					west_coal_120: 2
+				},
+				{
+					name: 'P&H-8',
+					east: true,
+					west: true,
+					east_coal_100: null,
+					east_coal_120: 5,
+					east_ob_100: null,
+					east_ob_120: null,
+					west_coal_100: 5,
+					west_coal_85: null,
+					west_ob_100: null,
+					west_ob_85: null,
+					west_coal_120: 5
+				},
+				{
+					name: 'P&H-9',
+					east: true,
+					west: true,
+					east_coal_100: 5,
+					east_coal_120: 5,
+					east_ob_100: null,
+					east_ob_120: null,
+					west_coal_100: 4,
+					west_coal_85: null,
+					west_ob_100: null,
+					west_ob_85: null,
+					west_coal_120: 1
+				},
+				{
+					name: 'P&H-10',
+					east: true,
+					west: false,
+					east_coal_100: null,
+					east_coal_120: null,
+					east_ob_100: null,
+					east_ob_120: null,
 					west_coal_100: null,
 					west_coal_85: null,
 					west_ob_100: null,
 					west_ob_85: null
 				}
+			],
+			draglines: [
+				{ name: 'Jyoti', solid: 7, rehandling: 8, wrk: 1, bd: 2, mnt: 3, remark: 'hey how are you' },
+				{ name: 'Pawan', solid: 7, rehandling: 1, wrk: 3, bd: 2, mnt: 1, remark: 'all is well' },
+				{ name: 'Vindhya', solid: 9, rehandling: 9, wrk: 1, bd: 2, mnt: 3, remark: 'i am good' },
+				{ name: 'Jwala', solid: 1, rehandling: 6, wrk: 3, bd: 2, mnt: 1, remark: 'hello brother' }
+			],
+			surfaceMiners: [ { name: 'LnT', wrk: 1, cutting: 7, prod: 156, remark: 'hare krishna' } ],
+			outsourcings: [
+				{ name: 'BGR-EAST-APT', qty: 46, remark: 'hello brother' },
+				{ name: 'GAJRAJ-WEST-APT', qty: 46, remark: 'hello world' },
+				{ name: 'GAJRAJ-EAST-APB', qty: 544, remark: 'irs broken' },
+				{ name: 'GAJRAJ-WEST-APB', qty: 45, remark: 'computer science' },
+				{ name: 'DL-EAST', qty: 57457, remark: 'power point' },
+				{ name: 'DL-WEST', qty: 585, remark: 'circle' }
 			]
 		};
 
 		angular.forEach(t.shovels, function(x, i) {
-			console.log(x);
 			$scope.shovels[i].data = x;
+		});
+		angular.forEach(t.draglines, function(x, i) {
+			$scope.draglines[i].data = x;
+		});
+		angular.forEach(t.surfaceMiners, function(x, i) {
+			$scope.surfaceMiners[i].data = x;
+		});
+		angular.forEach(t.outsourcings, function(x, i) {
+			$scope.outsourcings[i].data = x;
 		});
 	};
 
@@ -291,25 +418,27 @@ app.controller('ctrl', function($scope) {
 		angular.forEach($scope.draglines, function(x) {
 			x.inflate();
 			$scope.packet.draglines.push(x.data);
-			$scope.draglines_total.solid_buckets += x.solid_buckets;
-			$scope.draglines_total.rehandling_buckets += x.rehandling_buckets;
-			$scope.draglines_total.wrk_hrs += x.wrk_hrs;
-			$scope.draglines_total.bd_hrs += x.bd_hrs;
-			$scope.draglines_total.mnt_hrs += x.mnt_hrs;
+
+			$scope.draglines_total.data.solid += x.data.solid;
+			$scope.draglines_total.data.rehandling += x.data.rehandling;
+			$scope.draglines_total.data.wrk += x.data.wrk;
+			$scope.draglines_total.data.bd += x.data.bd;
+			$scope.draglines_total.data.mnt += x.data.mnt;
 		});
 
 		angular.forEach($scope.surfaceMiners, function(x) {
 			x.inflate();
 			$scope.packet.surfaceMiners.push(x.data);
-			$scope.surfaceMiners_total.wrk_hrs += x.wrk_hrs;
-			$scope.surfaceMiners_total.cutting += x.cutting;
-			$scope.surfaceMiners_total.prod += x.prod;
+
+			$scope.surfaceMiners_total.data.wrk += x.data.wrk;
+			$scope.surfaceMiners_total.data.cutting += x.data.cutting;
+			$scope.surfaceMiners_total.data.prod += x.data.prod;
 		});
 
 		angular.forEach($scope.outsourcings, function(x) {
 			x.inflate();
 			$scope.packet.outsourcings.push(x.data);
-			$scope.outsourcings_total.qty += x.qty;
+			$scope.outsourcings_total.data.qty += x.data.qty;
 		});
 
 		$scope.packet_string = JSON.stringify($scope.packet);
