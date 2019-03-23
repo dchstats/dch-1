@@ -106,8 +106,8 @@ textarea {
 }
 
 button {
-	min-width: 5rem;
-	height: 2.2rem;
+	min-width: 4rem;
+	height: 1.8rem;
 	margin: 5px;
 	cursor: pointer;
 	font-size: 1rem;
@@ -174,15 +174,3 @@ tr.data-row {
 }
 
 /*# sourceMappingURL=styles.css.map */
-#status {
-	width: 20%;
-	height: 2.2rem;
-	position: absolute;
-	display: flex;
-	align-items: center;
-	right: 0px;
-	padding: 5px;
-	background: rgb(53, 53, 36);
-	color:white;
-	border-radius: 2px;
-}

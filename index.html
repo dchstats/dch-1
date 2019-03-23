@@ -3,6 +3,7 @@
 
 <head>
     <title>Dudhichua Live</title>
+    <meta charset="utf-8">
     <link rel="shortcut icon" href="media/favicon.png" type="image/x-icon">
     <meta name="Description" content="Dudhichua live reports">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body ng-app="dch" ng-controller='ctrl' ng-click="refresh()">
+<body ng-app="dch" ng-controller='ctrl'>
     <div class="main-header">
         <p>Dudhichua Live Reports</p>
     </div>
@@ -27,11 +28,12 @@
         <div class="module-nav">
             <button ng-click="changeShift('prev')">prev shift</button>
             <button ng-click="changeShift('next')">next shift</button>
-            <button ng-click="fetch()"">pop</button>
+            <button ng-click="pop()"">pop</button>
                     <button ng-click=" sub()">submit</button>
-            <input id="status" ng-model="status"></input>
+
             <button onClick="moduleNav('prev')">Prev</button>
             <button onclick="moduleNav('next')">Next</button>
+            <textarea id="status" style="width:50%" cols="5" rows="5" ng-model="status"></textarea>
         </div>
         <div class="module-body">
 
@@ -63,10 +65,10 @@
 
                     <tr class="data-row" ng-repeat="x in shovels" ng-if="x.data.east">
                         <td class="name-col">{{x.name}}</td>
-                        <td><input type="number" ng-model="x.data.east_coal_100"></td>
-                        <td><input type="number" ng-model="x.data.east_coal_120"></td>
-                        <td><input type="number" ng-model="x.data.east_ob_100"></td>
-                        <td><input type="number" ng-model="x.data.east_ob_120"></td>
+                        <td><input ng-change="refresh()" type="number" ng-model="x.data.east_coal_100"></td>
+                        <td><input ng-change="refresh()" type="number" ng-model="x.data.east_coal_120"></td>
+                        <td><input ng-change="refresh()" type="number" ng-model="x.data.east_ob_100"></td>
+                        <td><input ng-change="refresh()" type="number" ng-model="x.data.east_ob_120"></td>
                         <td><button class="cancel-btn" ng-click="x.remove('east')"><span>X</span></button>
                         </td>
                     </tr>
@@ -124,13 +126,14 @@
                     </tr>
                     <tr class="data-row" ng-repeat="x in draglines">
                         <td class="name-col">{{x.name}}</td>
-                        <td><input type="number" ng-model="x.data.solid"></td>
-                        <td><input type="number" ng-model="x.data.rehandling"></td>
+                        <td><input ng-change="refresh()" type="number" ng-model="x.data.solid"></td>
+                        <td><input ng-change="refresh()" type="number" ng-model="x.data.rehandling"></td>
                         <td>
-                            <input type="number" ng-model="x.data.wrk" class="drg-hrs">
-                            <input type="number" ng-model="x.data.bd" class="drg-hrs">
-                            <input type="number" ng-model="x.data.mnt" class="drg-hrs">
-                            <input type="text" ng-model="x.idl" ng-disabled="true" class="drg-hrs">
+                            <input ng-change="refresh()" type="number" ng-model="x.data.wrk" class="drg-hrs">
+                            <input ng-change="refresh()" type="number" ng-model="x.data.bd" class="drg-hrs">
+                            <input ng-change="refresh()" type="number" ng-model="x.data.mnt" class="drg-hrs">
+                            <input ng-change="refresh()" type="text" ng-model="x.idl" ng-disabled="true"
+                                class="drg-hrs">
                         </td>
                         <td><textarea name="" id="" cols="10" rows="1" ng-model="x.data.remark"></textarea></td>
                     </tr>
@@ -175,9 +178,9 @@
                     </tr>
                     <tr class="data-row" ng-repeat="x in surfaceMiners">
                         <td class="name-col">{{x.name}}</td>
-                        <td><input type="number" name="" id="" ng-model="x.data.wrk"></td>
-                        <td><input type="number" name="" id="" ng-model="x.data.cutting"></td>
-                        <td><input type="number" name="" id="" ng-model="x.data.prod"></td>
+                        <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.wrk"></td>
+                        <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.cutting"></td>
+                        <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.prod"></td>
                         <td><textarea name="" id="" cols="20" rows="1" ng-model="x.data.remark"></textarea></td>
                     </tr>
                     <tr class="total-row">
@@ -205,7 +208,7 @@
                     </tr>
                     <tr class="data-row" ng-repeat="x in outsourcings">
                         <td class="name-col">{{x.name}}</td>
-                        <td><input type="number" name="" id="" ng-model="x.data.qty"></td>
+                        <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.qty"></td>
                         <td><textarea name="" id="" cols="40" rows="1" ng-model="x.data.remark"></textarea></td>
                     </tr>
                     <tr class="total-row">

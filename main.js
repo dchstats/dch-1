@@ -23,7 +23,7 @@ function moduleNav(arg) {
 var app = angular.module('dch', []);
 
 app.controller('ctrl', function ($scope, $http) {
-	$scope.status="hi";
+	$scope.status = 'hi';
 	$scope.shifts = ['Night', 'First', 'Second'];
 	$scope.diff = 0;
 	findShift();
@@ -49,9 +49,7 @@ app.controller('ctrl', function ($scope, $http) {
 			$scope.diff += 1;
 		}
 		findShift();
-	}
-
-
+	};
 
 	class Shovel {
 		constructor(name) {
@@ -73,22 +71,22 @@ app.controller('ctrl', function ($scope, $http) {
 			};
 		};
 
-		remove=function(arg){
-			if(arg=='east'){
-				this.data.east=false;
-				this.data.east_coal_100=null;
-				this.data.east_coal_120=null;
-				this.data.east_ob_100=null;
-				this.data.east_ob_120=null;				
+		remove = function (arg) {
+			if (arg == 'east') {
+				this.data.east = false;
+				this.data.east_coal_100 = null;
+				this.data.east_coal_120 = null;
+				this.data.east_ob_100 = null;
+				this.data.east_ob_120 = null;
 			}
-			if(arg=='west'){
-				this.data.west=false;
-				this.data.west_coal_100=null;
-				this.data.west_coal_85=null;
-				this.data.west_ob_100=null;
-				this.data.west_ob_85=null;	
+			if (arg == 'west') {
+				this.data.west = false;
+				this.data.west_coal_100 = null;
+				this.data.west_coal_85 = null;
+				this.data.west_ob_100 = null;
+				this.data.west_ob_85 = null;
 			}
-		}
+		};
 		inflate = function () {
 			this.qty = {
 				east_coal_100: this.data.east_coal_100 * 45,
@@ -208,7 +206,6 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.outsourcings.push(temp);
 	});
 
-
 	$scope.datahead = {
 		eastShovels: ['Coal-100', 'Coal-120', 'OB-100', 'OB-120'],
 		westShovels: ['Coal-100', 'Coal-85', 'OB-100', 'OB-85'],
@@ -225,14 +222,12 @@ app.controller('ctrl', function ($scope, $http) {
 		outsourcing: ['cum', '']
 	};
 
-
-
 	$scope.shovels_total = new Shovel('total');
 	$scope.draglines_total = new Dragline('total');
 	$scope.surfaceMiners_total = new SurfaceMiner('total');
 	$scope.outsourcings_total = new Outsourcing('total');
 
-	$scope.fetch = function () {
+	$scope.pop = function () {
 		var t = {
 			shovels: [
 				{
@@ -387,6 +382,7 @@ app.controller('ctrl', function ($scope, $http) {
 				{ name: 'DL-EAST', qty: 57457, remark: 'power point' },
 				{ name: 'DL-WEST', qty: 585, remark: 'circle' }
 			]
+
 		};
 
 		angular.forEach(t.shovels, function (x, i) {
@@ -402,10 +398,8 @@ app.controller('ctrl', function ($scope, $http) {
 			$scope.outsourcings[i].data = x;
 		});
 
-
+		$scope.refresh();
 	};
-
-
 
 	$scope.refresh = function () {
 		$scope.packet = {
@@ -460,29 +454,34 @@ app.controller('ctrl', function ($scope, $http) {
 			$scope.outsourcings_total.data.qty += x.data.qty;
 		});
 
-		$scope.packet_string = JSON.stringify($scope.packet);
 
 		$scope.shovels_total.inflate();
 		$scope.draglines_total.inflate();
 		$scope.surfaceMiners_total.inflate();
 		$scope.outsourcings_total.inflate();
+
 	};
 
 	$scope.sub = function () {
-		console.log('k')
+		$scope.refresh();
+		$scope.packet_string = JSON.stringify($scope.packet);
+		var payload = { shift: $scope.shift, t: $scope.packet_string };
 		var req = {
 			method: 'POST',
 			url: 'shift.php',
 			headers: {
 				'Content-Type': undefined
 			},
-			data: $scope.packet
-		}
+			data: payload
+		};
 
-		$http(req).then(function (res) {
-			$scope.status="data submitted";
-		}, function () {
-			$scope.status="data submission failed.";
-		});
-	}
+		$http(req).then(
+			function (res) {
+				$scope.status = JSON.stringify(res.data);
+			},
+			function () {
+				$scope.status = 'data submission failed.';
+			}
+		);
+	};
 });
