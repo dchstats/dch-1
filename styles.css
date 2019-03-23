@@ -16,7 +16,7 @@ body {
 }
 
 .main-header {
-	height: 4rem;
+	height: 3rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -34,28 +34,24 @@ body {
 }
 
 .module {
-	min-height: 1200px;
 	margin: 0 auto;
 }
 
 .module-header {
-	height: 2.5rem;
-	margin-bottom: 10px;
+	height: 2rem;
 	padding: 0 1rem;
 	display: flex;
 	align-items: center;
 	background: deepskyblue;
 	color: white;
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	border-radius: 3px 3px 0px 0px;
 }
 
 .module-nav {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: middle;
 	align-items: center;
-	margin-bottom: 10px;
-	padding: 0 1rem;
 }
 
 .section {
@@ -67,14 +63,14 @@ body {
 }
 
 .section-header {
-	height: 3rem;
+	height: 2rem;
 	padding: 5px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background-color: deepskyblue;
 	color: white;
-	font-size: 1.5rem;
+	font-size: 1rem;
 }
 
 .section-nav {
@@ -122,7 +118,8 @@ button {
 	border-radius: 2px;
 }
 button:hover {
-	background: darkorchid;
+	/* background: darkorchid; */
+	background: rgb(72, 138, 72);
 }
 button:active {
 	transform: scale(0.95);
@@ -177,3 +174,15 @@ tr.data-row {
 }
 
 /*# sourceMappingURL=styles.css.map */
+#status {
+	width: 20%;
+	height: 2.2rem;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	right: 0px;
+	padding: 5px;
+	background: rgb(53, 53, 36);
+	color:white;
+	border-radius: 2px;
+}

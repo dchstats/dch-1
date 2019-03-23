@@ -23,7 +23,7 @@ function moduleNav(arg) {
 var app = angular.module('dch', []);
 
 app.controller('ctrl', function ($scope, $http) {
-
+	$scope.status="hi";
 	$scope.shifts = ['Night', 'First', 'Second'];
 	$scope.diff = 0;
 	findShift();
@@ -72,6 +72,23 @@ app.controller('ctrl', function ($scope, $http) {
 				west_ob_85: null
 			};
 		};
+
+		remove=function(arg){
+			if(arg=='east'){
+				this.data.east=false;
+				this.data.east_coal_100=null;
+				this.data.east_coal_120=null;
+				this.data.east_ob_100=null;
+				this.data.east_ob_120=null;				
+			}
+			if(arg=='west'){
+				this.data.west=false;
+				this.data.west_coal_100=null;
+				this.data.west_coal_85=null;
+				this.data.west_ob_100=null;
+				this.data.west_ob_85=null;	
+			}
+		}
 		inflate = function () {
 			this.qty = {
 				east_coal_100: this.data.east_coal_100 * 45,
@@ -462,10 +479,10 @@ app.controller('ctrl', function ($scope, $http) {
 			data: $scope.packet
 		}
 
-		$http(req).then(function () {
-			console.log('yay');
+		$http(req).then(function (res) {
+			$scope.status="data submitted";
 		}, function () {
-			console.log('nay');
+			$scope.status="data submission failed.";
 		});
 	}
 });
