@@ -9,10 +9,19 @@ function begin() {
 
 function moduleNav(arg) {
 	var last = section;
-	if (arg == 'next' && section < t.length - 1) {
-		section++;
-	} else if (arg == 'prev' && section > 0) {
-		section--;
+	if (arg == 'next') {
+		if (section == t.length-1) {
+			section = 0;
+		} else {
+			section++;
+		}	
+	} else if (arg == 'prev') {
+		if (section == 0) {
+			section = t.length-1;
+		}
+		else {
+			section--;
+		}	
 	}
 	if (last != section) {
 		$(t[last]).hide();
@@ -58,6 +67,7 @@ app.controller('ctrl', function ($scope, $http) {
 				this.data.west_ob_100 = null;
 				this.data.west_ob_85 = null;
 			}
+			$scope.refresh();
 		};
 		inflate = function () {
 			this.qty = {
@@ -260,16 +270,17 @@ app.controller('ctrl', function ($scope, $http) {
 
 		$http(req).then(
 			function (res) {
-				if (res.data.length > 0) {
-					console.log(res.data[0]);
-					var sft = res.data[0].shift;
-					var os = res.data[0].data;
-					var obj = JSON.parse(os);
-					$scope.status = '[' + sft + ']';
+				var records = res.data.length;
+				if (records > 0) {
+					var p = res.data[records-1];
+					var sft = p.shift;
+					var obj_ = p.data;
+					var obj = JSON.parse(obj_);
+					$scope.status = "Data fetched from server";
 					pop(obj);					
 				}
 				else {
-					$scope.status = "no data available on server";
+					$scope.status = "no data on server";
 				}
 			},
 			function () {
@@ -298,7 +309,7 @@ app.controller('ctrl', function ($scope, $http) {
 
 
 	$scope.changeShift = function (arg) {
-
+		$scope.status = "- - - - - - - - - -";
 		if (arg == 'next') {
 			$scope.shift += 1;
 		}
@@ -306,6 +317,7 @@ app.controller('ctrl', function ($scope, $http) {
 			$scope.shift -= 1;
 		}	
 		updateShiftData();
+		$scope.refresh();
 	};
 
 
@@ -345,6 +357,7 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.draglines_total.initialize();
 		$scope.surfaceMiners_total.initialize();
 		$scope.outsourcings_total.initialize();
+		console.log($scope.shovels_total);
 
 		angular.forEach($scope.shovels, function (x) { 
 			x.inflate();

@@ -21,14 +21,14 @@ if($command=='post'){
     VALUES ('$shift', '$data')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+        echo 'updated';
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo $conn->error;
     }
 }
 else if($command=='get'){
     $shift=$req->shift;
-    $sql = "SELECT shift, data  FROM shift WHERE shift=".$shift;
+    $sql = "SELECT shift, data  FROM shift WHERE shift=".$shift." order by id";
     $result = mysqli_query($conn, $sql);
     $rows = array();
     while($r = mysqli_fetch_assoc($result)) {

@@ -1,5 +1,4 @@
-card,
-button {
+card {
 	box-shadow: 0px 3px 5px 0px #444;
 }
 
@@ -18,11 +17,10 @@ body {
 .main-header {
 	height: 3rem;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	background: purple;
 	color: white;
-	font-size: 2rem;
 }
 
 .main-nav {
@@ -38,12 +36,11 @@ body {
 }
 
 .module-header {
-	height: 2rem;
+	height: 3rem;
 	padding: 0 1rem;
 	display: flex;
 	align-items: center;
-	background: deepskyblue;
-	color: white;
+	justify-content: space-between;
 	font-size: 1.2rem;
 	border-radius: 3px 3px 0px 0px;
 }
@@ -122,7 +119,7 @@ button:hover {
 	background: rgb(72, 138, 72);
 }
 button:active {
-	transform: scale(0.95);
+	transform: scale(0.98);
 }
 button:disabled {
 	background: lightgrey;
@@ -173,4 +170,8 @@ tr.data-row {
 	max-width: 50px;
 }
 
+
 /*# sourceMappingURL=styles.css.map */
+.main-header div{
+	width:33.33%;
+}
