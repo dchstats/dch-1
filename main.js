@@ -157,13 +157,7 @@ app.controller('ctrl', function ($scope, $http) {
 	$scope.surfaceMiners = [];
 	$scope.outsourcings = [];
 	$scope.shifts = ['Night', 'First', 'Second'];
-	$scope.packet = {
-		shift: $scope.shift,
-		shovels: [],
-		draglines: [],
-		surfaceMiners: [],
-		outsourcings: []
-	};
+	
 
 
 	angular.forEach($scope.shovel_names, function (x) {
@@ -266,13 +260,13 @@ app.controller('ctrl', function ($scope, $http) {
 
 		$http(req).then(
 			function (res) {
-				console.log(res.data.length);
-				if (res.data.length>0) {
+				if (res.data.length > 0) {
+					console.log(res.data[0]);
 					var sft = res.data[0].shift;
 					var os = res.data[0].data;
 					var obj = JSON.parse(os);
-					pop(obj);
-					$scope.status = '['+ sft+']';
+					$scope.status = '[' + sft + ']';
+					pop(obj);					
 				}
 				else {
 					$scope.status = "no data available on server";
@@ -298,7 +292,6 @@ app.controller('ctrl', function ($scope, $http) {
 		angular.forEach(t.outsourcings, function (x, i) {
 			$scope.outsourcings[i].data = x;
 		});
-
 		$scope.refresh();
 	};
 
@@ -311,7 +304,7 @@ app.controller('ctrl', function ($scope, $http) {
 		}
 		if (arg == 'prev') {
 			$scope.shift -= 1;
-		}
+		}	
 		updateShiftData();
 	};
 
@@ -341,13 +334,19 @@ app.controller('ctrl', function ($scope, $http) {
 	};
 
 	$scope.refresh = function () {
-
+		$scope.packet = {
+			shift: $scope.shift,
+			shovels: [],
+			draglines: [],
+			surfaceMiners: [],
+			outsourcings: []
+		};
 		$scope.shovels_total.initialize();
 		$scope.draglines_total.initialize();
 		$scope.surfaceMiners_total.initialize();
 		$scope.outsourcings_total.initialize();
 
-		angular.forEach($scope.shovels, function (x) {
+		angular.forEach($scope.shovels, function (x) { 
 			x.inflate();
 			$scope.packet.shovels.push(x.data);
 			$scope.shovels_total.data.east_coal_100 += x.data.east_coal_100;
@@ -391,7 +390,6 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.draglines_total.inflate();
 		$scope.surfaceMiners_total.inflate();
 		$scope.outsourcings_total.inflate();
-
 	};
 
 

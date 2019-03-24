@@ -26,8 +26,8 @@
             <span>[{{shift}}] {{date}}, {{shiftName}} Shift</span>
         </div>
         <div class="module-nav">
-            <button ng-click="changeShift('prev')">prev shift</button>
-            <button ng-click="changeShift('next')">next shift</button>
+            <button ng-disabled="shift<2" ng-click="changeShift('prev')">prev shift</button>
+            <button ng-disabled="shift==lastShift" ng-click="changeShift('next')">next shift</button>
             <div class="spacer">////////////////////</div>
             <button ng-click=" sub()">submit</button>
             <div class="spacer">///////////////</div>
