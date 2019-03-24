@@ -28,12 +28,13 @@
         <div class="module-nav">
             <button ng-click="changeShift('prev')">prev shift</button>
             <button ng-click="changeShift('next')">next shift</button>
-            <button ng-click="pop()"">pop</button>
-                    <button ng-click=" sub()">submit</button>
-
+            <div class="spacer">////////////////////</div>
+            <button ng-click=" sub()">submit</button>
+            <div class="spacer">///////////////</div>
+            <textarea id="status" style="max-width:20%" cols="1" rows="1" ng-model="status"></textarea>
+            <div class="spacer">///////////////</div>
             <button onClick="moduleNav('prev')">Prev</button>
             <button onclick="moduleNav('next')">Next</button>
-            <textarea id="status" style="width:50%" cols="5" rows="5" ng-model="status"></textarea>
         </div>
         <div class="module-body">
 

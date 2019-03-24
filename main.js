@@ -23,34 +23,6 @@ function moduleNav(arg) {
 var app = angular.module('dch', []);
 
 app.controller('ctrl', function ($scope, $http) {
-	$scope.status = 'hi';
-	$scope.shifts = ['Night', 'First', 'Second'];
-	$scope.diff = 0;
-	findShift();
-	function findShift() {
-		var a = new Date(2019, 2, 22, 6, 0, 0, 0);
-		var b = a.getTime();
-		var c = new Date();
-		var d = Math.floor((c - b) / (8 * 3600 * 1000)) - $scope.diff;
-		var e = Math.floor((d - 1) / 3);
-		var f = a.getTime() + e * 24 * 3600 * 1000;
-		var g = new Date(f);
-		var h = g.getDate() + '/' + (g.getMonth() + 1) + '/' + g.getFullYear();
-		var i = d % 3;
-		$scope.shift = d;
-		$scope.date = h;
-		$scope.shiftName = $scope.shifts[i];
-	}
-	$scope.changeShift = function (arg) {
-		if (arg == 'next' && $scope.diff > 0) {
-			$scope.diff -= 1;
-		}
-		if (arg == 'prev' && $scope.shift > 1) {
-			$scope.diff += 1;
-		}
-		findShift();
-	};
-
 	class Shovel {
 		constructor(name) {
 			this.name = name;
@@ -166,6 +138,9 @@ app.controller('ctrl', function ($scope, $http) {
 		};
 		inflate = function () { };
 	}
+
+
+
 	$scope.shovel_names = ['P&H_1', 'P&H_2', 'P&H_3', 'P&H_4', 'P&H_5', 'P&H_6', 'P&H_7', 'P&H_8', 'P&H_9', 'P&H_10'];
 	$scope.dragline_names = ['Jyoti', 'Pawan', 'Vindhya', 'Jwala'];
 	$scope.surface_miner_names = ['LnT'];
@@ -181,9 +156,15 @@ app.controller('ctrl', function ($scope, $http) {
 	$scope.draglines = [];
 	$scope.surfaceMiners = [];
 	$scope.outsourcings = [];
+	$scope.shifts = ['Night', 'First', 'Second'];
+	$scope.packet = {
+		shift: $scope.shift,
+		shovels: [],
+		draglines: [],
+		surfaceMiners: [],
+		outsourcings: []
+	};
 
-	$scope.eastShovels = [];
-	$scope.westShovels = [];
 
 	angular.forEach($scope.shovel_names, function (x) {
 		var temp = new Shovel(x);
@@ -206,6 +187,7 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.outsourcings.push(temp);
 	});
 
+
 	$scope.datahead = {
 		eastShovels: ['Coal-100', 'Coal-120', 'OB-100', 'OB-120'],
 		westShovels: ['Coal-100', 'Coal-85', 'OB-100', 'OB-85'],
@@ -227,163 +209,82 @@ app.controller('ctrl', function ($scope, $http) {
 	$scope.surfaceMiners_total = new SurfaceMiner('total');
 	$scope.outsourcings_total = new Outsourcing('total');
 
-	$scope.pop = function () {
-		var t = {
-			shovels: [
-				{
-					name: 'P&H_1',
-					east: true,
-					west: true,
-					east_coal_100: 122,
-					east_coal_120: null,
-					east_ob_100: 5,
-					east_ob_120: null,
-					west_coal_100: 7,
-					west_coal_85: null,
-					west_ob_100: 3,
-					west_ob_85: null
-				},
-				{
-					name: 'P&H_2',
-					east: true,
-					west: true,
-					east_coal_100: 5,
-					east_coal_120: 5,
-					east_ob_100: 5,
-					east_ob_120: null,
-					west_coal_100: null,
-					west_coal_85: null,
-					west_ob_100: 5,
-					west_ob_85: null,
-					west_coal_120: 5
-				},
-				{
-					name: 'P&H_3',
-					east: false,
-					west: false,
-					east_coal_100: null,
-					east_coal_120: null,
-					east_ob_100: null,
-					east_ob_120: null,
-					west_coal_100: null,
-					west_coal_85: null,
-					west_ob_100: null,
-					west_ob_85: null
-				},
-				{
-					name: 'P&H_4',
-					east: true,
-					west: true,
-					east_coal_100: null,
-					east_coal_120: 458,
-					east_ob_100: null,
-					east_ob_120: null,
-					west_coal_100: null,
-					west_coal_85: null,
-					west_ob_100: null,
-					west_ob_85: null,
-					west_ob_120: 44,
-					west_coal_120: 44
-				},
-				{
-					name: 'P&H_5',
-					east: true,
-					west: false,
-					east_coal_100: 4,
-					east_coal_120: 4,
-					east_ob_100: 5,
-					east_ob_120: 5,
-					west_coal_100: null,
-					west_coal_85: null,
-					west_ob_100: null,
-					west_ob_85: null
-				},
-				{
-					name: 'P&H_6',
-					east: true,
-					west: false,
-					east_coal_100: null,
-					east_coal_120: 5,
-					east_ob_100: 55,
-					east_ob_120: null,
-					west_coal_100: null,
-					west_coal_85: null,
-					west_ob_100: null,
-					west_ob_85: null
-				},
-				{
-					name: 'P&H_7',
-					east: false,
-					west: true,
-					east_coal_100: null,
-					east_coal_120: null,
-					east_ob_100: null,
-					east_ob_120: null,
-					west_coal_100: 45,
-					west_coal_85: null,
-					west_ob_100: 22,
-					west_ob_85: null,
-					west_coal_120: 2
-				},
-				{
-					name: 'P&H_8',
-					east: true,
-					west: true,
-					east_coal_100: null,
-					east_coal_120: 5,
-					east_ob_100: null,
-					east_ob_120: null,
-					west_coal_100: 5,
-					west_coal_85: null,
-					west_ob_100: null,
-					west_ob_85: null,
-					west_coal_120: 5
-				},
-				{
-					name: 'P&H_9',
-					east: true,
-					west: true,
-					east_coal_100: 5,
-					east_coal_120: 5,
-					east_ob_100: null,
-					east_ob_120: null,
-					west_coal_100: 4,
-					west_coal_85: null,
-					west_ob_100: null,
-					west_ob_85: null,
-					west_coal_120: 1
-				},
-				{
-					name: 'P&H_10',
-					east: true,
-					west: false,
-					east_coal_100: null,
-					east_coal_120: null,
-					east_ob_100: null,
-					east_ob_120: null,
-					west_coal_100: null,
-					west_coal_85: null,
-					west_ob_100: null,
-					west_ob_85: null
-				}
-			],
-			draglines: [
-				{ name: 'Jyoti', solid: 7, rehandling: 8, wrk: 1, bd: 2, mnt: 3, remark: 'hey how are you' },
-				{ name: 'Pawan', solid: 7, rehandling: 1, wrk: 3, bd: 2, mnt: 1, remark: 'all is well' },
-				{ name: 'Vindhya', solid: 9, rehandling: 9, wrk: 1, bd: 2, mnt: 3, remark: 'i am good' },
-				{ name: 'Jwala', solid: 1, rehandling: 6, wrk: 3, bd: 2, mnt: 1, remark: 'hello brother' }
-			],
-			surfaceMiners: [{ name: 'LnT', wrk: 1, cutting: 7, prod: 156, remark: 'hare krishna' }],
-			outsourcings: [
-				{ name: 'BGR-EAST-APT', qty: 46, remark: 'hello brother' },
-				{ name: 'GAJRAJ-WEST-APT', qty: 46, remark: 'hello world' },
-				{ name: 'GAJRAJ-EAST-APB', qty: 544, remark: 'irs broken' },
-				{ name: 'GAJRAJ-WEST-APB', qty: 45, remark: 'computer science' },
-				{ name: 'DL-EAST', qty: 57457, remark: 'power point' },
-				{ name: 'DL-WEST', qty: 585, remark: 'circle' }
-			]
 
+
+	$scope.status = '----------';
+
+
+	getLastShift();
+	updateShiftData();
+
+
+	function getLastShift() {
+		var a = new Date(2019, 2, 22, 6, 0, 0, 0);
+		var b = a.getTime();
+		var c = new Date();
+		var d = Math.floor((c - b) / (8 * 3600 * 1000));
+		$scope.beginTime = b;
+		$scope.lastShift = d;
+		$scope.shift = d;
+	}
+
+
+	function updateShiftData() {
+		var d = $scope.shift;
+		var e = Math.floor((d - 1) / 3);
+		var f = $scope.beginTime + e * 24 * 3600 * 1000;
+		var g = new Date(f);
+		var h = g.getDate() + '/' + (g.getMonth() + 1) + '/' + g.getFullYear();
+		var i = d % 3;
+		$scope.date = h;
+		$scope.shiftName = $scope.shifts[i];
+		angular.forEach($scope.shovels, function (x, i) {
+			x.initialize();
+		});
+		angular.forEach($scope.draglines, function (x, i) {
+			x.initialize();
+		});
+		angular.forEach($scope.surfaceMiners, function (x, i) {
+			x.initialize();
+		});
+		angular.forEach($scope.outsourcings, function (x, i) {
+			x.initialize();
+		});
+		fetch();
+	}
+
+	function fetch() {
+		var payload = { command: 'get', shift: $scope.shift };
+		var req = {
+			method: 'POST',
+			url: 'shift.php',
+			headers: {
+				'Content-Type': undefined
+			},
+			data: payload
 		};
+
+		$http(req).then(
+			function (res) {
+				console.log(res.data.length);
+				if (res.data.length>0) {
+					var sft = res.data[0].shift;
+					var os = res.data[0].data;
+					var obj = JSON.parse(os);
+					pop(obj);
+					$scope.status = '['+ sft+']';
+				}
+				else {
+					$scope.status = "no data available on server";
+				}
+			},
+			function () {
+				$scope.status = 'request failed.';
+			}
+		);
+	}
+
+	function pop(t) {
 
 		angular.forEach(t.shovels, function (x, i) {
 			$scope.shovels[i].data = x;
@@ -401,14 +302,45 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.refresh();
 	};
 
-	$scope.refresh = function () {
-		$scope.packet = {
-			shift: $scope.shift,
-			shovels: [],
-			draglines: [],
-			surfaceMiners: [],
-			outsourcings: []
+
+
+	$scope.changeShift = function (arg) {
+
+		if (arg == 'next') {
+			$scope.shift += 1;
+		}
+		if (arg == 'prev') {
+			$scope.shift -= 1;
+		}
+		updateShiftData();
+	};
+
+
+	$scope.sub = function () {
+	
+		$scope.packet_string = JSON.stringify($scope.packet);
+
+		var payload = { command: 'post', shift: $scope.shift, t: $scope.packet_string };
+		var req = {
+			method: 'POST',
+			url: 'shift.php',
+			headers: {
+				'Content-Type': undefined
+			},
+			data: payload
 		};
+
+		$http(req).then(
+			function (res) {
+				$scope.status = JSON.stringify(res.data);
+			},
+			function () {
+				$scope.status = 'data submission failed.';
+			}
+		);
+	};
+
+	$scope.refresh = function () {
 
 		$scope.shovels_total.initialize();
 		$scope.draglines_total.initialize();
@@ -462,26 +394,5 @@ app.controller('ctrl', function ($scope, $http) {
 
 	};
 
-	$scope.sub = function () {
-		$scope.refresh();
-		$scope.packet_string = JSON.stringify($scope.packet);
-		var payload = { shift: $scope.shift, t: $scope.packet_string };
-		var req = {
-			method: 'POST',
-			url: 'shift.php',
-			headers: {
-				'Content-Type': undefined
-			},
-			data: payload
-		};
 
-		$http(req).then(
-			function (res) {
-				$scope.status = JSON.stringify(res.data);
-			},
-			function () {
-				$scope.status = 'data submission failed.';
-			}
-		);
-	};
 });
