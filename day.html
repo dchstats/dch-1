@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title>Dudhichua Live</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="media/favicon.png" type="image/x-icon">
+    <meta name="Description" content="Dudhichua live reports">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="day.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body ng-app="dch" ng-controller='ctrl'>
+    <div class="main-header">
+        <div>
+            <button ng-disabled="day==0" ng-click="changeDay('prev')">prev</button>
+            <span> [{{day}}-{{s1}}|{{s2}}|{{s3}}] {{date}}</span>
+            <button ng-disabled="day==lastDay" ng-click="changeDay('next')">next</button>
+        </div>
+        <div style="font-size:1.5rem">
+            <p>DCH Live - Shift End Report</p>
+        </div>
+
+        <div>
+            <button style="float:right" ng-click="sub()">submit</button>
+        </div>
+    </div>
+
+    <div id='day'>
+        <div class="module-header">
+            <input ng-model="status" style="width:500px"></input>
+        </div>
+        <div id="shift-summary" class="section">
+            <div class="section-header">
+                <p>Shift Summary</p>
+            </div>
+            <table class="data-table">
+                <tr class="head-row">
+                    <td></td>
+                    <td>Coal</td>
+                    <td>Deptt OB</td>
+                    <td>Out OB</td>
+                </tr>
+                <tr class="data-row">
+                    <td>Shovel-Dumper</td>
+                    <td>{{shovels_total.qty.coal}}</td>
+                    <td>{{shovels_total.qty.ob}}</td>
+                    <td>{{outsourcings_total.data.qty}}</td>
+                </tr>
+                <tr class="data-row">
+                    <td>SM/Dragline</td>
+                    <td>{{surfaceMiners_total.data.prod}}</td>
+                    <td>{{draglines_total.solid_qty+draglines_total.rehandling_qty}}</td>
+                    <td>0</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total</td>
+                    <td>{{shovels_total.coal+surfaceMiners[0].data[2]}}</td>
+                    <td>{{shovels_total.ob+draglinesTotal.data[0]}}</td>
+                    <td>0</td>
+                </tr>
+            </table>
+
+
+            <div style="height:50px"></div>
+
+
+            <table class="data-table">
+                <tr class="head-row">
+                    <td class="name-col">Shovel</td>
+                    <td>East Coal</td>
+                    <td>East OB</td>
+                    <td>West Coal</td>
+                    <td>West OB</td>
+                    <td>Coal</td>
+                    <td>OB</td>
+                </tr>
+                <tr class="unit-row">
+                    <td></td>
+                    <td>Te</td>
+                    <td>cum</td>
+                    <td>Te</td>
+                    <td>cum</td>
+                    <td>Te</td>
+                    <td>cum</td>
+                </tr>
+                <tr class="data-row" ng-repeat="x in shovels|filter:{$:true}">
+                    <td class="name-col">{{x.name}}</td>
+                    <td>{{x.qty.east_coal}}</td>
+                    <td>{{x.qty.east_ob}}</td>
+                    <td>{{x.qty.west_coal}}</td>
+                    <td>{{x.qty.west_ob}}</td>
+                    <td>{{x.qty.coal}}</td>
+                    <td>{{x.qty.ob}}</td>
+                </tr>
+                <tr class="total-row">
+                    <td class="name-col">Quantity</td>
+                    <td>{{shovels_total.qty.east_coal}} Te</td>
+                    <td>{{shovels_total.qty.east_ob}} Te</td>
+                    <td>{{shovels_total.qty.west_coal}} cum</td>
+                    <td>{{shovels_total.qty.west_ob}} cum</td>
+                    <td>{{shovels_total.qty.coal}} Te</td>
+                    <td>{{shovels_total.qty.ob}} cum</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
