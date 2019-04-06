@@ -1,30 +1,21 @@
 $(begin);
 
 function begin() {
-	section = 1;
+	section = 0;
 	t = $('.section');
 	t.hide();
 	$(t[section]).show();
 }
 
 function moduleNav(arg) {
-	var last = section;
-	if (arg == 'next') {
-		if (section == t.length-1) {
-			section = 0;
-		} else {
-			section++;
-		}
-	} else if (arg == 'prev') {
-		if (section == 0) {
-			section = t.length-1;
-		}
-		else {
-			section--;
-		}
+	if (arg == 'next' && section < t.length - 1) {
+		section++;
+		t.hide();
+		$(t[section]).slideDown(100);
 	}
-	if (last != section) {
-		$(t[last]).hide();
+	else if (arg == 'prev' && section > 0) {
+		section--;
+		t.hide();
 		$(t[section]).slideDown(100);
 	}
 }
@@ -35,23 +26,23 @@ app.controller('ctrl', function ($scope, $http) {
 
 	class Shovel {
 		constructor(name) {
-				this.name = name;
-			}
+			this.name = name;
+		}
 		initialize = function () {
-				this.data = {
-					name: this.name,
-					east: false,
-					west: false,
-					east_coal_100: null,
-					east_coal_120: null,
-					east_ob_100: null,
-					east_ob_120: null,
-					west_coal_100: null,
-					west_coal_85: null,
-					west_ob_100: null,
-					west_ob_85: null
-				};
+			this.data = {
+				name: this.name,
+				east: false,
+				west: false,
+				east_coal_100: null,
+				east_coal_120: null,
+				east_ob_100: null,
+				east_ob_120: null,
+				west_coal_100: null,
+				west_coal_85: null,
+				west_ob_100: null,
+				west_ob_85: null
 			};
+		};
 		remove = function (arg) {
 			if (arg == 'east') {
 				this.data.east = false;
@@ -95,16 +86,16 @@ app.controller('ctrl', function ($scope, $http) {
 					this.data.west_ob_85 * 21
 			};
 		};
-		sum=function(x){
-				this.data.east_coal_100+=x.data.east_coal_100;
-				this.data.east_coal_120+=x.data.east_coal_120;
-				this.data.east_ob_100+=x.data.east_ob_100;
-				this.data.east_ob_120+=x.data.east_ob_120;
-				this.data.west_coal_100+=x.data.west_coal_100;
-				this.data.west_coal_85+=x.data.west_coal_85;
-				this.data.west_ob_100+=x.data.west_ob_100;
-				this.data.west_ob_85+=x.data.west_ob_85;
-			};
+		sum = function (x) {
+			this.data.east_coal_100 += x.data.east_coal_100;
+			this.data.east_coal_120 += x.data.east_coal_120;
+			this.data.east_ob_100 += x.data.east_ob_100;
+			this.data.east_ob_120 += x.data.east_ob_120;
+			this.data.west_coal_100 += x.data.west_coal_100;
+			this.data.west_coal_85 += x.data.west_coal_85;
+			this.data.west_ob_100 += x.data.west_ob_100;
+			this.data.west_ob_85 += x.data.west_ob_85;
+		};
 	}
 
 	class Dragline {
@@ -158,12 +149,8 @@ app.controller('ctrl', function ($scope, $http) {
 		};
 		inflate = function () { };
 	}
-	appGlobals();
-	appInitialize();
-	getLastShift();
-	updateShiftData();
 
-	function appGlobals() {
+	function appInitialize() {
 		$scope.shovel_names = ['P&H_1', 'P&H_2', 'P&H_3', 'P&H_4', 'P&H_5', 'P&H_6', 'P&H_7', 'P&H_8', 'P&H_9', 'P&H_10'];
 		$scope.dragline_names = ['Jyoti', 'Pawan', 'Vindhya', 'Jwala'];
 		$scope.surface_miner_names = ['LnT'];
@@ -198,9 +185,6 @@ app.controller('ctrl', function ($scope, $http) {
 			surfaceMiners: ['hrs', 'mtrs', 'Te', ''],
 			outsourcing: ['cum', '']
 		};
-}
-
-	function appInitialize() {
 		angular.forEach($scope.shovel_names, function (x) {
 			var temp = new Shovel(x);
 			temp.initialize();
@@ -259,7 +243,12 @@ app.controller('ctrl', function ($scope, $http) {
 		angular.forEach($scope.outsourcings, function (x, i) {
 			x.initialize();
 		});
-		fetch();
+		// fetch();
+		debug_data();
+		if ($scope.obj) {
+			pop();
+		}
+		
 	}
 
 	function fetch() {
@@ -277,12 +266,11 @@ app.controller('ctrl', function ($scope, $http) {
 			function (res) {
 				var records = res.data.length;
 				if (records > 0) {
-					var p = res.data[records-1];
+					var p = res.data[records - 1];
 					var sft = p.shift;
 					var obj_ = p.data;
-					var obj = JSON.parse(obj_);
+					$scope.obj = JSON.parse(obj_);
 					$scope.status = "Data fetched from server";
-					pop(obj);
 				}
 				else {
 					$scope.status = "no data on server";
@@ -294,8 +282,8 @@ app.controller('ctrl', function ($scope, $http) {
 		);
 	}
 
-	function pop(t) {
-
+	function pop() {
+		t = $scope.obj;
 		angular.forEach(t.shovels, function (x, i) {
 			$scope.shovels[i].data = x;
 		});
@@ -310,6 +298,11 @@ app.controller('ctrl', function ($scope, $http) {
 		});
 		$scope.refresh();
 	};
+
+	function debug_data() {
+		var t='{ "shift": 45, "shovels": [{ "name": "P&H_1", "east": true, "west": false, "east_coal_100": 1, "east_coal_120": 1, "east_ob_100": 1, "east_ob_120": 1, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_2", "east": true, "west": false, "east_coal_100": 1, "east_coal_120": 1, "east_ob_100": 1, "east_ob_120": 1, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_3", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_4", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_5", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_6", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_7", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_8", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_9", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_10", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }], "draglines": [{ "name": "Jyoti", "solid": 1, "rehandling": 1, "wrk": null, "bd": null, "mnt": null, "remark": null }, { "name": "Pawan", "solid": 1, "rehandling": 1, "wrk": null, "bd": null, "mnt": null, "remark": null }, { "name": "Vindhya", "solid": 1, "rehandling": 1, "wrk": null, "bd": null, "mnt": null, "remark": null }, { "name": "Jwala", "solid": 1, "rehandling": 1, "wrk": null, "bd": null, "mnt": null, "remark": null }], "surfaceMiners": [{ "name": "LnT", "wrk": 1, "cutting": 1, "prod": 1, "remark": null }], "outsourcings": [{ "name": "BGR-EAST-APT", "qty": 1, "remark": null }, { "name": "GAJRAJ-WEST-APT", "qty": 1, "remark": null }, { "name": "GAJRAJ-EAST-APB", "qty": 1, "remark": null }, { "name": "GAJRAJ-WEST-APB", "qty": 1, "remark": null }, { "name": "DL-EAST", "qty": 1, "remark": null }, { "name": "DL-WEST", "qty": 1, "remark": null }] }';
+		$scope.obj = JSON.parse(t);
+	}
 
 	$scope.changeShift = function (arg) {
 		$scope.status = "- - - - - - - - - -";
@@ -364,7 +357,7 @@ app.controller('ctrl', function ($scope, $http) {
 		angular.forEach($scope.shovels, function (x) {
 			x.inflate();
 			$scope.packet.shovels.push(x.data);
-						$scope.shovels_total.sum(x);
+			$scope.shovels_total.sum(x);
 		});
 
 		angular.forEach($scope.draglines, function (x) {
@@ -399,5 +392,7 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.outsourcings_total.inflate();
 	};
 
-
+	appInitialize();
+	getLastShift();
+	updateShiftData();	
 });
