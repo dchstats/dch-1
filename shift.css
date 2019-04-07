@@ -1,32 +1,33 @@
 * {
 	box-sizing: border-box;
 	border-collapse: collapse;
+	margin: 0;
+	padding: 0;
 }
 
 body {
 	font-family: "consolas", sans-serif;
-	margin: 0;
-	padding: 0;
 	font-size:1.5vw;
 }
 
+
 header {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
+	/* display: flex;
+	flex-wrap: wrap;
+	align-items: center; */
 	background: purple;
 	color: white;
 }
 
-.section{
-	margin:15% 0;
+header div{
+	text-align:center;
 }
 
 .section > p {
 	margin:0px;
 	display:block;
 	width:100%;
-	background:purple;
+	background:deepskyblue;
 	color:white;
 	padding:5px;
 	font-size:5vw;
@@ -35,7 +36,7 @@ header {
 table{
 	width:100%;
 	table-layout: fixed;
-	margin:0px;
+	margin-bottom:50px;
 }
 
 input{
@@ -43,6 +44,8 @@ input{
 	text-align:left;
 	font-size:1.3vw;
 	padding:0.5vw;
+	border:1px solid rgb(241, 237, 237);
+	color:blue;
 }
 
 input:focus{
@@ -54,7 +57,7 @@ input.drg-hrs{
 }
 
 tr{
-	border:solid lightgrey;
+	border:solid rgb(147, 226, 252);
 	border-width:1px 0;
 }
 
@@ -65,7 +68,6 @@ tr.total-row{
 }
 
 td{
-	text-align: center;
 	padding:0.5vw;
 }
 
@@ -73,6 +75,7 @@ td{
 
 tr td:first-child{
 	text-align:right;
+	padding-right:10px;
 }
 
 button {
@@ -105,88 +108,33 @@ button:disabled {
 	border-radius: 50%;
 }
 
-
-
-#east-shovels tr td:nth-child(1){
-width:30%
+.shovel-buttons{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:space-evenly;
 }
 
-#east-shovels tr td:nth-child(2){
-width:15%
-}
-
-#east-shovels tr td:nth-child(3){
-width:15%
-}
-
-#east-shovels tr td:nth-child(4){
-width:15%
-}
-
-#east-shovels tr td:nth-child(5){
-width:15%
-}
-
-#east-shovels tr td:nth-child(6){
+#east-shovels tr td:last-child{
 width:10%
 }
 
-
-#draglines tr td:nth-child(1){
-width:15%
-}
-
-#draglines tr td:nth-child(2){
-width:10%
-}
-
-#draglines tr td:nth-child(3){
-width:10%
-}
-
-#draglines tr td:nth-child(4){
-width:35%
-}
-
-#draglines tr td:nth-child(5){
+#draglines tr td:nth-child(n+4){
 width:30%
 }
 
 
-
-#surface-miners tr td:nth-child(1){
-width:15%
-}
-
-#surface-miners tr td:nth-child(2){
-width:15%
-}
-
-#surface-miners tr td:nth-child(3){
-width:15%
-}
-
-#surface-miners tr td:nth-child(4){
-width:15%
-}
-
-#surface-miners tr td:nth-child(5){
+#surface-miners tr td:last-child{
 width:40%
 }
 
 
-#outsourcing tr td:nth-child(1){
-width:40%
+#outsourcing tr td:nth-child(2n+1){
+width:40%;
 }
 
-#outsourcing tr td:nth-child(2){
-width:15%
+#shovel-summary tr td{
+width:20%
 }
 
-#outsourcing tr td:nth-child(3){
-width:45%
-}
 
-@media (max-width:768px){
 
-}

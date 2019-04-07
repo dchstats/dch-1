@@ -101,6 +101,10 @@ app.controller('ctrl', function ($scope, $http) {
 			this.rehandling_qty = this.data.rehandling * 13;
 			this.idl = 8 - this.data.wrk - this.data.bd - this.data.mnt;
 		};
+		sum = function (x) {
+			this.data.solid += x.data.solid;
+			this.data.rehandling += x.data.rehandling;
+		}
 	}
 
 	class SurfaceMiner {
@@ -116,7 +120,9 @@ app.controller('ctrl', function ($scope, $http) {
 				remark: null
 			};
 		};
-		inflate = function () { };
+		sum = function (x) {
+			this.data.cutting += x.data.cutting;
+		}
 	}
 
 	class Outsourcing {
@@ -130,7 +136,9 @@ app.controller('ctrl', function ($scope, $http) {
 				remark: null
 			};
 		};
-		inflate = function () { };
+		sum = function (x) {
+			this.data.qty += x.data.qty;
+		}
 	}
 	appInitialize();
 	getLastShift();
@@ -148,11 +156,11 @@ app.controller('ctrl', function ($scope, $http) {
 			'DL-EAST',
 			'DL-WEST'
 		];
+		$scope.shifts = ['Night', 'First', 'Second'];
 		$scope.shovels = [];
 		$scope.draglines = [];
 		$scope.surfaceMiners = [];
 		$scope.outsourcings = [];
-		$scope.shifts = ['Night', 'First', 'Second'];
 		$scope.status = '----------';
 
 		angular.forEach($scope.shovel_names, function (x) {
@@ -183,7 +191,7 @@ app.controller('ctrl', function ($scope, $http) {
 	}
 
 	function getLastShift() {
-		var a = new Date(2019, 2, 22, 6, 0, 0, 0);
+		var a = new Date(2019, 3, 1, 6, 0, 0, 0);
 		var b = a.getTime();
 		var c = new Date();
 		var d = Math.floor((c - b) / (8 * 3600 * 1000));
@@ -235,15 +243,15 @@ app.controller('ctrl', function ($scope, $http) {
 					var sft = p.shift;
 					var obj_ = p.data;
 					var obj = JSON.parse(obj_);
-					$scope.status = "Data fetched from server";
+					$scope.status = "Data fetched for " + $scope.date + ", " + $scope.shifts[$scope.shift] + " shift";
 					pop(obj);
 				}
 				else {
-					$scope.status = "no data on server";
+					$scope.status = "Report not filed yet.";
 				}
 			},
 			function () {
-				$scope.status = 'request failed.';
+				$scope.status = 'No connection.';
 			}
 		);
 	}
@@ -311,7 +319,6 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.draglines_total.initialize();
 		$scope.surfaceMiners_total.initialize();
 		$scope.outsourcings_total.initialize();
-		console.log($scope.shovels_total);
 
 		angular.forEach($scope.shovels, function (x) {
 			x.inflate();
@@ -322,26 +329,17 @@ app.controller('ctrl', function ($scope, $http) {
 		angular.forEach($scope.draglines, function (x) {
 			x.inflate();
 			$scope.packet.draglines.push(x.data);
-			$scope.draglines_total.data.solid += x.data.solid;
-			$scope.draglines_total.data.rehandling += x.data.rehandling;
-			$scope.draglines_total.data.wrk += x.data.wrk;
-			$scope.draglines_total.data.bd += x.data.bd;
-			$scope.draglines_total.data.mnt += x.data.mnt;
+			$scope.draglines_total.sum(x);
 		});
 
 		angular.forEach($scope.surfaceMiners, function (x) {
-			x.inflate();
 			$scope.packet.surfaceMiners.push(x.data);
-
-			$scope.surfaceMiners_total.data.wrk += x.data.wrk;
-			$scope.surfaceMiners_total.data.cutting += x.data.cutting;
-			$scope.surfaceMiners_total.data.prod += x.data.prod;
+			$scope.surfaceMiners_total.sum(x);
 		});
 
 		angular.forEach($scope.outsourcings, function (x) {
-			x.inflate();
 			$scope.packet.outsourcings.push(x.data);
-			$scope.outsourcings_total.data.qty += x.data.qty;
+			$scope.outsourcings_total.sum(x);
 		});
 
 

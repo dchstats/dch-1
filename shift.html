@@ -12,155 +12,231 @@
     <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
     <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
     <script src="shift.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="shift.css">
 </head>
 
 <body ng-app="dch" ng-controller='ctrl'>
     <header>
-        <div style="width:33%; font-size:1.5rem">
+        <div style="font-size:1rem">
             <p>Shift End Report</p>
         </div>
-        <div style="width:33%; font-size:1.2rem">
+        <div style=" font-size:1.2rem">
             <span> [{{shift}}] {{date}}, {{shiftName}} Shift</span>
         </div>
-        <div style="width:33%; text-align:right">
+        <div>
             <button ng-disabled="shift==1" ng-click="changeShift('prev')">Prev</button>
-            <button ng-disabled="shift==lastShift" ng-click="changeShift('Next')">Next</button>
+            <button ng-disabled="shift==lastShift" ng-click="changeShift('next')">Next</button>
         </div>
     </header>
     <input style="width:100vw" ng-model="status"></input>
+    <div id="data">
+        <div id="east-shovels" class="section">
+            <p>East Shovels</p>
+            <div class="shovel-buttons">
+                <button ng-repeat="x in shovels" ng-click="x.data.east=true;" ng-disabled="x.data.east">
+                    {{x.name}}
+                </button>
+            </div>
 
-    <div id="east-shovels" class="section">
-        <p>East Shovels</p>
-        <button ng-repeat="x in shovels" ng-click="x.data.east=true;" ng-disabled="x.data.east">
-            {{x.name}}
-        </button>
-        <table class="data-table">
-            <tr class="head-row">
-                <td></td>
-                <td>Coal-100</td>
-                <td>Coal-120</td>
-                <td>OB-100</td>
-                <td>OB-120</td>
-                <td></td>
-            </tr>
-            <tr class="data-row" ng-repeat="x in shovels" ng-if="x.data.east">
-                <td class="name-col">{{x.name}}</td>
-                <td><input ng-change="refresh()" type="number" ng-model="x.data.east_coal_100"></td>
-                <td><input ng-change="refresh()" type="number" ng-model="x.data.east_coal_120"></td>
-                <td><input ng-change="refresh()" type="number" ng-model="x.data.east_ob_100"></td>
-                <td><input ng-change="refresh()" type="number" ng-model="x.data.east_ob_120"></td>
-                <td><button class="cancel-btn" ng-click="x.remove('east');"><span>X</span></button>
-                </td>
-            </tr>
-            <tr class="total-row">
-                <td class="name-col">Total Trips</td>
-                <td>{{shovels_total.data.east_coal_100}}</td>
-                <td>{{shovels_total.data.east_coal_120}}</td>
-                <td>{{shovels_total.data.east_ob_100}}</td>
-                <td>{{shovels_total.data.east_ob_120}}</td>
-                <td></td>
-            </tr>
-            <tr class="total-row">
-                <td class="name-col">Qty</td>
-                <td>{{shovels_total.qty.east_coal_100}}</td>
-                <td>{{shovels_total.qty.east_coal_120}}</td>
-                <td>{{shovels_total.qty.east_ob_100}}</td>
-                <td>{{shovels_total.qty.east_ob_120}}</td>
-                <td></td>
-            </tr>
-        </table>
+            <table class="data-table">
+                <tr class="head-row">
+                    <td></td>
+                    <td>Coal-100</td>
+                    <td>Coal-120</td>
+                    <td>OB-100</td>
+                    <td>OB-120</td>
+                    <td></td>
+                </tr>
+                <tr class="data-row" ng-repeat="x in shovels" ng-if="x.data.east">
+                    <td class="name-col">{{x.name}}</td>
+                    <td><input ng-change="refresh()" type="number" ng-model="x.data.east_coal_100"></td>
+                    <td><input ng-change="refresh()" type="number" ng-model="x.data.east_coal_120"></td>
+                    <td><input ng-change="refresh()" type="number" ng-model="x.data.east_ob_100"></td>
+                    <td><input ng-change="refresh()" type="number" ng-model="x.data.east_ob_120"></td>
+                    <td><button class="cancel-btn" ng-click="x.remove('east');"><span>X</span></button>
+                    </td>
+                </tr>
+                <tr class="total-row">
+                    <td class="name-col">Total</td>
+                    <td>{{shovels_total.data.east_coal_100}}</td>
+                    <td>{{shovels_total.data.east_coal_120}}</td>
+                    <td>{{shovels_total.data.east_ob_100}}</td>
+                    <td>{{shovels_total.data.east_ob_120}}</td>
+                    <td></td>
+                </tr>
+                <tr class="total-row">
+                    <td class="name-col">Qty</td>
+                    <td>{{shovels_total.qty.east_coal_100}}</td>
+                    <td>{{shovels_total.qty.east_coal_120}}</td>
+                    <td>{{shovels_total.qty.east_ob_100}}</td>
+                    <td>{{shovels_total.qty.east_ob_120}}</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="draglines" class="section">
+            <p>Draglines</p>
+            <table class="data-table">
+                <tr class="head-row">
+                    <td></td>
+                    <td>Sld</td>
+                    <td>Reh</td>
+                    <td>Hrs</td>
+                    <td>Remark</td>
+                </tr>
+                <tr class="data-row" ng-repeat="x in draglines">
+                    <td class="name-col">{{x.name}}</td>
+                    <td>
+                        <input ng-change="refresh()" type="number" ng-model="x.data.solid">
+                    </td>
+                    <td>
+                        <input ng-change="refresh()" type="number" ng-model="x.data.rehandling"></td>
+                    </td>
+                    <td>
+                        <input ng-change="refresh()" type="number" ng-model="x.data.wrk" class="drg-hrs">
+                        <input ng-change="refresh()" type="number" ng-model="x.data.bd" class="drg-hrs">
+                        <input ng-change="refresh()" type="number" ng-model="x.data.mnt" class="drg-hrs">
+                        <input ng-change="refresh()" type="number" ng-model="x.data.idl" class="drg-hrs">
+                    </td>
+                    <td><input ng-model="x.data.remark"></input></td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total</td>
+                    <td>{{draglines_total.data.solid}}</td>
+                    <td>{{draglines_total.data.rehandling}}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="total-row">
+                    <td>Qty</td>
+                    <td>{{draglines_total.solid_qty}}</td>
+                    <td>{{draglines_total.rehandling_qty}}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="surface-miners" class="section">
+            <p>Surface Miners</p>
+            <table class="data-table">
+                <tr class="head-row">
+                    <td></td>
+                    <td>Wrk</td>
+                    <td>Cut</td>
+                    <td>Prod</td>
+                    <td>Remark</td>
+                </tr>
+                <tr class="data-row" ng-repeat="x in surfaceMiners">
+                    <td class="name-col">{{x.name}}</td>
+                    <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.wrk"></td>
+                    <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.cutting"></td>
+                    <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.prod"></td>
+                    <td><input ng-model="x.data.remark"></input></td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total</td>
+                    <td>{{surfaceMiners_total.data.wrk}}</td>
+                    <td>{{surfaceMiners_total.data.cutting}}</td>
+                    <td>{{surfaceMiners_total.data.prod}}</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="outsourcing" class="section">
+            <p>Out Sourcing</p>
+            <table class="data-table">
+                <tr class="head-row">
+                    <td></td>
+                    <td>Qty</td>
+                    <td>Remark</td>
+                </tr>
+                <tr class="data-row" ng-repeat="x in outsourcings">
+                    <td class="name-col">{{x.name}}</td>
+                    <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.qty"></td>
+                    <td><input ng-model="x.data.remark"></input></td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total</td>
+                    <td>{{outsourcings_total.data.qty}}</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
     </div>
+    <div id="summary">
+        <div id="full-summary">
+            <table class="data-table">
+                <tr class="head-row">
+                    <td></td>
+                    <td>Coal</td>
+                    <td>Deptt OB</td>
+                    <td>Out OB</td>
+                </tr>
+                <tr class="data-row">
+                    <td>Shovel-Dumper</td>
+                    <td>{{shovels_total.qty.coal}}</td>
+                    <td>{{shovels_total.qty.ob}}</td>
+                    <td>{{outsourcings_total.data.qty}}</td>
+                </tr>
+                <tr class="data-row">
+                    <td>SM/Dragline</td>
+                    <td>{{surfaceMiners_total.data.prod}}</td>
+                    <td>{{draglines_total.solid_qty+draglines_total.rehandling_qty}}</td>
+                    <td>0</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total</td>
+                    <td>{{shovels_total.coal+surfaceMiners[0].data[2]}}</td>
+                    <td>{{shovels_total.ob+draglinesTotal.data[0]}}</td>
+                    <td>0</td>
+                </tr>
+            </table>
+        </div>
+        <div id="shovel-summary">
+            <table class="data-table">
+                <tr class="head-row">
+                    <td class="name-col">Shovel</td>
+                    <td>East Coal</td>
+                    <td>East OB</td>
+                    <td>West Coal</td>
+                    <td>West OB</td>
+                    <td>Coal</td>
+                    <td>OB</td>
+                </tr>
+                <tr class="unit-row">
+                    <td></td>
+                    <td>Te</td>
+                    <td>cum</td>
+                    <td>Te</td>
+                    <td>cum</td>
+                    <td>Te</td>
+                    <td>cum</td>
+                </tr>
+                <tr class="data-row" ng-repeat="x in shovels|filter:{$:true}">
+                    <td class="name-col">{{x.name}}</td>
+                    <td>{{x.qty.east_coal}}</td>
+                    <td>{{x.qty.east_ob}}</td>
+                    <td>{{x.qty.west_coal}}</td>
+                    <td>{{x.qty.west_ob}}</td>
+                    <td>{{x.qty.coal}}</td>
+                    <td>{{x.qty.ob}}</td>
+                </tr>
+                <tr class="total-row">
+                    <td class="name-col">Total</td>
+                    <td>{{shovels_total.qty.east_coal}}</td>
+                    <td>{{shovels_total.qty.east_ob}}</td>
+                    <td>{{shovels_total.qty.west_coal}}</td>
+                    <td>{{shovels_total.qty.west_ob}}</td>
+                    <td>{{shovels_total.qty.coal}}</td>
+                    <td>{{shovels_total.qty.ob}}</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
 
-    <div id="draglines" class="section">
-        <p>Draglines</p>
-        <table class="data-table">
-            <tr class="head-row">
-                <td></td>
-                <td>Sld</td>
-                <td>Reh</td>
-                <td>Hrs</td>
-                <td>Remark</td>
-            </tr>
-            <tr class="data-row" ng-repeat="x in draglines">
-                <td class="name-col">{{x.name}}</td>
-                <td>
-                    <input ng-change="refresh()" type="number" ng-model="x.data.solid">
-                </td>
-                <td>
-                    <input ng-change="refresh()" type="number" ng-model="x.data.rehandling"></td>
-                </td>
-                <td>
-                    <input ng-change="refresh()" type="number" ng-model="x.data.wrk" class="drg-hrs">
-                    <input ng-change="refresh()" type="number" ng-model="x.data.bd" class="drg-hrs">
-                    <input ng-change="refresh()" type="number" ng-model="x.data.mnt" class="drg-hrs">
-                    <input ng-change="refresh()" type="number" ng-model="x.data.idl" class="drg-hrs">
-                </td>
-                <td><input ng-model="x.data.remark"></input></td>
-            </tr>
-            <tr class="total-row">
-                <td>Total</td>
-                <td>{{draglines_total.data.solid}}</td>
-                <td>{{draglines_total.data.rehandling}}</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr class="total-row">
-                <td>Qty</td>
-                <td>{{draglines_total.solid_qty}}</td>
-                <td>{{draglines_total.rehandling_qty}}</td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-    </div>
-
-    <div id="surface-miners" class="section">
-        <p>Surface Miners</p>
-        <table class="data-table">
-            <tr class="head-row">
-                <td></td>
-                <td>Wrk</td>
-                <td>Cut</td>
-                <td>Prod</td>
-                <td>Remark</td>
-            </tr>
-            <tr class="data-row" ng-repeat="x in surfaceMiners">
-                <td class="name-col">{{x.name}}</td>
-                <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.wrk"></td>
-                <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.cutting"></td>
-                <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.prod"></td>
-                <td><input ng-model="x.data.remark"></input></td>
-            </tr>
-            <tr class="total-row">
-                <td>Total</td>
-                <td>{{surfaceMiners_total.data.wrk}}</td>
-                <td>{{surfaceMiners_total.data.cutting}}</td>
-                <td>{{surfaceMiners_total.data.prod}}</td>
-                <td></td>
-            </tr>
-        </table>
-    </div>
-
-    <div id="outsourcing" class="section">
-        <p>Out Sourcing</p>
-        <table class="data-table">
-            <tr class="head-row">
-                <td></td>
-                <td>Qty</td>
-                <td>Remark</td>
-            </tr>
-            <tr class="data-row" ng-repeat="x in outsourcings">
-                <td class="name-col">{{x.name}}</td>
-                <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.qty"></td>
-                <td><input ng-model="x.data.remark"></input></td>
-            </tr>
-            <tr class="total-row">
-                <td>Total</td>
-                <td>{{outsourcings_total.data.qty}}</td>
-                <td></td>
-            </tr>
-        </table>
     </div>
 </body>
 
