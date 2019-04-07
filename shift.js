@@ -243,7 +243,7 @@ app.controller('ctrl', function ($scope, $http) {
 					var sft = p.shift;
 					var obj_ = p.data;
 					var obj = JSON.parse(obj_);
-					$scope.status = "Data fetched for " + $scope.date + ", " + $scope.shifts[$scope.shift] + " shift";
+					$scope.status = "Data fetched for " + $scope.date + ", " + $scope.shiftName + " shift";
 					pop(obj);
 				}
 				else {

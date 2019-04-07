@@ -17,18 +17,17 @@
 
 <body ng-app="dch" ng-controller='ctrl'>
     <header>
-        <div style="font-size:1rem">
-            <p>Shift End Report</p>
-        </div>
-        <div style=" font-size:1.2rem">
-            <span> [{{shift}}] {{date}}, {{shiftName}} Shift</span>
-        </div>
+        <p> [{{shift}}] {{date}}, {{shiftName}} Shift</p>
+    </header>
+    <nav>
+        <input ng-model="status"></input>
         <div>
             <button ng-disabled="shift==1" ng-click="changeShift('prev')">Prev</button>
             <button ng-disabled="shift==lastShift" ng-click="changeShift('next')">Next</button>
         </div>
-    </header>
-    <input style="width:100vw" ng-model="status"></input>
+
+    </nav>
+
     <div id="data">
         <div id="east-shovels" class="section">
             <p>East Shovels</p>

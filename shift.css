@@ -5,23 +5,27 @@
 	padding: 0;
 }
 
-body {
+body{
 	font-family: "consolas", sans-serif;
-	font-size:1.5vw;
+	font-size:0.8rem;
 }
 
 
 header {
-	/* display: flex;
-	flex-wrap: wrap;
-	align-items: center; */
 	background: purple;
 	color: white;
+	text-align:center;
+	font-size:1.5rem;
 }
 
-header div{
-	text-align:center;
+nav {
+	display:flex;
+	justify-content: space-between;
 }
+nav input{
+	width:60%;
+}
+
 
 .section > p {
 	margin:0px;
@@ -42,7 +46,6 @@ table{
 input{
 	width:90%;
 	text-align:left;
-	font-size:1.3vw;
 	padding:0.5vw;
 	border:1px solid rgb(241, 237, 237);
 	color:blue;
