@@ -210,6 +210,8 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.draglines_total = new Dragline('total');
 		$scope.surfaceMiners_total = new SurfaceMiner('total');
 		$scope.outsourcings_total = new Outsourcing('total');
+
+		$scope.shovelToShow = 0;
 	}
 
 	function getLastShift() {
@@ -248,7 +250,7 @@ app.controller('ctrl', function ($scope, $http) {
 		if ($scope.obj) {
 			pop();
 		}
-		
+
 	}
 
 	function fetch() {
@@ -300,7 +302,7 @@ app.controller('ctrl', function ($scope, $http) {
 	};
 
 	function debug_data() {
-		var t='{ "shift": 45, "shovels": [{ "name": "P&H_1", "east": true, "west": false, "east_coal_100": 1, "east_coal_120": 1, "east_ob_100": 1, "east_ob_120": 1, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_2", "east": true, "west": false, "east_coal_100": 1, "east_coal_120": 1, "east_ob_100": 1, "east_ob_120": 1, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_3", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_4", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_5", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_6", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_7", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_8", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_9", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_10", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }], "draglines": [{ "name": "Jyoti", "solid": 1, "rehandling": 1, "wrk": null, "bd": null, "mnt": null, "remark": null }, { "name": "Pawan", "solid": 1, "rehandling": 1, "wrk": null, "bd": null, "mnt": null, "remark": null }, { "name": "Vindhya", "solid": 1, "rehandling": 1, "wrk": null, "bd": null, "mnt": null, "remark": null }, { "name": "Jwala", "solid": 1, "rehandling": 1, "wrk": null, "bd": null, "mnt": null, "remark": null }], "surfaceMiners": [{ "name": "LnT", "wrk": 1, "cutting": 1, "prod": 1, "remark": null }], "outsourcings": [{ "name": "BGR-EAST-APT", "qty": 1, "remark": null }, { "name": "GAJRAJ-WEST-APT", "qty": 1, "remark": null }, { "name": "GAJRAJ-EAST-APB", "qty": 1, "remark": null }, { "name": "GAJRAJ-WEST-APB", "qty": 1, "remark": null }, { "name": "DL-EAST", "qty": 1, "remark": null }, { "name": "DL-WEST", "qty": 1, "remark": null }] }';
+		var t = '{ "shift": 45, "shovels": [{ "name": "P&H_1", "east": true, "west": false, "east_coal_100": 1, "east_coal_120": 1, "east_ob_100": 1, "east_ob_120": 1, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_2", "east": true, "west": false, "east_coal_100": 1, "east_coal_120": 1, "east_ob_100": 1, "east_ob_120": 1, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_3", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_4", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_5", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_6", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_7", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_8", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_9", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }, { "name": "P&H_10", "east": false, "west": false, "east_coal_100": null, "east_coal_120": null, "east_ob_100": null, "east_ob_120": null, "west_coal_100": null, "west_coal_85": null, "west_ob_100": null, "west_ob_85": null }], "draglines": [{ "name": "Jyoti", "solid": 1, "rehandling": 1, "wrk": null, "bd": null, "mnt": null, "remark": null }, { "name": "Pawan", "solid": 1, "rehandling": 1, "wrk": null, "bd": null, "mnt": null, "remark": null }, { "name": "Vindhya", "solid": 1, "rehandling": 1, "wrk": null, "bd": null, "mnt": null, "remark": null }, { "name": "Jwala", "solid": 1, "rehandling": 1, "wrk": null, "bd": null, "mnt": null, "remark": null }], "surfaceMiners": [{ "name": "LnT", "wrk": 1, "cutting": 1, "prod": 1, "remark": null }], "outsourcings": [{ "name": "BGR-EAST-APT", "qty": 1, "remark": null }, { "name": "GAJRAJ-WEST-APT", "qty": 1, "remark": null }, { "name": "GAJRAJ-EAST-APB", "qty": 1, "remark": null }, { "name": "GAJRAJ-WEST-APB", "qty": 1, "remark": null }, { "name": "DL-EAST", "qty": 1, "remark": null }, { "name": "DL-WEST", "qty": 1, "remark": null }] }';
 		$scope.obj = JSON.parse(t);
 	}
 
@@ -392,7 +394,12 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.outsourcings_total.inflate();
 	};
 
+	$scope.rotateShovel = function (x) {
+		$scope.shovelToShow = x;
+		console.log($scope.shovelToShow);
+	}
+
 	appInitialize();
 	getLastShift();
-	updateShiftData();	
+	updateShiftData();
 });
