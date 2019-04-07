@@ -1,32 +1,6 @@
 $(begin);
 
 function begin() {
-	section = 1;
-	t = $('.section');
-	t.hide();
-	$(t[section]).show();
-}
-
-function moduleNav(arg) {
-	var last = section;
-	if (arg == 'next') {
-		if (section == t.length-1) {
-			section = 0;
-		} else {
-			section++;
-		}
-	} else if (arg == 'prev') {
-		if (section == 0) {
-			section = t.length-1;
-		}
-		else {
-			section--;
-		}
-	}
-	if (last != section) {
-		$(t[last]).hide();
-		$(t[section]).slideDown(100);
-	}
 }
 
 var app = angular.module('dch', []);
@@ -35,23 +9,23 @@ app.controller('ctrl', function ($scope, $http) {
 
 	class Shovel {
 		constructor(name) {
-				this.name = name;
-			}
+			this.name = name;
+		}
 		initialize = function () {
-				this.data = {
-					name: this.name,
-					east: false,
-					west: false,
-					east_coal_100: null,
-					east_coal_120: null,
-					east_ob_100: null,
-					east_ob_120: null,
-					west_coal_100: null,
-					west_coal_85: null,
-					west_ob_100: null,
-					west_ob_85: null
-				};
+			this.data = {
+				name: this.name,
+				east: false,
+				west: false,
+				east_coal_100: null,
+				east_coal_120: null,
+				east_ob_100: null,
+				east_ob_120: null,
+				west_coal_100: null,
+				west_coal_85: null,
+				west_ob_100: null,
+				west_ob_85: null
 			};
+		};
 		remove = function (arg) {
 			if (arg == 'east') {
 				this.data.east = false;
@@ -95,16 +69,16 @@ app.controller('ctrl', function ($scope, $http) {
 					this.data.west_ob_85 * 21
 			};
 		};
-		sum=function(x){
-				this.data.east_coal_100+=x.data.east_coal_100;
-				this.data.east_coal_120+=x.data.east_coal_120;
-				this.data.east_ob_100+=x.data.east_ob_100;
-				this.data.east_ob_120+=x.data.east_ob_120;
-				this.data.west_coal_100+=x.data.west_coal_100;
-				this.data.west_coal_85+=x.data.west_coal_85;
-				this.data.west_ob_100+=x.data.west_ob_100;
-				this.data.west_ob_85+=x.data.west_ob_85;
-			};
+		sum = function (x) {
+			this.data.east_coal_100 += x.data.east_coal_100;
+			this.data.east_coal_120 += x.data.east_coal_120;
+			this.data.east_ob_100 += x.data.east_ob_100;
+			this.data.east_ob_120 += x.data.east_ob_120;
+			this.data.west_coal_100 += x.data.west_coal_100;
+			this.data.west_coal_85 += x.data.west_coal_85;
+			this.data.west_ob_100 += x.data.west_ob_100;
+			this.data.west_ob_85 += x.data.west_ob_85;
+		};
 	}
 
 	class Dragline {
@@ -186,8 +160,8 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.datahead = {
 			eastShovels: ['Coal-100', 'Coal-120', 'OB-100', 'OB-120'],
 			westShovels: ['Coal-100', 'Coal-85', 'OB-100', 'OB-85'],
-			draglines: ['Solid', 'Re-handling', 'Timings', 'Remark'],
-			surfaceMiners: ['Working', 'Cutting', 'Production', 'Remark'],
+			draglines: ['Solid', 'Re-handl', 'Timings', 'Remark'],
+			surfaceMiners: ['Working', 'Cutting', 'Prod', 'Remark'],
 			outsourcing: ['Quantity', 'Remark']
 		};
 
@@ -198,7 +172,7 @@ app.controller('ctrl', function ($scope, $http) {
 			surfaceMiners: ['hrs', 'mtrs', 'Te', ''],
 			outsourcing: ['cum', '']
 		};
-}
+	}
 
 	function appInitialize() {
 		angular.forEach($scope.shovel_names, function (x) {
@@ -277,7 +251,7 @@ app.controller('ctrl', function ($scope, $http) {
 			function (res) {
 				var records = res.data.length;
 				if (records > 0) {
-					var p = res.data[records-1];
+					var p = res.data[records - 1];
 					var sft = p.shift;
 					var obj_ = p.data;
 					var obj = JSON.parse(obj_);
@@ -364,7 +338,7 @@ app.controller('ctrl', function ($scope, $http) {
 		angular.forEach($scope.shovels, function (x) {
 			x.inflate();
 			$scope.packet.shovels.push(x.data);
-						$scope.shovels_total.sum(x);
+			$scope.shovels_total.sum(x);
 		});
 
 		angular.forEach($scope.draglines, function (x) {
