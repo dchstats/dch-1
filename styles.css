@@ -1,35 +1,85 @@
-
 * {
 	box-sizing: border-box;
 	border-collapse: collapse;
-	font: inherit;
 }
 
 body {
 	font-family: "consolas", sans-serif;
 	margin: 0;
 	padding: 0;
+	font-size:1.5vw;
 }
 
-input {
-	padding: 3px 5px;
-	color: blue;
-	text-align: left;
-	border: 1px solid lightgrey;
-	border-radius: 2px;
+header {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background: purple;
+	color: white;
+}
+
+.section{
+	margin:15% 0;
+}
+
+.section > p {
+	margin:0px;
+	display:block;
+	width:100%;
+	background:purple;
+	color:white;
+	padding:5px;
+	font-size:5vw;
+}
+
+table{
+	width:100%;
+	table-layout: fixed;
+	margin:0px;
+}
+
+input{
+	width:90%;
+	text-align:left;
+	font-size:1.3vw;
+	padding:0.5vw;
+}
+
+input:focus{
+	outline: 2px solid gold;
+}
+
+input.drg-hrs{
+	width:20%;
+}
+
+tr{
+	border:solid lightgrey;
+	border-width:1px 0;
+}
+
+tr.head-row,
+tr.total-row{
+	background:deepskyblue;
+	color:white;
+}
+
+td{
+	text-align: center;
+	padding:0.5vw;
 }
 
 
-textarea {
-	resize: vertical;
+
+tr td:first-child{
+	text-align:right;
 }
 
 button {
-	min-width: 4rem;
-	height: 1.8rem;
+	width: 60px;
+	height: 30px;
 	margin: 5px;
 	cursor: pointer;
-	font-size: 1rem;
 	background: deepskyblue;
 	color: white;
 	border: none;
@@ -49,54 +99,94 @@ button:disabled {
 	box-shadow: none;
 }
 
-.shovel-card{
-	width:300px;
-	height:500px;
-	display:flex;
-	flex-direction: column;
-	justify-content:space-around;
-	align-items: center;
-	border:1px solid blue;
+.cancel-btn {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
 }
 
-.field{
-	padding:0px;
-	margin:2px;
+
+
+#east-shovels tr td:nth-child(1){
+width:30%
 }
 
-.field p{
-	margin:0px;
-	display:inline-block;
-	width:40%;
-	text-align: right;
+#east-shovels tr td:nth-child(2){
+width:15%
 }
 
-.field input{
-	display:inline-block;
-	width:50%;
-	margin:5px;
+#east-shovels tr td:nth-child(3){
+width:15%
 }
 
-.section {
-	width:300px;
-	height:500px;
-	display:flex;
-	flex-flow:column;
-	justify-content: space-between;
-	align-content: center;
-	border:1px solid black;
-	border-radius:2px;
+#east-shovels tr td:nth-child(4){
+width:15%
 }
 
-.section .head{
-	display:flex;
-	justify-content: center;
-	background:green;
-	color:white;
-	font-size:2em;
+#east-shovels tr td:nth-child(5){
+width:15%
 }
 
-.section .selector{
-	display:flex;
-	flex-wrap: wrap;
-	justify-content: center;
+#east-shovels tr td:nth-child(6){
+width:10%
+}
+
+
+#draglines tr td:nth-child(1){
+width:15%
+}
+
+#draglines tr td:nth-child(2){
+width:10%
+}
+
+#draglines tr td:nth-child(3){
+width:10%
+}
+
+#draglines tr td:nth-child(4){
+width:35%
+}
+
+#draglines tr td:nth-child(5){
+width:30%
+}
+
+
+
+#surface-miners tr td:nth-child(1){
+width:15%
+}
+
+#surface-miners tr td:nth-child(2){
+width:15%
+}
+
+#surface-miners tr td:nth-child(3){
+width:15%
+}
+
+#surface-miners tr td:nth-child(4){
+width:15%
+}
+
+#surface-miners tr td:nth-child(5){
+width:40%
+}
+
+
+#outsourcing tr td:nth-child(1){
+width:40%
+}
+
+#outsourcing tr td:nth-child(2){
+width:15%
+}
+
+#outsourcing tr td:nth-child(3){
+width:45%
+}
+
+@media (max-width:768px){
+
+}

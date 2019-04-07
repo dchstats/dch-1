@@ -1,23 +1,6 @@
 $(begin);
 
 function begin() {
-	section = 0;
-	t = $('.section');
-	t.hide();
-	$(t[section]).show();
-}
-
-function moduleNav(arg) {
-	if (arg == 'next' && section < t.length - 1) {
-		section++;
-		t.hide();
-		$(t[section]).slideDown(100);
-	}
-	else if (arg == 'prev' && section > 0) {
-		section--;
-		t.hide();
-		$(t[section]).slideDown(100);
-	}
 }
 
 var app = angular.module('dch', []);
@@ -173,8 +156,8 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.datahead = {
 			eastShovels: ['Coal-100', 'Coal-120', 'OB-100', 'OB-120'],
 			westShovels: ['Coal-100', 'Coal-85', 'OB-100', 'OB-85'],
-			draglines: ['Solid', 'Re-handling', 'Timings', 'Remark'],
-			surfaceMiners: ['Working', 'Cutting', 'Production', 'Remark'],
+			draglines: ['Solid', 'Re-handl', 'Timings', 'Remark'],
+			surfaceMiners: ['Working', 'Cutting', 'Prod', 'Remark'],
 			outsourcing: ['Quantity', 'Remark']
 		};
 
@@ -185,6 +168,9 @@ app.controller('ctrl', function ($scope, $http) {
 			surfaceMiners: ['hrs', 'mtrs', 'Te', ''],
 			outsourcing: ['cum', '']
 		};
+	}
+
+	function appInitialize() {
 		angular.forEach($scope.shovel_names, function (x) {
 			var temp = new Shovel(x);
 			temp.initialize();
