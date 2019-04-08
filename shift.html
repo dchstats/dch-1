@@ -23,21 +23,18 @@
     </header>
     <nav>
         <div id="status">
-                
             <input ng-model="status"></input>
         </div>
         <div id="menu">
-                
             <div ng-show="debug" id="debug">
-                    [{{shift}}]
+                [{{shift}}]
                 <button ng-click="dummy()">dummy</button>
                 <button ng-click="module=2">Debug</button>
             </div>
             <div>
-                    <button ng-click="module=0">Summary</button>
-                    <button ng-click="module=1">Data</button>
+                <button ng-click="module=0">Summary</button>
+                <button ng-click="module=1">Data</button>
             </div>
-            
         </div>
 
     </nav>
@@ -52,22 +49,35 @@
                     <td>Out OB</td>
                 </tr>
                 <tr class="data-row">
-                    <td>Shovel-Dumper</td>
+                    <td>Shovel</td>
                     <td>{{shovels_total.qty.coal}}</td>
                     <td>{{shovels_total.qty.ob}}</td>
-                    <td>{{outsourcings_total.data.qty}}</td>
+                    <td></td>
                 </tr>
-                <tr class="data-row">
-                    <td>SM/Dragline</td>
+                <tr>
+                    <td>Drgl</td>
+                    <td></td>
+                    <td>{{draglines_total.solid_qty}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>SM</td>
                     <td>{{surfaceMiners_total.data.prod}}</td>
-                    <td>{{draglines_total.solid_qty+draglines_total.rehandling_qty}}</td>
-                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>OS</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{outsourcings_total.data.qty}}</td>
                 </tr>
                 <tr class="total-row">
                     <td>Total</td>
-                    <td>{{shovels_total.coal+surfaceMiners[0].data[2]}}</td>
-                    <td>{{shovels_total.ob+draglinesTotal.data[0]}}</td>
-                    <td>0</td>
+                    <td>{{shovels_total.qty.coal+surfaceMiners_total.data.prod}}</td>
+                    <td>{{shovels_total.qty.ob+draglines_total.solid_qty}}</td>
+                    <td>{{outsourcings_total.data.qty}}</td>
                 </tr>
             </table>
         </div>
