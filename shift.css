@@ -12,21 +12,36 @@ body{
 
 
 header {
+	height:10vh;
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
 	background: purple;
 	color: white;
 	text-align:center;
 	font-size:1.5rem;
 }
 
-nav {
-	display:flex;
+header button{
+	width:40px;
+	height: 100%;
+	margin: 0;
+	border-radius:0;
+}
+
+#status input{
+	width:100%;
+}
+
+#menu{
+	display: flex;
 	justify-content: space-between;
 }
-nav input{
-	width:60%;
+
+#debug{
+	display: flex;
+	justify-content: space-between;
 }
-
-
 .section > p {
 	margin:0px;
 	display:block;
@@ -84,9 +99,9 @@ tr td:first-child{
 button {
 	width: 60px;
 	height: 30px;
-	margin: 5px;
 	cursor: pointer;
 	background: deepskyblue;
+	margin:5px;
 	color: white;
 	border: none;
 	outline: none;
