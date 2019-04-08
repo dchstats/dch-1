@@ -41,7 +41,7 @@ app.controller('ctrl', function ($scope, $http) {
 				this.data.west_ob_100 = null;
 				this.data.west_ob_85 = null;
 			}
-			$scope.refresh();
+			ref();
 		};
 		inflate = function () {
 			this.qty = {
@@ -162,6 +162,8 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.surfaceMiners = [];
 		$scope.outsourcings = [];
 		$scope.status = '----------';
+		$scope.packet_string = "ready";
+		$scope.obj = { name: 'scope object' };
 
 		angular.forEach($scope.shovel_names, function (x) {
 			var temp = new Shovel(x);
@@ -221,7 +223,10 @@ app.controller('ctrl', function ($scope, $http) {
 		angular.forEach($scope.outsourcings, function (x, i) {
 			x.initialize();
 		});
-		fetch();
+		// fetch();
+		debugData();
+		pop();
+		ref();
 	}
 
 	function fetch() {
@@ -242,9 +247,8 @@ app.controller('ctrl', function ($scope, $http) {
 					var p = res.data[records - 1];
 					var sft = p.shift;
 					var obj_ = p.data;
-					var obj = JSON.parse(obj_);
+					$scope.obj = JSON.parse(obj_);
 					$scope.status = "Data fetched for " + $scope.date + ", " + $scope.shiftName + " shift";
-					pop(obj);
 				}
 				else {
 					$scope.status = "Report not filed yet.";
@@ -254,10 +258,16 @@ app.controller('ctrl', function ($scope, $http) {
 				$scope.status = 'No connection.';
 			}
 		);
+		console.log($scope.obj);
 	}
 
-	function pop(t) {
+	function debugData() {
+		$scope.obj = JSON.parse('{"shift":21,"shovels":[{"name":"P&H_1","east":true,"west":false,"east_coal_100":1,"east_coal_120":2,"east_ob_100":3,"east_ob_120":4,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_2","east":true,"west":false,"east_coal_100":5,"east_coal_120":6,"east_ob_100":7,"east_ob_120":8,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_3","east":true,"west":false,"east_coal_100":9,"east_coal_120":10,"east_ob_100":11,"east_ob_120":12,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_4","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_5","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_6","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_7","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_8","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_9","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_10","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null}],"draglines":[{"name":"Jyoti","solid":1,"rehandling":2,"wrk":null,"bd":null,"mnt":null,"remark":""},{"name":"Pawan","solid":3,"rehandling":4,"wrk":null,"bd":null,"mnt":null,"remark":null},{"name":"Vindhya","solid":5,"rehandling":6,"wrk":null,"bd":null,"mnt":null,"remark":null},{"name":"Jwala","solid":7,"rehandling":8,"wrk":null,"bd":null,"mnt":null,"remark":null}],"surfaceMiners":[{"name":"LnT","wrk":1,"cutting":2,"prod":3,"remark":null}],"outsourcings":[{"name":"BGR-EAST-APT","qty":1,"remark":null},{"name":"GAJRAJ-WEST-APT","qty":2,"remark":null},{"name":"GAJRAJ-EAST-APB","qty":3,"remark":null},{"name":"GAJRAJ-WEST-APB","qty":4,"remark":null},{"name":"DL-EAST","qty":5,"remark":null},{"name":"DL-WEST","qty":6,"remark":null}]}');
+		$scope.status = "debug data populated";
+	}
 
+	function pop() {
+		t = $scope.obj;
 		angular.forEach(t.shovels, function (x, i) {
 			$scope.shovels[i].data = x;
 		});
@@ -270,44 +280,8 @@ app.controller('ctrl', function ($scope, $http) {
 		angular.forEach(t.outsourcings, function (x, i) {
 			$scope.outsourcings[i].data = x;
 		});
-		$scope.refresh();
 	};
-
-	$scope.changeShift = function (arg) {
-		$scope.status = "- - - - - - - - - -";
-		if (arg == 'next') {
-			$scope.shift += 1;
-		}
-		if (arg == 'prev') {
-			$scope.shift -= 1;
-		}
-		updateShiftData();
-		$scope.refresh();
-	};
-
-	$scope.sub = function () {
-
-		var payload = { command: 'post', shift: $scope.shift, t: $scope.packet_string };
-		var req = {
-			method: 'POST',
-			url: 'shift.php',
-			headers: {
-				'Content-Type': undefined
-			},
-			data: payload
-		};
-
-		$http(req).then(
-			function (res) {
-				$scope.status = JSON.stringify(res.data);
-			},
-			function () {
-				$scope.status = 'data submission failed.';
-			}
-		);
-	};
-
-	$scope.refresh = function () {
+	function ref() {
 		$scope.packet = {
 			shift: $scope.shift,
 			shovels: [],
@@ -342,14 +316,49 @@ app.controller('ctrl', function ($scope, $http) {
 			$scope.outsourcings_total.sum(x);
 		});
 
-
 		$scope.shovels_total.inflate();
 		$scope.draglines_total.inflate();
-		$scope.surfaceMiners_total.inflate();
-		$scope.outsourcings_total.inflate();
+
 
 		$scope.packet_string = JSON.stringify($scope.packet);
+	}
+
+
+	$scope.changeShift = function (arg) {
+		$scope.status = "- - - - - - - - - -";
+		if (arg == 'next') {
+			$scope.shift += 1;
+		}
+		if (arg == 'prev') {
+			$scope.shift -= 1;
+		}
+		updateShiftData();
 	};
 
+	$scope.sub = function () {
+
+		var payload = { command: 'post', shift: $scope.shift, t: $scope.packet_string };
+		var req = {
+			method: 'POST',
+			url: 'shift.php',
+			headers: {
+				'Content-Type': undefined
+			},
+			data: payload
+		};
+
+		$http(req).then(
+			function (res) {
+				$scope.status = JSON.stringify(res.data);
+			},
+			function () {
+				$scope.status = 'data submission failed.';
+			}
+		);
+	};
+
+	$scope.refresh = function () {
+		ref();
+	};
 
 });
