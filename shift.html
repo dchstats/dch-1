@@ -27,12 +27,19 @@
             <input ng-model="status"></input>
         </div>
         <div id="menu">
-                <button ng-show="debug" ng-click="dummy()">dummy</button>
-                <button ng-click="debug=!debug">Debug</button>
-                <button ng-click="module=0">Summary</button>
-                <button ng-click="module=1">Data</button>
+             <div>
+                    <button ng-click="debug=!debug">Debug</button>
+                    <button ng-click="module=0">Summary</button>
+                    <button ng-click="module=1">Data</button>
+             </div>
+             <div>
+                 <button>Settings</button>
+             </div>              
         </div>
-
+        <div ng-show="debug">
+                <button ng-click="dummy()">Dummy</button>
+                <button ng-click="refresh()">Refresh</button>
+        </div>
     </nav>
 
     <div id="summary" ng-show="module==0">
@@ -124,6 +131,51 @@
                 </tr>
             </table>
         </div>
+        <div id="draglines-summary" class="section">
+            <table class="data-table">
+                <tr class="head">
+                    <td></td>
+                    <td>Sld</td>
+                    <td>Reh</td>
+                    <td>wrk-mnt-bd-idl</td>
+                    <td>Remark</td>
+                </tr>
+                <tr class="unit">
+                    <td></td>
+                    <td>bkts</td>
+                    <td>bkts</td>
+                    <td>hrs</td>
+                    <td></td>
+                </tr>
+                <tr class="data" ng-repeat="x in draglines">
+                    <td class="name-col">{{x.name}}</td>
+                    <td>
+                        {{x.data.solid}}
+                    </td>
+                    <td>
+                        {{x.data.rehandling}}</td>
+                    </td>
+                    <td>
+                        {{x.data.hrs}}
+                    </td>
+                    <td>{{x.data.remark}}</td>
+                </tr>
+                <tr class="total">
+                    <td>Total</td>
+                    <td>{{draglines_total.data.solid}}</td>
+                    <td>{{draglines_total.data.rehandling}}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="total">
+                    <td>Qty</td>
+                    <td>{{draglines_total.solid_qty}}</td>
+                    <td>{{draglines_total.rehandling_qty}}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
         <div class="debug" ng-show="debug">
             <textarea ng-model="packet_string" cols="50" rows="50" style="width:100%"></textarea>
         </div>
@@ -192,7 +244,7 @@
                     <td></td>
                     <td>Sld</td>
                     <td>Reh</td>
-                    <td>Hrs</td>
+                    <td>wrk-mnt-bd-idl</td>
                     <td>Remark</td>
                 </tr>
                 <tr class="unit">
@@ -211,12 +263,9 @@
                         <input ng-change="refresh()" type="number" ng-model="x.data.rehandling"></td>
                     </td>
                     <td>
-                        <input ng-change="refresh()" type="number" ng-model="x.data.wrk" class="drg-hrs">
-                        <input ng-change="refresh()" type="number" ng-model="x.data.bd" class="drg-hrs">
-                        <input ng-change="refresh()" type="number" ng-model="x.data.mnt" class="drg-hrs">
-                        <input ng-change="refresh()" type="number" ng-model="x.data.idl" class="drg-hrs">
+                        <input ng-change="refresh()" ng-model="x.data.hrs">
                     </td>
-                    <td><input ng-model="x.data.remark"></input></td>
+                    <td><input ng-change="refresh()" ng-model="x.data.remark"></input></td>
                 </tr>
                 <tr class="total">
                     <td>Total</td>
@@ -257,7 +306,7 @@
                     <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.wrk"></td>
                     <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.cutting"></td>
                     <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.prod"></td>
-                    <td><input ng-model="x.data.remark"></input></td>
+                    <td><input ng-change="refresh()" ng-model="x.data.remark"></input></td>
                 </tr>
                 <tr class="total">
                     <td>Total</td>
@@ -284,8 +333,8 @@
                 </tr>
                 <tr class="data" ng-repeat="x in outsourcings">
                     <td class="name-col">{{x.name}}</td>
-                    <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.qty"></td>
-                    <td><input ng-model="x.data.remark"></input></td>
+                    <td><input ng-change="refresh()" type="number" ng-model="x.data.qty"></td>
+                    <td><input ng-change="refresh()" ng-model="x.data.remark"></input></td>
                 </tr>
                 <tr class="total">
                     <td>Total</td>

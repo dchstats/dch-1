@@ -89,16 +89,13 @@ app.controller('ctrl', function ($scope, $http) {
 				name: this.name,
 				solid: null,
 				rehandling: null,
-				wrk: null,
-				bd: null,
-				mnt: null,
+				hrs: null,
 				remark: null
 			};
 		};
 		inflate = function () {
 			this.solid_qty = this.data.solid * 13;
 			this.rehandling_qty = this.data.rehandling * 13;
-			this.idl = 8 - this.data.wrk - this.data.bd - this.data.mnt;
 		};
 		sum = function (x) {
 			this.data.solid += x.data.solid;
@@ -113,10 +110,8 @@ app.controller('ctrl', function ($scope, $http) {
 		initialize = function () {
 			this.data = {
 				name: this.name,
-				wrk: null,
-				cutting: null,
-				prod: null,
-				remark: null
+				hrs: null,
+				remark:null
 			};
 		};
 		sum = function (x) {
@@ -262,7 +257,7 @@ app.controller('ctrl', function ($scope, $http) {
 	}
 
 	$scope.dummy = function () {
-		$scope.obj = JSON.parse('{"shift":21,"shovels":[{"name":"P&H_1","east":true,"west":false,"east_coal_100":1,"east_coal_120":2,"east_ob_100":3,"east_ob_120":4,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_2","east":true,"west":false,"east_coal_100":5,"east_coal_120":6,"east_ob_100":7,"east_ob_120":8,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_3","east":true,"west":false,"east_coal_100":9,"east_coal_120":10,"east_ob_100":11,"east_ob_120":12,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_4","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_5","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_6","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_7","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_8","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_9","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_10","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null}],"draglines":[{"name":"Jyoti","solid":1,"rehandling":2,"wrk":null,"bd":null,"mnt":null,"remark":""},{"name":"Pawan","solid":3,"rehandling":4,"wrk":null,"bd":null,"mnt":null,"remark":null},{"name":"Vindhya","solid":5,"rehandling":6,"wrk":null,"bd":null,"mnt":null,"remark":null},{"name":"Jwala","solid":7,"rehandling":8,"wrk":null,"bd":null,"mnt":null,"remark":null}],"surfaceMiners":[{"name":"LnT","wrk":1,"cutting":2,"prod":3,"remark":null}],"outsourcings":[{"name":"BGR-EAST-APT","qty":1,"remark":null},{"name":"GAJRAJ-WEST-APT","qty":2,"remark":null},{"name":"GAJRAJ-EAST-APB","qty":3,"remark":null},{"name":"GAJRAJ-WEST-APB","qty":4,"remark":null},{"name":"DL-EAST","qty":5,"remark":null},{"name":"DL-WEST","qty":6,"remark":null}]}');
+		$scope.obj = JSON.parse('{"shift":24,"shovels":[{"name":"P&H_1","east":true,"west":false,"east_coal_100":1,"east_coal_120":2,"east_ob_100":3,"east_ob_120":4,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_2","east":true,"west":false,"east_coal_100":5,"east_coal_120":6,"east_ob_100":7,"east_ob_120":8,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_3","east":true,"west":false,"east_coal_100":9,"east_coal_120":10,"east_ob_100":11,"east_ob_120":12,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_4","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_5","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_6","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_7","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_8","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_9","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_10","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null}],"draglines":[{"name":"Jyoti","solid":1,"rehandling":2,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 1"},{"name":"Pawan","solid":3,"rehandling":4,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 2"},{"name":"Vindhya","solid":5,"rehandling":6,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 3"},{"name":"Jwala","solid":7,"rehandling":8,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 4"}],"surfaceMiners":[{"name":"LnT","hrs":null,"remark":"Remark 1","wrk":1,"cutting":2,"prod":3}],"outsourcings":[{"name":"BGR-EAST-APT","qty":1,"remark":"Remark 1"},{"name":"GAJRAJ-WEST-APT","qty":2,"remark":"Remark 2"},{"name":"GAJRAJ-EAST-APB","qty":3,"remark":"Remark 3"},{"name":"GAJRAJ-WEST-APB","qty":4,"remark":"Remark 4"},{"name":"DL-EAST","qty":5,"remark":"Remark 5"},{"name":"DL-WEST","qty":6,"remark":"Remark 6"}]}');
 		$scope.status = "some dummy data populated";
 		pop();
 	}
