@@ -8,7 +8,7 @@
 
 body{
 	font-family: "consolas", sans-serif;
-	font-size:0.8rem;
+	font-size:1rem;
 }
 
 
@@ -81,14 +81,18 @@ tr{
 	border-width:1px 0;
 }
 
-tr.head-row,
-tr.total-row{
+tr.head,
+tr.total{
 	background:deepskyblue;
 	color:white;
 }
 
-
-
+tr.unit td{
+	padding:0;
+	background: lightskyblue;
+	color:white;
+	font-size:0.7rem;
+}
 
 
 tr td:first-child{

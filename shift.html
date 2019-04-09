@@ -16,9 +16,10 @@
 </head>
 
 <body ng-app="dch" ng-controller='ctrl'>
-    <header ng-dblclick="debug=!debug">
+    <header>
         <button ng-disabled="shift==1" ng-click="changeShift('prev')">&lt</button>
-        {{date}}, {{shiftName}} Shift
+        <span ng-show="debug">[{{shift}}]  </span>
+        <span>{{date}}, {{shiftName}} Shift</span>
         <button ng-disabled="shift==lastShift" ng-click="changeShift('next')">&gt</button>
     </header>
     <nav>
@@ -26,15 +27,10 @@
             <input ng-model="status"></input>
         </div>
         <div id="menu">
-            <div ng-show="debug" id="debug">
-                [{{shift}}]
-                <button ng-click="dummy()">dummy</button>
-                <button ng-click="module=2">Debug</button>
-            </div>
-            <div>
+                <button ng-show="debug" ng-click="dummy()">dummy</button>
+                <button ng-click="debug=!debug">Debug</button>
                 <button ng-click="module=0">Summary</button>
                 <button ng-click="module=1">Data</button>
-            </div>
         </div>
 
     </nav>
@@ -42,13 +38,19 @@
     <div id="summary" ng-show="module==0">
         <div id="full-summary">
             <table class="data-table">
-                <tr class="head-row">
+                <tr class="head">
                     <td></td>
                     <td>Coal</td>
                     <td>Deptt OB</td>
                     <td>Out OB</td>
                 </tr>
-                <tr class="data-row">
+                <tr class="unit">
+                    <td></td>
+                    <td>Te</td>
+                    <td>cum</td>
+                    <td>cum</td>
+                </tr>
+                <tr class="data">
                     <td>Shovel</td>
                     <td>{{shovels_total.qty.coal}}</td>
                     <td>{{shovels_total.qty.ob}}</td>
@@ -73,7 +75,7 @@
                     <td></td>
                     <td>{{outsourcings_total.data.qty}}</td>
                 </tr>
-                <tr class="total-row">
+                <tr class="total">
                     <td>Total</td>
                     <td>{{shovels_total.qty.coal+surfaceMiners_total.data.prod}}</td>
                     <td>{{shovels_total.qty.ob+draglines_total.solid_qty}}</td>
@@ -83,7 +85,7 @@
         </div>
         <div id="shovel-summary">
             <table class="data-table">
-                <tr class="head-row">
+                <tr class="head">
                     <td class="name-col">Shovel</td>
                     <td>East Coal</td>
                     <td>East OB</td>
@@ -92,7 +94,7 @@
                     <td>Coal</td>
                     <td>OB</td>
                 </tr>
-                <tr class="unit-row">
+                <tr class="unit">
                     <td></td>
                     <td>Te</td>
                     <td>cum</td>
@@ -101,7 +103,7 @@
                     <td>Te</td>
                     <td>cum</td>
                 </tr>
-                <tr class="data-row" ng-repeat="x in shovels|filter:{$:true}">
+                <tr class="data" ng-repeat="x in shovels|filter:{$:true}">
                     <td class="name-col">{{x.name}}</td>
                     <td>{{x.qty.east_coal}}</td>
                     <td>{{x.qty.east_ob}}</td>
@@ -110,7 +112,7 @@
                     <td>{{x.qty.coal}}</td>
                     <td>{{x.qty.ob}}</td>
                 </tr>
-                <tr class="total-row">
+                <tr class="total">
                     <td class="name-col">Total</td>
                     <td>{{shovels_total.qty.east_coal}}</td>
                     <td>{{shovels_total.qty.east_ob}}</td>
@@ -121,6 +123,9 @@
                     <td></td>
                 </tr>
             </table>
+        </div>
+        <div class="debug" ng-show="debug">
+            <textarea ng-model="packet_string" cols="50" rows="50" style="width:100%"></textarea>
         </div>
 
     </div>
@@ -136,7 +141,7 @@
             </div>
 
             <table class="data-table">
-                <tr class="head-row">
+                <tr class="head">
                     <td></td>
                     <td>Coal-100</td>
                     <td>Coal-120</td>
@@ -144,7 +149,15 @@
                     <td>OB-120</td>
                     <td></td>
                 </tr>
-                <tr class="data-row" ng-repeat="x in shovels" ng-if="x.data.east">
+                <tr class="unit">
+                    <td></td>
+                    <td>Te</td>
+                    <td>Te</td>
+                    <td>cum</td>
+                    <td>cum</td>
+                    <td></td>
+                </tr>
+                <tr class="data" ng-repeat="x in shovels" ng-if="x.data.east">
                     <td class="name-col">{{x.name}}</td>
                     <td><input ng-change="refresh()" type="number" ng-model="x.data.east_coal_100"></td>
                     <td><input ng-change="refresh()" type="number" ng-model="x.data.east_coal_120"></td>
@@ -153,7 +166,7 @@
                     <td><button class="cancel-btn" ng-click="x.remove('east');"><span>X</span></button>
                     </td>
                 </tr>
-                <tr class="total-row">
+                <tr class="total">
                     <td class="name-col">Total</td>
                     <td>{{shovels_total.data.east_coal_100}}</td>
                     <td>{{shovels_total.data.east_coal_120}}</td>
@@ -161,7 +174,7 @@
                     <td>{{shovels_total.data.east_ob_120}}</td>
                     <td></td>
                 </tr>
-                <tr class="total-row">
+                <tr class="total">
                     <td class="name-col">Qty</td>
                     <td>{{shovels_total.qty.east_coal_100}}</td>
                     <td>{{shovels_total.qty.east_coal_120}}</td>
@@ -175,14 +188,21 @@
         <div id="draglines" class="section">
             <p>Draglines</p>
             <table class="data-table">
-                <tr class="head-row">
+                <tr class="head">
                     <td></td>
                     <td>Sld</td>
                     <td>Reh</td>
                     <td>Hrs</td>
                     <td>Remark</td>
                 </tr>
-                <tr class="data-row" ng-repeat="x in draglines">
+                <tr class="unit">
+                    <td></td>
+                    <td>bkts</td>
+                    <td>bkts</td>
+                    <td>hrs</td>
+                    <td></td>
+                </tr>
+                <tr class="data" ng-repeat="x in draglines">
                     <td class="name-col">{{x.name}}</td>
                     <td>
                         <input ng-change="refresh()" type="number" ng-model="x.data.solid">
@@ -198,14 +218,14 @@
                     </td>
                     <td><input ng-model="x.data.remark"></input></td>
                 </tr>
-                <tr class="total-row">
+                <tr class="total">
                     <td>Total</td>
                     <td>{{draglines_total.data.solid}}</td>
                     <td>{{draglines_total.data.rehandling}}</td>
                     <td></td>
                     <td></td>
                 </tr>
-                <tr class="total-row">
+                <tr class="total">
                     <td>Qty</td>
                     <td>{{draglines_total.solid_qty}}</td>
                     <td>{{draglines_total.rehandling_qty}}</td>
@@ -218,21 +238,28 @@
         <div id="surface-miners" class="section">
             <p>Surface Miners</p>
             <table class="data-table">
-                <tr class="head-row">
+                <tr class="head">
                     <td></td>
                     <td>Wrk</td>
                     <td>Cut</td>
                     <td>Prod</td>
                     <td>Remark</td>
                 </tr>
-                <tr class="data-row" ng-repeat="x in surfaceMiners">
+                <tr class="unit">
+                    <td></td>
+                    <td>hrs</td>
+                    <td>m</td>
+                    <td>Te</td>
+                    <td></td>
+                </tr>
+                <tr class="data" ng-repeat="x in surfaceMiners">
                     <td class="name-col">{{x.name}}</td>
                     <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.wrk"></td>
                     <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.cutting"></td>
                     <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.prod"></td>
                     <td><input ng-model="x.data.remark"></input></td>
                 </tr>
-                <tr class="total-row">
+                <tr class="total">
                     <td>Total</td>
                     <td>{{surfaceMiners_total.data.wrk}}</td>
                     <td>{{surfaceMiners_total.data.cutting}}</td>
@@ -245,27 +272,28 @@
         <div id="outsourcing" class="section">
             <p>Out Sourcing</p>
             <table class="data-table">
-                <tr class="head-row">
+                <tr class="head">
                     <td></td>
                     <td>Qty</td>
                     <td>Remark</td>
                 </tr>
-                <tr class="data-row" ng-repeat="x in outsourcings">
+                <tr class="unit">
+                    <td></td>
+                    <td>cum</td>
+                    <td></td>
+                </tr>
+                <tr class="data" ng-repeat="x in outsourcings">
                     <td class="name-col">{{x.name}}</td>
                     <td><input ng-change="refresh()" type="number" name="" id="" ng-model="x.data.qty"></td>
                     <td><input ng-model="x.data.remark"></input></td>
                 </tr>
-                <tr class="total-row">
+                <tr class="total">
                     <td>Total</td>
                     <td>{{outsourcings_total.data.qty}}</td>
                     <td></td>
                 </tr>
             </table>
         </div>
-    </div>
-
-    <div id="debug" ng-show="module==2">
-        <textarea ng-model="packet_string" cols="50" rows="50" style="width:100%"></textarea>
     </div>
 </body>
 
