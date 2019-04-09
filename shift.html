@@ -18,7 +18,7 @@
 <body ng-app="dch" ng-controller='ctrl'>
     <header>
         <button ng-disabled="shift==1" ng-click="changeShift('prev')">&lt</button>
-        <span ng-show="debug">[{{shift}}]  </span>
+        <span ng-show="debug">[{{shift}}] </span>
         <span>{{date}}, {{shiftName}} Shift</span>
         <button ng-disabled="shift==lastShift" ng-click="changeShift('next')">&gt</button>
     </header>
@@ -27,18 +27,18 @@
             <input ng-model="status"></input>
         </div>
         <div id="menu">
-             <div>
-                    <button ng-click="debug=!debug">Debug</button>
-                    <button ng-click="module=0">Summary</button>
-                    <button ng-click="module=1">Data</button>
-             </div>
-             <div>
-                 <button>Settings</button>
-             </div>              
+            <div>
+                <button ng-click="debug=!debug">Debug</button>
+                <button ng-click="module=0">Summary</button>
+                <button ng-click="module=1">Data</button>
+            </div>
+            <div>
+                <button>Settings</button>
+            </div>
         </div>
         <div ng-show="debug">
-                <button ng-click="dummy()">Dummy</button>
-                <button ng-click="refresh()">Refresh</button>
+            <button ng-click="dummy()">Dummy</button>
+            <button ng-click="refresh()">Refresh</button>
         </div>
     </nav>
 
@@ -93,7 +93,7 @@
         <div id="shovel-summary">
             <table class="data-table">
                 <tr class="head">
-                    <td class="name-col">Shovel</td>
+                    <td></td>
                     <td>East Coal</td>
                     <td>East OB</td>
                     <td>West Coal</td>
@@ -137,41 +137,24 @@
                     <td></td>
                     <td>Sld</td>
                     <td>Reh</td>
-                    <td>wrk-mnt-bd-idl</td>
                     <td>Remark</td>
                 </tr>
                 <tr class="unit">
                     <td></td>
                     <td>bkts</td>
                     <td>bkts</td>
-                    <td>hrs</td>
                     <td></td>
                 </tr>
                 <tr class="data" ng-repeat="x in draglines">
-                    <td class="name-col">{{x.name}}</td>
-                    <td>
-                        {{x.data.solid}}
-                    </td>
-                    <td>
-                        {{x.data.rehandling}}</td>
-                    </td>
-                    <td>
-                        {{x.data.hrs}}
-                    </td>
+                    <td>{{x.name}}</td>
+                    <td>{{x.solid_qty}}</td>
+                    <td>{{x.rehandling_qty}}</td>
                     <td>{{x.data.remark}}</td>
-                </tr>
-                <tr class="total">
-                    <td>Total</td>
-                    <td>{{draglines_total.data.solid}}</td>
-                    <td>{{draglines_total.data.rehandling}}</td>
-                    <td></td>
-                    <td></td>
                 </tr>
                 <tr class="total">
                     <td>Qty</td>
                     <td>{{draglines_total.solid_qty}}</td>
                     <td>{{draglines_total.rehandling_qty}}</td>
-                    <td></td>
                     <td></td>
                 </tr>
             </table>
@@ -244,7 +227,7 @@
                     <td></td>
                     <td>Sld</td>
                     <td>Reh</td>
-                    <td>wrk-mnt-bd-idl</td>
+                    <td>Timings</td>
                     <td>Remark</td>
                 </tr>
                 <tr class="unit">
@@ -262,8 +245,24 @@
                     <td>
                         <input ng-change="refresh()" type="number" ng-model="x.data.rehandling"></td>
                     </td>
-                    <td>
-                        <input ng-change="refresh()" ng-model="x.data.hrs">
+                    <td class="timings">
+                        <div>
+                            <div><span>Wrk</span></div>
+                            <input ng-change="refresh()" ng-model="x.data.wrk">
+                        </div>
+                        <div>
+                            <div><span>Mnt</span></div>
+                            <input ng-change="refresh()" ng-model="x.data.mnt">
+                        </div>
+                        <div>
+                            <div><span>Mnt</span></div>
+                            <input ng-change="refresh()" ng-model="x.data.bd">
+                        </div>
+                        <div>
+                            <div><span>Idl</span></div>
+                            <input ng-disabled="true" ng-model="x.data.idl">
+                        </div>
+
                     </td>
                     <td><input ng-change="refresh()" ng-model="x.data.remark"></input></td>
                 </tr>

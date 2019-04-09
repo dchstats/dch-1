@@ -89,7 +89,10 @@ app.controller('ctrl', function ($scope, $http) {
 				name: this.name,
 				solid: null,
 				rehandling: null,
-				hrs: null,
+				wrk: null,
+				mnt: null,
+				bd: null,
+				idl: null,
 				remark: null
 			};
 		};
@@ -110,8 +113,10 @@ app.controller('ctrl', function ($scope, $http) {
 		initialize = function () {
 			this.data = {
 				name: this.name,
+				cutting: null,
+				prod: null,
 				hrs: null,
-				remark:null
+				remark: null
 			};
 		};
 		sum = function (x) {

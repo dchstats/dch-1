@@ -136,7 +136,7 @@ button:disabled {
 width:10%
 }
 
-#draglines tr td:nth-child(n+4){
+#draglines tr td:last-child{
 width:30%
 }
 
@@ -150,22 +150,45 @@ width:40%
 width:40%;
 }
 
-#summary td{
-	text-align: center;
-}
-
-
 
 #shovel-summary tr td{
 width:20%
 }
 
 td{
-	padding:0.5rem 0;
+	padding:0.25rem;
+	text-align: center;
+}
+
+td.timings > div{
+	display:flex;
+	justify-content: center;
+	border-radius:3px;
+	margin:2px 0;
+	border:1px solid deepskyblue;
+}
+
+td.timings > div > div{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+color:white;
+width:50%;
+background:deepskyblue;
+}
+
+td.timings span{
+	font-size:0.7rem;
+}
+
+
+td.timings div input{
+	display:inline-block;
+	width:50%;
 }
 
 /* /////////////////////////////////////////////////////////////////////// */
-@media(min-width:480px){
+/* @media(min-width:480px){
 	body{
 		font-size:1rem;
 	}
@@ -204,6 +227,6 @@ td{
 }
 
 
-}
+} */
 
 
