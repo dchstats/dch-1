@@ -1,19 +1,24 @@
 # www.sushant.info/dch
 
 # Overview
-This web app is to facilitate real-time reporting and monitoring of Duchichua Mines production related data.
-Implements a pub-sub architecture served by a centralized server. 
-Users can get or report(post) the data through a  browser window or mobile app. 
+It's a PWA (progressive web app) to facilitate real-time reporting and monitoring of production related data of Duchichua coal mine.
+Apart from the PWA, native android and ios apps are also part of the package.
+Thid app implements a pub-sub architecture served by a centralized server. 
+Users can report and monitor various data through a  browser window or the mobile app. 
 
 # Features
-Accessible through desktop browser, mobile browser or mobile app.
-Web interface  is responsive so looks good on all screen sizes.
-User interface is customizable so a user can focus on relevent data.
-Reporting interfaces are very user-friendly and are specially designed to minimize reporting errors. 
-Users can opt for receiving notifications  about dataset changes triggered by differential or cumulatvie threshold set by the user. 
+Accessible through desktop browser, mobile browser or the mobile app.
+User interface  is intitutive, fluid and responsive  to look good on any screen size.
+The user can customize the interface to focus on interested data. Also the user can opt for receiving notifications based upon custom trigger set by the user. 
+Data reporting interfaces have various features in place to minimize reporting errors. 
+Security features have been implemented to enhance data intigrity.
 
-# Technologies
-HTML, CSS, JavaScript, jQuery, Angular.js, Bootstrap, W3CSS, SCSS, Apache, PHP, Node.js, MySQL, MangoDB, Java, Kotlin, Swift, Dart, Flutter.
+# Technologies used.
+PWA: HTML, CSS, JavaScript.
+Libs: Angular, Bootstrap
+Backend:PHP, MySQL.
+Android: Kotlin, Java, Flutter-dart.
+iOS: Swift, Flutter-dart.
 
 # Developer
 Sushant Tiwari
