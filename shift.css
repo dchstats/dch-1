@@ -20,11 +20,11 @@ header {
 	background: purple;
 	color: white;
 	text-align:center;
-	font-size:1.5rem;
+	font-size:160%;
 }
 
 header button{
-	width:3rem;
+	width:10%;
 	height: 100%;
 	margin: 0;
 	padding: 0;
@@ -40,6 +40,10 @@ header button{
 	justify-content:space-between;
 }
 
+.section{
+	margin:100px 0;
+}
+
 .section > p {
 	margin:0px;
 	display:block;
@@ -50,10 +54,9 @@ header button{
 	font-size:5vw;
 }
 
-table{
+table {
 	width:100%;
 	table-layout: fixed;
-	margin-bottom:50px;
 }
 
 input{
@@ -68,20 +71,15 @@ input:focus{
 	outline: 2px solid gold;
 }
 
-input.drg-hrs{
-	width:20%;
-}
 
-tr{
-	border:solid rgb(147, 226, 252);
-	border-width:1px 0;
-}
 
-tr.head,
-tr.total{
+tr.head td,
+tr.total td{
 	background:deepskyblue;
 	color:white;
 }
+
+
 
 tr.unit td{
 	padding:0;
@@ -90,11 +88,13 @@ tr.unit td{
 	font-size:0.7rem;
 }
 
-
-tr td:first-child{
-	text-align:right;
-	padding-right:10px;
+tr.data td{
+	text-align:center;
+	padding:10px 0;
+	border:solid deepskyblue;
+	border-width:1px 0;
 }
+
 
 button {
 	padding:0.5vh;
@@ -107,7 +107,7 @@ button {
 	border-radius: 2px;
 }
 button:hover {
-	/* background: darkorchid; */
+	background: darkorchid;
 	background: rgb(72, 138, 72);
 }
 button:active {
@@ -120,6 +120,7 @@ button:disabled {
 }
 
 .cancel-btn {
+	font-size:50%;
 	width: 1rem;
 	height: 1rem;
 	padding:0;
@@ -155,36 +156,21 @@ width:40%;
 width:20%
 }
 
-td{
-	padding:0.25rem;
-	text-align: center;
-}
-
-td.timings > div{
-	display:flex;
-	justify-content: center;
-	border-radius:3px;
-	margin:2px 0;
+table.drg-hrs td{
+	padding:0;
 	border:1px solid deepskyblue;
 }
 
-td.timings > div > div{
-	display:flex;
-	justify-content: center;
-	align-items: center;
-color:white;
-width:50%;
-background:deepskyblue;
+table.drg-hrs tr td:first-child{
+	font-size:80%;
+width:25%;
+padding-right:5px;
+
 }
 
-td.timings span{
-	font-size:0.7rem;
-}
-
-
-td.timings div input{
-	display:inline-block;
-	width:50%;
+table.drg-hrs input{
+	border:none;
+	margin:0;
 }
 
 /* /////////////////////////////////////////////////////////////////////// */

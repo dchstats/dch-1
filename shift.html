@@ -44,7 +44,7 @@
 
     <div id="summary" ng-show="module==0">
         <div id="full-summary">
-            <table class="data-table">
+            <table class="data">
                 <tr class="head">
                     <td></td>
                     <td>Coal</td>
@@ -91,7 +91,7 @@
             </table>
         </div>
         <div id="shovel-summary">
-            <table class="data-table">
+            <table class="data">
                 <tr class="head">
                     <td></td>
                     <td>East Coal</td>
@@ -132,7 +132,7 @@
             </table>
         </div>
         <div id="draglines-summary" class="section">
-            <table class="data-table">
+            <table class="data">
                 <tr class="head">
                     <td></td>
                     <td>Sld</td>
@@ -175,7 +175,7 @@
                 </button>
             </div>
 
-            <table class="data-table">
+            <table class="data">
                 <tr class="head">
                     <td></td>
                     <td>Coal-100</td>
@@ -222,7 +222,7 @@
 
         <div id="draglines" class="section">
             <p>Draglines</p>
-            <table class="data-table">
+            <table class="data">
                 <tr class="head">
                     <td></td>
                     <td>Sld</td>
@@ -246,46 +246,47 @@
                         <input ng-change="refresh()" type="number" ng-model="x.data.rehandling"></td>
                     </td>
                     <td class="timings">
-                        <div>
-                            <div><span>Wrk</span></div>
-                            <input ng-change="refresh()" ng-model="x.data.wrk">
-                        </div>
-                        <div>
-                            <div><span>Mnt</span></div>
-                            <input ng-change="refresh()" ng-model="x.data.mnt">
-                        </div>
-                        <div>
-                            <div><span>Mnt</span></div>
-                            <input ng-change="refresh()" ng-model="x.data.bd">
-                        </div>
-                        <div>
-                            <div><span>Idl</span></div>
-                            <input ng-disabled="true" ng-model="x.data.idl">
-                        </div>
-
-                    </td>
-                    <td><input ng-change="refresh()" ng-model="x.data.remark"></input></td>
+                        <table class="drg-hrs">
+                            <tr>
+                                <td>Wrk</td>
+                                <td><input ng-model="x.data.wrk"></td>
+                            <tr>
+                                <td>Mnt</td>
+                                <td><input ng-model="x.data.mnt"></td>
+                            </tr>
+                            <tr>
+                                <td>Bdn</td>
+                                <td><input ng-model="x.data.bd"></td>
+                            </tr>
+                            <tr>
+                                <td>Idl</td>
+                                <td><input ng-model="x.data.idl"></td>
+                            </tr>
                 </tr>
-                <tr class="total">
-                    <td>Total</td>
-                    <td>{{draglines_total.data.solid}}</td>
-                    <td>{{draglines_total.data.rehandling}}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="total">
-                    <td>Qty</td>
-                    <td>{{draglines_total.solid_qty}}</td>
-                    <td>{{draglines_total.rehandling_qty}}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
+            </table>
+            </td>
+            <td><input ng-change="refresh()" ng-model="x.data.remark"></input></td>
+            </tr>
+            <tr class="total">
+                <td>Total</td>
+                <td>{{draglines_total.data.solid}}</td>
+                <td>{{draglines_total.data.rehandling}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="total">
+                <td>Qty</td>
+                <td>{{draglines_total.solid_qty}}</td>
+                <td>{{draglines_total.rehandling_qty}}</td>
+                <td></td>
+                <td></td>
+            </tr>
             </table>
         </div>
 
         <div id="surface-miners" class="section">
             <p>Surface Miners</p>
-            <table class="data-table">
+            <table class="data">
                 <tr class="head">
                     <td></td>
                     <td>Wrk</td>
@@ -319,7 +320,7 @@
 
         <div id="outsourcing" class="section">
             <p>Out Sourcing</p>
-            <table class="data-table">
+            <table class="data">
                 <tr class="head">
                     <td></td>
                     <td>Qty</td>
