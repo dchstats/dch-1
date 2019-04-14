@@ -16,15 +16,17 @@
 </head>
 
 <body ng-app="dch" ng-controller='ctrl'>
-    <header>
-        <button ng-disabled="shift==1" ng-click="changeShift('prev')">&lt</button>
-        <span ng-show="debug">[{{shift}}] </span>
-        <span>{{date}}, {{shiftName}} Shift</span>
-        <button ng-disabled="shift==lastShift" ng-click="changeShift('next')">&gt</button>
-    </header>
-    <nav>
+    <div class="section main-header">
+        Shift Report
+    </div>
+    <div class="nav">
         <div id="status">
             <input ng-model="status"></input>
+        </div>
+        <div id="shift-id">
+            <button ng-disabled="shift==1" ng-click="changeShift('prev')">&lt</button>
+            <span>{{date}}, {{shiftName}} Shift</span>
+            <button ng-disabled="shift==lastShift" ng-click="changeShift('next')">&gt</button>
         </div>
         <div id="menu">
             <div>
@@ -32,24 +34,21 @@
                 <button ng-click="module=0">Summary</button>
                 <button ng-click="module=1">Data</button>
             </div>
-            <div>
-                <button>Settings</button>
+            <div ng-show="debug">
+                <button ng-click="dummy()">Dummy</button>
+                <button ng-click="refresh()">Refresh</button>
             </div>
         </div>
-        <div ng-show="debug">
-            <button ng-click="dummy()">Dummy</button>
-            <button ng-click="refresh()">Refresh</button>
-        </div>
-    </nav>
-
-    <div id="summary" ng-show="module==0">
-        <div id="full-summary">
-            <table class="data">
+    </div>
+    <div id="summary">
+        <div id="shift-summary" class="section">
+            <div class="table-head">Shift Summary</div>
+            <table id="shift-summary" class="data">
                 <tr class="head">
                     <td></td>
                     <td>Coal</td>
                     <td>Deptt OB</td>
-                    <td>Out OB</td>
+                    <td>Outs OB</td>
                 </tr>
                 <tr class="unit">
                     <td></td>
@@ -57,27 +56,27 @@
                     <td>cum</td>
                     <td>cum</td>
                 </tr>
-                <tr class="data">
+                <tr>
                     <td>Shovel</td>
                     <td>{{shovels_total.qty.coal}}</td>
                     <td>{{shovels_total.qty.ob}}</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Drgl</td>
+                    <td>Dragline</td>
                     <td></td>
                     <td>{{draglines_total.solid_qty}}</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>SM</td>
+                    <td>S Miners</td>
                     <td>{{surfaceMiners_total.data.prod}}</td>
                     <td></td>
                     <td></td>
                 </tr>
 
                 <tr>
-                    <td>OS</td>
+                    <td>Out Src</td>
                     <td></td>
                     <td></td>
                     <td>{{outsourcings_total.data.qty}}</td>
@@ -88,18 +87,19 @@
                     <td>{{shovels_total.qty.ob+draglines_total.solid_qty}}</td>
                     <td>{{outsourcings_total.data.qty}}</td>
                 </tr>
+
+
             </table>
-        </div>
-        <div id="shovel-summary">
-            <table class="data">
+            <div class="table-head">Shovels</div>
+            <table id="shovel-summary" class="data">
                 <tr class="head">
                     <td></td>
                     <td>East Coal</td>
                     <td>East OB</td>
                     <td>West Coal</td>
                     <td>West OB</td>
-                    <td>Coal</td>
-                    <td>OB</td>
+                    <td>Total Coal</td>
+                    <td>Total OB</td>
                 </tr>
                 <tr class="unit">
                     <td></td>
@@ -130,19 +130,18 @@
                     <td></td>
                 </tr>
             </table>
-        </div>
-        <div id="draglines-summary" class="section">
-            <table class="data">
+            <div class="table-head">Draglines</div>
+            <table id="dragline-summary" class="data">
                 <tr class="head">
                     <td></td>
-                    <td>Sld</td>
-                    <td>Reh</td>
+                    <td>Solid</td>
+                    <td>Rehandling</td>
                     <td>Remark</td>
                 </tr>
                 <tr class="unit">
                     <td></td>
-                    <td>bkts</td>
-                    <td>bkts</td>
+                    <td>buckets</td>
+                    <td>buckets</td>
                     <td></td>
                 </tr>
                 <tr class="data" ng-repeat="x in draglines">
@@ -158,17 +157,47 @@
                     <td></td>
                 </tr>
             </table>
+            <div class="table-head">Surface Miners</div>
+            <table id="shovel-summary" class="data">
+                <tr class="head">
+                    <td></td>
+                    <td>Working Hrs</td>
+                    <td>Cutting</td>
+                    <td>Production</td>
+                    <td>Remark</td>
+                </tr>
+                <tr class="unit">
+                    <td></td>
+                    <td>hrs</td>
+                    <td>mtrs</td>
+                    <td>Te</td>
+                    <td></td>
+                </tr>
+                <tr class="data" ng-repeat="x in surfaceMiners">
+                    <td class="name-col">{{x.name}}</td>
+                    <td>{{x.data.wrk}}</td>
+                    <td>{{x.data.cutting}}</td>
+                    <td>{{x.data.prod}}</td>
+                    <td>{{x.data.remark}}</td>
+                </tr>
+                <tr class="total">
+                    <td class="name-col">Total</td>
+                    <td>{{surfaceMiners_total.data.wrk}}</td>
+                    <td>{{surfaceMiners_total.data.cutting}}</td>
+                    <td>{{surfaceMiners_total.data.prod}}</td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
-        <div class="debug" ng-show="debug">
-            <textarea ng-model="packet_string" cols="50" rows="50" style="width:100%"></textarea>
-        </div>
-
     </div>
 
-    <div id="data" ng-show="module==1">
+    <div id="data">
 
         <div id="east-shovels" class="section">
-            <p>East Shovels</p>
+            <div class="section-header">
+                East Shovels
+            </div>
+
             <div class="shovel-buttons">
                 <button ng-repeat="x in shovels" ng-click="x.data.east=true;" ng-disabled="x.data.east">
                     {{x.name}}
@@ -221,19 +250,21 @@
         </div>
 
         <div id="draglines" class="section">
-            <p>Draglines</p>
+            <div class="section-header">
+                Draglines
+            </div>
             <table class="data">
                 <tr class="head">
                     <td></td>
-                    <td>Sld</td>
-                    <td>Reh</td>
+                    <td>Solid</td>
+                    <td>Rehandling</td>
                     <td>Timings</td>
                     <td>Remark</td>
                 </tr>
                 <tr class="unit">
                     <td></td>
-                    <td>bkts</td>
-                    <td>bkts</td>
+                    <td>buckets</td>
+                    <td>buckets</td>
                     <td>hrs</td>
                     <td></td>
                 </tr>
@@ -285,7 +316,9 @@
         </div>
 
         <div id="surface-miners" class="section">
-            <p>Surface Miners</p>
+            <div class="section-header">
+                Sruface Miners
+            </div>
             <table class="data">
                 <tr class="head">
                     <td></td>
@@ -319,7 +352,9 @@
         </div>
 
         <div id="outsourcing" class="section">
-            <p>Out Sourcing</p>
+            <div class="section-header">
+                Out Sourcing
+            </div>
             <table class="data">
                 <tr class="head">
                     <td></td>

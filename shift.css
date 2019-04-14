@@ -7,51 +7,43 @@
 }
 
 body{
-	font-family: "consolas", sans-serif;
+	background:lightgrey;
+    font-family: 'Muli', sans-serif;
 	font-size:1rem;
-}
-
-
-header {
-	height:10vh;
-	display:flex;
-	justify-content: space-between;
-	align-items: center;
-	background: purple;
-	color: white;
 	text-align:center;
-	font-size:160%;
-}
-
-header button{
-	width:10%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	border-radius:0;
 }
 
 #status input{
 	width:100%;
+	border:none;
 }
 
 #menu{
 	display: flex;
-	justify-content:space-between;
+	justify-content:center;
 }
 
 .section{
-	margin:100px 0;
+	background:white;
+    width:98%;
+    margin:2rem auto;
+    padding:16px 0;
+    box-shadow:0px 4px 8px 2px rgba(0,0,0,0.5);  
+    border-radius:3px;
 }
 
-.section > p {
-	margin:0px;
-	display:block;
-	width:100%;
+.section-header{
+	margin:10px 0;
 	background:deepskyblue;
 	color:white;
 	padding:5px;
-	font-size:5vw;
+	font-size:150%
+}
+
+.table-head{
+	font-size:150%;
+	color:blue;
+	text-align:left;
 }
 
 table {
@@ -63,7 +55,7 @@ input{
 	width:90%;
 	text-align:left;
 	padding:0.5vw;
-	border:1px solid deepskyblue;
+	border:1px solid lightgreen;
 	color:blue;
 }
 
@@ -75,7 +67,7 @@ input:focus{
 
 tr.head td,
 tr.total td{
-	background:deepskyblue;
+	background:lightcoral;
 	color:white;
 }
 
@@ -88,44 +80,51 @@ tr.unit td{
 	font-size:0.7rem;
 }
 
-tr.data td{
+tr td{
 	text-align:center;
 	padding:10px 0;
-	border:solid deepskyblue;
+	border:solid lightgray;
 	border-width:1px 0;
 }
 
-
 button {
-	padding:0.5vh;
-	cursor: pointer;
-	background: deepskyblue;
+	widows: 5rem;
+	height:2rem;
 	margin:5px;
-	color: white;
-	border: none;
-	outline: none;
-	border-radius: 2px;
+	padding:5px;
+    
+    cursor:pointer;
+    font-size:1rem;
+    background:deepskyblue;
+    color:white;
+    border:1px solid deepskyblue;
+    border-radius:3px;
+    box-shadow:3px 3px 5px 0px rgba(0,0,0,0.2);  
 }
-button:hover {
-	background: darkorchid;
-	background: rgb(72, 138, 72);
+
+button:hover{
+    background:white;
+    color:deepskyblue;
+    
 }
-button:active {
-	transform: scale(0.98);
+
+button:active{
+    transform:scale(0.9);
 }
-button:disabled {
-	background: lightgrey;
-	color: white;
-	box-shadow: none;
+
+button:disabled{
+    background:lightgrey;
+    color:white;
+    border-color:lightgrey;
 }
 
 .cancel-btn {
-	font-size:50%;
-	width: 1rem;
-	height: 1rem;
-	padding:0;
-	margin:0;
+    width:25px;
+    height:25px;
+    padding:0px;
+    font-size:16px;
 }
+
 
 .shovel-buttons{
 	display:flex;
@@ -158,7 +157,7 @@ width:20%
 
 table.drg-hrs td{
 	padding:0;
-	border:1px solid deepskyblue;
+	background:powderblue;
 }
 
 table.drg-hrs tr td:first-child{

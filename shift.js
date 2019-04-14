@@ -115,11 +115,12 @@ app.controller('ctrl', function ($scope, $http) {
 				name: this.name,
 				cutting: null,
 				prod: null,
-				hrs: null,
+				wrk: null,
 				remark: null
 			};
 		};
 		sum = function (x) {
+			this.data.wrk += x.data.wrk;
 			this.data.cutting += x.data.cutting;
 			this.data.prod += x.data.prod;
 		}
