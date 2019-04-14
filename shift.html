@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
     <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
     <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
     <script src="shift.js"></script>
@@ -17,30 +18,30 @@
 
 <body ng-app="dch" ng-controller='ctrl'>
     <div class="section main-header">
-        Shift Report
-    </div>
-    <div class="nav">
-        <div id="status">
-            <input ng-model="status"></input>
+        <div id="title">
+            Shift End Report
         </div>
+
         <div id="shift-id">
             <button ng-disabled="shift==1" ng-click="changeShift('prev')">&lt</button>
             <span>{{date}}, {{shiftName}} Shift</span>
             <button ng-disabled="shift==lastShift" ng-click="changeShift('next')">&gt</button>
         </div>
         <div id="menu">
-            <div>
-                <button ng-click="debug=!debug">Debug</button>
-                <button ng-click="module=0">Summary</button>
-                <button ng-click="module=1">Data</button>
-            </div>
-            <div ng-show="debug">
-                <button ng-click="dummy()">Dummy</button>
-                <button ng-click="refresh()">Refresh</button>
-            </div>
+            <button ng-click="debug=!debug">Debug</button>
+            <button ng-click="module=0">Summary</button>
+            <button ng-click="module=1">Data</button>
+        </div>
+        <div ng-show="debug">
+            <button ng-click="dummy()">Dummy</button>
+            <button ng-click="refresh()">Refresh</button>
+        </div>
+        <div id="status">
+            <input ng-model="status"></input>
         </div>
     </div>
-    <div id="summary">
+
+    <div id="summary" ng-show="module==0">
         <div id="shift-summary" class="section">
             <div class="table-head">Shift Summary</div>
             <table id="shift-summary" class="data">
@@ -191,7 +192,7 @@
         </div>
     </div>
 
-    <div id="data">
+    <div id="data" ng-show="module==1">
 
         <div id="east-shovels" class="section">
             <div class="section-header">
