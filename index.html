@@ -36,16 +36,16 @@
 
     <div class="w3-container w3-mobile">
         <div class="w3-bar">
-            <form action="getData.php" method="get">
-<input name="date" ng-model="date" ng-change="changeDay()" class="w3-bar-item w3-input w3-border-right" type="date">
-<input ng-model="s1" name="s1" type="number">
-            </form>
-           
-            <a href="#" class="w3-bar-item w3-button w3-hover-black">First Shift</i></a>
-            <a href="#" class="w3-bar-item w3-button w3-hover-black">Second Shift</i></a>
-            <a href="#" class="w3-bar-item w3-button w3-hover-black">Night Shift</i></a>
-            <a href="#" class="w3-bar-item w3-button w3-hover-black">Dispatch</i></a>
-            <a href="#" class="w3-bar-item w3-button w3-hover-black">Day Report</i></a>
+            <input name="date" ng-model="date" class="w3-bar-item w3-input w3-border-right"
+                type="date">
+                <a ng-click="changeDay()" href="#" class="w3-bar-item w3-button w3-hover-black">Go</a>
+            <input class="w3-bar-item w3-input" style="width:50px" name="day" ng-model="day">
+
+            <a href="#" class="w3-bar-item w3-button w3-hover-black">First Shift</a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-black">Second Shift</a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-black">Night Shift</a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-black">Dispatch</a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-black">Day Report</a>
 
             <button class="w3-bar-item w3-button w3-hover-black" ng-click="dummy()">Dummy</button>
             <button class="w3-bar-item w3-button w3-hover-black" ng-click="populate()">Populate</button>
@@ -422,23 +422,23 @@
         </table>
     </div>
     <div class="section " id="outsourcing">
-<table class="data w3-table-all">
-    <tr class="head w3-green">
-        <td></td>
-        <td>Qty</td>
-        <td>Remark</td>
-    </tr>
-    <tr class="data" ng-repeat="x in outsourcings">
-        <td class="name-col">{{x.name}}</td>
-        <td><input ng-change="refresh()" type="number" ng-model="x.data.qty"></td>
-        <td><input ng-change="refresh()" ng-model="x.data.remark"></input></td>
-    </tr>
-    <tr class="total w3-green">
-        <td>Total</td>
-        <td>{{outsourcings_total.data.qty}}</td>
-        <td></td>
-    </tr>
-</table>
+        <table class="data w3-table-all">
+            <tr class="head w3-green">
+                <td></td>
+                <td>Qty</td>
+                <td>Remark</td>
+            </tr>
+            <tr class="data" ng-repeat="x in outsourcings">
+                <td class="name-col">{{x.name}}</td>
+                <td><input ng-change="refresh()" type="number" ng-model="x.data.qty"></td>
+                <td><input ng-change="refresh()" ng-model="x.data.remark"></input></td>
+            </tr>
+            <tr class="total w3-green">
+                <td>Total</td>
+                <td>{{outsourcings_total.data.qty}}</td>
+                <td></td>
+            </tr>
+        </table>
     </div>
     </div>
 </body>

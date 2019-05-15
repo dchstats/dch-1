@@ -229,22 +229,35 @@ app.controller('ctrl', function ($scope, $http) {
 		var b = a.getTime();
 		var c = $scope.date.getTime();
 		var d = Math.floor((c - b) / (24 * 3600 * 1000));
-		fetch(d);
 		var s1 = d * 3 + 1;
 		var s2 = d * 3 + 2;
 		var s3 = d * 3 + 3;
-		var str = " " + s1 +","+ s2 +","+ s3+"/"+$scope.shift;
+		var str = d + "/" + s1 + "," + s2 + "," + s3 + "/" + $scope.shift;
 		console.log(str);
+		$scope.day = d;
+		$scope.shift = s3;
+		$scope.d1 = null;
+		$scope.d2 = null;
+		$scope.d3 = null;
+		fetch(s1);
+		fetch(s2);
+		fetch(s3);
+		$scope.s1 = s1;
+		$scope.s2 = s2;
+		$scope.s3 = s3;
 	};
+
+
 	$scope.changeDay = function () {
 		changeDay();
 	}
 
-	function fetch(d) {
-		var payload = { command: 'get', day: d };
+	function fetch(s) {
+		var tmp = "nothing";
+		var payload = { command: 'get', shift: s };
 		var req = {
 			method: 'POST',
-			url: 'shift.php',
+			url: 'http://localhost/dch-server/shift.php',
 			headers: {
 				'Content-Type': undefined
 			},
@@ -255,20 +268,31 @@ app.controller('ctrl', function ($scope, $http) {
 			function (res) {
 				var records = res.data.length;
 				if (records > 0) {
-					console.log(res.data);
+					var p = res.data[records - 1];
+					var sft = p.shift;
+					var obj_ = p.data;
+					var obj = JSON.parse(obj_);
+					if (s == $scope.s1) $scope.d1 = obj;
+					else if (s == $scope.s2) $scope.d2 = obj;
+					else $scope.d3 = obj;
+					$scope.status = "Data fetched from server";
+
 				}
 				else {
-					$scope.status = "Report not filed yet.";
+					$scope.status = "no data on server";
 				}
 			},
 			function () {
-				$scope.status = 'No connection.';
+				$scope.status = 'request failed.';
 			}
 		);
+
 	}
 
+
+
 	$scope.dummy = function () {
-		var k ='{"shift":129,"shovels":[{"name":"P&H_1","east":true,"west":true,"east_coal_100":1,"east_coal_120":2,"east_ob_100":3,"east_ob_120":4,"west_coal_100":5,"west_coal_85":5,"west_ob_100":4,"west_ob_85":6},{"name":"P&H_2","east":true,"west":true,"east_coal_100":5,"east_coal_120":6,"east_ob_100":7,"east_ob_120":8,"west_coal_100":4,"west_coal_85":4,"west_ob_100":5,"west_ob_85":5},{"name":"P&H_3","east":true,"west":true,"east_coal_100":9,"east_coal_120":10,"east_ob_100":11,"east_ob_120":12,"west_coal_100":4,"west_coal_85":4,"west_ob_100":4,"west_ob_85":null},{"name":"P&H_4","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_5","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_6","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_7","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_8","east":false,"west":true,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":4,"west_coal_85":null,"west_ob_100":4,"west_ob_85":4},{"name":"P&H_9","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_10","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null}],"draglines":[{"name":"Jyoti","solid":1,"rehandling":2,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 1"},{"name":"Pawan","solid":3,"rehandling":4,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 2"},{"name":"Vindhya","solid":5,"rehandling":6,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 3"},{"name":"Jwala","solid":7,"rehandling":8,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 4"}],"surfaceMiners":[{"name":"LnT","hrs":null,"remark":"Remark 1","wrk":1,"cutting":2,"prod":3}],"outsourcings":[{"name":"BGR-EAST-APT","qty":1,"remark":"Remark 1"},{"name":"GAJRAJ-WEST-APT","qty":2,"remark":"Remark 2"},{"name":"GAJRAJ-EAST-APB","qty":3,"remark":"Remark 3"},{"name":"GAJRAJ-WEST-APB","qty":4,"remark":"Remark 4"},{"name":"DL-EAST","qty":5,"remark":"Remark 5"},{"name":"DL-WEST","qty":6,"remark":"Remark 6"}],"shovels_total":{"name":"total","data":{"name":"total","east":false,"west":false,"east_coal_100":15,"east_coal_120":18,"east_ob_100":21,"east_ob_120":24,"west_coal_100":17,"west_coal_85":13,"west_ob_100":17,"west_ob_85":15},"qty":{"east_coal_100":675,"east_coal_120":990,"east_ob_100":525,"east_ob_120":696,"west_coal_100":765,"west_coal_85":520,"west_ob_100":425,"west_ob_85":315,"east_coal":1665,"east_ob":1221,"west_coal":1285,"west_ob":740,"coal":2950,"ob":1961}},"draglines_total":{"name":"total","data":{"name":"total","solid":16,"rehandling":20,"wrk":null,"mnt":null,"bd":null,"idl":null,"remark":null},"solid_qty":208,"rehandling_qty":260},"surfaceMiners_total":{"name":"total","data":{"name":"total","cutting":2,"prod":3,"wrk":1,"remark":null}},"outsourcings_total":{"name":"total","data":{"name":"total","qty":21,"remark":null}}}';
+		var k = '{"shift":129,"shovels":[{"name":"P&H_1","east":true,"west":true,"east_coal_100":1,"east_coal_120":2,"east_ob_100":3,"east_ob_120":4,"west_coal_100":5,"west_coal_85":5,"west_ob_100":4,"west_ob_85":6},{"name":"P&H_2","east":true,"west":true,"east_coal_100":5,"east_coal_120":6,"east_ob_100":7,"east_ob_120":8,"west_coal_100":4,"west_coal_85":4,"west_ob_100":5,"west_ob_85":5},{"name":"P&H_3","east":true,"west":true,"east_coal_100":9,"east_coal_120":10,"east_ob_100":11,"east_ob_120":12,"west_coal_100":4,"west_coal_85":4,"west_ob_100":4,"west_ob_85":null},{"name":"P&H_4","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_5","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_6","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_7","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_8","east":false,"west":true,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":4,"west_coal_85":null,"west_ob_100":4,"west_ob_85":4},{"name":"P&H_9","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_10","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null}],"draglines":[{"name":"Jyoti","solid":1,"rehandling":2,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 1"},{"name":"Pawan","solid":3,"rehandling":4,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 2"},{"name":"Vindhya","solid":5,"rehandling":6,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 3"},{"name":"Jwala","solid":7,"rehandling":8,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 4"}],"surfaceMiners":[{"name":"LnT","hrs":null,"remark":"Remark 1","wrk":1,"cutting":2,"prod":3}],"outsourcings":[{"name":"BGR-EAST-APT","qty":1,"remark":"Remark 1"},{"name":"GAJRAJ-WEST-APT","qty":2,"remark":"Remark 2"},{"name":"GAJRAJ-EAST-APB","qty":3,"remark":"Remark 3"},{"name":"GAJRAJ-WEST-APB","qty":4,"remark":"Remark 4"},{"name":"DL-EAST","qty":5,"remark":"Remark 5"},{"name":"DL-WEST","qty":6,"remark":"Remark 6"}],"shovels_total":{"name":"total","data":{"name":"total","east":false,"west":false,"east_coal_100":15,"east_coal_120":18,"east_ob_100":21,"east_ob_120":24,"west_coal_100":17,"west_coal_85":13,"west_ob_100":17,"west_ob_85":15},"qty":{"east_coal_100":675,"east_coal_120":990,"east_ob_100":525,"east_ob_120":696,"west_coal_100":765,"west_coal_85":520,"west_ob_100":425,"west_ob_85":315,"east_coal":1665,"east_ob":1221,"west_coal":1285,"west_ob":740,"coal":2950,"ob":1961}},"draglines_total":{"name":"total","data":{"name":"total","solid":16,"rehandling":20,"wrk":null,"mnt":null,"bd":null,"idl":null,"remark":null},"solid_qty":208,"rehandling_qty":260},"surfaceMiners_total":{"name":"total","data":{"name":"total","cutting":2,"prod":3,"wrk":1,"remark":null}},"outsourcings_total":{"name":"total","data":{"name":"total","qty":21,"remark":null}}}';
 		$scope.obj = JSON.parse(k);
 		$scope.status = "some dummy data populated";
 		pop();
@@ -299,10 +323,10 @@ app.controller('ctrl', function ($scope, $http) {
 			draglines: [],
 			surfaceMiners: [],
 			outsourcings: [],
-			shovels_total:null,
-			draglines_total:null,
-			surfaceMiners_total:null,
-			outsourcings_total:null
+			shovels_total: null,
+			draglines_total: null,
+			surfaceMiners_total: null,
+			outsourcings_total: null
 		};
 		$scope.shovels_total.initialize();
 		$scope.draglines_total.initialize();
@@ -341,6 +365,10 @@ app.controller('ctrl', function ($scope, $http) {
 
 		$scope.packet_string = JSON.stringify($scope.packet);
 		// console.log($scope.packet_string);
+		console.log($scope.d1);
+		console.log($scope.d2);
+		console.log($scope.d3);
+
 	}
 
 
@@ -349,7 +377,7 @@ app.controller('ctrl', function ($scope, $http) {
 		var payload = { command: 'post', shift: $scope.shift, t: $scope.packet_string };
 		var req = {
 			method: 'POST',
-			url: 'shift.php',
+			url: 'http://localhost/dch-server/shift.php',
 			headers: {
 				'Content-Type': undefined
 			},
@@ -358,7 +386,7 @@ app.controller('ctrl', function ($scope, $http) {
 
 		$http(req).then(
 			function (res) {
-				$scope.status = JSON.stringify(res.data) + ' for '+ $scope.shift;
+				$scope.status = JSON.stringify(res.data) + ' for ' + $scope.shift;
 				console.log($scope.status);
 			},
 			function () {
@@ -373,12 +401,12 @@ app.controller('ctrl', function ($scope, $http) {
 
 	$scope.populate = function () {
 		$scope.dummy();
-		if ($scope.shift > 0) {
+		if ($scope.shift > 1) {
 			$scope.sub();
 			$scope.shift--;
-			setTimeout($scope.populate, 3000);
+			setTimeout($scope.populate, 30);
 		}
-		else{
+		else {
 			return 0;
 		}
 	}

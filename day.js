@@ -1,11 +1,11 @@
 var app = angular.module('dch', []);
 app.controller('ctrl', function ($scope, $http) {
 
-class Shovel {
-	constructor(name) {
+	class Shovel {
+		constructor(name) {
 			this.name = name;
 		}
-	initialize = function () {
+		initialize = function () {
 			this.data = {
 				name: this.name,
 				east: false,
@@ -20,62 +20,62 @@ class Shovel {
 				west_ob_85: null
 			};
 		};
-	remove = function (arg) {
-		if (arg == 'east') {
-			this.data.east = false;
-			this.data.east_coal_100 = null;
-			this.data.east_coal_120 = null;
-			this.data.east_ob_100 = null;
-			this.data.east_ob_120 = null;
-		}
-		if (arg == 'west') {
-			this.data.west = false;
-			this.data.west_coal_100 = null;
-			this.data.west_coal_85 = null;
-			this.data.west_ob_100 = null;
-			this.data.west_ob_85 = null;
-		}
-		$scope.refresh();
-	};
-	inflate = function () {
-		this.qty = {
-			east_coal_100: this.data.east_coal_100 * 45,
-			east_coal_120: this.data.east_coal_120 * 55,
-			east_ob_100: this.data.east_ob_100 * 25,
-			east_ob_120: this.data.east_ob_120 * 29,
-			west_coal_100: this.data.west_coal_100 * 45,
-			west_coal_85: this.data.west_coal_85 * 40,
-			west_ob_100: this.data.west_ob_100 * 25,
-			west_ob_85: this.data.west_ob_85 * 21,
-			east_coal: this.data.east_coal_100 * 45 + this.data.east_coal_120 * 55,
-			east_ob: this.data.east_ob_100 * 25 + this.data.east_ob_120 * 29,
-			west_coal: this.data.west_coal_100 * 45 + this.data.west_coal_85 * 40,
-			west_ob: this.data.west_ob_100 * 25 + this.data.west_ob_85 * 21,
-			coal:
-				this.data.east_coal_100 * 45 +
-				this.data.east_coal_120 * 55 +
-				this.data.west_coal_100 * 45 +
-				this.data.west_coal_85 * 40,
-			ob:
-				this.data.east_ob_100 * 25 +
-				this.data.east_ob_120 * 29 +
-				this.data.west_ob_100 * 25 +
-				this.data.west_ob_85 * 21
+		remove = function (arg) {
+			if (arg == 'east') {
+				this.data.east = false;
+				this.data.east_coal_100 = null;
+				this.data.east_coal_120 = null;
+				this.data.east_ob_100 = null;
+				this.data.east_ob_120 = null;
+			}
+			if (arg == 'west') {
+				this.data.west = false;
+				this.data.west_coal_100 = null;
+				this.data.west_coal_85 = null;
+				this.data.west_ob_100 = null;
+				this.data.west_ob_85 = null;
+			}
+			$scope.refresh();
 		};
-	};
-	sum=function(x){
-			this.data.east_coal_100+=5*x.data.east_coal_100;
-			this.data.east_coal_120+=x.data.east_coal_120;
-			this.data.east_ob_100+=x.data.east_ob_100;
-			this.data.east_ob_120+=x.data.east_ob_120;
-			this.data.west_coal_100+=x.data.west_coal_100;
-			this.data.west_coal_85+=x.data.west_coal_85;
-			this.data.west_ob_100+=x.data.west_ob_100;
-			this.data.west_ob_85+=x.data.west_ob_85;
+		inflate = function () {
+			this.qty = {
+				east_coal_100: this.data.east_coal_100 * 45,
+				east_coal_120: this.data.east_coal_120 * 55,
+				east_ob_100: this.data.east_ob_100 * 25,
+				east_ob_120: this.data.east_ob_120 * 29,
+				west_coal_100: this.data.west_coal_100 * 45,
+				west_coal_85: this.data.west_coal_85 * 40,
+				west_ob_100: this.data.west_ob_100 * 25,
+				west_ob_85: this.data.west_ob_85 * 21,
+				east_coal: this.data.east_coal_100 * 45 + this.data.east_coal_120 * 55,
+				east_ob: this.data.east_ob_100 * 25 + this.data.east_ob_120 * 29,
+				west_coal: this.data.west_coal_100 * 45 + this.data.west_coal_85 * 40,
+				west_ob: this.data.west_ob_100 * 25 + this.data.west_ob_85 * 21,
+				coal:
+					this.data.east_coal_100 * 45 +
+					this.data.east_coal_120 * 55 +
+					this.data.west_coal_100 * 45 +
+					this.data.west_coal_85 * 40,
+				ob:
+					this.data.east_ob_100 * 25 +
+					this.data.east_ob_120 * 29 +
+					this.data.west_ob_100 * 25 +
+					this.data.west_ob_85 * 21
+			};
 		};
-}
+		sum = function (x) {
+			this.data.east_coal_100 += 5 * x.data.east_coal_100;
+			this.data.east_coal_120 += x.data.east_coal_120;
+			this.data.east_ob_100 += x.data.east_ob_100;
+			this.data.east_ob_120 += x.data.east_ob_120;
+			this.data.west_coal_100 += x.data.west_coal_100;
+			this.data.west_coal_85 += x.data.west_coal_85;
+			this.data.west_ob_100 += x.data.west_ob_100;
+			this.data.west_ob_85 += x.data.west_ob_85;
+		};
+	}
 
-class Dragline {
+	class Dragline {
 		constructor(name) {
 			this.name = name;
 		}
@@ -97,7 +97,7 @@ class Dragline {
 		};
 	}
 
-class SurfaceMiner {
+	class SurfaceMiner {
 		constructor(name) {
 			this.name = name;
 		}
@@ -113,7 +113,7 @@ class SurfaceMiner {
 		inflate = function () { };
 	}
 
-class Outsourcing {
+	class Outsourcing {
 		constructor(name) {
 			this.name = name;
 		}
@@ -167,7 +167,7 @@ class Outsourcing {
 			surfaceMiners: ['hrs', 'mtrs', 'Te', ''],
 			outsourcing: ['cum', '']
 		};
-}
+	}
 
 	function appInitialize() {
 		angular.forEach($scope.shovel_names, function (x) {
@@ -203,8 +203,8 @@ class Outsourcing {
 		var c = new Date();
 		var d = Math.floor((c - b) / (24 * 3600 * 1000));
 		$scope.beginTime = b;
-		$scope.lastDay = d-1;
-		$scope.day = d-1;
+		$scope.lastDay = d - 1;
+		$scope.day = d - 1;
 	}
 
 	function updateDayData() {
@@ -214,17 +214,17 @@ class Outsourcing {
 		var h = g.getDate() + '/' + (g.getMonth() + 1) + '/' + g.getFullYear();
 		$scope.date = h;
 		$scope.status = g;
-s1 = d * 3;
-s2 = d * 3 + 1
-s3 = d * 3 + 2;
+		s1 = d * 3;
+		s2 = d * 3 + 1
+		s3 = d * 3 + 2;
 
-fetch(s1);
-d1=$scope.obj;
-fetch(s2);
-d2=$scope.obj;
-fetch(s3);
-d3=$scope.obj;
-console.log(d1);
+		fetch(s1);
+		d1 = $scope.obj;
+		fetch(s2);
+		d2 = $scope.obj;
+		fetch(s3);
+		d3 = $scope.obj;
+		console.log(d1);
 	}
 
 	function fetch(s) {
