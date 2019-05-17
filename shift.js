@@ -139,6 +139,7 @@ app.controller('ctrl', function ($scope, $http) {
 	}
 	appInitialize();
 	changeDay();
+	getData();
 
 	function appInitialize() {
 		$scope.shovel_names = ['P&H_45', 'P&H_2', 'P&H_3', 'P&H_4', 'P&H_5', 'P&H_6', 'P&H_7', 'P&H_8', 'P&H_9', 'P&H_10'];
@@ -189,26 +190,41 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.date = new Date();
 	}
 
+	$scope.getData = function () {
+		getData();
+	};
 
-	function getLastShift() {
-		var a = new Date(2019, 3, 1, 6, 0, 0, 0);
-		var b = a.getTime();
-		var c = new Date();
-		var d = Math.floor((c - b) / (8 * 3600 * 1000));
-		$scope.beginTime = b;
-		$scope.lastShift = d;
-		$scope.shift = d;
+	function getData() {
+		fetch($scope.s1);
+		fetch($scope.s2);
+		fetch($scope.s3);
 	}
 
-	function updateShiftData() {
-		$scope.obj = null;
-		var d = $scope.shift;
-		var e = Math.floor((d - 1) / 3);
-		var f = $scope.beginTime + e * 24 * 3600 * 1000;
-		var g = new Date(f);
-		var i = d % 3;
-		$scope.date = g;
-		$scope.shiftName = $scope.shifts[i];
+	$scope.changeDay = function () {
+		changeDay();
+	}
+
+	function changeDay() {
+		var a = new Date(2019, 3, 1, 6, 0, 0, 0);
+		var b = a.getTime();
+		var c = $scope.date.getTime();
+		var d = Math.floor((c - b) / (24 * 3600 * 1000));
+		$scope.day = d;
+		$scope.s1 = d * 3 + 1;
+		$scope.s2 = d * 3 + 2;
+		$scope.s3 = d * 3 + 3;
+		$scope.shift = $scope.s3;
+		var str = d + "/" + $scope.s1 + "," + $scope.s2 + "," + $scope.s3 + "/" + $scope.shift;
+		console.log(str);
+
+		$scope.d1 = null;
+		$scope.d2 = null;
+		$scope.d3 = null;
+		$scope.a1 = false;
+		$scope.a2 = false;
+		$scope.a3 = false;
+
+		
 		angular.forEach($scope.shovels, function (x, i) {
 			x.initialize();
 		});
@@ -221,35 +237,6 @@ app.controller('ctrl', function ($scope, $http) {
 		angular.forEach($scope.outsourcings, function (x, i) {
 			x.initialize();
 		});
-		fetch();
-	}
-
-	function changeDay() {
-		var a = new Date(2019, 3, 1, 6, 0, 0, 0);
-		var b = a.getTime();
-		var c = $scope.date.getTime();
-		var d = Math.floor((c - b) / (24 * 3600 * 1000));
-		var s1 = d * 3 + 1;
-		var s2 = d * 3 + 2;
-		var s3 = d * 3 + 3;
-		var str = d + "/" + s1 + "," + s2 + "," + s3 + "/" + $scope.shift;
-		console.log(str);
-		$scope.day = d;
-		$scope.shift = s3;
-		$scope.d1 = null;
-		$scope.d2 = null;
-		$scope.d3 = null;
-		fetch(s1);
-		fetch(s2);
-		fetch(s3);
-		$scope.s1 = s1;
-		$scope.s2 = s2;
-		$scope.s3 = s3;
-	};
-
-
-	$scope.changeDay = function () {
-		changeDay();
 	}
 
 	function fetch(s) {
@@ -267,14 +254,24 @@ app.controller('ctrl', function ($scope, $http) {
 		$http(req).then(
 			function (res) {
 				var records = res.data.length;
+				console.log(records);
 				if (records > 0) {
 					var p = res.data[records - 1];
 					var sft = p.shift;
 					var obj_ = p.data;
 					var obj = JSON.parse(obj_);
-					if (s == $scope.s1) $scope.d1 = obj;
-					else if (s == $scope.s2) $scope.d2 = obj;
-					else $scope.d3 = obj;
+					if (s == $scope.s1) {
+						$scope.d1 = obj;
+						$scope.a1 = true;
+					}
+					else if (s == $scope.s2) {
+						$scope.d2 = obj;
+						$scope.a2 = true;
+					}
+					else {
+						$scope.d3 = obj;
+						$scope.a3 = true;
+					}
 					$scope.status = "Data fetched from server";
 
 				}
@@ -298,8 +295,11 @@ app.controller('ctrl', function ($scope, $http) {
 		pop();
 	}
 
-	function pop() {
-		t = $scope.obj;
+	$scope.pop = function(t){
+		pop(t);
+	}
+
+	function pop(t) {
 		angular.forEach(t.shovels, function (x, i) {
 			$scope.shovels[i].data = x;
 		});
