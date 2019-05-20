@@ -37,7 +37,10 @@
 </head>
 
 <body ng-app="dch" ng-controller='ctrl' class="w3-sand">
-    <!-- <div class="w3-bar w3-purple w3-mobile">
+    <div id="console" style="width:100vw; text-align: center; position:fixed; bottom:0;">
+<textarea ng-model="log" name="log" id="log" cols="200" rows="10"></textarea>
+    </div>
+    <div class="w3-bar w3-purple w3-mobile">
         <div class="w3-bar-item">
             <a href="#" class="tab"><img src="media/favicon.png" alt="" style="width:20px"></a>
             <a href="#" class="tab w3-button w3-round w3-hover-deep-orange"><i class="fa fa-dot-circle-o"></i><span
@@ -49,6 +52,7 @@
 
         <div class="w3-bar-item w3-hide-small">
             <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="dummy()">Dummy</button>
+            <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="log=''">Clear</button>
             <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="populate()">Populate</button>
             <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="refresh()">Refresh</button>
             <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="sub()">submit</button>
@@ -59,7 +63,7 @@
             <a href="#" class="w3-bar-item w3-button  w3-teal">Login</a>
         </div>
 
-    </div> -->
+    </div>
 
 
     <div class="w3-bar w3-purple">
@@ -71,10 +75,10 @@
             <input class="w3-input" ng-model="status" type="text">
         </div>
 
-        <div class="w3-bar-item">
-            <button ng-click="pop(d1)" class="tab w3-button w3-round w3-hover-deep-orange">First</button>
-            <button ng-click="pop(d2)" class="tab w3-button w3-round w3-hover-deep-orange">Second</button>
-            <button ng-click="pop(d3)" class="tab w3-button w3-round w3-hover-deep-orange">Night</button>
+        <div class="w3-bar-item shift-selector">
+            <button   ng-click="show('first');" class="tab w3-button w3-round w3-hover-deep-orange">First {{s1}} {{i1}}</button>
+            <button  ng-click="show('second')" class="tab w3-button w3-round w3-hover-deep-orange">Second {{s2}} {{i2}}</button>
+            <button  ng-click="show('night')" class="tab w3-button w3-round w3-hover-deep-orange">Night {{s3}} {{i3}}</button>
         </div>
 
         <div class="w3-bar-item w3-right">
@@ -97,7 +101,7 @@
         <a href="#" onClick="openSection('outsourcing')" class="tab w3-button w3-hover-sand">Outsourcing</i></a>
     </div>
 
-    <div class="w3-container1">
+    <div class="w3-container w3-margin">
         <div class="section" id="summary">
 
             <div class="" id="all-summary">

@@ -20,3 +20,9 @@ function openSection(section) {
     $(k).slideDown(100);
 }
 
+function shiftSelector(t) {
+    var k = '.shift-selector .tab:nth-child(' + t + ')';
+    $('.shift-selector .tab').removeClass('w3-red');
+    $(k).addClass('w3-red');
+}
+

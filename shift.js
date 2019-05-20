@@ -188,6 +188,7 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.surfaceMiners_total = new SurfaceMiner('total');
 		$scope.outsourcings_total = new Outsourcing('total');
 		$scope.date = new Date();
+		$scope.log = "";
 	}
 
 	$scope.getData = function () {
@@ -215,7 +216,7 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.s3 = d * 3 + 3;
 		$scope.shift = $scope.s3;
 		var str = d + "/" + $scope.s1 + "," + $scope.s2 + "," + $scope.s3 + "/" + $scope.shift;
-		console.log(str);
+		log(str);
 
 		$scope.d1 = null;
 		$scope.d2 = null;
@@ -224,7 +225,7 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.a2 = false;
 		$scope.a3 = false;
 
-		
+
 		angular.forEach($scope.shovels, function (x, i) {
 			x.initialize();
 		});
@@ -254,23 +255,27 @@ app.controller('ctrl', function ($scope, $http) {
 		$http(req).then(
 			function (res) {
 				var records = res.data.length;
-				console.log(records);
+				log(records);
 				if (records > 0) {
 					var p = res.data[records - 1];
 					var sft = p.shift;
 					var obj_ = p.data;
+					var i = p.id;
 					var obj = JSON.parse(obj_);
 					if (s == $scope.s1) {
 						$scope.d1 = obj;
 						$scope.a1 = true;
+						$scope.i1 = i;
 					}
 					else if (s == $scope.s2) {
 						$scope.d2 = obj;
 						$scope.a2 = true;
+						$scope.i2 = i;
 					}
 					else {
 						$scope.d3 = obj;
 						$scope.a3 = true;
+						$scope.i3 = i;
 					}
 					$scope.status = "Data fetched from server";
 
@@ -286,20 +291,50 @@ app.controller('ctrl', function ($scope, $http) {
 
 	}
 
-
-
 	$scope.dummy = function () {
+		dummy();
+	}
+
+	function dummy() {
 		var k = '{"shift":129,"shovels":[{"name":"P&H_1","east":true,"west":true,"east_coal_100":1,"east_coal_120":2,"east_ob_100":3,"east_ob_120":4,"west_coal_100":5,"west_coal_85":5,"west_ob_100":4,"west_ob_85":6},{"name":"P&H_2","east":true,"west":true,"east_coal_100":5,"east_coal_120":6,"east_ob_100":7,"east_ob_120":8,"west_coal_100":4,"west_coal_85":4,"west_ob_100":5,"west_ob_85":5},{"name":"P&H_3","east":true,"west":true,"east_coal_100":9,"east_coal_120":10,"east_ob_100":11,"east_ob_120":12,"west_coal_100":4,"west_coal_85":4,"west_ob_100":4,"west_ob_85":null},{"name":"P&H_4","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_5","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_6","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_7","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_8","east":false,"west":true,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":4,"west_coal_85":null,"west_ob_100":4,"west_ob_85":4},{"name":"P&H_9","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null},{"name":"P&H_10","east":false,"west":false,"east_coal_100":null,"east_coal_120":null,"east_ob_100":null,"east_ob_120":null,"west_coal_100":null,"west_coal_85":null,"west_ob_100":null,"west_ob_85":null}],"draglines":[{"name":"Jyoti","solid":1,"rehandling":2,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 1"},{"name":"Pawan","solid":3,"rehandling":4,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 2"},{"name":"Vindhya","solid":5,"rehandling":6,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 3"},{"name":"Jwala","solid":7,"rehandling":8,"hrs":"1.0/2.0/3.0/4.0","remark":"Remark 4"}],"surfaceMiners":[{"name":"LnT","hrs":null,"remark":"Remark 1","wrk":1,"cutting":2,"prod":3}],"outsourcings":[{"name":"BGR-EAST-APT","qty":1,"remark":"Remark 1"},{"name":"GAJRAJ-WEST-APT","qty":2,"remark":"Remark 2"},{"name":"GAJRAJ-EAST-APB","qty":3,"remark":"Remark 3"},{"name":"GAJRAJ-WEST-APB","qty":4,"remark":"Remark 4"},{"name":"DL-EAST","qty":5,"remark":"Remark 5"},{"name":"DL-WEST","qty":6,"remark":"Remark 6"}],"shovels_total":{"name":"total","data":{"name":"total","east":false,"west":false,"east_coal_100":15,"east_coal_120":18,"east_ob_100":21,"east_ob_120":24,"west_coal_100":17,"west_coal_85":13,"west_ob_100":17,"west_ob_85":15},"qty":{"east_coal_100":675,"east_coal_120":990,"east_ob_100":525,"east_ob_120":696,"west_coal_100":765,"west_coal_85":520,"west_ob_100":425,"west_ob_85":315,"east_coal":1665,"east_ob":1221,"west_coal":1285,"west_ob":740,"coal":2950,"ob":1961}},"draglines_total":{"name":"total","data":{"name":"total","solid":16,"rehandling":20,"wrk":null,"mnt":null,"bd":null,"idl":null,"remark":null},"solid_qty":208,"rehandling_qty":260},"surfaceMiners_total":{"name":"total","data":{"name":"total","cutting":2,"prod":3,"wrk":1,"remark":null}},"outsourcings_total":{"name":"total","data":{"name":"total","qty":21,"remark":null}}}';
 		$scope.obj = JSON.parse(k);
 		$scope.status = "some dummy data populated";
+		randomValues();
+		pop();
+	}
+	function randomValues() {
+		t = $scope.obj;
+		angular.forEach(t.shovels, function (x, i) {
+			t.shovels[i].east_coal_100 = Math.floor(100 * Math.random());
+			t.shovels[i].east_coal_120 = Math.floor(100 * Math.random());
+			t.shovels[i].east_ob_100 = Math.floor(100 * Math.random());
+			t.shovels[i].east_ob_120 = Math.floor(100 * Math.random());
+			t.shovels[i].west_coal_100 = Math.floor(100 * Math.random());
+			t.shovels[i].west_coal_85 = Math.floor(100 * Math.random());
+			t.shovels[i].west_ob_100 = Math.floor(100 * Math.random());
+			t.shovels[i].west_ob_85 = Math.floor(100 * Math.random());
+		});
+		angular.forEach(t.draglines, function (x, i) {
+			t.draglines[i].solid = Math.floor(100 * Math.random());
+			t.draglines[i].rehandling = Math.floor(100 * Math.random());
+		});
+		angular.forEach(t.surfaceMiners, function (x, i) {
+			t.surfaceMiners[i].cutting = Math.floor(100 * Math.random());
+			t.surfaceMiners[i].wrk = Math.floor(100 * Math.random());
+			t.surfaceMiners[i].prod = Math.floor(100 * Math.random());
+		});
+		angular.forEach(t.outsourcings, function (x, i) {
+			t.outsourcings[i].qty = Math.floor(100 * Math.random());
+		});
+	}
+
+
+	$scope.pop = function () {
 		pop();
 	}
 
-	$scope.pop = function(t){
-		pop(t);
-	}
-
-	function pop(t) {
+	function pop() {
+		t = $scope.obj;
 		angular.forEach(t.shovels, function (x, i) {
 			$scope.shovels[i].data = x;
 		});
@@ -365,15 +400,11 @@ app.controller('ctrl', function ($scope, $http) {
 
 		$scope.packet_string = JSON.stringify($scope.packet);
 		// console.log($scope.packet_string);
-		console.log($scope.d1);
-		console.log($scope.d2);
-		console.log($scope.d3);
 
 	}
 
 
 	$scope.sub = function () {
-
 		var payload = { command: 'post', shift: $scope.shift, t: $scope.packet_string };
 		var req = {
 			method: 'POST',
@@ -386,8 +417,8 @@ app.controller('ctrl', function ($scope, $http) {
 
 		$http(req).then(
 			function (res) {
-				$scope.status = JSON.stringify(res.data) + ' for ' + $scope.shift;
-				console.log($scope.status);
+				$scope.status = JSON.stringify(res.data);
+				log($scope.status);
 			},
 			function () {
 				$scope.status = 'data submission failed.';
@@ -400,15 +431,60 @@ app.controller('ctrl', function ($scope, $http) {
 	};
 
 	$scope.populate = function () {
-		$scope.dummy();
-		if ($scope.shift > 1) {
+		$scope.i = 100;
+		populate();
+	}
+
+	function populate() {
+		if ($scope.i <= $scope.s3) {
+			$scope.shift = $scope.i;
+			dummy();
 			$scope.sub();
-			$scope.shift--;
-			setTimeout($scope.populate, 30);
+			$scope.i = $scope.i + 1;;
+			setTimeout(populate, 100);
 		}
 		else {
 			return 0;
 		}
+	}
+
+	$scope.show = function (t) {
+		show(t);
+	}
+	function show(t) {
+		if (t == "first") {
+			$scope.shift = $scope.s1;
+			if ($scope.a1) {
+				$scope.obj = $scope.d1;
+				log('showing:' + $scope.s1);
+				shiftSelector(1);
+				pop();
+			}
+			
+		}
+		else if (t == "second") {
+			$scope.shift = $scope.s2;
+			if ($scope.a2) {
+				$scope.obj = $scope.d2;
+				log('showing:' + $scope.s2);
+				shiftSelector(2);
+				pop();
+			}
+		}
+		else if (t == "night") {
+			$scope.shift = $scope.s3;
+			if ($scope.a3) {
+				$scope.obj = $scope.d3;
+				log('showing:' + $scope.s3);
+				shiftSelector(3);
+				pop();
+			}
+		}
+		
+	}
+
+	function log(s) {
+		$scope.log = s + "\n" + $scope.log;
 	}
 
 });
