@@ -23,8 +23,8 @@
             margin: 40px 5px 0px;
         }
 
-        .section table{
-            margin-top:30px;
+        .section table {
+            margin-top: 30px;
         }
 
         table input {
@@ -37,25 +37,26 @@
 </head>
 
 <body ng-app="dch" ng-controller='ctrl' class="w3-sand">
-    <div id="console" style="width:100vw; text-align: center; position:fixed; bottom:0;">
-<textarea ng-model="log" name="log" id="log" cols="200" rows="10"></textarea>
+    <div ng-show="showLog" style="width:100vw; text-align: center; position:fixed; bottom:0;">
+        <textarea ng-model="log" name="log" cols="200" rows="5"></textarea>
     </div>
     <div class="w3-bar w3-purple w3-mobile">
         <div class="w3-bar-item">
             <a href="#" class="tab"><img src="media/favicon.png" alt="" style="width:20px"></a>
             <a href="#" class="tab w3-button w3-round w3-hover-deep-orange"><i class="fa fa-dot-circle-o"></i><span
-                    class="desk">Status</span></a>
+                    class="desk"> Status</span></a>
             <a href="#" class="tab w3-button w3-round w3-hover-deep-orange"><i class="fa fa-bar-chart"></i><span
                     class="desk">
                     Data</span></a>
         </div>
 
         <div class="w3-bar-item w3-hide-small">
-            <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="dummy()">Dummy</button>
+            <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="dummy()">Data</button>
             <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="log=''">Clear</button>
             <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="populate()">Populate</button>
             <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="refresh()">Refresh</button>
             <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="sub()">submit</button>
+
         </div>
 
         <div class="w3-bar-item w3-right">
@@ -76,14 +77,19 @@
         </div>
 
         <div class="w3-bar-item shift-selector">
-            <button   ng-click="show('first');" class="tab w3-button w3-round w3-hover-deep-orange">First {{s1}} {{i1}}</button>
-            <button  ng-click="show('second')" class="tab w3-button w3-round w3-hover-deep-orange">Second {{s2}} {{i2}}</button>
-            <button  ng-click="show('night')" class="tab w3-button w3-round w3-hover-deep-orange">Night {{s3}} {{i3}}</button>
+            <button ng-click="show('first');" class="tab w3-button w3-round w3-hover-deep-orange">First {{s1}}
+                {{i1}}</button>
+            <button ng-click="show('second')" class="tab w3-button w3-round w3-hover-deep-orange">Second {{s2}}
+                {{i2}}</button>
+            <button ng-click="show('night')" class="tab w3-button w3-round w3-hover-deep-orange">Night {{s3}}
+                {{i3}}</button>
         </div>
 
         <div class="w3-bar-item w3-right">
             <button class="tab w3-button w3-round w3-hover-deep-orange">Dispatch</button>
-            <button class="tab w3-button w3-round w3-hover-deep-orange">Day Report</button>
+            <button ng-click="dayTotal()" class="tab w3-button w3-round w3-hover-deep-orange">Day Report</button>        
+            <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="showLog=!showLog">Log</button>
+            <input ng-model="local" ng-change="serverSelect()" type="checkbox" class="tab w3-check"> Local</input>
         </div>
 
     </div>
@@ -108,7 +114,7 @@
                 <table class="w3-table-all w3-margin-top">
                     <tr class="w3-teal">
                         <td colspan="10">Summary <button class="w3-btn w3-border w3-margin w3-round w3-hover-blue"
-                            onClick="$('.summary-section').toggleClass('w3-hide')">Detail Report</button></td>
+                                onClick="$('.summary-section').toggleClass('w3-hide')">Detail Report</button></td>
                     </tr>
                     <tr class="w3-teal">
                         <td></td>

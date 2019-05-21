@@ -64,7 +64,7 @@ app.controller('ctrl', function ($scope, $http) {
 			};
 		};
 		sum = function (x) {
-			this.data.east_coal_100 += 5 * x.data.east_coal_100;
+			this.data.east_coal_100 += x.data.east_coal_100;
 			this.data.east_coal_120 += x.data.east_coal_120;
 			this.data.east_ob_100 += x.data.east_ob_100;
 			this.data.east_ob_120 += x.data.east_ob_120;

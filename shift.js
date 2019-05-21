@@ -1,7 +1,9 @@
 
 var app = angular.module('dch', []);
 
+
 app.controller('ctrl', function ($scope, $http) {
+
 	class Shovel {
 		constructor(name) {
 			this.name = name;
@@ -188,7 +190,12 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.surfaceMiners_total = new SurfaceMiner('total');
 		$scope.outsourcings_total = new Outsourcing('total');
 		$scope.date = new Date();
+		$scope.showLog = false;
 		$scope.log = "";
+		$scope.local = false;
+		serverSelect();
+		
+		
 	}
 
 	$scope.getData = function () {
@@ -241,11 +248,10 @@ app.controller('ctrl', function ($scope, $http) {
 	}
 
 	function fetch(s) {
-		var tmp = "nothing";
 		var payload = { command: 'get', shift: s };
 		var req = {
 			method: 'POST',
-			url: 'http://localhost/dch-server/shift.php',
+			url: $scope.url,
 			headers: {
 				'Content-Type': undefined
 			},
@@ -278,6 +284,7 @@ app.controller('ctrl', function ($scope, $http) {
 						$scope.i3 = i;
 					}
 					$scope.status = "Data fetched from server";
+					show('first');
 
 				}
 				else {
@@ -350,6 +357,25 @@ app.controller('ctrl', function ($scope, $http) {
 		ref();
 	};
 
+	$scope.dayTotal = function () {
+		dayTotal();
+	}
+	function dayTotal() {
+		var k = null;
+		$scope.obj = $scope.d1;
+		pop();
+		angular.forEach($scope.shovels, function (x, i) {
+			k = new Shovel('temp');
+			k.initialize();
+			k.data = $scope.d2.shovels[i];
+			x.sum(k);
+			k.initialize();
+			k.data = $scope.d3.shovels[i];
+			x.sum(k);
+		});
+		ref();
+	}
+
 
 	function ref() {
 		$scope.packet = {
@@ -408,7 +434,7 @@ app.controller('ctrl', function ($scope, $http) {
 		var payload = { command: 'post', shift: $scope.shift, t: $scope.packet_string };
 		var req = {
 			method: 'POST',
-			url: 'http://localhost/dch-server/shift.php',
+			url: $scope.url,
 			headers: {
 				'Content-Type': undefined
 			},
@@ -431,20 +457,42 @@ app.controller('ctrl', function ($scope, $http) {
 	};
 
 	$scope.populate = function () {
-		$scope.i = 100;
 		populate();
+		$scope.shift = $scope.s3;
 	}
 
 	function populate() {
-		if ($scope.i <= $scope.s3) {
-			$scope.shift = $scope.i;
-			dummy();
-			$scope.sub();
-			$scope.i = $scope.i + 1;;
-			setTimeout(populate, 100);
-		}
-		else {
-			return 0;
+		console.log($scope.shift);
+		if ($scope.shift > 0) {
+
+
+			var payload = { command: 'get', shift: $scope.shift };
+			var req = {
+				method: 'POST',
+				url: $scope.url,
+				headers: {
+					'Content-Type': undefined
+				},
+				data: payload
+			};
+
+			$http(req).then(
+				function (res) {
+					var records = res.data.length;
+					if (records < 5) {
+						dummy();
+						$scope.sub();
+						$scope.shift--;
+						setTimeout(populate, 100);
+					}
+					else {
+						log('data found for' + $scope.shift);
+					}
+				},
+				function () {
+					$scope.status = 'request failed.';
+				}
+			);
 		}
 	}
 
@@ -460,7 +508,7 @@ app.controller('ctrl', function ($scope, $http) {
 				shiftSelector(1);
 				pop();
 			}
-			
+
 		}
 		else if (t == "second") {
 			$scope.shift = $scope.s2;
@@ -480,11 +528,31 @@ app.controller('ctrl', function ($scope, $http) {
 				pop();
 			}
 		}
-		
+
 	}
 
 	function log(s) {
 		$scope.log = s + "\n" + $scope.log;
+	}
+
+
+
+	$scope.serverSelect = function () {
+		serverSelect();
+	}
+	function serverSelect() {
+
+		if ($scope.local) {	
+			$scope.url = 'http://localhost/dch-server/shift.php';
+			$scope.status = "Local Server Selected";
+			log('local server selected');
+		}
+		else {
+			$scope.url = 'https://www.sushant.info/dch/shift.php';
+			$scope.status = "Remote Server Selected";
+			log('Remote server selected');
+		}
+		getData();
 	}
 
 });
