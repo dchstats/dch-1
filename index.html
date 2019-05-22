@@ -37,9 +37,6 @@
 </head>
 
 <body ng-app="dch" ng-controller='ctrl' class="w3-sand">
-    <div ng-show="showLog" style="width:100vw; text-align: center; position:fixed; bottom:0;">
-        <textarea ng-model="log" name="log" cols="200" rows="5"></textarea>
-    </div>
     <div class="w3-bar w3-purple w3-mobile">
         <div class="w3-bar-item">
             <a href="#" class="tab"><img src="media/favicon.png" alt="" style="width:20px"></a>
@@ -87,7 +84,6 @@
         <div class="w3-bar-item w3-right">
             <button class="tab w3-button w3-round w3-hover-deep-orange">Dispatch</button>
             <button ng-click="dayTotal()" class="tab w3-button w3-round w3-hover-deep-orange">Day Report</button>
-            <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="showLog=!showLog">Log</button>
             <input ng-model="local" ng-change="serverSelect()" type="checkbox" class="tab w3-check"> Local</input>
         </div>
 
@@ -635,5 +631,7 @@
     </div>
 </body>
 <script src="navigation.js"></script>
+<script src="classes.js"></script>
+
 
 </html>
