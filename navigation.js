@@ -2,7 +2,7 @@ $(document).ready(begin());
 
 function begin() {
     $(".section").hide();
-    openSection('summary');
+    openSection('report');
 
     $('.section-selector .tab').click(
         function () {

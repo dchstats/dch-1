@@ -60,12 +60,11 @@
         </div>
 
         <div class="w3-bar-item w3-right">
-            <input type="text" class="w3-bar-item w3-input" placeholder=" PIN">
-            <a href="#" class="w3-bar-item w3-button  w3-teal">Login</a>
+            <input type="text" class="w3-bar-item w3-input w3-border" placeholder=" PIN">
+            <a href="#" class="w3-bar-item w3-button w3-border w3-teal">Login</a>
         </div>
 
     </div>
-
 
     <div class="w3-bar w3-purple">
         <div class="w3-bar-item">
@@ -87,16 +86,16 @@
 
         <div class="w3-bar-item w3-right">
             <button class="tab w3-button w3-round w3-hover-deep-orange">Dispatch</button>
-            <button ng-click="dayTotal()" class="tab w3-button w3-round w3-hover-deep-orange">Day Report</button>        
+            <button ng-click="dayTotal()" class="tab w3-button w3-round w3-hover-deep-orange">Day Report</button>
             <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="showLog=!showLog">Log</button>
             <input ng-model="local" ng-change="serverSelect()" type="checkbox" class="tab w3-check"> Local</input>
         </div>
 
     </div>
 
-
-    <div class="section-selector w3-bar w3-purple w3-center">
+    <div class="w3-bar section-selector w3-purple w3-center">
         <a href="#" onClick="openSection('summary')" class="tab  w3-button w3-hover-sand">Summary</a>
+        <a href="#" onClick="openSection('report')" class="tab w3-sand  w3-button w3-hover-sand">Report</a>
         <a href="#" onClick="openSection('shovel-east')" class="tab w3-button w3-hover-sand">Shovel
             East</i></a>
         <a href="#" onClick="openSection('shovel-west')" class="tab w3-button w3-hover-sand">Shovel
@@ -109,12 +108,57 @@
 
     <div class="w3-container w3-margin">
         <div class="section" id="summary">
-
-            <div class="" id="all-summary">
+            <div>
                 <table class="w3-table-all w3-margin-top">
+                    <tr class="w3-teal w3-xlarge">
+                        <td colspan="10">Summary</td>
+                    </tr>
                     <tr class="w3-teal">
-                        <td colspan="10">Summary <button class="w3-btn w3-border w3-margin w3-round w3-hover-blue"
-                                onClick="$('.summary-section').toggleClass('w3-hide')">Detail Report</button></td>
+                        <td></td>
+                        <td>Coal</td>
+                        <td>Deptt OB</td>
+                        <td>Outs OB</td>
+                    </tr>
+                    <tr>
+                        <td>Shovel</td>
+                        <td>{{shovels_total.qty.coal}}</td>
+                        <td>{{shovels_total.qty.ob}}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Dragline</td>
+                        <td></td>
+                        <td>{{draglines_total.solid_qty}}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>S Miners</td>
+                        <td>{{surfaceMiners_total.data.prod}}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>Out Src</td>
+                        <td></td>
+                        <td></td>
+                        <td>{{outsourcings_total.data.qty}}</td>
+                    </tr>
+                    <tr class="total w3-teal">
+                        <td>Total</td>
+                        <td>{{shovels_total.qty.coal+surfaceMiners_total.data.prod}}</td>
+                        <td>{{shovels_total.qty.ob+draglines_total.solid_qty}}</td>
+                        <td>{{outsourcings_total.data.qty}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="section" id="report">
+
+            <div>
+                <table class="w3-table-all w3-margin-top">
+                    <tr class="w3-teal w3-xlarge">
+                        <td colspan="10">Summary</td>
                     </tr>
                     <tr class="w3-teal">
                         <td></td>
@@ -157,7 +201,7 @@
 
                 </table>
             </div>
-            <div class="w3-hide  summary-section" id="shovel-summary">
+            <div class="  summary-section" id="shovel-summary">
                 <table class="w3-table-all w3-margin-top">
                     <tr class="w3-teal w3-xlarge">
                         <td colspan="7">Shovel</td>
@@ -200,7 +244,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="w3-hide  summary-section" id="dragline-summary">
+            <div class="  summary-section" id="dragline-summary">
                 <table class="w3-table-all w3-margin-top">
                     <tr class="w3-teal w3-xlarge">
                         <td colspan="10">Dragline</td>
@@ -231,7 +275,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="w3-hide  summary-section" id="surface-miner-summary">
+            <div class="  summary-section" id="surface-miner-summary">
 
                 <table class="w3-table-all w3-margin-top">
                     <tr class="w3-teal w3-xlarge">
@@ -267,7 +311,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="w3-hide  summary-section" id="outsourcing-summary">
+            <div class="  summary-section" id="outsourcing-summary">
                 <table class="w3-table-all w3-margin-top">
                     <tr class="w3-teal w3-xlarge">
                         <td colspan="10">Outsourcing</td>
