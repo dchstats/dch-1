@@ -2,20 +2,41 @@ class Shovel {
     constructor(name) {
         this.name = name;
     }
-    initialize = function () {
+    set = function (arr) {
         this.data = {
-            name: this.name,
-            east: false,
-            west: false,
-            east_coal_100: null,
-            east_coal_120: null,
-            east_ob_100: null,
-            east_ob_120: null,
-            west_coal_100: null,
-            west_coal_85: null,
-            west_ob_100: null,
-            west_ob_85: null
+            name: arr[0],
+            east: arr[1],
+            west: arr[2],
+            east_coal_100: arr[3],
+            east_coal_120: arr[4],
+            east_ob_100: arr[5],
+            east_ob_120: arr[6],
+            west_coal_100: arr[7],
+            west_coal_85: arr[8],
+            west_ob_100: arr[9],
+            west_ob_85: arr[10],
         };
+    }
+
+    get = function () {
+        var arr = [
+            this.data.name,
+            this.data.east,
+            this.data.west,
+            this.data.east_coal_100,
+            this.data.east_coal_120,
+            this.data.east_ob_100,
+            this.data.east_ob_120,
+            this.data.west_coal_100,
+            this.data.west_coal_85,
+            this.data.west_ob_100,
+            this.data.west_ob_85,
+        ];
+        return arr;
+    }
+
+    initialize = function () {
+        this.set([this.name, false, false, null, null, , null, null, null, null, , null, null,]);
     };
     remove = function (arg) {
         if (arg == 'east') {
@@ -76,17 +97,35 @@ class Dragline {
     constructor(name) {
         this.name = name;
     }
-    initialize = function () {
+    set = function (arr) {
         this.data = {
-            name: this.name,
-            solid: null,
-            rehandling: null,
-            wrk: null,
-            mnt: null,
-            bd: null,
-            idl: null,
-            remark: null
+            name: arr[0],
+            solid: arr[1],
+            rehandling: arr[2],
+            wrk: arr[3],
+            mnt: arr[4],
+            bd: arr[5],
+            idl: arr[6],
+            remark: arr[7]
         };
+    }
+
+    get = function () {
+        var arr = [
+            this.data.name,
+            this.data.solid,
+            this.data.rehandling,
+            this.data.wrk,
+            this.data.mnt,
+            this.data.bd,
+            this.data.idl,
+            this.data.remark
+        ];
+        return arr;
+    }
+
+    initialize = function () {
+        this.set([this.name, null, null, null, null, null, null, null]);
     };
     inflate = function () {
         this.solid_qty = this.data.solid * 13;
@@ -102,14 +141,27 @@ class SurfaceMiner {
     constructor(name) {
         this.name = name;
     }
-    initialize = function () {
+    set = function (arr) {
         this.data = {
-            name: this.name,
-            cutting: null,
-            prod: null,
-            wrk: null,
-            remark: null
+            name: arr[0],
+            cutting: arr[1],
+            prod: arr[2],
+            wrk: arr[3],
+            remark: arr[4]
         };
+    }
+    get = function () {
+        var arr = [
+            this.data.name,
+            this.data.cutting,
+            this.data.prod,
+            this.data.wrk,
+            this.data.remark
+        ];
+        return arr;
+    }
+    initialize = function () {
+        this.set([this.name, null, null, null, null, null]);
     };
     sum = function (x) {
         this.data.wrk += x.data.wrk;
@@ -122,12 +174,23 @@ class Outsourcing {
     constructor(name) {
         this.name = name;
     }
-    initialize = function () {
+    set = function (arr) {
         this.data = {
-            name: this.name,
-            qty: null,
-            remark: null
+            name: arr[0],
+            qty: arr[1],
+            remark: arr[2]
         };
+    }
+    get = function () {
+        var arr = [
+            this.data.name,
+            this.data.qty,
+            this.data.remark
+        ];
+        return arr;
+    }
+    initialize = function () {
+        this.set([this.name, null, null, null,null])
     };
     sum = function (x) {
         this.data.qty += x.data.qty;

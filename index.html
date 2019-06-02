@@ -32,17 +32,17 @@
             font-size: 125%;
         }
 
-        .section-selector .tab{
+        .section-selector .tab {
             border-radius: 3px 3px 0 0;
         }
 
-        .shift-selector .tab{
-            border:none;
-            background:none;
-            cursor:pointer;
-            padding:7px 10px;
-            border-radius:5px;
-            color:white;
+        .shift-selector .tab {
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 7px 10px;
+            border-radius: 5px;
+            color: white;
         }
     </style>
 
@@ -50,17 +50,20 @@
 </head>
 
 <body ng-app="dch" ng-controller='ctrl' class="w3-sand">
-    <div class="w3-bar w3-purple w3-mobile">
-        <div class="w3-bar-item">
-            <a href="#" class="tab"><img src="media/favicon.png" alt="" style="width:20px"></a>
+    <div class="w3-bar w3-purple">
+        <div class="w3-bar-item w3-xlarge w3-center">
+            Shift data entry
+        </div>
+        <div class="w3-bar-item w3-right">
             <a href="#" class="tab w3-button w3-round w3-hover-deep-orange"><i class="fa fa-dot-circle-o"></i><span
                     class="desk"> Status</span></a>
             <a href="#" class="tab w3-button w3-round w3-hover-deep-orange"><i class="fa fa-bar-chart"></i><span
                     class="desk">
                     Data</span></a>
         </div>
-
-        <div class="w3-bar-item w3-hide-small">
+    </div>
+    <div class="w3-bar w3-purple">
+        <div class="w3-bar-item w3-hide">
             <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="dummy()">Dummy</button>
             <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="log=''">Clear</button>
             <button class="tab w3-button w3-round w3-hover-deep-orange" ng-click="populate()">Populate</button>
@@ -73,7 +76,6 @@
             <input type="text" class="w3-bar-item w3-input w3-border" placeholder=" PIN">
             <a href="#" class="w3-bar-item w3-button w3-teal w3-border">Login</a>
         </div>
-
     </div>
 
     <div class="w3-bar w3-purple">
@@ -85,26 +87,25 @@
             <input class="w3-input" ng-model="status" type="text">
         </div>
 
-        <div class="w3-bar-item shift-selector">
+        <div class="w3-bar-item shift-selector" style="position:sticky; top:0px;">
             <button ng-click="show('first');" class="tab  w3-round">First {{s1}}
                 {{i1}}</button>
             <button ng-click="show('second')" class="tab  w3-round">Second {{s2}}
                 {{i2}}</button>
             <button ng-click="show('night')" class="tab  w3-round">Night {{s3}}
                 {{i3}}</button>
-                <button ng-click="dayTotal()" class="tab  w3-round">Day Report</button>
+            <button ng-click="dayTotal()" class="tab  w3-round">Day Report</button>
         </div>
 
         <div class="w3-bar-item w3-right">
             <button class="tab w3-button w3-round w3-hover-deep-orange">Dispatch</button>
-            
+
             <input ng-model="local" ng-change="serverSelect()" type="checkbox" class="tab w3-check"> Local</input>
         </div>
 
     </div>
 
     <div class="w3-bar section-selector w3-purple w3-center">
-        <a href="#" onClick="openSection('summary')" class="tab  w3-button w3-hover-sand">Summary</a>
         <a href="#" onClick="openSection('report')" class="tab w3-sand  w3-button w3-hover-sand">Report</a>
         <a href="#" onClick="openSection('shovel-east')" class="tab w3-button w3-hover-sand">Shovel
             East</i></a>
@@ -114,61 +115,10 @@
         <a href="#" onClick="openSection('surface-miner')" class="tab w3-button w3-hover-sand">Surfece
             Miner</i></a>
         <a href="#" onClick="openSection('outsourcing')" class="tab w3-button w3-hover-sand">Outsourcing</i></a>
+        <a href="#" onClick="openSection('dispatch')" class="tab w3-button w3-hover-sand">Dispatch</i></a>
     </div>
 
     <div class="w3-container w3-margin">
-        <div class="section" id="summary">
-            <div>
-                <table class="w3-table-all w3-margin-top">
-                    <tr class="w3-teal w3-xlarge">
-                        <td colspan="10">Summary</td>
-                    </tr>
-                    <tr class="head">
-                        <td></td>
-                        <td>Coal</td>
-                        <td>Deptt OB</td>
-                        <td>Outs OB</td>
-                    </tr>
-                    <tr class="unit">
-                        <td></td>
-                        <td>(Te)</td>
-                        <td>(cum)</td>
-                        <td>(cum)</td>
-                    </tr>
-                    <tr>
-                        <td>Shovel</td>
-                        <td>{{shovels_total.qty.coal}}</td>
-                        <td>{{shovels_total.qty.ob}}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Dragline</td>
-                        <td></td>
-                        <td>{{draglines_total.solid_qty}}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>S Miners</td>
-                        <td>{{surfaceMiners_total.data.prod}}</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td>Out Src</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{outsourcings_total.data.qty}}</td>
-                    </tr>
-                    <tr class="total w3-teal">
-                        <td>Total</td>
-                        <td>{{shovels_total.qty.coal+surfaceMiners_total.data.prod}}</td>
-                        <td>{{shovels_total.qty.ob+draglines_total.solid_qty}}</td>
-                        <td>{{outsourcings_total.data.qty}}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
         <div class="section" id="report">
 
             <div>
@@ -228,24 +178,24 @@
                     <tr class="w3-teal w3-xlarge">
                         <td colspan="7">Shovel</td>
                     </tr>
-                <tr class="head">
-                    <td></td>
-                    <td>East Coal</td>
-                    <td>East OB</td>
-                    <td>West Coal</td>
-                    <td>West OB</td>
-                    <td>Total Coal</td>
-                    <td>Total OB</td>
-                </tr>
-                <tr class="unit">
-                    <td></td>
-                    <td>(Te)</td>
-                    <td>(cum)</td>
-                    <td>(Te)</td>
-                    <td>(cum)</td>
-                    <td>(Te)</td>
-                    <td>(cum)</td>
-                </tr>
+                    <tr class="head">
+                        <td></td>
+                        <td>East Coal</td>
+                        <td>East OB</td>
+                        <td>West Coal</td>
+                        <td>West OB</td>
+                        <td>Total Coal</td>
+                        <td>Total OB</td>
+                    </tr>
+                    <tr class="unit">
+                        <td></td>
+                        <td>(Te)</td>
+                        <td>(cum)</td>
+                        <td>(Te)</td>
+                        <td>(cum)</td>
+                        <td>(Te)</td>
+                        <td>(cum)</td>
+                    </tr>
                     <tr class="data" ng-repeat="x in shovels|filter:{$:true}">
                         <td class="name-col">{{x.name}}</td>
                         <td>{{x.qty.east_coal}}</td>
@@ -303,20 +253,20 @@
                     <tr class="w3-teal w3-xlarge">
                         <td colspan="10">Surface Miner</td>
                     </tr>
-                <tr class="head">
-                    <td></td>
-                    <td>Working Hrs</td>
-                    <td>Cutting</td>
-                    <td>Production</td>
-                    <td>Remark</td>
-                </tr>
-                <tr class="unit">
-                    <td></td>
-                    <td>(hrs)</td>
-                    <td>(mtrs)</td>
-                    <td>(Te)</td>
-                    <td></td>
-                </tr>
+                    <tr class="head">
+                        <td></td>
+                        <td>Working Hrs</td>
+                        <td>Cutting</td>
+                        <td>Production</td>
+                        <td>Remark</td>
+                    </tr>
+                    <tr class="unit">
+                        <td></td>
+                        <td>(hrs)</td>
+                        <td>(mtrs)</td>
+                        <td>(Te)</td>
+                        <td></td>
+                    </tr>
                     <tr class="data" ng-repeat="x in surfaceMiners">
                         <td class="name-col">{{x.name}}</td>
                         <td>{{x.data.wrk}}</td>
@@ -371,22 +321,22 @@
             </div>
 
             <table class="w3-table-all">
-            <tr class="head">
-                <td></td>
-                <td>Coal-100</td>
-                <td>Coal-120</td>
-                <td>OB-100</td>
-                <td>OB-120</td>
-                <td></td>
-            </tr>
-            <tr class="unit">
-                <td></td>
-                <td>(Te)</td>
-                <td>(Te)</td>
-                <td>(cum)</td>
-                <td>(cum)</td>
-                <td></td>
-            </tr>
+                <tr class="head">
+                    <td></td>
+                    <td>Coal-100</td>
+                    <td>Coal-120</td>
+                    <td>OB-100</td>
+                    <td>OB-120</td>
+                    <td></td>
+                </tr>
+                <tr class="unit">
+                    <td></td>
+                    <td>(Te)</td>
+                    <td>(Te)</td>
+                    <td>(cum)</td>
+                    <td>(cum)</td>
+                    <td></td>
+                </tr>
                 <tr class="data" ng-repeat="x in shovels" ng-if="x.data.east">
                     <td class="name-col">{{x.name}}</td>
                     <td><input class="w3-input w3-border" ng-change="refresh()" type="number"
@@ -686,6 +636,82 @@
                     <td>Total</td>
                     <td>{{outsourcings_total.data.qty}}</td>
                     <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="section " id="dispatch">
+            <table class="data w3-table-all">
+                <tr class="head">
+                    <td></td>
+                    <td>Rakes</td>
+                    <td>Boxes</td>
+                    <td>Quantity</td>
+                </tr>
+                <tr class="unit">
+                    <td></td>
+                    <td>nos</td>
+                    <td>nos</td>
+                    <td>Te</td>
+                </tr>
+                <tr class="data">
+                    <td>Silo</td>
+                    <td><input type="number" class="w3-input w3-border" /></td>
+                    <td><input type="number" class="w3-input w3-border" /></td>
+                    <td><input type="number" class="w3-input w3-border" /></td>
+                </tr>
+                <tr class="data">
+                    <td>Wharf wall</td>
+                    <td><input type="number" class="w3-input w3-border" /></td>
+                    <td><input type="number" class="w3-input w3-border" /></td>
+                    <td><input type="number" class="w3-input w3-border" /></td>
+                </tr>
+                <tr class="data">
+                    <td>Road</td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="number" class="w3-input w3-border" /></td>
+                </tr>
+                <tr class="total w3-teal">
+                    <td>Total Dispatch</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="data">
+                    <td>Jnt recvd</td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="number" class="w3-input w3-border" /></td>
+                </tr>
+                <tr class="total w3-teal">
+                    <td>Net Dispatch</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="data">
+                    <td>SM trans</td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="number" class="w3-input w3-border" /></td>
+                </tr>
+                <tr class="data">
+                    <td>Mobile cruser</td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="number" class="w3-input w3-border" /></td>
+                </tr>
+                <tr class="data">
+                    <td>Internal trans</td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="number" class="w3-input w3-border" /></td>
+                </tr>
+                <tr class="data">
+                    <td>Internal trans</td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="number" class="w3-input w3-border" /></td>
                 </tr>
             </table>
         </div>
