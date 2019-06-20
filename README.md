@@ -1,4 +1,4 @@
-# www.sushant.info/dch
+# https://www.sushanttiwari.in/dch
 
 # Overview
 It's a PWA (progressive web app) to facilitate real-time reporting and monitoring of production related data of Duchichua coal mine.
@@ -18,4 +18,4 @@ HTML, CSS, JavaScript, Angular, Bootstrap, PHP.
 
 # Developer
 Sushant Tiwari
-(www.sushant.info)
+(www.sushanttiwari.in)
