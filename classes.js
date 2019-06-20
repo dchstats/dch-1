@@ -128,8 +128,8 @@ class Dragline {
         this.set([this.name, null, null, null, null, null, null, null]);
     };
     inflate = function () {
-        this.solid_qty = this.data.solid * 13;
-        this.rehandling_qty = this.data.rehandling * 13;
+        this.solid_qty = this.data.solid * 15;
+        this.rehandling_qty = this.data.rehandling * 15;
     };
     sum = function (x) {
         this.data.solid += x.data.solid;

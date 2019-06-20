@@ -4,7 +4,7 @@ function begin() {
     $(".head").addClass("w3-teal").addClass("w3-border-0");
     $(".unit").addClass("w3-teal").addClass("w3-small")
     $(".section").hide();
-    openSection('report');
+    openSection('shovel-east');
 
     $('.section-selector .tab').click(
         function () {

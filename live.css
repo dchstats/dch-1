@@ -1,0 +1,21 @@
+*{
+box-sizing: border-box;
+margin:0px;
+padding:0px;
+font:inherit;
+}
+
+
+.title{
+
+    display:inline-block;
+    width:50vw;
+    border:1px solid black;
+}
+
+.first-nav{
+
+    display:inline-block;
+    width:50vw;
+    border:1px solid black;
+}
