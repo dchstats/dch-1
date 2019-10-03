@@ -3,19 +3,20 @@ var app = angular.module('dch', []);
 
 
 app.controller('ctrl', function ($scope, $http) {
-	$scope.server = servers[0];
+	$scope.servers = ['local', 'remote'];
+	$scope.server = $scope.servers[0];
 
 	
 	appGlobals();
 	lastShift();
-	// serverSelect();
-	// getData();
+	serverSelect();
+	getData();
 
 
 	function serverSelect() {
 
-		if ($scope.server==$scope.servers[1]) {
-			$scope.url = 'http://localhost/dch-server/shift.php';
+		if ($scope.server==$scope.servers[0]) {
+			$scope.url = 'http://localhost/dch/shift.php';
 			$scope.status = "Local Server Selected";
 
 		}
