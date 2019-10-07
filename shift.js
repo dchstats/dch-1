@@ -1,14 +1,15 @@
 
 var app = angular.module('dch', []);
-
-
 app.controller('ctrl', function ($scope, $http) {
-	$scope.local = true;
+	openSection('summary');
 	appGlobals();
-	getData();
+	presentShift();
+
+
 	function appGlobals() {
-		$scope.date = new Date();
-		$scope.shovel_names = ['P&H_45', 'P&H_2', 'P&H_3', 'P&H_4', 'P&H_5', 'P&H_6', 'P&H_7', 'P&H_8', 'P&H_9', 'P&H_10'];
+		$scope.begin = new Date(2019, 9, 5, 6, 0, 0, 0);
+		$scope.shovel_names = ['P&H-06', 'P&H-07', 'P&H-09', 'P&H-10', 'P&H-11', 'P&H-12', 'P&H-13', 'P&H-14', 'P&H-15',
+			'P&H-16', 'P&H-17', 'P&H-18', 'P&H-19', 'HIM-20', 'PC-TATA', 'PL-06', 'PL-07'];
 		$scope.dragline_names = ['Jyoti', 'Pawan', 'Vindhya', 'Jwala'];
 		$scope.surface_miner_names = ['LnT'];
 		$scope.outsourcing_names = [
@@ -19,41 +20,43 @@ app.controller('ctrl', function ($scope, $http) {
 			'DL-EAST',
 			'DL-WEST'
 		];
-		$scope.shifts = ['Night', 'First', 'Second'];
-		serverSelect();
 	}
 
-	function serverSelect() {
-
-		if ($scope.local) {
-			$scope.url = 'http://localhost/dch-server/shift.php';
-			$scope.status = "Local Server Selected";
-
-		}
-		else {
-			$scope.url = 'https://www.gudjingo.com/dch/shift.php';
-			$scope.status = "Remote Server Selected";
-
-		}
-		console.log($scope.status);
-		changeDay();
-	}
-
-	function changeDay() {
-		var a = new Date(2019, 3, 1, 6, 0, 0, 0);
+	function presentShift() {
+		var a = $scope.begin;
 		var b = a.getTime();
-		var c = $scope.date.getTime();
-		var d = Math.floor((c - b) / (24 * 3600 * 1000));
-		$scope.day = d;
-		$scope.s1 = d * 3 + 1;
-		$scope.s2 = d * 3 + 2;
-		$scope.s3 = d * 3 + 3;
-		$scope.shift = $scope.s3;
-		console.log("s1:" + $scope.s1);
-		console.log("s2:" + $scope.s2);
-		console.log("s3:" + $scope.s3);
-		appInitialize();
+		var c = new Date().getTime();
+		var d = Math.floor((c - b) / (8 * 3600 * 1000));
+		$scope.shift = d;
+		shiftDecode();
 	}
+
+	function shiftDecode() {
+		var days = [
+			'Sunday',
+			'Monday',
+			'Tuesday',
+			'Wednesday',
+			'Thirsday',
+			'Friday',
+			'Saturday'
+		];
+		shifts = ['First', 'Second', 'Night'];
+
+		var a = $scope.begin;
+		var b = a.getTime();
+		var c = $scope.shift;
+		var d = b + (c * 8 * 3600 * 1000) + 1;
+		var e = new Date(d);
+		var f = e.getDate() + '-' + (e.getMonth() + 1) + '-' + e.getFullYear() + ', ' + days[e.getDay()];
+		var g = c % 3;
+		var h = shifts[g];
+		var i = h + " Shift, " + f;
+		$scope.i = i;
+		getData();
+	}
+
+
 
 	function appInitialize() {
 		$scope.shovels = [];
@@ -90,28 +93,14 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.draglines_total = new Dragline('total');
 		$scope.surfaceMiners_total = new SurfaceMiner('total');
 		$scope.outsourcings_total = new Outsourcing('total');
-
-		$scope.d1 = null;
-		$scope.d2 = null;
-		$scope.d3 = null;
-		$scope.a1 = false;
-		$scope.a2 = false;
-		$scope.a3 = false;
-		$scope.i1 = null;
-		$scope.i2 = null;
-		$scope.i3 = null;
-		shiftSelector(0);
 	}
 
 	function getData() {
-		fetch_l($scope.s1);
-		fetch_l($scope.s2);
-		fetch_l($scope.s3);
+		appInitialize();
+		fetch();
 	}
-
 	function pop() {
 		var t = $scope.obj;
-
 		angular.forEach(t.shovels, function (x, i) {
 			$scope.shovels[i].set(x);
 		});
@@ -126,56 +115,6 @@ app.controller('ctrl', function ($scope, $http) {
 		});
 		ref();
 	};
-
-	function dayTotal() {
-		if ($scope.a1 && $scope.a2 && $scope.a3) {
-			var k = null;
-			$scope.obj = JSON.parse(JSON.stringify($scope.d1));
-			pop();
-			angular.forEach($scope.shovels, function (x, i) {
-				k = new Shovel('temp');
-				k.initialize();
-				k.data = $scope.d2.shovels[i];
-				x.sum(k);
-				k.initialize();
-				k.data = $scope.d3.shovels[i];
-				x.sum(k);
-			});
-			angular.forEach($scope.draglines, function (x, i) {
-				k = new Dragline('temp');
-				k.initialize();
-				k.data = $scope.d2.draglines[i];
-				x.sum(k);
-				k.initialize();
-				k.data = $scope.d3.draglines[i];
-				x.sum(k);
-			});
-			angular.forEach($scope.surfaceMiners, function (x, i) {
-				k = new SurfaceMiner('temp');
-				k.initialize();
-				k.data = $scope.d2.surfaceMiners[i];
-				x.sum(k);
-				k.initialize();
-				k.data = $scope.d3.surfaceMiners[i];
-				x.sum(k);
-			});
-			angular.forEach($scope.outsourcings, function (x, i) {
-				k = new Outsourcing('temp');
-				k.initialize();
-				k.data = $scope.d2.outsourcings[i];
-				x.sum(k);
-				k.initialize();
-				k.data = $scope.d3.outsourcings[i];
-				x.sum(k);
-			});
-			show('day');
-		}
-		else {
-			$scope.status = "Incomplete shift data";
-		}
-
-
-	}
 
 	function ref() {
 		$scope.packet = {
@@ -218,111 +157,18 @@ app.controller('ctrl', function ($scope, $http) {
 		$scope.packet_string = JSON.stringify($scope.packet);
 	}
 
-	function fetch(s) {
-		console.log("Data requested for " + s);
-		var payload = { command: 'get', shift: s };
-		var req = {
-			method: 'POST',
-			url: $scope.url,
-			headers: {
-				'Content-Type': undefined
-			},
-			data: payload
-		};
-
-		$http(req).then(
-			function (res) {
-				// console.log(res);
-				var records = res.data.length;
-				if (records > 0) {
-					console.log("Data found for " + s);
-					var p = res.data[records - 1];
-					var sft = p.shift;
-					var obj_ = p.data;
-					var i = p.id;
-					var obj = JSON.parse(obj_);
-					if (s == $scope.s1) {
-						$scope.d1 = obj;
-						$scope.a1 = true;
-						$scope.i1 = i;
-						show('first');
-					}
-					else if (s == $scope.s2) {
-						$scope.d2 = obj;
-						$scope.a2 = true;
-						$scope.i2 = i;
-					}
-					else {
-						$scope.d3 = obj;
-						$scope.a3 = true;
-						$scope.i3 = i;
-					}
-				}
-				else {
-					$scope.status = "No data for " + s
-					console.log($scope.status);
-				}
-			},
-			function () {
-				$scope.status = "Request failed for " + s;
-				console.log($scope.status);
-			}
-		);
-
+	function populate() {
+		console.log('populating.');
+		populate_helper();
 	}
-	function fetch_l(s) {
-		console.log("Data requested for " + s);
-		var obj = JSON.parse(localStorage.getItem(s));
-		console.log(obj);
-		if (obj) {
-			var i = 0;
-			if (s == $scope.s1) {
-				$scope.d1 = obj;
-				$scope.a1 = true;
-				$scope.i1 = i;
-				show('first');
-			}
-			else if (s == $scope.s2) {
-				$scope.d2 = obj;
-				$scope.a2 = true;
-				$scope.i2 = i;
-			}
-			else {
-				$scope.d3 = obj;
-				$scope.a3 = true;
-				$scope.i3 = i;
-			}
+
+	function populate_helper() {
+		if ($scope.shift >= 0) {
+			dummy();
+			sub();
+			$scope.shift--;
+			setTimeout(populate_helper(), 1);
 		}
-		
-	}
-	function sub() {
-		var payload = { command: 'post', shift: $scope.shift, t: $scope.packet_string };
-		var req = {
-			method: 'POST',
-			url: $scope.url,
-			headers: {
-				'Content-Type': undefined
-			},
-			data: payload
-		};
-
-		$http(req).then(
-			function (res) {
-				$scope.status = JSON.stringify(res.data);
-			},
-			function () {
-				$scope.status = 'data submission failed.';
-			}
-		);
-		console.log($scope.status);
-	}
-	function sub_l() {
-		localStorage.setItem($scope.shift, $scope.packet_string);
-		var k = localStorage.getItem($scope.shift);
-		if (k) {
-			$scope.status = "Record set for " + $scope.shift;
-		}
-		
 	}
 
 	function dummy() {
@@ -332,6 +178,7 @@ app.controller('ctrl', function ($scope, $http) {
 		randomValues();
 		pop();
 	}
+	
 	function randomValues() {
 		t = $scope.obj;
 		angular.forEach(t.shovels, function (x, i) {
@@ -361,120 +208,20 @@ app.controller('ctrl', function ($scope, $http) {
 		});
 	}
 
-	function populate_r() {
+	function prev() {
 		if ($scope.shift > 0) {
-
-
-			var payload = { command: 'get', shift: $scope.shift };
-			var req = {
-				method: 'POST',
-				url: $scope.url,
-				headers: {
-					'Content-Type': undefined
-				},
-				data: payload
-			};
-
-			$http(req).then(
-				function (res) {
-					var records = res.data.length;
-					if (records < 1) {
-						dummy();
-						sub();
-						$scope.shift--;
-						setTimeout(populate, 100);
-					}
-					else {
-						$scope.status = 'data found for' + $scope.shift;
-						console.log($scope.status);
-					}
-				},
-				function () {
-					$scope.status = 'request failed.';
-				}
-			);
+			$scope.shift--;
 		}
+		shiftDecode();
 	}
-
-	function populate() {
-		$scope.shift = 0;
-		populat_helper();
-	}
-
-	function populat_helper() {
-		if ($scope.shift < $scope.s3) {
-			$scope.shift++;
-			dummy();
-			sub_l();
-			setTimeout(populat_helper(), 100);
-		}
-	}
-
-	function show(t) {
-		if (t == "first") {
-			$scope.shift = $scope.s1;
-			if ($scope.a1) {
-				$scope.obj = $scope.d1;
-
-			}
-			else {
-				appInitialize();
-			}
-			$scope.status = 'showing:' + $scope.s1;
-			shiftSelector(1);
-			pop();
-		}
-		else if (t == "second") {
-			$scope.shift = $scope.s2;
-			if ($scope.a2) {
-				$scope.obj = $scope.d2;
-
-			}
-			else {
-				appInitialize();
-			}
-			$scope.status = 'showing:' + $scope.s2;
-			shiftSelector(2);
-			pop();
-		}
-		else if (t == "night") {
-			$scope.shift = $scope.s3;
-			if ($scope.a3) {
-				$scope.obj = $scope.d3;
-
-			}
-			else {
-				appInitialize();
-			}
-			$scope.status = 'showing:' + $scope.s3;
-			shiftSelector(3);
-			pop();
-		}
-		else if (t == "day") {
-			$scope.shift = null;
-			$scope.obj = $scope.day;
-			$scope.status = 'showing day report';
-			shiftSelector(4);
-			pop();
-		}
-		console.log($scope.status);
+	function next() {
+		$scope.shift++;
+		shiftDecode();
 	}
 
 
-
-	$scope.dummy = function () {
-		dummy();
-	}
-
-	$scope.getData = function () {
-		getData();
-	};
-
-	$scope.changeDay = function () {
-		changeDay();
-	}
-	$scope.pop = function () {
-		pop();
+	$scope.ref = function () {
+		ref();
 	}
 
 	$scope.dayTotal = function () {
@@ -483,26 +230,47 @@ app.controller('ctrl', function ($scope, $http) {
 
 
 	$scope.sub = function () {
-		sub_l();
+		sub();
 	};
 
-	$scope.refresh = function () {
-		ref();
-	};
 
 	$scope.populate = function () {
 		populate();
-		$scope.shift = $scope.s3;
+		presentShift();
+	}
+
+	$scope.clear = function () {
+		localStorage.clear();
+		presentShift();
+	}
+
+	$scope.prev = function () {
+		prev();
+	}
+
+	$scope.next = function () {
+		next();
 	}
 
 
-	$scope.show = function (t) {
-		show(t);
+
+
+	function fetch() {
+		var s = $scope.shift;
+		console.log("Data requested for " + s);
+		var obj = JSON.parse(localStorage.getItem(s));
+		if (obj) {
+			$scope.obj = obj;
+			pop();
+		}
+
 	}
-
-	$scope.serverSelect = function () {
-		serverSelect();
+	function sub() {
+		console.log('Submitting for' + $scope.shift);
+		localStorage.setItem($scope.shift, $scope.packet_string);
+		var k = localStorage.getItem($scope.shift);
+		if (k) {
+			$scope.status = "Record set for " + $scope.shift;
+		}
 	}
-
-
 });

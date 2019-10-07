@@ -36,7 +36,7 @@ class Shovel {
     }
 
     initialize = function () {
-        this.set([this.name, false, false, null, null, , null, null, null, null, , null, null,]);
+        this.set([this.name, false, false, null, null, null, null, null, null, null, null,]);
     };
     remove = function (arg) {
         if (arg == 'east') {
@@ -53,7 +53,6 @@ class Shovel {
             this.data.west_ob_100 = null;
             this.data.west_ob_85 = null;
         }
-        ref();
     };
     inflate = function () {
         this.qty = {
@@ -190,9 +189,31 @@ class Outsourcing {
         return arr;
     }
     initialize = function () {
-        this.set([this.name, null, null, null,null])
+        this.set([this.name, null, null, null, null])
     };
     sum = function (x) {
         this.data.qty += x.data.qty;
+    }
+}
+
+class Dispatch {
+    constructor(name) {
+        this.name = name;
+    }
+    set = function (arr) {
+        this.data = arr;
+    }
+    get = function () {
+        return this.data;
+
+    }
+    initialize = function () {
+        this.data = [];
+
+    }
+    sum =function(x) {
+        for (i = 0; i < this.data.length; i++){
+            this.data[i] += x.data[i];
+        }
     }
 }
