@@ -2,64 +2,75 @@
 <html lang="en">
 
 <head>
-    <title>DCH</title>
-    <meta charset="utf-8">
-    <meta name="Description" content="Day end report">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <link rel="shortcut icon" href="media/favicon.png" type="image/x-icon">
-
-    <link rel="stylesheet" href="libs/w3.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>dch</title>
     <script src="libs/angular.js"></script>
     <script src="libs/jquery.js"></script>
+    <link rel="stylesheet" href="libs/w3.css">
+    <link rel="stylesheet" href="styles/common-styles.css">
+    <link rel="stylesheet" href="styles/shift.css">
+    <!-- <script src="w3.js"></script> -->
+
 </head>
 
-<body ng-app="day" ng-controller='day-ctrl' class="w3-sand">
-    <div class="w3-cell-row w3-purple">
-        <div class="w3-container w3-cell w3-quarter">
-            <div class="w3-bar">
-                <a href="index.html" class="w3-bar-item w3-button">Live</a>
-                <a href="prod.html" class="w3-bar-item w3-button">Production Report</a>
+<body ng-app="myApp" ng-controller="myController">
+    <div class="header">
+        <div class="menu">
+            <a href="index.html">Live</a>
+            <a href="shift.html">Shift</a>
+            <a href="day.html">Day</a>
+        </div>
+
+        <div class="title">
+            <p>Dudhichua.live</p>
+        </div>
+
+        <div class="login">
+            <div class="login-form" ng-hide="auth">
+                <input type="text" placeholder="PIN" ng-model="pin" />
+                <button ng-click="login()">Login</button>
+            </div>
+
+            <div class="user" ng-hide="!auth">
+                <span> {{user}}</span>
+                <button ng-click="auth=false;pin=''">Logout</button>
             </div>
         </div>
-        <div class="w3-container w3-center w3-xxxlarge w3-half w3-cell">
-            Day data
-        </div>
-        <div class="w3-container w3-cell w3-quarter">
-            <a href="shift.html" class="w3-bar-item w3-button">Shift</a>
-            <a href="day.html" class="w3-bar-item w3-button">Day</a>
-        </div>
-    </div>
-    <div class="w3-container w3-purple w3-center w3-large">
-        <div class="w3-quarter">
-            <button class="w3-btn w3-round w3-right" ng-click="prev()">-</button>
-        </div>
-        <div class="w3-half">
-            [{{day}}]
-            {{f}}
-        </div>
-        <div class="w3-quarter">
-            <button class="w3-btn w3-round w3-left" ng-click="next()">+</button>
-        </div>
     </div>
 
-    <div class="w3-bar section-selector w3-purple w3-center">
-        <a href="#" onClick="openSection('production')" class="tab w3-button w3-hover-sand">Production data</a>
-        <a href="#" onClick="openSection('dispatch')" class="tab w3-button w3-hover-sand">Dispatch Data</i></a>
-        <a href="#" onClick="openSection('summary')" class="tab w3-button w3-hover-sand">Summary</i></a>
+    <div class="header-2">
+        <div class="shift-selector   ">
+            <div class="shift-changer">
+                <button ng-click="prev()">prev</button>
+            </div>
+            <div class="shift-name">
+                {{f}}
+            </div>
+            <div class="shift-changer">
+                <button ng-click="next()">next</button>
+            </div>
+        </div>
+        <div class=" section-selector  ">
+            <a id="production-tab" href="#" onmouseDown="openSection('production')" class="tab ">Production data</a>
+            <a id="dispatch-tab" href="#" onmouseDown="openSection('dispatch')" class="tab ">Dispatch Data</i></a>
+            <a id="summary-tab" href="#" onmouseDown="openSection('summary')" class="tab ">Summary</i></a>
+        </div>
     </div>
 
-    <div class="w3-container w3-margin">
 
-        <input id="status" class="w3-input" ng-model="status" type="text" ng-disabled="true">
+
+
+
+    <div class=" ">
+
 
         <div class="section" id="production">
 
             <div>
-                <table class="w3-table-all w3-margin-top">
-                    <tr class="w3-teal w3-xlarge">
+                <table class="w3-table-all ">
+                    <tr class=" ">
                         <td colspan="10">Summary</td>
                     </tr>
                     <tr class="head">
@@ -99,7 +110,7 @@
                         <td></td>
                         <td>{{outsourcings_total.data.qty}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td>Total</td>
                         <td>{{shovels_total.qty.coal+surfaceMiners_total.data.prod}} Te</td>
                         <td>{{shovels_total.qty.ob+draglines_total.solid_qty}} cum</td>
@@ -109,8 +120,8 @@
                 </table>
             </div>
             <div class="  summary-section" id="shovel-summary">
-                <table class="w3-table-all w3-margin-top">
-                    <tr class="w3-teal w3-xlarge">
+                <table class="w3-table-all ">
+                    <tr class=" ">
                         <td colspan="7">Shovel</td>
                     </tr>
                     <tr class="head">
@@ -140,7 +151,7 @@
                         <td>{{x.qty.coal}}</td>
                         <td>{{x.qty.ob}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td class="name-col">Total</td>
                         <td>{{shovels_total.qty.east_coal}} Te</td>
                         <td>{{shovels_total.qty.east_ob}} cum</td>
@@ -152,8 +163,8 @@
                 </table>
             </div>
             <div class="  summary-section" id="dragline-summary">
-                <table class="w3-table-all w3-margin-top">
-                    <tr class="w3-teal w3-xlarge">
+                <table class="w3-table-all ">
+                    <tr class=" ">
                         <td colspan="10">Dragline</td>
                     </tr>
                     <tr class="head">
@@ -174,7 +185,7 @@
                         <td>{{x.rehandling_qty}}</td>
                         <td>{{x.data.remark}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td>Total</td>
                         <td>{{draglines_total.solid_qty}} cum</td>
                         <td>{{draglines_total.rehandling_qty}} cum</td>
@@ -184,8 +195,8 @@
             </div>
             <div class="  summary-section" id="surface-miner-summary">
 
-                <table class="w3-table-all w3-margin-top">
-                    <tr class="w3-teal w3-xlarge">
+                <table class="w3-table-all ">
+                    <tr class=" ">
                         <td colspan="10">Surface Miner</td>
                     </tr>
                     <tr class="head">
@@ -209,7 +220,7 @@
                         <td>{{x.data.prod}}</td>
                         <td>{{x.data.remark}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td class="name-col">Total</td>
                         <td>{{surfaceMiners_total.data.wrk}} hrs</td>
                         <td>{{surfaceMiners_total.data.cutting}} mtrs</td>
@@ -219,8 +230,8 @@
                 </table>
             </div>
             <div class="  summary-section" id="outsourcing-summary">
-                <table class="w3-table-all w3-margin-top">
-                    <tr class="w3-teal w3-xlarge">
+                <table class="w3-table-all ">
+                    <tr class=" ">
                         <td colspan="10">Outsourcing</td>
                     </tr>
                     <tr class="head">
@@ -238,7 +249,7 @@
                         <td>{{x.data.qty}}</td>
                         <td>{{x.data.remark}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td class="name-col">Total</td>
                         <td>{{outsourcings_total.data.qty}} cum</td>
                         <td></td>
@@ -262,30 +273,30 @@
                 </tr>
                 <tr class="data">
                     <td>Silo</td>
-                    <td><input ng-model="disp.data[0]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[0]" ng-change="ref()" type="number" class=" " />
                     </td>
-                    <td><input ng-model="disp.data[1]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[1]" ng-change="ref()" type="number" class=" " />
                     </td>
-                    <td><input ng-model="disp.data[2]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[2]" ng-change="ref()" type="number" class=" " />
                     </td>
                 </tr>
                 <tr class="data">
                     <td>Wharf wall</td>
-                    <td><input ng-model="disp.data[3]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[3]" ng-change="ref()" type="number" class=" " />
                     </td>
-                    <td><input ng-model="disp.data[4]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[4]" ng-change="ref()" type="number" class=" " />
                     </td>
-                    <td><input ng-model="disp.data[5]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[5]" ng-change="ref()" type="number" class=" " />
                     </td>
                 </tr>
                 <tr class="data">
                     <td>Road</td>
                     <td></td>
                     <td></td>
-                    <td><input ng-model="disp.data[6]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[6]" ng-change="ref()" type="number" class=" " />
                     </td>
                 </tr>
-                <tr class="total w3-teal">
+                <tr class="total ">
                     <td>Total Dispatch</td>
                     <td></td>
                     <td></td>
@@ -293,60 +304,60 @@
                 </tr>
                 <tr class="data">
                     <td>Jnt recvd</td>
+                    <td><input ng-model="disp.data[7]" ng-change="ref()" type="number" class=" " />
+                    <td>net dispatch</td>
                     <td></td>
-                    <td></td>
-                    <td><input ng-model="disp.data[7]" ng-change="ref()" type="number" class="w3-input w3-border" />
-                    </td>
                 </tr>
-                <tr class="total w3-teal">
-                    <td>Net Dispatch</td>
+
+                <tr class="total ">
+                    <td>Coal Transport</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>Trips</td>
+                    <td>Quantity</td>
                 </tr>
                 <tr class="data">
                     <td>Surface Miner Transport</td>
                     <td></td>
-                    <td></td>
-                    <td><input ng-model="disp.data[8]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[8]" ng-change="ref()" type="number" class=" " />
+                    <td><input ng-model="disp.data[8]" ng-change="ref()" type="number" class=" " />
                     </td>
                 </tr>
                 <tr class="data">
                     <td>Mobile cruser</td>
                     <td></td>
-                    <td></td>
-                    <td><input ng-model="disp.data[9]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[8]" ng-change="ref()" type="number" class=" " />
+                    <td><input ng-model="disp.data[9]" ng-change="ref()" type="number" class=" " />
                     </td>
                 </tr>
                 <tr class="data">
                     <td>Internal transport-RPL</td>
                     <td></td>
-                    <td></td>
-                    <td><input ng-model="disp.data[10]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[8]" ng-change="ref()" type="number" class=" " />
+                    <td><input ng-model="disp.data[10]" ng-change="ref()" type="number" class=" " />
                     </td>
                 </tr>
                 <tr class="data">
                     <td>CHP Dumper Feeding</td>
                     <td></td>
-                    <td></td>
-                    <td><input ng-model="disp.data[11]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[8]" ng-change="ref()" type="number" class=" " />
+                    <td><input ng-model="disp.data[11]" ng-change="ref()" type="number" class=" " />
                     </td>
                 </tr>
                 <tr class="data">
                     <td>CHP Diversion</td>
                     <td></td>
-                    <td></td>
-                    <td><input ng-model="disp.data[12]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[8]" ng-change="ref()" type="number" class=" " />
+                    <td><input ng-model="disp.data[12]" ng-change="ref()" type="number" class=" " />
                     </td>
                 </tr>
                 <tr class="data">
                     <td>Payloader Rehanding</td>
                     <td></td>
-                    <td></td>
-                    <td><input ng-model="disp.data[13]" ng-change="ref()" type="number" class="w3-input w3-border" />
+                    <td><input ng-model="disp.data[8]" ng-change="ref()" type="number" class=" " />
+                    <td><input ng-model="disp.data[13]" ng-change="ref()" type="number" class=" " />
                     </td>
                 </tr>
-                <tr class="total w3-teal">
+                <tr class="total ">
                     <td>CHP Crushing</td>
                     <td></td>
                     <td></td>
@@ -356,8 +367,8 @@
         </div>
         <div class="section" id="summary">
             <div>
-                <table class="w3-table-all w3-margin-top">
-                    <tr class="w3-teal w3-xlarge">
+                <table class="w3-table-all ">
+                    <tr class=" ">
                         <td colspan="10">Summary</td>
                     </tr>
                     <tr class="head">
@@ -397,7 +408,7 @@
                         <td></td>
                         <td>{{outsourcings_total.data.qty}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td>Total</td>
                         <td>{{shovels_total.qty.coal+surfaceMiners_total.data.prod}} Te</td>
                         <td>{{shovels_total.qty.ob+draglines_total.solid_qty}} cum</td>
@@ -407,8 +418,8 @@
                 </table>
             </div>
             <div class="  summary-section" id="shovel-summary">
-                <table class="w3-table-all w3-margin-top">
-                    <tr class="w3-teal w3-xlarge">
+                <table class="w3-table-all ">
+                    <tr class=" ">
                         <td colspan="7">Shovel</td>
                     </tr>
                     <tr class="head">
@@ -438,7 +449,7 @@
                         <td>{{x.qty.coal}}</td>
                         <td>{{x.qty.ob}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td class="name-col">Total</td>
                         <td>{{shovels_total.qty.east_coal}} Te</td>
                         <td>{{shovels_total.qty.east_ob}} cum</td>
@@ -450,8 +461,8 @@
                 </table>
             </div>
             <div class="  summary-section" id="dragline-summary">
-                <table class="w3-table-all w3-margin-top">
-                    <tr class="w3-teal w3-xlarge">
+                <table class="w3-table-all ">
+                    <tr class=" ">
                         <td colspan="10">Dragline</td>
                     </tr>
                     <tr class="head">
@@ -472,7 +483,7 @@
                         <td>{{x.rehandling_qty}}</td>
                         <td>{{x.data.remark}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td>Total</td>
                         <td>{{draglines_total.solid_qty}} cum</td>
                         <td>{{draglines_total.rehandling_qty}} cum</td>
@@ -482,8 +493,8 @@
             </div>
             <div class="  summary-section" id="surface-miner-summary">
 
-                <table class="w3-table-all w3-margin-top">
-                    <tr class="w3-teal w3-xlarge">
+                <table class="w3-table-all ">
+                    <tr class=" ">
                         <td colspan="10">Surface Miner</td>
                     </tr>
                     <tr class="head">
@@ -507,7 +518,7 @@
                         <td>{{x.data.prod}}</td>
                         <td>{{x.data.remark}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td class="name-col">Total</td>
                         <td>{{surfaceMiners_total.data.wrk}} hrs</td>
                         <td>{{surfaceMiners_total.data.cutting}} mtrs</td>
@@ -517,8 +528,8 @@
                 </table>
             </div>
             <div class="  summary-section" id="outsourcing-summary">
-                <table class="w3-table-all w3-margin-top">
-                    <tr class="w3-teal w3-xlarge">
+                <table class="w3-table-all ">
+                    <tr class=" ">
                         <td colspan="10">Outsourcing</td>
                     </tr>
                     <tr class="head">
@@ -536,7 +547,7 @@
                         <td>{{x.data.qty}}</td>
                         <td>{{x.data.remark}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td class="name-col">Total</td>
                         <td>{{outsourcings_total.data.qty}} cum</td>
                         <td></td>
@@ -575,7 +586,7 @@
                         <td></td>
                         <td>{{disp.data[6]}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td>Total Dispatch</td>
                         <td></td>
                         <td></td>
@@ -587,7 +598,7 @@
                         <td></td>
                         <td>{{disp.data[7]}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td>Net Dispatch</td>
                         <td></td>
                         <td></td>
@@ -629,7 +640,7 @@
                         <td></td>
                         <td>{{disp.data[13]}}</td>
                     </tr>
-                    <tr class="total w3-teal">
+                    <tr class="total ">
                         <td>CHP Crushing</td>
                         <td></td>
                         <td></td>
@@ -639,9 +650,9 @@
             </div>
         </div>
 </body>
-<script src="navigation.js"></script>
-<script src="classes.js"></script>
-<script src="day.js"></script>
+<script src="scripts/navigation.js"></script>
+<script src="scripts/classes.js"></script>
+<script src="scripts/day.js"></script>
 
 
 </html>
