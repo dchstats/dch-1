@@ -6,10 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>dch</title>
+    
     <script src="libs/angular.js"></script>
     <script src="libs/jquery.js"></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/classes.js" defer></script>
+    <script src="js/shift.js" defer></script>
+
+
+    <link rel="stylesheet" href="css/shift.css">
     <link rel="stylesheet" href="libs/w3.css">
-    <link rel="stylesheet" href="styles/common-styles.css">
+    <link rel="stylesheet" href="css/common-styles.css">
 
 
 </head>
@@ -290,10 +297,8 @@
                 </tr>
                 <tr class="data" ng-repeat="x in shovels" ng-if="x.data.east">
                     <td class="name-col">{{x.name}}</td>
-                    <td><input ng-change="ref()" class="" type="number"
-                            ng-model="x.data.east_coal_100"></td>
-                    <td><input ng-change="ref()" class=" " type="number"
-                            ng-model="x.data.east_coal_120"></td>
+                    <td><input ng-change="ref()" class="" type="number" ng-model="x.data.east_coal_100"></td>
+                    <td><input ng-change="ref()" class=" " type="number" ng-model="x.data.east_coal_120"></td>
                     <td><input ng-change="ref()" class=" " type="number" ng-model="x.data.east_ob_100">
                     </td>
                     <td><input ng-change="ref()" class=" " type="number" ng-model="x.data.east_ob_120">
@@ -322,8 +327,7 @@
         </div>
         <div class="section" id="shovel-west">
             <div class="shovel-buttons">
-                <button class="" ng-repeat="x in shovels"
-                    ng-click="x.data.west=true;" ng-disabled="x.data.west">
+                <button class="" ng-repeat="x in shovels" ng-click="x.data.west=true;" ng-disabled="x.data.west">
                     {{x.name}}
                 </button>
             </div>
@@ -347,10 +351,8 @@
                 </tr>
                 <tr class="data" ng-repeat="x in shovels" ng-if="x.data.west">
                     <td class="name-col">{{x.name}}</td>
-                    <td><input ng-change="ref()" class=" " type="number"
-                            ng-model="x.data.west_coal_100"></td>
-                    <td><input ng-change="ref()" class=" " type="number"
-                            ng-model="x.data.west_coal_85"></td>
+                    <td><input ng-change="ref()" class=" " type="number" ng-model="x.data.west_coal_100"></td>
+                    <td><input ng-change="ref()" class=" " type="number" ng-model="x.data.west_coal_85"></td>
                     <td><input ng-change="ref()" class=" " type="number" ng-model="x.data.west_ob_100">
                     </td>
                     <td><input ng-change="ref()" class=" " type="number" ng-model="x.data.west_ob_85">
@@ -404,9 +406,8 @@
                         <input ng-change="ref()" class=" " type="number" ng-model="x.data.rehandling">
                     </td>
                     </td>
-            
-                    <td><input ng-change="ref()" class=" " ng-model="x.data.remark"></input
-                            class=" "></td>
+
+                    <td><input ng-change="ref()" class=" " ng-model="x.data.remark"></input class=" "></td>
                 </tr>
                 <tr class="total ">
                     <td>Total</td>
@@ -442,14 +443,10 @@
                 </tr>
                 <tr class="data" ng-repeat="x in surfaceMiners">
                     <td class="name-col">{{x.name}}</td>
-                    <td><input ng-change="ref()" class=" " type="number" name="" id=""
-                            ng-model="x.data.wrk"></td>
-                    <td><input ng-change="ref()" class=" " type="number" name="" id=""
-                            ng-model="x.data.cutting"></td>
-                    <td><input ng-change="ref()" class=" " type="number" name="" id=""
-                            ng-model="x.data.prod"></td>
-                    <td><input ng-change="ref()" class=" " ng-model="x.data.remark"></input
-                            class=" "></td>
+                    <td><input ng-change="ref()" class=" " type="number" name="" id="" ng-model="x.data.wrk"></td>
+                    <td><input ng-change="ref()" class=" " type="number" name="" id="" ng-model="x.data.cutting"></td>
+                    <td><input ng-change="ref()" class=" " type="number" name="" id="" ng-model="x.data.prod"></td>
+                    <td><input ng-change="ref()" class=" " ng-model="x.data.remark"></input class=" "></td>
                 </tr>
                 <tr class="total ">
                     <td>Total</td>
@@ -476,8 +473,7 @@
                     <td class="name-col">{{x.name}}</td>
                     <td><input ng-change="ref()" class=" " type="number" ng-model="x.data.qty">
                     </td>
-                    <td><input ng-change="ref()" class=" " ng-model="x.data.remark"></input
-                            class=" "></td>
+                    <td><input ng-change="ref()" class=" " ng-model="x.data.remark"></input class=" "></td>
                 </tr>
                 <tr class="total ">
                     <td>Total</td>
@@ -490,10 +486,7 @@
 
     </div>
 </body>
-<script src="scripts/navigation.js"></script>
-<script src="scripts/classes.js"></script>
-<script src="scripts/shift.js"></script>
-<link rel="stylesheet" href="styles/shift.css">
+
 
 
 </html>

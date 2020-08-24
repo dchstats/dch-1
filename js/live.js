@@ -1,8 +1,6 @@
 var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
-
-
     $scope.crushers = ['Crusher-01', 'Crusher-02', 'Crusher-03'];
     $scope.shovels = ['P&H-06', 'P&H-07', 'P&H-09', 'P&H-10',
         'P&H-11', 'P&H-12', 'P&H-13', 'P&H-14', 'P&H-15',
