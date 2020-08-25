@@ -16,6 +16,12 @@ function openSection(section) {
 }
 
 
+////////////////////// vanila navigation
+
+document.querySelector('.menu-icon').addEventListener('click', () => {
+    document.querySelector('.small-menu').classList.toggle('hide');
+})
+
 
 
 

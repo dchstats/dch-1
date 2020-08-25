@@ -10,10 +10,6 @@
   background: rgb(190, 17, 17);
 }
 
-body {
-  background: #222;
-  font-family: Verdana, sans-serif;
-}
 
 .leg {
   display: flex;

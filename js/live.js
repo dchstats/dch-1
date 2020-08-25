@@ -19,7 +19,7 @@ app.controller("myController", function ($scope, $http) {
 
     presentShift()
     sync();
-    setInterval(sync, 15000);
+    setInterval(sync, 5000);
 
     function presentShift() {
         var a = new Date(2019, 9, 5, 5, 0, 0, 0);

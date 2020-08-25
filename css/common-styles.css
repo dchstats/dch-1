@@ -1,134 +1,183 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  text-align: center;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	font: inherit;
+}
+
+
+
+html {
+	font-size: 16px;
 }
 
 body {
-  font-size: 1vw;
-  line-height: 1;
+	font-size: 1rem;
+	 font-family: 'Muli', sans-serif;
 }
 
-button, input, select, textarea {
-  font-size: 100%;
-  height: 2vw;
-  line-height: 1;
-  border: 0.5px solid grey;
-  border-radius: 2px;
-  margin: 0.1vw;
-  padding: 0.2vw 1vw;
+a {
+	text-decoration: none;
 }
 
-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgb(74, 74, 177);
-  color: white;
-  cursor: pointer;
-  border: none;
-  text-transform: capitalize;
+header {
+	height: 50px;
+	padding: 0 10px;
+	box-shadow: 0px 4px 8px 2px rgba(0,0,0,0.5);
+	margin-bottom:10px;
 }
 
-button:hover {
-  background: rgb(71, 97, 71);
-}
-
-input {
-  max-width: 10vw;
-}
-
-input:disabled, select:disabled, textarea:disabled, button:disabled, button:disabled:hover {
-  background: lightgrey;
-  color: grey;
-}
-
-.header {
-  background: #111;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-}
-
-.menu, .login {
-  width: 20%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.large {
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
 }
 
 .title {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 300%;
+	justify-content: flex-start;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	font-size: 1.5rem;
+}
+
+.menu {
+	display: flex;
+	align-items: center;
+}
+
+.icon {
+	width: 25px;
+	height: 25px;
+	margin: 0 10px;
 }
 
 .menu a {
-  height: 3vw;
-  flex-grow: 1;
-  text-decoration: none;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 1vw;
-  border-radius: 3px;
-  margin: 0.2vw;
+	margin: 0 0.5rem;
+	padding: 0 0.5rem;
+	font-size: 1.2rem;
+	color: #666;
+	border-bottom: 2px solid transparent;
 }
 
-.menu a:hover {
-  background: red;
+.large a:hover {
+	border-bottom-color: #666;
 }
 
-.login-form, .user {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.small{
+	display:none;
 }
 
-.user span {
-  display: inline-block;
-  margin: 10px;
+.small .title {
+	height:100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
-.login-form input {
-  width: 120px;
+.small-menu {
+	width: 150px;
+	height: 400px;
+	padding-right:1rem;
+	position: fixed;
+	/* top:50px; */
+	right: 0px;
+	background: white;
+	display: flex;
+	flex-direction: column;
+
+	font-size:1.2rem;
+}
+
+
+.small-menu > a {
+	padding: 10px 0px;
+	border-top: 1px solid lightgrey;
+	
+}
+
+input,
+select,
+textarea {
+	height: 30px;
+	border: 0.5px solid lightgrey;
+	margin: 2px;
+	padding: 5px 10px;
+	/* border-radius: 3px; */
+}
+
+
+
+
+
+button {
+	min-width: 4rem;
+	min-height:2rem;
+	margin:5px;
+	padding:5px;
+    cursor:pointer;
+    font-size:1rem;
+  	background: rgb(100, 100, 235);
+    color:white;
+    border:1px solid transparent;
+    border-radius:3px;
+    box-shadow:3px 3px 5px 0px rgba(0,0,0,0.2);  
+}
+
+button:hover{
+    background:white;
+	color:deepskyblue;
+	border-color:deepskyblue;
+    
+}
+
+button:focus{
+	outline:none;
+}
+
+button:active{
+	transform:scale(0.9);
+}
+
+button:disabled{
+    background:lightgrey;
+    color:white;
+    border-color:lightgrey;
+}
+
+
+
+
+
+
+
+
+
+input {
+	max-width: 10vw;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled,
+button:disabled,
+button:disabled:hover {
+	background: lightgrey;
+	color: grey;
+}
+
+.hide{
+	display:none;
 }
 
 /* //////////////////////////////////////////////////////////// */
+@media(max-width:768px){
+	.large{
+		display:none;
+	}
 
-@media (max-width: 768px) {
-  body {
-    font-size: 2.5vw;
-  }
-  button, input, select, textarea, .menu a {
-    height: 5vw;
-  }
-  .header {
-    padding: 1vw;
-    flex-wrap: wrap;
-  }
-  .menu {
-    width: 60%;
-    order: 1;
-    padding: 2%;
-  }
-  .title {
-    order: 0;
-    width: 100%;
-    font-size: 5vw;
-    padding-bottom: 2%;
-    border-bottom: 1px solid grey;
-  }
-  .login {
-    order: 2;
-    width: 35%;
-    overflow: hidden;
-  }
-  .login-form input {
-    width: 60%;
-  }
+	.small{
+		display:block;
+	}
 }
