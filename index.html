@@ -22,35 +22,39 @@
 </head>
 
 <body ng-app="myApp" ng-controller="myController">
-  <div class="header">
-    <div class="menu">
-      <a href="index.html">Live</a>
-      <a href="shift.html">Shift</a>
-      <a href="day.html">Day</a>
-    </div>
+<header class="large">
+  <div class="title">
+    <img class="icon" src="media/favicon.svg" alt="">
+    <p>DCH</p>
+  </div>
+  <div class="menu">
+    <a href="index.html">Live</a>
+    <a href="shift.html">Shift</a>
+    <a href="day.html">Day</a>
+  </div>
+</header>
 
-    <div class="title">
-      <p>Dudhichua.live</p>
-    </div>
-
-    <div class="login">
-      <div class="login-form" ng-hide="auth">
-        <input type="text" placeholder="PIN" ng-model="pin" />
-        <button ng-click="login()">Login</button>
-      </div>
-
-      <div class="user" ng-hide="!auth">
-        <span> {{user}}</span>
-        <button ng-click="auth=false;pin=''">Logout</button>
-      </div>
-    </div>
+<header class="small">
+  <div class="title">
+    <img class="icon" src="media/favicon.svg" alt="">
+    <p>Dudhichua Live</p>
+    <p class="menu-icon">&#9776</p>
   </div>
 
-  <div class="leg">
+</header>
+
+<div class="small-menu hide">
+  <a href="index.html">Live</a>
+  <a href="shift.html">Shift</a>
+  <a href="day.html">Day</a>
+</div>
+
+
+  <!-- <div class="leg">
     <div class="idl {{ statusStrings[0] }}">{{ statusStrings[0] }}</div>
     <div class="run {{ statusStrings[1] }}">{{ statusStrings[1] }}</div>
     <div class="brk {{ statusStrings[2] }}">{{ statusStrings[2] }}</div>
-  </div>
+  </div> -->
 
   <!-- /////////////////////////////////////////////////////////// -->
 

@@ -67,7 +67,7 @@ app.controller('myController', function ($scope, $http) {
 		var c = $scope.shift;
 		var d = b + (c * 8 * 3600 * 1000) + 1;
 		var e = new Date(d);
-		var f = e.getDate() + '-' + (e.getMonth() + 1) + '-' + e.getFullYear() + ', ' + days[e.getDay()];
+		var f = e.getDate() + '-' + (e.getMonth() + 1) + '-' + e.getFullYear();
 		var g = c % 3;
 		var h = shifts[g];
 		var i = h + " Shift, " + f;
