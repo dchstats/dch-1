@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 
 <head>
   <meta charset="UTF-8" />
@@ -10,10 +10,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>dch</title>
-    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
   <script src="libs/angular.js"></script>
   <script src="libs/jquery.js"></script>
-  
+
   <script src="js/navigation.js" defer></script>
   <script src="js/live.js" defer></script>
 
@@ -22,32 +22,32 @@
 </head>
 
 <body ng-app="myApp" ng-controller="myController">
-<header class="large">
-  <div class="title">
-    <img class="icon" src="media/favicon.svg" alt="">
-    <p>DCH</p>
-  </div>
-  <div class="menu">
+  <header class="large">
+    <div class="title">
+      <img class="icon" src="media/favicon.svg" alt="">
+      <p>DCH</p>
+    </div>
+    <div class="menu">
+      <a href="index.html">Live</a>
+      <a href="shift.html">Shift</a>
+      <a href="day.html">Day</a>
+    </div>
+  </header>
+
+  <header class="small">
+    <div class="title">
+      <img class="icon" src="media/favicon.svg" alt="">
+      <p>Dudhichua Live</p>
+      <p class="menu-icon">&#9776</p>
+    </div>
+
+  </header>
+
+  <div class="small-menu hide">
     <a href="index.html">Live</a>
     <a href="shift.html">Shift</a>
     <a href="day.html">Day</a>
   </div>
-</header>
-
-<header class="small">
-  <div class="title">
-    <img class="icon" src="media/favicon.svg" alt="">
-    <p>Dudhichua Live</p>
-    <p class="menu-icon">&#9776</p>
-  </div>
-
-</header>
-
-<div class="small-menu hide">
-  <a href="index.html">Live</a>
-  <a href="shift.html">Shift</a>
-  <a href="day.html">Day</a>
-</div>
 
 
   <!-- <div class="leg">
@@ -78,6 +78,20 @@
     </div>
   </div>
 </body>
+
+<div class="perf-section">
+  <div class="perf-row" ng-repeat="x in machines">
+    <div class="mcname">
+      {{x.name}}
+    </div>
+    <div class="mcperf">
+      <div ng-repeat="y in x.logs track by $index" class="perf-block {{statusStrings[y]}}" ng-click=" y=y+1; y=y%4; x.logs[$index]=y; update()">
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
 
 </html>

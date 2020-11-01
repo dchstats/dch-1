@@ -9,26 +9,23 @@ app.controller("myController", function ($scope, $http) {
     $scope.machines = [];
     $scope.types = ['crusher', 'shovel', 'dragline'];
     $scope.statusCodes = [0, 1, 2];
-    $scope.statusStrings = ['Idle', 'Running', 'BreakDown'];
+    $scope.statusStrings = ['Idle', 'Running', 'BreakDown', 'Undef'];
     $scope.time = new Date().getTime();
+    $scope.stamp = ""  // time of fetched status
     $scope.changed = false;
     $scope.pin = "";
     $scope.auth = false;
     $scope.user = "Guest";
     $scope.status = "Please user PIN:1234 to login as Viewpoint";
+    $scope.upUrl = 'https://sushanttiwari.in/serv/upLive.php';
+    $scope.downUrl = 'https://sushanttiwari.in/serv/downLive.php';
+    $scope.upUrl = 'serv/upLive.php';
+    $scope.downUrl = 'serv/downLive.php';
+    $scope.min = 0;
+    $scope.uploader = true;
 
-    presentShift()
-    sync();
-    setInterval(sync, 5000);
 
-    function presentShift() {
-        var a = new Date(2019, 9, 5, 5, 0, 0, 0);
-        var b = a.getTime();
-        var c = new Date().getTime();
-        var d = Math.floor((c - b) / (8 * 3600 * 1000));
-        var e = b + d * (8 * 3600 * 1000);
-        $scope.start = e;
-     }
+
 
     class Machine {
         constructor(name, type) {
@@ -36,70 +33,76 @@ app.controller("myController", function ($scope, $http) {
             this.type = type;
             this.status = 0;
             this.remark = "";
-        }
+            this.logs = [];
+            this.idlmins = 0;
+            this.runmins = 0;
+            this.brkmins = 0;
+            this.defmins = 0;
+            this.avl = 0;
+            this.utl = 0;
 
-        get = function () {
-            var k = {
-                name: this.name,
-                type: this.type,
-                status: this.status
-            }
-        }
-        change = function (status, remark) {
-            this.status = status;
-            this.ramark = remark;
         }
     }
 
 
-    angular.forEach($scope.crushers, function (x, i) {
-        var k = new Machine(x, 'crusher');
-        $scope.machines.push(k);
-    })
-    angular.forEach($scope.shovels, function (x, i) {
-        var k = new Machine(x, 'shovel');
-        $scope.machines.push(k);
-    })
-    angular.forEach($scope.draglines, function (x, i) {
-        var k = new Machine(x, 'dragline');
-        $scope.machines.push(k);
-    })
+    initialize();
 
+
+    function initialize() {
+        angular.forEach($scope.crushers, function (x, i) {
+            var k = new Machine(x, 'crusher');
+            $scope.machines.push(k);
+        })
+        angular.forEach($scope.shovels, function (x, i) {
+            var k = new Machine(x, 'shovel');
+            $scope.machines.push(k);
+        })
+        angular.forEach($scope.draglines, function (x, i) {
+            var k = new Machine(x, 'dragline');
+            $scope.machines.push(k);
+        })
+
+
+        sync();
+        setInterval(sync, 5000);
+        setInterval(performanceLog, 10000);
+    }
+
+
+    function sync() {
+        var a = new Date(2019, 9, 5, 5, 0, 0, 0);
+        var b = a.getTime();
+        var c = new Date().getTime();
+        var d = Math.floor((c - b) / (8 * 3600 * 1000));
+        var e = b + d * (8 * 3600 * 1000);
+        $scope.start = e;
+        $scope.min = Math.floor((c - e) / (5 * 60 * 1000));
+        console.log($scope.min);
+
+
+        if ($scope.changed) {
+            console.log('Uploading on status change...');
+            upload();
+        }
+        else {
+            console.log('Downloading...');
+            download();
+        }
+
+    }
 
 
     $scope.update = function () {
         $scope.changed = true;
     }
 
-    $scope.login = function () {
-        if ($scope.pin == "1234") {
-            $scope.user = "Viewpoint";
-            $scope.auth = true;
-        }
-        else if ($scope.pin == "1111") {
-            $scope.user = "Admin";
-            $scope.auth = true;
-        }
-        else {
-            $scope.pin = ""
-        }
-
-    }
-
-    function sync() {
-        if ($scope.changed) {
-            upload();
-        }
-        else {
-            download();
-        }
-    }
 
     function download() {
+
         var payload = {};
         var req = {
             method: 'POST',
-            url: 'https://sushanttiwari.in/serv/downLive.php',
+            url: $scope.downUrl,
             headers: {
                 'Content-Type': undefined
             },
@@ -122,17 +125,13 @@ app.controller("myController", function ($scope, $http) {
                 var machines = e.machines;
                 $scope.machines = machines;
                 console.log(e.user + ' @ ' + t);
-        
-
-
-                if (stamp < $scope.start) {
-                    resetIdle();
-                }
+                $scope.stamp = stamp;
             },
             function () {
                 console.log("fetch failed");
             })
     }
+
 
     function upload() {
         $scope.obj = {
@@ -146,7 +145,7 @@ app.controller("myController", function ($scope, $http) {
         console.log(JSON.parse(payload.str));
         var req = {
             method: 'POST',
-            url: 'https://sushanttiwari.in/serv/upLive.php',
+            url: $scope.upUrl,
             headers: {
                 'Content-Type': undefined
             },
@@ -160,22 +159,90 @@ app.controller("myController", function ($scope, $http) {
                 var c = a.lastIndexOf('}');
                 var d = a.slice(b, c + 1);
                 var e = JSON.parse(d);
-                console.log(e);
-
-                $scope.changed = false;  
+                // console.log(e);
+                $scope.changed = false; // only when upload is successful.
             },
             function () {
-                console.log("upload failed");
+                console.log("upload failed....");
             })
     }
 
-    function resetIdle() {
-        angular.forEach($scope.machines, function (x, i) {
-            if (x.status == 1) {
-                x.status = 0;
-                x.remark = "";
-            }
-        });
-        $scope.changed=true;
+    function interpolate() {
+        if ($scope.stamp < $scope.start) {
+            angular.forEach($scope.machines, function (machine, i) {
+                if (machine.status != 2) {
+                    machine.status = 0;
+                    machine.remark = "";
+                }
+                machine.logs[0] = machine.status;
+            });
+        }
+
+        if ($scope.newpage) {
+            angular.forEach($scope.machines, function (machine, i) {
+                for (j = 1; j < 96; j++) {
+                    if (j > $scope.min) {
+                        machine.logs[j] = 3;
+                    }
+                    else if (j < $scope.min) {
+                        if (machine.logs[j] > 2) {
+                            machine.logs[j] = machine.logs[j - 1];
+                        }
+                    }
+                    else {
+                        machine.logs[j] = machine.status;
+                    }
+                }
+            })
+        }
     }
+
+
+    function performanceLog() {
+
+        interpolate(); // Will ensure data validity and continuity.
+
+        angular.forEach($scope.machines, function (machine, i) {
+      
+
+            for (j = 0; j <= $scope.min; j++) {
+                s = machine.logs[j];
+                if (s == 0) {
+                    machine.idlmins++;
+                }
+                else if (s == 1) {
+                    machine.runmins++;
+                }
+                else if (s == 2) {
+                    machine.brkmins++;
+                }
+                else {
+                    console.log('Status error while performance counting...')
+                    console.log(s);
+                }
+            }
+            machine.defmins = machine.idlmins + machine.runmins + machine.brkmins;
+            machine.avl = Math.round((machine.idlmins + machine.runmins) / machine.defmins);
+            machine.utl = Math.floor(machine.runmins / machine.defmins);
+        })
+        console.log('Uploading on new log...')
+        upload();
+    }
+
+    $scope.login = function () {
+        if ($scope.pin == "1234") {
+            $scope.user = "Viewpoint";
+            $scope.auth = true;
+        }
+        else if ($scope.pin == "1111") {
+            $scope.user = "Admin";
+            $scope.auth = true;
+        }
+        else {
+            $scope.pin = ""
+        }
+
+    }
+
+
 });  

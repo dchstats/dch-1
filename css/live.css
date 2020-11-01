@@ -1,111 +1,144 @@
-
-
-.Idle {
-  background: rgb(78, 78, 78);
-}
-
-.Running {
-  background: rgb(4, 185, 85);
-}
-
-.BreakDown {
-  background: rgb(190, 17, 17);
-}
-
-
 .leg {
-  display: flex;
-  color: white;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	color: white;
+	justify-content: center;
+	align-items: center;
 }
 
 .leg div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 33%;
-  padding: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 33%;
+	padding: 5px;
 }
 
 .live-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  background:rgb(47, 47, 47);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	background: rgb(47, 47, 47);
 }
 
 .type {
-  padding: 1vw 0.5vw;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+	padding: 1vw 0.5vw;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .machine {
-  width: 12vw;
-  height: 7vw;
-  perspective: 5000px;
-  margin: 2px;
-  perspective: 50000px;
-  color: white;
+	width: 12vw;
+	height: 7vw;
+	perspective: 5000px;
+	margin: 2px;
+	perspective: 50000px;
+	color: white;
 }
 
 .inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.2s;
-  transform-style: preserve-3d;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.2s;
+	transform-style: preserve-3d;
 }
 
-.front, .back {
-  border-radius: 5px;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  backface-visibility: hidden;
-  padding: 5%;
+.front,
+.back {
+	border-radius: 5px;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	backface-visibility: hidden;
+	padding: 5%;
 }
 
 .back {
-  transform: rotateY(180deg);
-  background: white;
-  color: black;
+	transform: rotateY(180deg);
+	background: white;
+	color: black;
 }
 
 .back * {
-  width: 100%;
+	width: 100%;
 }
 
 .machine-title {
-  font-size: 100%;
+	font-size: 100%;
 }
 
 .machine-remark {
-  font-size: 70%;
+	font-size: 70%;
 }
 
 .machine-title-back {
-  font-size: 80%;
+	font-size: 80%;
 }
 
-@media(min-width:168px) {
-  .machine:hover .inner {
-    transform: rotateY(180deg);
-  }
+@media (min-width: 168px) {
+	.machine:hover .inner {
+		transform: rotateY(180deg);
+	}
 }
+
+/* \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+
+.perf-section {
+	background: rgb(240, 239, 239);
+}
+
+.perf-row {
+	height: 30px;
+	display: flex;
+	width: 100%;
+	padding: 1px;
+}
+
+.mcname {
+	min-width: 100px;
+	border-bottom: 1px solid rgb(240, 240, 240);
+}
+
+.mcperf {
+	display: flex;
+	flex-grow: 1;
+}
+
+.perf-block {
+	min-width: 10px;
+	height: 100%;
+	flex-grow: 1;
+}
+
+
 
 /* /////////////////////////////////////////////////////// */
 
 @media (max-width: 992px) {
-  .machine {
-    width: 30vw;
-    height: 20vw;
-    margin: 0.5vw;
-  }
+	.machine {
+		width: 30vw;
+		height: 20vw;
+		margin: 0.5vw;
+	}
+}
+
+.Idle {
+	background: rgb(97, 97, 97);
+}
+
+.Running {
+	background: rgb(73, 243, 116);
+}
+
+.BreakDown {
+	background: rgb(255, 0, 0);
+}
+
+.Undef {
+	background: rgb(231, 230, 230);
 }
