@@ -14,11 +14,14 @@
   <script src="libs/angular.js"></script>
   <script src="libs/jquery.js"></script>
 
+  <script src="dist/Chart.js"></script>
   <script src="js/navigation.js" defer></script>
   <script src="js/live.js" defer></script>
 
   <link rel="stylesheet" href="css/live.css" />
   <link rel="stylesheet" href="css/common-styles.css" />
+
+
 </head>
 
 <body ng-app="myApp" ng-controller="myController">
@@ -79,19 +82,71 @@
   </div>
 </body>
 
-<div class="perf-section">
-  <div class="perf-row" ng-repeat="x in machines">
+<div class="trend-section">
+  <div class="trend-row" ng-repeat="x in machines">
     <div class="mcname">
       {{x.name}}
     </div>
-    <div class="mcperf">
-      <div ng-repeat="y in x.logs track by $index" class="perf-block {{statusStrings[y]}}" ng-click=" y=y+1; y=y%4; x.logs[$index]=y; update()">
+    <div class="mctrend">
+      <div ng-repeat="y in x.logs track by $index" class="trend-block {{statusStrings[y]}}-block"
+        ng-click=" y=y+1; y=y%3; x.logs[$index]=y; update()">
       </div>
     </div>
-
   </div>
 </div>
 
+<div class="perf-section">
+  <div ng-repeat="mach in machines" class="perf-mach">
+    <div class="perf-mcname">
+      <p>{{mach.name}}</p>
+    </div>
+    <div>
+      <table class="inner-perf-table">
+        <tr>
+          <td> Idle : </td>
+          <td>{{mach.idlhms}}</td>
+        </tr>
+        <tr>
+          <td> Rung : </td>
+          <td>{{mach.runhms}}</td>
+        </tr>
+        <tr>
+          <td> Brdn : </td>
+          <td>{{mach.brkhms}}</td>
+        </tr>
+        <tr>
+          <td> Avlb: </td>
+          <td>{{mach.avlhms}}</td>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <table class="inner-perf-table">
+        <tr>
+          <td>Availability :</td>
+          <td>{{mach.avlstr}}</td>
+        </tr>
+        <tr>
+          <td>Utilization :</td>
+          <td>{{mach.utlstr}}</td>
+        </tr>
+      </table>
 
+    </div>
+
+
+  </div>
+
+</div>
+
+
+<style>
+  .mctrend div:nth-child({{min+1}}) {
+    border-radius: 0 50% 50% 0;
+  }
+</style>
+
+
+</body>
 
 </html>

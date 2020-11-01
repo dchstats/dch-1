@@ -88,36 +88,112 @@
 
 /* \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
 
-.perf-section {
-	background: rgb(240, 239, 239);
+.trend-section {
+	width: 100vw;
+	padding: 20px 0;
+	background: rgb(47, 47, 47);
 }
 
-.perf-row {
+.trend-row {
+	width: 96%;
 	height: 30px;
 	display: flex;
-	width: 100%;
-	padding: 1px;
+	color: white;
+	margin: 25px 0;
 }
 
 .mcname {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
 	min-width: 100px;
-	border-bottom: 1px solid rgb(240, 240, 240);
 }
 
-.mcperf {
+.mctrend {
 	display: flex;
 	flex-grow: 1;
+	border: 1px solid rgb(188, 188, 188, 0.2);
+	border-radius: 5px;
+	overflow: hidden;
 }
 
-.perf-block {
-	min-width: 10px;
+.trend-block {
 	height: 100%;
 	flex-grow: 1;
 }
 
+.Idle-block {
+	background: rgb(51, 87, 83);
 
+}
+
+.Running-block {
+	background: rgb(0, 225, 50);
+	
+}
+
+.BreakDown-block {
+	background: rgb(255, 0, 60);
+	
+}
+
+.Undef-block {
+	background: rgba(163, 163, 163, 0);
+}
 
 /* /////////////////////////////////////////////////////// */
+
+.perf-section {
+	width: 100vw;
+	padding: 20px 0;
+	background: rgb(47, 47, 47);
+	color: white;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.perf-mach {
+	width: 400px;
+	height: 250px;
+	margin: 10px;
+	display: grid;
+	grid-template-rows: 1fr auto;
+	grid-template-columns: 2fr 3fr;
+	border: 1px solid grey;
+}
+
+.perf-mcname {
+	grid-row: 1;
+	grid-column: 1/-1;
+	background: rgb(84, 84, 84);
+}
+
+.perf-mach div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+}
+
+.perf-section td {
+	border: 1px solid grey;
+	padding: 10px;
+}
+
+/* .perf-section .machine{
+	display:flex;
+} */
+
+table {
+	border-collapse: collapse;
+}
+
+.mcperf {
+	padding: 10px;
+}
+
+/* ///////////////////////////////////////////////////////////// */
 
 @media (max-width: 992px) {
 	.machine {
@@ -128,17 +204,17 @@
 }
 
 .Idle {
-	background: rgb(97, 97, 97);
+	background: rgb(51, 87, 83);
 }
 
 .Running {
-	background: rgb(73, 243, 116);
+	background: rgb(0, 225, 50);
 }
 
 .BreakDown {
-	background: rgb(255, 0, 0);
+	background: rgb(255, 0, 60);
 }
 
 .Undef {
-	background: rgb(231, 230, 230);
+	background: rgba(163, 163, 163, 0);
 }

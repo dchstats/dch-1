@@ -37,6 +37,7 @@ app.controller("myController", function ($scope, $http) {
             this.idlmins = 0;
             this.runmins = 0;
             this.brkmins = 0;
+            this.avlmins = 0;
             this.defmins = 0;
             this.avl = 0;
             this.utl = 0;
@@ -64,8 +65,7 @@ app.controller("myController", function ($scope, $http) {
 
 
         sync();
-        setInterval(sync, 5000);
-        setInterval(performanceLog, 10000);
+        setInterval(sync, 10000);
     }
 
 
@@ -94,6 +94,7 @@ app.controller("myController", function ($scope, $http) {
 
     $scope.update = function () {
         $scope.changed = true;
+        performanceLog();
     }
 
 
@@ -124,8 +125,9 @@ app.controller("myController", function ($scope, $http) {
                 var t = hh + ':' + mm + ':' + ss;
                 var machines = e.machines;
                 $scope.machines = machines;
-                console.log(e.user + ' @ ' + t);
+                // console.log(e.user + ' @ ' + t);
                 $scope.stamp = stamp;
+                performanceLog();
             },
             function () {
                 console.log("fetch failed");
@@ -142,7 +144,7 @@ app.controller("myController", function ($scope, $http) {
 
         $scope.objString = JSON.stringify($scope.obj);
         var payload = { 'str': $scope.objString };
-        console.log(JSON.parse(payload.str));
+        // console.log(JSON.parse(payload.str));
         var req = {
             method: 'POST',
             url: $scope.upUrl,
@@ -169,32 +171,36 @@ app.controller("myController", function ($scope, $http) {
 
     function interpolate() {
         if ($scope.stamp < $scope.start) {
-            angular.forEach($scope.machines, function (machine, i) {
-                if (machine.status != 2) {
-                    machine.status = 0;
-                    machine.remark = "";
+            console.log('Obsolete data detected. Resetting....')
+            angular.forEach($scope.machines, function (mach, i) {
+                if (mach.status != 2) {
+                    mach.status = 0;
+                    mach.remark = "";
                 }
-                machine.logs[0] = machine.status;
+                mach.logs[0] = mach.status;
+                for (j = 1; j < 96; j++) {
+                    mach.logs[j] = 3;
+                }
             });
         }
 
-        if ($scope.newpage) {
-            angular.forEach($scope.machines, function (machine, i) {
-                for (j = 1; j < 96; j++) {
-                    if (j > $scope.min) {
-                        machine.logs[j] = 3;
-                    }
-                    else if (j < $scope.min) {
-                        if (machine.logs[j] > 2) {
-                            machine.logs[j] = machine.logs[j - 1];
-                        }
-                    }
-                    else {
-                        machine.logs[j] = machine.status;
+
+        angular.forEach($scope.machines, function (machine, i) {
+            for (j = 1; j < 96; j++) {
+                if (j > $scope.min) {
+                    machine.logs[j] = 3;
+                }
+                else if (j < $scope.min) {
+                    if (machine.logs[j] > 2) {
+                        machine.logs[j] = machine.logs[j - 1];
                     }
                 }
-            })
-        }
+                else {
+                    machine.logs[j] = machine.status;
+                }
+            }
+        })
+
     }
 
 
@@ -202,31 +208,45 @@ app.controller("myController", function ($scope, $http) {
 
         interpolate(); // Will ensure data validity and continuity.
 
-        angular.forEach($scope.machines, function (machine, i) {
-      
+
+        angular.forEach($scope.machines, function (mach, i) {
+            mach.idlmins = 0;
+            mach.runmins = 0;
+            mach.brkmins = 0;
 
             for (j = 0; j <= $scope.min; j++) {
-                s = machine.logs[j];
-                if (s == 0) {
-                    machine.idlmins++;
+                s = mach.logs[j];
+                if (s === 0) {
+                    mach.idlmins += 5;
                 }
-                else if (s == 1) {
-                    machine.runmins++;
+                else if (s === 1) {
+                    mach.runmins += 5;
                 }
-                else if (s == 2) {
-                    machine.brkmins++;
+                else if (s === 2) {
+                    mach.brkmins += 5;
                 }
                 else {
                     console.log('Status error while performance counting...')
+                    console.log(j);
                     console.log(s);
                 }
             }
-            machine.defmins = machine.idlmins + machine.runmins + machine.brkmins;
-            machine.avl = Math.round((machine.idlmins + machine.runmins) / machine.defmins);
-            machine.utl = Math.floor(machine.runmins / machine.defmins);
+            mach.defmins = mach.idlmins + mach.runmins + mach.brkmins;
+            mach.avlmins = mach.idlmins + mach.runmins;
+            mach.avl = Math.round(mach.avlmins * 100 / mach.defmins);
+            mach.utl = Math.round(mach.runmins * 100 / mach.defmins);
+
+            mach.idlhms = ` ${Math.floor(mach.idlmins / 60)} : ${mach.idlmins % 60} `;
+            mach.runhms = ` ${Math.floor(mach.runmins / 60)} : ${mach.runmins % 60} `;
+            mach.brkhms = ` ${Math.floor(mach.brkmins / 60)} : ${mach.brkmins % 60} `;
+            mach.avlhms = ` ${Math.floor(mach.avlmins / 60)} : ${mach.avlmins % 60} `;
+            mach.avlstr = ` ${mach.avl} %`;
+            mach.utlstr = ` ${mach.utl} %`;
+
+
+
+            $scope.changed = true;
         })
-        console.log('Uploading on new log...')
-        upload();
     }
 
     $scope.login = function () {
