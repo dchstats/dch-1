@@ -24,9 +24,6 @@ app.controller("myController", function ($scope, $http) {
     $scope.min = 0;
     $scope.uploader = true;
 
-
-
-
     class Machine {
         constructor(name, type) {
             this.name = name;
@@ -44,11 +41,7 @@ app.controller("myController", function ($scope, $http) {
 
         }
     }
-
-
     initialize();
-
-
     function initialize() {
         angular.forEach($scope.crushers, function (x, i) {
             var k = new Machine(x, 'crusher');
@@ -67,8 +60,6 @@ app.controller("myController", function ($scope, $http) {
         sync();
         setInterval(sync, 10000);
     }
-
-
     function sync() {
         var a = new Date(2019, 9, 5, 5, 0, 0, 0);
         var b = a.getTime();
@@ -90,14 +81,10 @@ app.controller("myController", function ($scope, $http) {
         }
 
     }
-
-
     $scope.update = function () {
         $scope.changed = true;
         performanceLog();
     }
-
-
     function download() {
 
         var payload = {};
@@ -133,8 +120,6 @@ app.controller("myController", function ($scope, $http) {
                 console.log("fetch failed");
             })
     }
-
-
     function upload() {
         $scope.obj = {
             user: $scope.user,
@@ -168,7 +153,6 @@ app.controller("myController", function ($scope, $http) {
                 console.log("upload failed....");
             })
     }
-
     function interpolate() {
         if ($scope.stamp < $scope.start) {
             console.log('Obsolete data detected. Resetting....')
@@ -183,8 +167,6 @@ app.controller("myController", function ($scope, $http) {
                 }
             });
         }
-
-
         angular.forEach($scope.machines, function (machine, i) {
             for (j = 1; j < 96; j++) {
                 if (j > $scope.min) {
@@ -200,15 +182,10 @@ app.controller("myController", function ($scope, $http) {
                 }
             }
         })
-
     }
-
-
     function performanceLog() {
 
         interpolate(); // Will ensure data validity and continuity.
-
-
         angular.forEach($scope.machines, function (mach, i) {
             mach.idlmins = 0;
             mach.runmins = 0;
@@ -236,19 +213,16 @@ app.controller("myController", function ($scope, $http) {
             mach.avl = Math.round(mach.avlmins * 100 / mach.defmins);
             mach.utl = Math.round(mach.runmins * 100 / mach.defmins);
 
-            mach.idlhms = ` ${Math.floor(mach.idlmins / 60)} : ${mach.idlmins % 60} `;
-            mach.runhms = ` ${Math.floor(mach.runmins / 60)} : ${mach.runmins % 60} `;
-            mach.brkhms = ` ${Math.floor(mach.brkmins / 60)} : ${mach.brkmins % 60} `;
-            mach.avlhms = ` ${Math.floor(mach.avlmins / 60)} : ${mach.avlmins % 60} `;
-            mach.avlstr = ` ${mach.avl} %`;
-            mach.utlstr = ` ${mach.utl} %`;
-
-
-
+            mach.idlhms = tohhmm(mach.idlmins);
+            mach.runhms = tohhmm(mach.runmins);
+            mach.brkhms = tohhmm(mach.brkmins);
+            mach.avlhms = tohhmm(mach.avlmins);
+            
+            mach.avlstr = `${mach.avl} %`;
+            mach.utlstr = `${mach.utl} %`;
             $scope.changed = true;
         })
     }
-
     $scope.login = function () {
         if ($scope.pin == "1234") {
             $scope.user = "Viewpoint";
@@ -261,8 +235,11 @@ app.controller("myController", function ($scope, $http) {
         else {
             $scope.pin = ""
         }
-
     }
 
-
+    function tohhmm(mins) {
+        h = Math.floor(mins / 60);
+        m = mins % 60;
+        return h.toString()+" : "+(m<10?"0":"")+m.toString();
+    }
 });  
