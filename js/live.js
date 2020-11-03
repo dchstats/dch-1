@@ -6,13 +6,21 @@ app.controller("myController", function ($scope, $http) {
         'P&H-11', 'P&H-12', 'P&H-13', 'P&H-14', 'P&H-15',
         'P&H-16', 'P&H-17', 'P&H-18', 'P&H-19', 'HIM-20', 'PC-TATA', 'PL-06', 'PL-07', 'SM-L&T'];
     $scope.draglines = ['Jyoti', 'Pawan', 'Vindhya', 'Jwala'];
+    $scope.siloNames = ['OLD SILO', 'NEW SILO', 'WHARF WALL'];
+    $scope.silos = [];
     $scope.machines = [];
-    $scope.types = ['crusher', 'shovel', 'dragline'];
+    $scope.types = ['silo', 'crusher', 'shovel', 'dragline'];
     $scope.statusCodes = [0, 1, 2];
     $scope.statusStrings = ['Idle', 'Running', 'BreakDown', 'Undef'];
+
+
+    $scope.dumplogs = [];
+
+
+
     $scope.time = new Date().getTime();
     $scope.stamp = ""  // time of fetched status
-    $scope.changed = false;
+ 
     $scope.pin = "";
     $scope.auth = false;
     $scope.user = "Guest";
@@ -21,8 +29,10 @@ app.controller("myController", function ($scope, $http) {
     $scope.downUrl = 'https://sushanttiwari.in/serv/downLive.php';
     $scope.upUrl = 'serv/upLive.php';
     $scope.downUrl = 'serv/downLive.php';
-    $scope.min = 0;
+    $scope.block = 0;
     $scope.uploader = true;
+
+    $scope.changed = false;
 
     class Machine {
         constructor(name, type) {
@@ -41,6 +51,40 @@ app.controller("myController", function ($scope, $http) {
 
         }
     }
+
+    class Silo {
+        constructor(name) {
+            this.name = name;
+            this.rakes = 0;
+            this.remark = "";
+        }
+    }
+
+    class Dumper {
+        constructor() {
+            this.east_total = 37;
+            this.east_avl = 10;
+            this.east_run = 0;
+
+            this.west_total = 39;
+            this.west_avl = 0;
+            this.west_run = 0;
+        }
+
+        calculate() {
+            this.east_idl = this.east_avl - this.east_run;
+            this.east_brk = this.east_total - this.east_avl;
+            this.east_avali = Math.round(this.east_avl * 100 / this.east_total);
+            this.east_utl = Math.round(this.east_run * 100 / this.east_total);
+
+
+            this.west_idl = this.west_avl - this.west_run;
+            this.west_brk = this.west_total - this.west_avl;
+            this.west_avali = Math.round(this.west_avl * 100 / this.west_total);
+            this.west_utl = Math.round(this.west_run * 100 / this.west_total);
+        }
+    }
+
     initialize();
     function initialize() {
         angular.forEach($scope.crushers, function (x, i) {
@@ -55,6 +99,11 @@ app.controller("myController", function ($scope, $http) {
             var k = new Machine(x, 'dragline');
             $scope.machines.push(k);
         })
+        angular.forEach($scope.siloNames, function (s, i) {
+            var k = new Silo(s)
+            $scope.silos.push(k);
+        })
+        $scope.dumper = new Dumper();
 
 
         sync();
@@ -67,16 +116,14 @@ app.controller("myController", function ($scope, $http) {
         var d = Math.floor((c - b) / (8 * 3600 * 1000));
         var e = b + d * (8 * 3600 * 1000);
         $scope.start = e;
-        $scope.min = Math.floor((c - e) / (5 * 60 * 1000));
-        console.log($scope.min);
+        $scope.block = Math.floor((c - e) / (5 * 60 * 1000));
+        console.log('Block:',$scope.block);
 
 
         if ($scope.changed) {
-            console.log('Uploading on status change...');
             upload();
         }
         else {
-            console.log('Downloading...');
             download();
         }
 
@@ -110,9 +157,10 @@ app.controller("myController", function ($scope, $http) {
                 var mm = f.getMinutes();
                 var ss = f.getSeconds();
                 var t = hh + ':' + mm + ':' + ss;
-                var machines = e.machines;
-                $scope.machines = machines;
-                // console.log(e.user + ' @ ' + t);
+                $scope.machines = e.machines;
+                $scope.silos = e.silos;
+                console.log('Downloaded..', e.stamp, 'By:' + e.user + ' @ ' + t);
+                console.log(e);
                 $scope.stamp = stamp;
                 performanceLog();
             },
@@ -124,12 +172,13 @@ app.controller("myController", function ($scope, $http) {
         $scope.obj = {
             user: $scope.user,
             stamp: new Date().getTime(),
-            machines: $scope.machines
+            machines: $scope.machines,
+            silos: $scope.silos
         };
 
         $scope.objString = JSON.stringify($scope.obj);
         var payload = { 'str': $scope.objString };
-        // console.log(JSON.parse(payload.str));
+
         var req = {
             method: 'POST',
             url: $scope.upUrl,
@@ -146,8 +195,10 @@ app.controller("myController", function ($scope, $http) {
                 var c = a.lastIndexOf('}');
                 var d = a.slice(b, c + 1);
                 var e = JSON.parse(d);
-                // console.log(e);
-                $scope.changed = false; // only when upload is successful.
+                if (e.stamp == $scope.obj.stamp) {
+                    console.log('Uploaded...', e.stamp);
+                    $scope.changed = false; // only when upload is successful.
+                }
             },
             function () {
                 console.log("upload failed....");
@@ -169,10 +220,10 @@ app.controller("myController", function ($scope, $http) {
         }
         angular.forEach($scope.machines, function (machine, i) {
             for (j = 1; j < 96; j++) {
-                if (j > $scope.min) {
+                if (j > $scope.block) {
                     machine.logs[j] = 3;
                 }
-                else if (j < $scope.min) {
+                else if (j < $scope.block) {
                     if (machine.logs[j] > 2) {
                         machine.logs[j] = machine.logs[j - 1];
                     }
@@ -185,13 +236,13 @@ app.controller("myController", function ($scope, $http) {
     }
     function performanceLog() {
 
-        interpolate(); // Will ensure data validity and continuity.
+        interpolate(); // Will ensure data validity and continuity before logging.
         angular.forEach($scope.machines, function (mach, i) {
             mach.idlmins = 0;
             mach.runmins = 0;
             mach.brkmins = 0;
 
-            for (j = 0; j <= $scope.min; j++) {
+            for (j = 0; j <= $scope.block; j++) {
                 s = mach.logs[j];
                 if (s === 0) {
                     mach.idlmins += 5;
@@ -217,12 +268,13 @@ app.controller("myController", function ($scope, $http) {
             mach.runhms = tohhmm(mach.runmins);
             mach.brkhms = tohhmm(mach.brkmins);
             mach.avlhms = tohhmm(mach.avlmins);
-            
+
             mach.avlstr = `${mach.avl} %`;
             mach.utlstr = `${mach.utl} %`;
             $scope.changed = true;
         })
     }
+
     $scope.login = function () {
         if ($scope.pin == "1234") {
             $scope.user = "Viewpoint";
@@ -237,9 +289,50 @@ app.controller("myController", function ($scope, $http) {
         }
     }
 
+
+    $scope.dumperCounter = function (command) {
+        console.log(command);
+        if (command == 1) {
+            if ($scope.dumper.east_avl > 0)
+                $scope.dumper.east_avl--;
+        }
+        else if (command == 2) {
+            if ($scope.dumper.east_avl < $scope.dumper.east_total)
+                $scope.dumper.east_avl++;
+        }
+        else if (command == 3) {
+            if ($scope.dumper.east_run > 0)
+                $scope.dumper.east_run--;
+        }
+        else if (command == 4) {
+            if ($scope.dumper.east_run < $scope.dumper.east_avl)
+                $scope.dumper.east_run++;
+        }
+
+        else if (command == 5) {
+            if ($scope.dumper.west_avl > 0)
+                $scope.dumper.west_avl--;
+        }
+        else if (command == 6) {
+            if ($scope.dumper.west_avl < $scope.dumper.west_total)
+                $scope.dumper.west_avl++;
+        }
+        else if (command == 7) {
+            if ($scope.dumper.west_run > 0)
+                $scope.dumper.west_run--;
+        }
+        else if (command == 8) {
+            if ($scope.dumper.west_run < $scope.dumper.west_avl)
+                $scope.dumper.west_run++;
+        }
+
+
+
+    }
+
     function tohhmm(mins) {
         h = Math.floor(mins / 60);
         m = mins % 60;
-        return h.toString()+" : "+(m<10?"0":"")+m.toString();
+        return h.toString() + " : " + (m < 10 ? "0" : "") + m.toString();
     }
 });  

@@ -151,16 +151,6 @@ button:disabled{
 
 
 
-
-
-
-
-
-
-input {
-	max-width: 10vw;
-}
-
 input:disabled,
 select:disabled,
 textarea:disabled,

@@ -13,11 +13,84 @@
 	padding: 5px;
 }
 
-.live-section {
-	display: flex;
+.card{
+	width: 14vw;
+	height: 9vw;
+	margin: 2px;
+	padding:2px;
+	border-radius:3px;
+	overflow:hidden;
+}
+
+/* SILO SECTION  ///////////////////////////////// */
+.silo{
+	display:flex;
 	flex-direction: column;
-	justify-content: space-evenly;
+	justify-content: space-around;
+	align-items: stretch;
+	background:lightgoldenrodyellow;
+	color:purple;
+
+}
+
+.silo-name {
+	font-size:20px;
+}
+
+
+
+.rake-incrementer{
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.rake-incrementer span{
+	font-size:70px;
+}
+
+.silo-remark {
+	width:100%;
+}
+
+.silo-remark input{
+	display:inline-block;
+	width:200px;
+}
+
+/* ///////////////////////////////// */
+
+
+/* DUMPER  ///////////////////////////////// */
+
+.live-dumper{
+	display:flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: stretch;
+	background:lightgoldenrodyellow;
+	color:purple;
+	font-weight: bold;
+}
+
+.dumper-counter{
+	font-size:24px;
+}
+
+
+/* ///////////////////////////////// */
+.live-section{
 	background: rgb(47, 47, 47);
+}
+
+.live-sub{
+	display: flex;
+	flex-direction: row;
+	flex-wrap:wrap;
+	justify-content: center;
+	align-items: center;
+	padding:20px 0;
+
 }
 
 .type {
@@ -28,10 +101,7 @@
 }
 
 .machine {
-	width: 12vw;
-	height: 7vw;
 	perspective: 5000px;
-	margin: 2px;
 	perspective: 50000px;
 	color: white;
 }
@@ -199,7 +269,7 @@ table {
 /* ///////////////////////////////////////////////////////////// */
 
 @media (max-width: 992px) {
-	.machine {
+	.card {
 		width: 30vw;
 		height: 20vw;
 		margin: 0.5vw;
@@ -207,7 +277,7 @@ table {
 }
 
 .Idle {
-	background: rgb(51, 87, 83);
+	background: rgb(100,100,100);
 }
 
 .Running {
