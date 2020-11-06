@@ -141,25 +141,92 @@
         <table>
           <tr>
             <td>Avl</td>
-            <td> <button ng-click="eastDumper.change(1)">-</button></td>
-            <td class="dumper-counter">{{eastDumper.avl}}</td>
-            <td> <button ng-click="eastDumper.change(2)">+</button></td>
+            <td> <button ng-click="dumperCounter(1)">-</button></td>
+            <td class="dumper-counter">{{dumper.east_avl}}</td>
+            <td><button ng-click="dumperCounter(2)">+</button></td>
           </tr>
           <tr>
             <td>Run</td>
-            <td> <button ng-click="eastDumper.change(3)">-</button></td>
-            <td class="dumper-counter">{{eastDumper.run}}</td>
-            <td> <button ng-click="eastDumper.change(4)">+</button></td>
+            <td><button ng-click="dumperCounter(3)">-</button></td>
+            <td class="dumper-counter">{{dumper.east_run}}</td>
+            <td><button ng-click="dumperCounter(4)">+</button></td>
           </tr>
         </table>
       </div>
+
+      <div class="card live-dumper">
+        <p>WEST DUMPERS</p>
+        <table>
+          <tr>
+            <td>Avl</td>
+            <td> <button ng-click="dumperCounter(5)">-</button></td>
+            <td class="dumper-counter">{{dumper.west_avl}}</td>
+            <td><button ng-click="dumperCounter(6)">+</button></td>
+          </tr>
+          <tr>
+            <td>Run</td>
+            <td><button ng-click="dumperCounter(7)">-</button></td>
+            <td class="dumper-counter">{{dumper.west_run}}</td>
+            <td><button ng-click="dumperCounter(8)">+</button></td>
+          </tr>
+        </table>
+      </div>
+
+
 
     </div>
   </div>
 
 
   <div class="sec-dumper">
-    
+    <div class="east-dumper-table">
+      <table class="w3-table-all">
+        <tr class="w3-green">
+          <td>HOUR</td>
+          <td>AVL</td>
+          <td>RUN</td>
+          <td>IDL</td>
+          <td>BRK</td>
+          <td>AVLI</td>
+          <td>UTLI</td>
+        </tr>
+        <tr ng-repeat="x in dumpers">
+          <td>{{x.hour+1}}</td>
+          <td>{{x.east_avl}}</td>
+          <td>{{x.east_run}}</td>
+          <td>{{x.east_idl}}</td>
+          <td>{{x.east_brk}}</td>
+          <td>{{x.east_avli}} %</td>
+          <td>{{x.east_utli}} %</td>
+        </tr>
+      </table>
+    </div>
+
+        <div class="west-dumper-table">
+          <table class="w3-table-all">
+            <tr class="w3-green">
+              <td>HOUR</td>
+              <td>AVL</td>
+              <td>RUN</td>
+              <td>IDL</td>
+              <td>BRK</td>
+              <td>AVLI</td>
+              <td>UTLI</td>
+            </tr>
+            <tr ng-repeat="x in dumpers">
+              <td>{{x.hour+1}}</td>
+              <td>{{x.west_avl}}</td>
+              <td>{{x.west_run}}</td>
+              <td>{{x.west_idl}}</td>
+              <td>{{x.west_brk}}</td>
+              <td>{{x.west_avli}} %</td>
+              <td>{{x.west_utli}} %</td>
+            </tr>
+          </table>
+        </div>
+
+
+
   </div>
 
   <div class="trend-section">

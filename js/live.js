@@ -16,6 +16,7 @@ app.controller("myController", function ($scope, $http) {
 
     $scope.machines = [];
     $scope.silos = [];
+    $scope.dumpers = [];  // stores hourly snapshots of dumper object.
 
 
 
@@ -32,7 +33,7 @@ app.controller("myController", function ($scope, $http) {
     $scope.upUrl = 'serv/upLive.php';
     $scope.downUrl = 'serv/downLive.php';
 
-    $scope.min = 0;   // minutes since shift
+    $scope.block = 0;   // minutes since shift
     $scope.block = 0;
     $scope.hour = 0;
     $scope.uploader = true;
@@ -62,7 +63,6 @@ app.controller("myController", function ($scope, $http) {
             this.avlhms = "";
             this.avlstr = "";
             this.utlstr = "";
-
         }
     }
 
@@ -75,50 +75,20 @@ app.controller("myController", function ($scope, $http) {
     }
 
     class Dumper {
-        constructor(name, total) {
-            this.name = name;
-            this.total = total;
-            this.avl = 0;
-            this.run = 0;
-            this.logs = [];
+        constructor(hour) {
+            this.hour = hour;
+
+            this.east_total = 37;
+            this.east_avl = 10;
+            this.east_run = 0;
+
+            this.west_total = 39;
+            this.west_avl = 0;
+            this.west_run = 0;
         }
 
-
-        calculate() {
-            this.idl = this.avl - this.run;
-            this.brk = this.total - this.avl;
-            this.avali = Math.round(this.avl * 100 / this.total);
-            this.utli = Math.round(this.run * 100 / this.total);
-        }
-
-        log() {
-            this.calculate();
-            this.logs[$scope.hour] = {
-                avl: this.avl,
-                run: this.run,
-                idl: this.idl,
-                brk: this.brk,
-                avli: this.avli,
-                utli: this.utli
-            }
-        }
-
-        change(command) {
-            if (command == 1 && this.avl > 0) {
-                this.avl--;
-            }
-            else if (command == 2 && this.avl < this.total) {
-                this.avl++;
-            }
-            else if (command == 3 && this.run > 0) {
-                this.run--;
-            }
-            else if (command == 4 && this.run < this.avl) {
-                this.run++;
-            }
-            this.log();
-        }
     }
+
 
     initialize();
     function initialize() {
@@ -139,11 +109,17 @@ app.controller("myController", function ($scope, $http) {
             $scope.silos.push(k);
         })
 
-        $scope.eastDumper = new Dumper('east', 30);
-        $scope.westDumper = new Dumper('west', 40);
+        $scope.dumper = new Dumper();
+
+        for (i = 0; i < 8; i++) {
+            k = new Dumper(i);
+            $scope.dumpers.push(k);
+        }
+
         sync();
         setInterval(sync, 10000);
     }
+
     function sync() {
         var a = new Date(2019, 9, 5, 5, 0, 0, 0);
         var b = a.getTime();
@@ -151,17 +127,17 @@ app.controller("myController", function ($scope, $http) {
         var d = Math.floor((c - b) / (8 * 3600 * 1000));
         var e = b + d * (8 * 3600 * 1000);
         $scope.start = e;
-        $scope.min = Math.floor((c - e) / (5 * 60 * 1000));
-        $scope.hour = Math.floor($scope.min / 60);
-
+        $scope.block = Math.floor((c - e) / (5 * 60 * 1000));
+        $scope.hour = Math.floor($scope.block / 12);
+        console.log('block:', $scope.block,'  hour:',$scope.hour );
 
 
         if ($scope.changed) {
-            console.log('Uploading on status change...');
+            // console.log('Uploading on status change...');
             upload();
         }
         else {
-            console.log('Downloading...');
+            // console.log('Downloading...');
             download();
         }
 
@@ -197,9 +173,12 @@ app.controller("myController", function ($scope, $http) {
                 var t = hh + ':' + mm + ':' + ss;
                 $scope.machines = e.machines;
                 $scope.silos = e.silos;
-                console.log(e.user + ' @ ' + t);
                 $scope.stamp = stamp;
+
+                console.log('Downloaded..', e.stamp, 'By:' + e.user + ' @ ' + t);
+                console.log(e);
                 performanceLog();
+
             },
             function () {
                 console.log("fetch failed");
@@ -232,8 +211,10 @@ app.controller("myController", function ($scope, $http) {
                 var c = a.lastIndexOf('}');
                 var d = a.slice(b, c + 1);
                 var e = JSON.parse(d);
-                // console.log(e);
-                $scope.changed = false; // only when upload is successful.
+                if (e.stamp == $scope.obj.stamp) {
+                    console.log('Uploaded...', e.stamp);
+                    $scope.changed = false; // only when upload is successful.
+                }
             },
             function () {
                 console.log("upload failed....");
@@ -242,6 +223,7 @@ app.controller("myController", function ($scope, $http) {
     function interpolate() {
         if ($scope.stamp < $scope.start) {
             console.log('Obsolete data detected. Resetting....')
+
             angular.forEach($scope.machines, function (mach, i) {
                 if (mach.status != 2) {
                     mach.status = 0;
@@ -253,21 +235,27 @@ app.controller("myController", function ($scope, $http) {
                 }
             });
         }
-        angular.forEach($scope.machines, function (machine, i) {
+        angular.forEach($scope.machines, function (mach, i) {
+            let valids = [0, 1, 2];
+            s = mach.logs[0];
+            if (!valids.includes(s)) {
+                mach.logs[0] = mach.status;
+            }
+
             for (j = 1; j < 96; j++) {
-                if (j > $scope.min) {
-                    machine.logs[j] = 3;
+                s = mach.logs[j];
+                if (j > $scope.block) {
+                    mach.logs[j] = 3;
                 }
-                else if (j < $scope.min) {
-                    if (machine.logs[j] > 2) {
-                        machine.logs[j] = machine.logs[j - 1];
-                    }
+                else if (j < $scope.block && !valids.includes(s)) {
+                    mach.logs[j] = mach.logs[j - 1];
                 }
                 else {
-                    machine.logs[j] = machine.status;
+                    mach.logs[j] = mach.status;
                 }
             }
-        })
+        });
+
     }
     function performanceLog() {
 
@@ -294,13 +282,34 @@ app.controller("myController", function ($scope, $http) {
             defmins: 0
         };
 
+        $scope.dumper.hour = $scope.hour;
+        $scope.dumpers[$scope.hour] = { ...$scope.dumper};
+
+        angular.forEach($scope.dumpers, function (d, i) {
+            d.east_idl = d.east_avl - d.east_run;
+            d.east_brk = d.east_total - d.east_avl;
+            d.east_avli = Math.round(d.east_avl * 100 / d.east_total);
+            d.east_utli = Math.round(d.east_run * 100 / d.east_total);
+
+
+            d.west_idl = d.west_avl - d.west_run;
+            d.west_brk = d.west_total - d.west_avl;
+            d.west_avli = Math.round(d.west_avl * 100 / d.west_total);
+            d.west_utli = Math.round(d.west_run * 100 / d.west_total);
+        });
+
+        // console.log($scope.dumpers);
+
+
+
         interpolate(); // Will ensure data validity and continuity before logging.
+
         angular.forEach($scope.machines, function (mach, i) {
             mach.idlmins = 0;
             mach.runmins = 0;
             mach.brkmins = 0;
 
-            for (j = 0; j <= $scope.min; j++) {
+            for (j = 0; j <= $scope.block; j++) {
                 s = mach.logs[j];
                 if (s === 0) {
                     mach.idlmins += 5;
@@ -313,8 +322,8 @@ app.controller("myController", function ($scope, $http) {
                 }
                 else {
                     console.log('Status error while performance counting...')
-                    console.log(j);
-                    console.log(s);
+                    console.log('index:', j, ' log:', s);
+                    break;
                 }
             }
             mach.defmins = mach.idlmins + mach.runmins + mach.brkmins;
@@ -396,10 +405,10 @@ app.controller("myController", function ($scope, $http) {
 
 
         });
-        
-   
-   
-   
+
+
+
+
     }
 
     $scope.login = function () {
@@ -414,6 +423,44 @@ app.controller("myController", function ($scope, $http) {
         else {
             $scope.pin = ""
         }
+    }
+
+    $scope.dumperCounter = function (command) {
+        if (command == 1) {
+            if ($scope.dumper.east_avl > 0)
+                $scope.dumper.east_avl--;
+        }
+        else if (command == 2) {
+            if ($scope.dumper.east_avl < $scope.dumper.east_total)
+                $scope.dumper.east_avl++;
+        }
+        else if (command == 3) {
+            if ($scope.dumper.east_run > 0)
+                $scope.dumper.east_run--;
+        }
+        else if (command == 4) {
+            if ($scope.dumper.east_run < $scope.dumper.east_avl)
+                $scope.dumper.east_run++;
+        }
+
+        else if (command == 5) {
+            if ($scope.dumper.west_avl > 0)
+                $scope.dumper.west_avl--;
+        }
+        else if (command == 6) {
+            if ($scope.dumper.west_avl < $scope.dumper.west_total)
+                $scope.dumper.west_avl++;
+        }
+        else if (command == 7) {
+            if ($scope.dumper.west_run > 0)
+                $scope.dumper.west_run--;
+        }
+        else if (command == 8) {
+            if ($scope.dumper.west_run < $scope.dumper.west_avl)
+                $scope.dumper.west_run++;
+        }
+
+        $scope.update();
     }
 
 
