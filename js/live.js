@@ -7,20 +7,22 @@ app.controller("myController", function ($scope, $http) {
         'P&H-16', 'P&H-17', 'P&H-18', 'P&H-19', 'HIM-20', 'PC-TATA', 'PL-06', 'PL-07', 'SM-L&T'];
     $scope.draglines = ['Jyoti', 'Pawan', 'Vindhya', 'Jwala'];
     $scope.siloNames = ['OLD SILO', 'NEW SILO', 'WHARF WALL'];
-    $scope.silos = [];
-    $scope.machines = [];
+    $scope.dumperNames = ['EAST', 'WEST'];
+
     $scope.types = ['silo', 'crusher', 'shovel', 'dragline'];
     $scope.statusCodes = [0, 1, 2];
     $scope.statusStrings = ['Idle', 'Running', 'BreakDown', 'Undef'];
 
 
-    $scope.dumplogs = [];
+    $scope.machines = [];
+    $scope.silos = [];
+
 
 
 
     $scope.time = new Date().getTime();
     $scope.stamp = ""  // time of fetched status
- 
+
     $scope.pin = "";
     $scope.auth = false;
     $scope.user = "Guest";
@@ -29,10 +31,16 @@ app.controller("myController", function ($scope, $http) {
     $scope.downUrl = 'https://sushanttiwari.in/serv/downLive.php';
     $scope.upUrl = 'serv/upLive.php';
     $scope.downUrl = 'serv/downLive.php';
+
+    $scope.min = 0;   // minutes since shift
     $scope.block = 0;
+    $scope.hour = 0;
     $scope.uploader = true;
 
+
+    // CONFIGS ////////
     $scope.changed = false;
+    ///////////////////
 
     class Machine {
         constructor(name, type) {
@@ -48,6 +56,12 @@ app.controller("myController", function ($scope, $http) {
             this.defmins = 0;
             this.avl = 0;
             this.utl = 0;
+            this.idlhms = "";
+            this.runhms = "";
+            this.brkhms = "";
+            this.avlhms = "";
+            this.avlstr = "";
+            this.utlstr = "";
 
         }
     }
@@ -61,27 +75,48 @@ app.controller("myController", function ($scope, $http) {
     }
 
     class Dumper {
-        constructor() {
-            this.east_total = 37;
-            this.east_avl = 10;
-            this.east_run = 0;
-
-            this.west_total = 39;
-            this.west_avl = 0;
-            this.west_run = 0;
+        constructor(name, total) {
+            this.name = name;
+            this.total = total;
+            this.avl = 0;
+            this.run = 0;
+            this.logs = [];
         }
 
+
         calculate() {
-            this.east_idl = this.east_avl - this.east_run;
-            this.east_brk = this.east_total - this.east_avl;
-            this.east_avali = Math.round(this.east_avl * 100 / this.east_total);
-            this.east_utl = Math.round(this.east_run * 100 / this.east_total);
+            this.idl = this.avl - this.run;
+            this.brk = this.total - this.avl;
+            this.avali = Math.round(this.avl * 100 / this.total);
+            this.utli = Math.round(this.run * 100 / this.total);
+        }
 
+        log() {
+            this.calculate();
+            this.logs[$scope.hour] = {
+                avl: this.avl,
+                run: this.run,
+                idl: this.idl,
+                brk: this.brk,
+                avli: this.avli,
+                utli: this.utli
+            }
+        }
 
-            this.west_idl = this.west_avl - this.west_run;
-            this.west_brk = this.west_total - this.west_avl;
-            this.west_avali = Math.round(this.west_avl * 100 / this.west_total);
-            this.west_utl = Math.round(this.west_run * 100 / this.west_total);
+        change(command) {
+            if (command == 1 && this.avl > 0) {
+                this.avl--;
+            }
+            else if (command == 2 && this.avl < this.total) {
+                this.avl++;
+            }
+            else if (command == 3 && this.run > 0) {
+                this.run--;
+            }
+            else if (command == 4 && this.run < this.avl) {
+                this.run++;
+            }
+            this.log();
         }
     }
 
@@ -99,13 +134,13 @@ app.controller("myController", function ($scope, $http) {
             var k = new Machine(x, 'dragline');
             $scope.machines.push(k);
         })
-        angular.forEach($scope.siloNames, function (s, i) {
-            var k = new Silo(s)
+        angular.forEach($scope.siloNames, function (x, i) {
+            var k = new Silo(x)
             $scope.silos.push(k);
         })
-        $scope.dumper = new Dumper();
 
-
+        $scope.eastDumper = new Dumper('east', 30);
+        $scope.westDumper = new Dumper('west', 40);
         sync();
         setInterval(sync, 10000);
     }
@@ -116,14 +151,17 @@ app.controller("myController", function ($scope, $http) {
         var d = Math.floor((c - b) / (8 * 3600 * 1000));
         var e = b + d * (8 * 3600 * 1000);
         $scope.start = e;
-        $scope.block = Math.floor((c - e) / (5 * 60 * 1000));
-        console.log('Block:',$scope.block);
+        $scope.min = Math.floor((c - e) / (5 * 60 * 1000));
+        $scope.hour = Math.floor($scope.min / 60);
+
 
 
         if ($scope.changed) {
+            console.log('Uploading on status change...');
             upload();
         }
         else {
+            console.log('Downloading...');
             download();
         }
 
@@ -159,8 +197,7 @@ app.controller("myController", function ($scope, $http) {
                 var t = hh + ':' + mm + ':' + ss;
                 $scope.machines = e.machines;
                 $scope.silos = e.silos;
-                console.log('Downloaded..', e.stamp, 'By:' + e.user + ' @ ' + t);
-                console.log(e);
+                console.log(e.user + ' @ ' + t);
                 $scope.stamp = stamp;
                 performanceLog();
             },
@@ -178,7 +215,7 @@ app.controller("myController", function ($scope, $http) {
 
         $scope.objString = JSON.stringify($scope.obj);
         var payload = { 'str': $scope.objString };
-
+        // console.log(JSON.parse(payload.str));
         var req = {
             method: 'POST',
             url: $scope.upUrl,
@@ -195,10 +232,8 @@ app.controller("myController", function ($scope, $http) {
                 var c = a.lastIndexOf('}');
                 var d = a.slice(b, c + 1);
                 var e = JSON.parse(d);
-                if (e.stamp == $scope.obj.stamp) {
-                    console.log('Uploaded...', e.stamp);
-                    $scope.changed = false; // only when upload is successful.
-                }
+                // console.log(e);
+                $scope.changed = false; // only when upload is successful.
             },
             function () {
                 console.log("upload failed....");
@@ -220,10 +255,10 @@ app.controller("myController", function ($scope, $http) {
         }
         angular.forEach($scope.machines, function (machine, i) {
             for (j = 1; j < 96; j++) {
-                if (j > $scope.block) {
+                if (j > $scope.min) {
                     machine.logs[j] = 3;
                 }
-                else if (j < $scope.block) {
+                else if (j < $scope.min) {
                     if (machine.logs[j] > 2) {
                         machine.logs[j] = machine.logs[j - 1];
                     }
@@ -236,13 +271,36 @@ app.controller("myController", function ($scope, $http) {
     }
     function performanceLog() {
 
+
+        $scope.crusherTotal = {
+            idlmins: 0,
+            runmins: 0,
+            brkmins: 0,
+            avlmins: 0,
+            defmins: 0
+        };
+        $scope.shovelTotal = {
+            idlmins: 0,
+            runmins: 0,
+            brkmins: 0,
+            avlmins: 0,
+            defmins: 0
+        };
+        $scope.draglineTotal = {
+            idlmins: 0,
+            runmins: 0,
+            brkmins: 0,
+            avlmins: 0,
+            defmins: 0
+        };
+
         interpolate(); // Will ensure data validity and continuity before logging.
         angular.forEach($scope.machines, function (mach, i) {
             mach.idlmins = 0;
             mach.runmins = 0;
             mach.brkmins = 0;
 
-            for (j = 0; j <= $scope.block; j++) {
+            for (j = 0; j <= $scope.min; j++) {
                 s = mach.logs[j];
                 if (s === 0) {
                     mach.idlmins += 5;
@@ -271,8 +329,77 @@ app.controller("myController", function ($scope, $http) {
 
             mach.avlstr = `${mach.avl} %`;
             mach.utlstr = `${mach.utl} %`;
+
             $scope.changed = true;
-        })
+
+
+            ////// TOTALING CALCULATIONS /////////
+
+
+            if (mach.type == 'crusher') {
+                $scope.crusherTotal.idlmins += mach.idlmins;
+                $scope.crusherTotal.runmins += mach.runmins;
+                $scope.crusherTotal.brkmins += mach.brkmins;
+                $scope.crusherTotal.avlmins += mach.avlmins;
+                $scope.crusherTotal.defmins += mach.defmins;
+
+                $scope.crusherTotal.avl = Math.round($scope.crusherTotal.avlmins * 100 / $scope.crusherTotal.defmins);
+                $scope.crusherTotal.utl = Math.round($scope.crusherTotal.runmins * 100 / $scope.crusherTotal.defmins);
+
+                $scope.crusherTotal.idlhms = tohhmm($scope.crusherTotal.idlmins);
+                $scope.crusherTotal.runhms = tohhmm($scope.crusherTotal.runmins);
+                $scope.crusherTotal.brkhms = tohhmm($scope.crusherTotal.brkmins);
+                $scope.crusherTotal.avlhms = tohhmm($scope.crusherTotal.avlmins);
+
+                $scope.crusherTotal.avlstr = `${$scope.crusherTotal.avl} %`;
+                $scope.crusherTotal.utlstr = `${$scope.crusherTotal.utl} %`;
+            }
+
+            else if (mach.type == 'shovel') {
+                $scope.shovelTotal.idlmins += mach.idlmins;
+                $scope.shovelTotal.runmins += mach.runmins;
+                $scope.shovelTotal.brkmins += mach.brkmins;
+                $scope.shovelTotal.avlmins += mach.avlmins;
+                $scope.shovelTotal.defmins += mach.defmins;
+
+                $scope.shovelTotal.avl = Math.round($scope.shovelTotal.avlmins * 100 / $scope.shovelTotal.defmins);
+                $scope.shovelTotal.utl = Math.round($scope.shovelTotal.runmins * 100 / $scope.shovelTotal.defmins);
+
+                $scope.shovelTotal.idlhms = tohhmm($scope.shovelTotal.idlmins);
+                $scope.shovelTotal.runhms = tohhmm($scope.shovelTotal.runmins);
+                $scope.shovelTotal.brkhms = tohhmm($scope.shovelTotal.brkmins);
+                $scope.shovelTotal.avlhms = tohhmm($scope.shovelTotal.avlmins);
+
+                $scope.shovelTotal.avlstr = `${$scope.shovelTotal.avl} %`;
+                $scope.shovelTotal.utlstr = `${$scope.shovelTotal.utl} %`;
+            }
+
+            else if (mach.type == 'dragline') {
+                $scope.draglineTotal.idlmins += mach.idlmins;
+                $scope.draglineTotal.runmins += mach.runmins;
+                $scope.draglineTotal.brkmins += mach.brkmins;
+                $scope.draglineTotal.avlmins += mach.avlmins;
+                $scope.draglineTotal.defmins += mach.defmins;
+
+                $scope.draglineTotal.avl = Math.round($scope.draglineTotal.avlmins * 100 / $scope.draglineTotal.defmins);
+                $scope.draglineTotal.utl = Math.round($scope.draglineTotal.runmins * 100 / $scope.draglineTotal.defmins);
+
+                $scope.draglineTotal.idlhms = tohhmm($scope.draglineTotal.idlmins);
+                $scope.draglineTotal.runhms = tohhmm($scope.draglineTotal.runmins);
+                $scope.draglineTotal.brkhms = tohhmm($scope.draglineTotal.brkmins);
+                $scope.draglineTotal.avlhms = tohhmm($scope.draglineTotal.avlmins);
+
+                $scope.draglineTotal.avlstr = `${$scope.draglineTotal.avl} %`;
+                $scope.draglineTotal.utlstr = `${$scope.draglineTotal.utl} %`;
+            }
+
+
+
+        });
+        
+   
+   
+   
     }
 
     $scope.login = function () {
@@ -290,45 +417,6 @@ app.controller("myController", function ($scope, $http) {
     }
 
 
-    $scope.dumperCounter = function (command) {
-        console.log(command);
-        if (command == 1) {
-            if ($scope.dumper.east_avl > 0)
-                $scope.dumper.east_avl--;
-        }
-        else if (command == 2) {
-            if ($scope.dumper.east_avl < $scope.dumper.east_total)
-                $scope.dumper.east_avl++;
-        }
-        else if (command == 3) {
-            if ($scope.dumper.east_run > 0)
-                $scope.dumper.east_run--;
-        }
-        else if (command == 4) {
-            if ($scope.dumper.east_run < $scope.dumper.east_avl)
-                $scope.dumper.east_run++;
-        }
-
-        else if (command == 5) {
-            if ($scope.dumper.west_avl > 0)
-                $scope.dumper.west_avl--;
-        }
-        else if (command == 6) {
-            if ($scope.dumper.west_avl < $scope.dumper.west_total)
-                $scope.dumper.west_avl++;
-        }
-        else if (command == 7) {
-            if ($scope.dumper.west_run > 0)
-                $scope.dumper.west_run--;
-        }
-        else if (command == 8) {
-            if ($scope.dumper.west_run < $scope.dumper.west_avl)
-                $scope.dumper.west_run++;
-        }
-
-
-
-    }
 
     function tohhmm(mins) {
         h = Math.floor(mins / 60);
