@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>dch</title>
-  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
   <script src="libs/angular.js"></script>
   <script src="libs/jquery.js"></script>
 
@@ -18,41 +18,25 @@
   <script src="js/navigation.js" defer></script>
   <script src="js/live.js" defer></script>
 
-  <link rel="stylesheet" href="css/live.css" />
-  <link rel="stylesheet" href="css/common-styles.css" />
   <link rel="stylesheet" href="libs/w3.css">
+  <link rel="stylesheet" href="css/live.css" />
 
 
 </head>
 
 <body ng-app="myApp" ng-controller="myController">
-  <header class="large">
-    <div class="title">
-      <img class="icon" src="media/favicon.svg" alt="">
-      <p>DCH</p>
-    </div>
 
-    <div class="menu">
+  <header class="large">
+    <img class="header-icon" src="media/favicon.svg" alt="" width="20px" height="20px">
+    <p class="header-title">Dudhichua Live</p>
+    <div class="header-menu">
       <a href="index.html">Live</a>
       <a href="shift.html">Shift</a>
       <a href="day.html">Day</a>
     </div>
   </header>
 
-  <header class="small">
-    <div class="title">
-      <img class="icon" src="media/favicon.svg" alt="">
-      <p>Dudhichua Live</p>
-      <p class="menu-icon">&#9776</p>
-    </div>
 
-  </header>
-
-  <div class="small-menu hide">
-    <a href="index.html">Live</a>
-    <a href="shift.html">Shift</a>
-    <a href="day.html">Day</a>
-  </div>
 
 
   <!-- <div class="leg">
@@ -202,28 +186,28 @@
       </table>
     </div>
 
-        <div class="west-dumper-table">
-          <table class="w3-table-all">
-            <tr class="w3-green">
-              <td>HOUR</td>
-              <td>AVL</td>
-              <td>RUN</td>
-              <td>IDL</td>
-              <td>BRK</td>
-              <td>AVLI</td>
-              <td>UTLI</td>
-            </tr>
-            <tr ng-repeat="x in dumpers">
-              <td>{{x.hour+1}}</td>
-              <td>{{x.west_avl}}</td>
-              <td>{{x.west_run}}</td>
-              <td>{{x.west_idl}}</td>
-              <td>{{x.west_brk}}</td>
-              <td>{{x.west_avli}} %</td>
-              <td>{{x.west_utli}} %</td>
-            </tr>
-          </table>
-        </div>
+    <div class="west-dumper-table">
+      <table class="w3-table-all">
+        <tr class="w3-green">
+          <td>HOUR</td>
+          <td>AVL</td>
+          <td>RUN</td>
+          <td>IDL</td>
+          <td>BRK</td>
+          <td>AVLI</td>
+          <td>UTLI</td>
+        </tr>
+        <tr ng-repeat="x in dumpers">
+          <td>{{x.hour+1}}</td>
+          <td>{{x.west_avl}}</td>
+          <td>{{x.west_run}}</td>
+          <td>{{x.west_idl}}</td>
+          <td>{{x.west_brk}}</td>
+          <td>{{x.west_avli}} %</td>
+          <td>{{x.west_utli}} %</td>
+        </tr>
+      </table>
+    </div>
 
 
 

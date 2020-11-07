@@ -1,3 +1,68 @@
+/* GENERICS //////////////////////////// */
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	font: inherit;
+}
+
+
+html {
+	font-size: 16px;
+}
+
+body {
+	font-size: 1rem;
+	 background: rgb(47, 47, 47);
+	 color:white;
+}
+
+a {
+	text-decoration: none;
+}
+
+/* HEADER /////////////////////////////// */
+
+header.large{
+	height:30px;
+	padding:0px 15px;
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom:1px solid grey;
+
+}
+
+.header-icon{
+	width:20px;
+	height:20px;
+}
+
+.header-title{
+	font-size:25px;
+}
+
+.header-menu{
+	width:200px;
+	/* flex-grow:1; */
+	font-size:16px;
+	display:flex;
+	justify-content: space-around;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .leg {
 	display: flex;
 	color: white;
@@ -281,11 +346,15 @@ table {
 
 /* ///////////////////////////////////////////////////////////// */
 
-@media (max-width: 992px) {
+@media (max-width: 600px) {
 	.card {
 		width: 30vw;
 		height: 20vw;
 		margin: 0.5vw;
+	}
+
+	.header-title{
+		display:none
 	}
 }
 
