@@ -1,6 +1,8 @@
 var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
+    $scope.subSections = ['live', 'dumpers']
+
     $scope.crushers = ['Crusher-01', 'Crusher-02', 'Crusher-03'];
     $scope.shovels = ['P&H-06', 'P&H-07', 'P&H-09', 'P&H-10',
         'P&H-11', 'P&H-12', 'P&H-13', 'P&H-14', 'P&H-15',
@@ -129,7 +131,7 @@ app.controller("myController", function ($scope, $http) {
         $scope.start = e;
         $scope.block = Math.floor((c - e) / (5 * 60 * 1000));
         $scope.hour = Math.floor($scope.block / 12);
-        console.log('block:', $scope.block,'  hour:',$scope.hour );
+        console.log('block:', $scope.block, '  hour:', $scope.hour);
 
 
         if ($scope.changed) {
@@ -237,27 +239,27 @@ app.controller("myController", function ($scope, $http) {
         }
         angular.forEach($scope.machines, function (mach, i) {
             let valids = [0, 1, 2];
-            s = mach.logs[0];
-            if (!valids.includes(s)) {
+            if (!valids.includes(mach.logs[0])) {
                 mach.logs[0] = mach.status;
             }
 
-            for (j = 1; j < 96; j++) {
-                s = mach.logs[j];
-                if (j > $scope.block) {
-                    mach.logs[j] = 3;
-                }
-                else if (j < $scope.block && !valids.includes(s)) {
+            for (j = 1; j < $scope.block; j++) {
+                if (!valids.includes(mach.logs[j])) {
                     mach.logs[j] = mach.logs[j - 1];
                 }
-                else {
-                    mach.logs[j] = mach.status;
-                }
+            }
+
+            mach.logs[$scope.block] = mach.status;
+
+            for (j = $scope.block + 1; j < 96; j++) {
+                mach.logs[j] = 3;
             }
         });
 
     }
     function performanceLog() {
+
+        interpolate(); // Will ensure data validity and continuity before logging.
 
 
         $scope.crusherTotal = {
@@ -283,7 +285,7 @@ app.controller("myController", function ($scope, $http) {
         };
 
         $scope.dumper.hour = $scope.hour;
-        $scope.dumpers[$scope.hour] = { ...$scope.dumper};
+        $scope.dumpers[$scope.hour] = { ...$scope.dumper };
 
         angular.forEach($scope.dumpers, function (d, i) {
             d.east_idl = d.east_avl - d.east_run;
@@ -302,7 +304,7 @@ app.controller("myController", function ($scope, $http) {
 
 
 
-        interpolate(); // Will ensure data validity and continuity before logging.
+
 
         angular.forEach($scope.machines, function (mach, i) {
             mach.idlmins = 0;

@@ -36,6 +36,17 @@
     </div>
   </header>
 
+  <header class="sub-header"> 
+    <div class="section-selector">
+      <a id="live-tab" href="#" onmouseDown="openSection('live')" class="tab">Live</i></a>
+      <a id="dumpers-tab" href="#" onmouseDown="openSection('dumpers')" class="tab  ">Dumpers</i></a>
+      <a id="timelines-tab" href="#" onmouseDown="openSection('timelines')" class="tab  ">Timelines</i></a>
+      <a id="tables-tab" href="#" onmouseDown="openSection('tables')" class="tab  ">Tables</i></a>
+      <a id="performance-tab" href="#" onmouseDown="openSection('performance')" class="tab">Performance</i></a>
+      <a id="graphs-tab" href="#" onmouseDown="openSection('graphs')" class="tab ">Graphs</a>
+    </div>
+  </header>
+
 
 
 
@@ -47,7 +58,7 @@
 
   <!-- /////////////////////////////////////////////////////////// -->
 
-  <div class="live-section">
+  <div class="section" id="live-sec">
 
     <div class="live-sub">
       <div class="machine card" ng-repeat="x in machines" ng-hide="x.type!='crusher'">
@@ -162,7 +173,7 @@
   </div>
 
 
-  <div class="sec-dumper">
+  <div class="section" id="dumpers-sec">
     <div class="east-dumper-table">
       <table class="w3-table-all">
         <tr class="w3-green">
@@ -213,7 +224,7 @@
 
   </div>
 
-  <div class="trend-section">
+  <div class="section" id="timelines-sec">
     <div class="trend-row" ng-repeat="x in machines">
       <div class="mcname">
         {{x.name}}
@@ -226,7 +237,7 @@
     </div>
   </div>
 
-  <div class="sec-table">
+  <div class="section" id="tables-sec">
     <div class="shovel-perf-div">
       <table class="shovel-perf-table w3-table-all">
         <tr class="w3-green">
@@ -327,7 +338,7 @@
     </div>
   </div>
 
-  <div class="perf-section">
+  <div class="section" id="performance-sec">
     <div ng-repeat="mach in machines" class="perf-mach" ng-hide="mach.type=='shovel'">
       <div class="perf-mcname">
         <p>{{mach.name}}</p>
@@ -370,7 +381,6 @@
     </div>
 
   </div>
-
 
   <!-- <style>
   .mctrend div:nth-child( {        {        min+1      }    }  ) {

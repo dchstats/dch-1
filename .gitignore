@@ -1,8 +1,8 @@
-**libs/
-*.txt
+libs
+liveData.txt
+
 .sass-cache/
 *.css.map
 *.sass.map
 *.scss.map
 *.tmp
-liveData.txt
