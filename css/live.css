@@ -250,7 +250,7 @@ header.large{
 	flex-grow: 1;
 	border: 1px solid rgb(188, 188, 188, 0.2);
 	border-radius: 5px;
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 
 .trend-block {

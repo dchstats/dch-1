@@ -14,14 +14,17 @@
   <script src="libs/angular.js"></script>
   <script src="libs/jquery.js"></script>
 
-  <script src="dist/Chart.js"></script>
+
   <script src="js/navigation.js" defer></script>
   <script src="js/live.js" defer></script>
 
   <link rel="stylesheet" href="libs/w3.css">
   <link rel="stylesheet" href="css/live.css" />
 
-
+  <!-- EXPERIMENTAL STUFF /////////////// -->
+  <!-- <script src="dist/Chart.js"></script> -->
+  <script src="js/exp.js" defer></script>
+  <link rel="stylesheet" href="css/exp.css">
 </head>
 
 <body ng-app="myApp" ng-controller="myController">
@@ -36,14 +39,12 @@
     </div>
   </header>
 
-  <header class="sub-header"> 
+  <header class="sub-header">
     <div class="section-selector">
       <a id="live-tab" href="#" onmouseDown="openSection('live')" class="tab">Live</i></a>
-      <a id="dumpers-tab" href="#" onmouseDown="openSection('dumpers')" class="tab  ">Dumpers</i></a>
-      <a id="timelines-tab" href="#" onmouseDown="openSection('timelines')" class="tab  ">Timelines</i></a>
-      <a id="tables-tab" href="#" onmouseDown="openSection('tables')" class="tab  ">Tables</i></a>
-      <a id="performance-tab" href="#" onmouseDown="openSection('performance')" class="tab">Performance</i></a>
-      <a id="graphs-tab" href="#" onmouseDown="openSection('graphs')" class="tab ">Graphs</a>
+      <a id="trends-tab" href="#" onmouseDown="openSection('trends')" class="tab  ">Trends</i></a>
+      <a id="stats-tab" href="#" onmouseDown="openSection('stats')" class="tab  ">Stats</i></a>
+      <a id="performance-tab" href="#" onmouseDown="openSection('performance')" class="tab">Graphs</i></a>
     </div>
   </header>
 
@@ -172,72 +173,67 @@
     </div>
   </div>
 
-
-  <div class="section" id="dumpers-sec">
-    <div class="east-dumper-table">
-      <table class="w3-table-all">
-        <tr class="w3-green">
-          <td>HOUR</td>
-          <td>AVL</td>
-          <td>RUN</td>
-          <td>IDL</td>
-          <td>BRK</td>
-          <td>AVLI</td>
-          <td>UTLI</td>
-        </tr>
-        <tr ng-repeat="x in dumpers">
-          <td>{{x.hour+1}}</td>
-          <td>{{x.east_avl}}</td>
-          <td>{{x.east_run}}</td>
-          <td>{{x.east_idl}}</td>
-          <td>{{x.east_brk}}</td>
-          <td>{{x.east_avli}} %</td>
-          <td>{{x.east_utli}} %</td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="west-dumper-table">
-      <table class="w3-table-all">
-        <tr class="w3-green">
-          <td>HOUR</td>
-          <td>AVL</td>
-          <td>RUN</td>
-          <td>IDL</td>
-          <td>BRK</td>
-          <td>AVLI</td>
-          <td>UTLI</td>
-        </tr>
-        <tr ng-repeat="x in dumpers">
-          <td>{{x.hour+1}}</td>
-          <td>{{x.west_avl}}</td>
-          <td>{{x.west_run}}</td>
-          <td>{{x.west_idl}}</td>
-          <td>{{x.west_brk}}</td>
-          <td>{{x.west_avli}} %</td>
-          <td>{{x.west_utli}} %</td>
-        </tr>
-      </table>
-    </div>
-
-
-
-  </div>
-
-  <div class="section" id="timelines-sec">
+  <div class="section" id="trends-sec">
     <div class="trend-row" ng-repeat="x in machines">
       <div class="mcname">
         {{x.name}}
       </div>
       <div class="mctrend">
-        <div ng-repeat="y in x.logs track by $index" class="trend-block {{statusStrings[y]}}-block"
+        <div ng-repeat="y in x.logs track by $index" class="tooltip trend-block {{statusStrings[y]}}-block"
           ng-click=" y=y+1; y=y%3; x.logs[$index]=y; update()">
+          <span class="tooltiptext">{{timef($index)}}</span>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="section" id="tables-sec">
+  <div class="section" id="stats-sec">
+
+        <div class="east-dumper-table">
+          <table class="w3-table-all">
+            <tr class="w3-green">
+              <td>HOUR</td>
+              <td>AVL</td>
+              <td>RUN</td>
+              <td>IDL</td>
+              <td>BRK</td>
+              <td>AVLI</td>
+              <td>UTLI</td>
+            </tr>
+            <tr ng-repeat="x in dumpers">
+              <td>{{x.hour+1}}</td>
+              <td>{{x.east_avl}}</td>
+              <td>{{x.east_run}}</td>
+              <td>{{x.east_idl}}</td>
+              <td>{{x.east_brk}}</td>
+              <td>{{x.east_avli}} %</td>
+              <td>{{x.east_utli}} %</td>
+            </tr>
+          </table>
+        </div>
+        
+        <div class="west-dumper-table">
+          <table class="w3-table-all">
+            <tr class="w3-green">
+              <td>HOUR</td>
+              <td>AVL</td>
+              <td>RUN</td>
+              <td>IDL</td>
+              <td>BRK</td>
+              <td>AVLI</td>
+              <td>UTLI</td>
+            </tr>
+            <tr ng-repeat="x in dumpers">
+              <td>{{x.hour+1}}</td>
+              <td>{{x.west_avl}}</td>
+              <td>{{x.west_run}}</td>
+              <td>{{x.west_idl}}</td>
+              <td>{{x.west_brk}}</td>
+              <td>{{x.west_avli}} %</td>
+              <td>{{x.west_utli}} %</td>
+            </tr>
+          </table>
+        </div>
     <div class="shovel-perf-div">
       <table class="shovel-perf-table w3-table-all">
         <tr class="w3-green">
@@ -338,7 +334,7 @@
     </div>
   </div>
 
-  <div class="section" id="performance-sec">
+  <div class="section" id="graphs-sec">
     <div ng-repeat="mach in machines" class="perf-mach" ng-hide="mach.type=='shovel'">
       <div class="perf-mcname">
         <p>{{mach.name}}</p>
@@ -383,7 +379,7 @@
   </div>
 
   <!-- <style>
-  .mctrend div:nth-child( {        {        min+1      }    }  ) {
+  .mctrend div:nth-child( {{block+1}}) {
     border-radius: 0 50% 50% 0;
   }
 </style> -->

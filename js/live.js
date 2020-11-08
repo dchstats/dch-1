@@ -465,6 +465,12 @@ app.controller("myController", function ($scope, $http) {
         $scope.update();
     }
 
+    $scope.timef=function(block) {
+        k = $scope.start + block * 300 * 1000;
+        l = new Date(k);
+        t = ""+l.getHours()+":"+(l.getMinutes()<10?"0":"")+l.getMinutes();
+        return t;
+    }
 
 
     function tohhmm(mins) {
@@ -472,4 +478,6 @@ app.controller("myController", function ($scope, $http) {
         m = mins % 60;
         return h.toString() + " : " + (m < 10 ? "0" : "") + m.toString();
     }
+
+
 });  
