@@ -414,11 +414,11 @@ app.controller("myController", function ($scope, $http) {
     }
 
     $scope.login = function () {
-        if ($scope.pin == "1234") {
+        if ($scope.pin == "8520") {
             $scope.user = "Viewpoint";
             $scope.auth = true;
         }
-        else if ($scope.pin == "1111") {
+        else if ($scope.pin == "4563") {
             $scope.user = "Admin";
             $scope.auth = true;
         }

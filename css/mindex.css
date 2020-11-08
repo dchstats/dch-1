@@ -1,152 +1,120 @@
 /* GENERICS //////////////////////////// */
-
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	font: inherit;
+*{
+	margin:0px;
+	padding:0px;
 }
 
 
-html {
-	font-size: 16px;
-}
+
 
 body {
-	font-size: 1rem;
 	 background: rgb(47, 47, 47);
-	 color:white;
 }
 
-a {
-	text-decoration: none;
-}
+
 
 /* HEADER /////////////////////////////// */
 
-header.large{
-	height:40px;
-	padding:0px 15px;
-	display:flex;
-	justify-content: space-between;
-	align-items: center;
-	border-bottom:1px solid grey;
+/* MACHINES //////////////////// */
 
+.live-sub{
+	width:100%;
+	margin:20px;
 }
 
-.header-icon{
-	width:20px;
-	height:20px;
-}
-
-.header-title{
-	font-size:25px;
-}
-
-.header-menu{
-	width:200px;
-	/* flex-grow:1; */
-	font-size:16px;
-	display:flex;
-	justify-content: space-around;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.leg {
-	display: flex;
-	color: white;
-	justify-content: center;
-	align-items: center;
-}
-
-.leg div {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 33%;
-	padding: 5px;
-}
-
-.card{
-	width: 14vw;
-	height: 9vw;
-	margin: 2px;
-	padding:2px;
+.mach{
+	width: 200px;
+	height: 120px;
+	margin: 5px;
 	border-radius:3px;
 	overflow:hidden;
+	display:flex;
+	flex-direction: column;	
 }
 
+.mach button {
+	height:25px;
+	width:25px;
+	font-size:25px;
+	font-weight: bold;
+	display:flex;
+	justify-content: center;
+	align-items:center;
+	background:rgb(255,255,255,0.1);
+	color:#999;
+	border:none;
+	outline:none;
+	border-radius: 15px;
+	cursor: pointer;
+}
+
+
 /* SILO SECTION  ///////////////////////////////// */
+
 .silo{
 	display:flex;
 	flex-direction: column;
-	justify-content: space-around;
 	align-items: stretch;
-	background:lightgoldenrodyellow;
-	color:purple;
-
+	justify-content: space-evenly;
+	color:white;
+	border:1px solid #666;
+	background:rgb(53, 52, 52);
 }
-
-.silo-name {
-	font-size:20px;
-}
-
-
 
 .rake-incrementer{
+	padding:0px 10px;
 	display:flex;
 	justify-content: space-between;
 	align-items: center;
 }
 
 .rake-incrementer span{
-	font-size:70px;
+	font-size:35px;
 }
 
-.silo-remark {
-	width:100%;
-}
 
-.silo-remark input{
-	display:inline-block;
-	width:200px;
-}
 
-/* ///////////////////////////////// */
+.silo input{
+	background:transparent;
+	border:none;
+	outline:none;
+	color:#aaa;
+	text-align:center;
+}
 
 
 /* DUMPER  ///////////////////////////////// */
-
 .live-dumper{
 	display:flex;
 	flex-direction: column;
-	justify-content: space-around;
 	align-items: stretch;
-	background:lightgoldenrodyellow;
-	color:purple;
-	font-weight: bold;
+	justify-content: space-evenly;
+	color:white;
+	border:1px solid #666;
+	background:rgb(53, 52, 52);
 }
 
-.dumper-counter{
-	font-size:24px;
+.live-dumper div{
+	height:30%;
+	padding:0px 10px;
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
 }
+
+
+
+.dumper-param{
+	color:grey;
+}
+
+
+
+
 
 
 /* ///////////////////////////////// */
-.live-section{
-	background: rgb(47, 47, 47);
-}
+
 
 .live-sub{
 	display: flex;
@@ -154,7 +122,6 @@ header.large{
 	flex-wrap:wrap;
 	justify-content: center;
 	align-items: center;
-	padding:20px 0;
 
 }
 
@@ -181,7 +148,6 @@ header.large{
 
 .front,
 .back {
-	border-radius: 5px;
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -190,13 +156,13 @@ header.large{
 	justify-content: space-evenly;
 	align-items: center;
 	backface-visibility: hidden;
-	padding: 5%;
+	padding: 10px;
 }
 
 .back {
 	transform: rotateY(180deg);
 	background: white;
-	color: black;
+	color:#333;
 }
 
 .back * {
@@ -215,7 +181,7 @@ header.large{
 	font-size: 80%;
 }
 
-@media (min-width: 168px) {
+@media (min-width: 768px) {
 	.machine:hover .inner {
 		transform: rotateY(180deg);
 	}
@@ -373,6 +339,10 @@ table {
 .Undef {
 	background: rgba(163, 163, 163, 0);
 }
+
+
+
+
 
 
 
