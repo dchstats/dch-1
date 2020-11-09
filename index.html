@@ -1,589 +1,473 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="description" content="Dudhichua Project">
-  <meta name="keywords"
-    content="Dudhichua, Dudhichua Project, Live status, Shift report, Daily report, Production report, Dispatch report">
-  <meta name="author" content="Sushant Tiwari">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>dch</title>
+<link rel="stylesheet" href="css/live.css">
 
-  <script src="libs/angular.js"></script>
-  <script src="libs/jquery.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-  <script src="js/navigation.js" defer></script>
-  <script src="js/live.js" defer></script>
+<script src="libs/angular.js"></script>
+<script src="js/live.js" defer></script>
+<style>
+    body {
+        font-family: "Lato", sans-serif
+    }
 
-  <link rel="stylesheet" href="libs/w3.css">
-  <link rel="stylesheet" href="css/live.css" />
-
-  <!-- EXPERIMENTAL STUFF /////////////// -->
-  <!-- <script src="dist/Chart.js"></script> -->
-  <script src="js/exp.js" defer></script>
-  <link rel="stylesheet" href="css/exp.css">
-</head>
+    .mySlides {
+        display: none
+    }
+</style>
 
 <body ng-app="myApp" ng-controller="myController">
-  <div class="w3-top">
-    <div class="w3-bar w3-black w3-card">
-      <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)"
-        onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-      <a href="#" class="w3-bar-item w3-button w3-padding-large">HOME</a>
-      <a href="#band" class="w3-bar-item w3-button w3-padding-large w3-hide-small">BAND</a>
-      <a href="#tour" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TOUR</a>
-      <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CONTACT</a>
-      <div class="w3-dropdown-hover w3-hide-small">
-        <button class="w3-padding-large w3-button" title="More">MORE <i class="fa fa-caret-down"></i></button>
-        <div class="w3-dropdown-content w3-bar-block w3-card-4">
-          <a href="#" class="w3-bar-item w3-button">Merchandise</a>
-          <a href="#" class="w3-bar-item w3-button">Extras</a>
-          <a href="#" class="w3-bar-item w3-button">Media</a>
-        </div>
-      </div>
-      <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i
-          class="fa fa-search"></i></a>
-    </div>
-  </div>
-  
-  <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
-  <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
-    <a href="#band" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">BAND</a>
-    <a href="#tour" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">TOUR</a>
-    <a href="#contact" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">CONTACT</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">MERCH</a>
-  </div>
-  
-  <!-- Page content -->
-  <div class="w3-content" style="max-width:2000px;margin-top:46px">
-  
-    <!-- Automatic Slideshow Images -->
-    <div class="mySlides w3-display-container w3-center">
-      <img src="/w3images/la.jpg" style="width:100%">
-      <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-        <h3>Los Angeles</h3>
-        <p><b>We had the best time playing at Venice Beach!</b></p>
-      </div>
-    </div>
-    <div class="mySlides w3-display-container w3-center">
-      <img src="/w3images/ny.jpg" style="width:100%">
-      <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-        <h3>New York</h3>
-        <p><b>The atmosphere in New York is lorem ipsum.</b></p>
-      </div>
-    </div>
-    <div class="mySlides w3-display-container w3-center">
-      <img src="/w3images/chicago.jpg" style="width:100%">
-      <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-        <h3>Chicago</h3>
-        <p><b>Thank you, Chicago - A night we won't forget.</b></p>
-      </div>
-    </div>
-  
-    <!-- The Band Section -->
-    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
-      <h2 class="w3-wide">THE BAND</h2>
-      <p class="w3-opacity"><i>We love music</i></p>
-      <p class="w3-justify">We have created a fictional band website. Lorem ipsum dolor sit amet, consectetur adipiscing
-        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquip
-        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-        nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-        est laborum consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <div class="w3-row w3-padding-32">
-        <div class="w3-third">
-          <p>Name</p>
-          <img src="/w3images/bandmember.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
-        </div>
-        <div class="w3-third">
-          <p>Name</p>
-          <img src="/w3images/bandmember.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
-        </div>
-        <div class="w3-third">
-          <p>Name</p>
-          <img src="/w3images/bandmember.jpg" class="w3-round" alt="Random Name" style="width:60%">
-        </div>
-      </div>
-    </div>
-  
-    <!-- The Tour Section -->
-    <div class="w3-black" id="tour">
-      <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
-        <h2 class="w3-wide w3-center">TOUR DATES</h2>
-        <p class="w3-opacity w3-center"><i>Remember to book your tickets!</i></p><br>
-  
-        <ul class="w3-ul w3-border w3-white w3-text-grey">
-          <li class="w3-padding">September <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
-          <li class="w3-padding">October <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
-          <li class="w3-padding">November <span class="w3-badge w3-right w3-margin-right">3</span></li>
-        </ul>
-  
-        <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
-          <div class="w3-third w3-margin-bottom">
-            <img src="/w3images/newyork.jpg" alt="New York" style="width:100%" class="w3-hover-opacity">
-            <div class="w3-container w3-white">
-              <p><b>New York</b></p>
-              <p class="w3-opacity">Fri 27 Nov 2016</p>
-              <p>Praesent tincidunt sed tellus ut rutrum sed vitae justo.</p>
-              <button class="w3-button w3-black w3-margin-bottom"
-                onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button>
+
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-black w3-card">
+            <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right"
+                href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i
+                    class="fa fa-bars"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">LIVE</a>
+            <a href="#trends" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TRENDS</a>
+            <a href="#tables" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TABLES</a>
+            <a href="#graphs" class="w3-bar-item w3-button w3-padding-large w3-hide-small">GRAPHS</a>
+            <div class="w3-dropdown-hover w3-hide-small">
+                <button class="w3-padding-large w3-button" title="More">MORE <i class="fa fa-caret-down"></i></button>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                    <a href="#" class="w3-bar-item w3-button">SHIFT REPORT</a>
+                    <a href="#" class="w3-bar-item w3-button">DAY REPORT</a>
+                </div>
             </div>
-          </div>
-          <div class="w3-third w3-margin-bottom">
-            <img src="/w3images/paris.jpg" alt="Paris" style="width:100%" class="w3-hover-opacity">
-            <div class="w3-container w3-white">
-              <p><b>Paris</b></p>
-              <p class="w3-opacity">Sat 28 Nov 2016</p>
-              <p>Praesent tincidunt sed tellus ut rutrum sed vitae justo.</p>
-              <button class="w3-button w3-black w3-margin-bottom"
-                onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button>
+            <div class="w3-bar-item w3-hide-small w3-right" ng-hide="auth">
+                <button class="w3-right w3-black w3-padding-small" ng-click="login()">LOGIN</button>
+                <input type="text" name="" id="" class=" w3-left w3-padding-small" ng-model="pin">
             </div>
-          </div>
-          <div class="w3-third w3-margin-bottom">
-            <img src="/w3images/sanfran.jpg" alt="San Francisco" style="width:100%" class="w3-hover-opacity">
-            <div class="w3-container w3-white">
-              <p><b>San Francisco</b></p>
-              <p class="w3-opacity">Sun 29 Nov 2016</p>
-              <p>Praesent tincidunt sed tellus ut rutrum sed vitae justo.</p>
-              <button class="w3-button w3-black w3-margin-bottom"
-                onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button>
+            <div class="w3-bar-item w3-hide-small w3-right " ng-hide="!auth">
+                <span class=" w3-left w3-padding-small">{{user}}</span>
+                <button class="w3-right w3-black w3-padding-small"
+                    ng-click="auth=false; user='Guest'; pin=''">LOGOUT</button>
             </div>
-          </div>
+
+
         </div>
-      </div>
     </div>
-  
-    <!-- Ticket Modal -->
-    <div id="ticketModal" class="w3-modal">
-      <div class="w3-modal-content w3-animate-top w3-card-4">
-        <header class="w3-container w3-teal w3-center w3-padding-32">
-          <span onclick="document.getElementById('ticketModal').style.display='none'"
-            class="w3-button w3-teal w3-xlarge w3-display-topright">×</span>
-          <h2 class="w3-wide"><i class="fa fa-suitcase w3-margin-right"></i>Tickets</h2>
-        </header>
-        <div class="w3-container">
-          <p><label><i class="fa fa-shopping-cart"></i> Tickets, $15 per person</label></p>
-          <input class="w3-input w3-border" type="text" placeholder="How many?">
-          <p><label><i class="fa fa-user"></i> Send To</label></p>
-          <input class="w3-input w3-border" type="text" placeholder="Enter email">
-          <button class="w3-button w3-block w3-teal w3-padding-16 w3-section w3-right">PAY <i
-              class="fa fa-check"></i></button>
-          <button class="w3-button w3-red w3-section"
-            onclick="document.getElementById('ticketModal').style.display='none'">Close <i
-              class="fa fa-remove"></i></button>
-          <p class="w3-right">Need <a href="#" class="w3-text-blue">help?</a></p>
-        </div>
-      </div>
+
+    <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
+    <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+        <a href="#live" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">LIVE</a>
+        <a href="#trends" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">TRENDS</a>
+        <a href="#tables" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">TABLES</a>
+        <a href="#graphs" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">GRAPHS</a>
     </div>
-  
-    <!-- The Contact Section -->
-    <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
-      <h2 class="w3-wide w3-center">CONTACT</h2>
-      <p class="w3-opacity w3-center"><i>Fan? Drop a note!</i></p>
-      <div class="w3-row w3-padding-32">
-        <div class="w3-col m6 w3-large w3-margin-bottom">
-          <i class="fa fa-map-marker" style="width:30px"></i> Chicago, US<br>
-          <i class="fa fa-phone" style="width:30px"></i> Phone: +00 151515<br>
-          <i class="fa fa-envelope" style="width:30px"> </i> Email: mail@mail.com<br>
-        </div>
-        <div class="w3-col m6">
-          <form action="/action_page.php" target="_blank">
-            <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
-              <div class="w3-half">
-                <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
-              </div>
-              <div class="w3-half">
-                <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
-              </div>
+
+    <!-- Page content -->
+    <div class="w3-content" style="max-width:2000px;margin-top:46px">
+
+
+
+
+        <!-- The Band Section -->
+        <div class="w3-container w3-content w3-center w3-padding" style="max-width:1300px;" id="live">
+            <div class="section" id="live-sec">
+
+
+
+
+
+                <div class="live-sub">
+                    <div class="silo mach" ng-repeat="silo in silos">
+                        <p clas="silo-name"> {{silo.name}}</p>
+                        <div class="rake-incrementer">
+                            <button ng-click="silo.rakes=silo.rakes-1; update()" ng-hide="!auth">-</button>
+                            <span>{{silo.rakes}}</span>
+                            <button ng-click="silo.rakes=silo.rakes+1; update()" ng-hide="!auth">+</button>
+                        </div>
+
+                        <input type="text" ng-model="silo.remark" ng-change="update()">
+                    </div>
+
+                    <div class="mach live-dumper">
+                        <p> EAST DUMPERS</p>
+                        <div>
+                            <button ng-click="dumperCounter(1)" ng-hide="!auth">-</button>
+                            <p class="dumper-param">AVL</p>
+                            <p>{{dumper. east_avl}}</p>
+                            <button ng-click="dumperCounter(2)" ng-hide="!auth">+</button>
+                        </div>
+                        <div>
+                            <button ng-click="dumperCounter(3)" ng-hide="!auth">-</button>
+                            <p class="dumper-param">RUN</p>
+                            <p>{{dumper. east_run}}</p>
+                            <button ng-click="dumperCounter(4)" ng-hide="!auth">+</button>
+                        </div>
+                    </div>
+
+
+                    <div class="mach live-dumper">
+                        <p>WEST DUMPERS</p>
+                        <div>
+                            <button ng-click="dumperCounter(5)" ng-hide="!auth">-</button>
+                            <p class="dumper-param">AVL</p>
+                            <p>{{dumper.west_avl}}</p>
+                            <button ng-click="dumperCounter(6)" ng-hide="!auth">+</button>
+                        </div>
+                        <div>
+                            <button ng-click="dumperCounter(7)" ng-hide="!auth">-</button>
+                            <p class="dumper-param">RUN</p>
+                            <p>{{dumper.west_run}}</p>
+                            <button ng-click="dumperCounter(8)" ng-hide="!auth">+</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="live-sub">
+                    <div class="machine mach" ng-repeat="x in machines" ng-hide="x.type!='crusher'">
+                        <div class="inner">
+                            <div class="front {{ statusStrings[x.status] }}">
+                                <p class="machine-title">{{ x.name }}</p>
+                                <p class="machine-remark">{{ x.remark }}</p>
+                            </div>
+
+                            <div class="back">
+
+                                <select ng-model="x.status" ng-change="update()"
+                                    ng-options="statusStrings[s] for s in statusCodes"></select>
+                                <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
+                                    type="text" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="live-sub">
+                    <div class="machine mach" ng-repeat="x in machines" ng-hide="x.type!='shovel'">
+                        <div class="inner">
+                            <div class="front {{ statusStrings[x.status] }}">
+                                <p class="machine-title">{{ x.name }}</p>
+                                <p class="machine-remark">{{ x.remark }}</p>
+                            </div>
+
+                            <div class="back">
+
+                                <select ng-model="x.status" ng-change="update()"
+                                    ng-options="statusStrings[s] for s in statusCodes"></select>
+                                <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
+                                    type="text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="live-sub">
+                    <div class="machine mach" ng-repeat="x in machines" ng-hide="x.type!='dragline'">
+                        <div class="inner">
+                            <div class="front {{ statusStrings[x.status] }}">
+                                <p class="machine-title">{{ x.name }}</p>
+                                <p class="machine-remark">{{ x.remark }}</p>
+                            </div>
+
+                            <div class="back">
+
+                                <select ng-model="x.status" ng-change="update()"
+                                    ng-options="statusStrings[s] for s in statusCodes"></select>
+                                <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
+                                    type="text" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
             </div>
-            <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
-            <button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
-          </form>
+
+
+
         </div>
-      </div>
-    </div>
-  
-    <!-- End Page Content -->
-  </div>
-  
-  <!-- Image of location/map -->
-  <img src="/w3images/map.jpg" class="w3-image w3-greyscale-min" style="width:100%">
-  
-  <!-- Footer -->
-  <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
-    <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-  </footer>
-  
-
-
-
-  <header class="large">
-    <img class="header-icon" src="media/favicon.svg" alt="" width="20px" height="20px">
-    <p class="header-title">Dudhichua Live</p>
-    <div class="header-menu">
-      <a href="index.html">Live</a>
-      <a href="shift.html">Shift</a>
-      <a href="day.html">Day</a>
-    </div>
-  </header>
-
-  <header class="sub-header">
-    <div class="section-selector">
-      <a id="live-tab" href="#" onmouseDown="openSection('live')" class="tab">Live</i></a>
-      <a id="trends-tab" href="#" onmouseDown="openSection('trends')" class="tab  ">Trends</i></a>
-      <a id="stats-tab" href="#" onmouseDown="openSection('stats')" class="tab  ">Stats</i></a>
-      <a id="graphs-tab" href="#" onmouseDown="openSection('graphs')" class="tab">Graphs</i></a>
-    </div>
-  </header>
 
 
 
 
-  <!-- <div class="leg">
-    <div class="idl {{ statusStrings[0] }}">{{ statusStrings[0] }}</div>
-    <div class="run {{ statusStrings[1] }}">{{ statusStrings[1] }}</div>
-    <div class="brk {{ statusStrings[2] }}">{{ statusStrings[2] }}</div>
-  </div> -->
 
-  <!-- /////////////////////////////////////////////////////////// -->
+        <!-- The Tour Section -->
+        <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:1300px" id="trends">
+            <div class="section" id="trends-sec">
+                <div class="trend-row" ng-repeat="x in machines">
+                    <div class="mcname">
+                        {{x.name}}
+                    </div>
+                    <div class="mctrend">
+                        <div ng-repeat="y in x.logs track by $index"
+                            class="tooltip trend-block {{statusStrings[y]}}-block"
+                            ng-click=" y=y+1; y=y%3; x.logs[$index]=y; update()">
+                            <span class="tooltiptext">{{timef($index)}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  <div class="section" id="live-sec">
-
-    <div class="live-sub">
-      <div class="machine card" ng-repeat="x in machines" ng-hide="x.type!='crusher'">
-        <div class="inner">
-          <div class="front {{ statusStrings[x.status] }}">
-            <p class="machine-title">{{ x.name }}</p>
-            <p class="machine-remark">{{ x.remark }}</p>
-          </div>
-
-          <div class="back">
-            <p class="machine-title-back">{{ x.name }}</p>
-            <select ng-model="x.status" ng-change="update()"
-              ng-options="statusStrings[s] for s in statusCodes"></select>
-            <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark" type="text" />
-          </div>
         </div>
-      </div>
 
-      <div class="silo card" ng-repeat="silo in silos">
-        <p clas="silo-name"> {{silo.name}}</p>
-        <div class="rake-incrementer">
-          <button ng-click="silo.rakes=silo.rakes-1; update()">-</button>
-          <span>{{silo.rakes}}</span>
-          <button ng-click="silo.rakes=silo.rakes+1; update()">+</button>
+
+
+
+
+
+
+        <!-- Ticket Modal -->
+        <div class="w3-container w3-content w3-padding-64" style="max-width:1300px" id="tables">
+            <div class="section" id="stats-sec">
+
+                <div class="east-dumper-table">
+                    <table class="w3-table-all">
+                        <tr class="w3-green">
+                            <td>HOUR</td>
+                            <td>AVL</td>
+                            <td>RUN</td>
+                            <td>IDL</td>
+                            <td>BRK</td>
+                            <td>AVLI</td>
+                            <td>UTLI</td>
+                        </tr>
+                        <tr ng-repeat="x in dumpers">
+                            <td>{{x.hour+1}}</td>
+                            <td>{{x.east_avl}}</td>
+                            <td>{{x.east_run}}</td>
+                            <td>{{x.east_idl}}</td>
+                            <td>{{x.east_brk}}</td>
+                            <td>{{x.east_avli}} %</td>
+                            <td>{{x.east_utli}} %</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="west-dumper-table">
+                    <table class="w3-table-all">
+                        <tr class="w3-green">
+                            <td>HOUR</td>
+                            <td>AVL</td>
+                            <td>RUN</td>
+                            <td>IDL</td>
+                            <td>BRK</td>
+                            <td>AVLI</td>
+                            <td>UTLI</td>
+                        </tr>
+                        <tr ng-repeat="x in dumpers">
+                            <td>{{x.hour+1}}</td>
+                            <td>{{x.west_avl}}</td>
+                            <td>{{x.west_run}}</td>
+                            <td>{{x.west_idl}}</td>
+                            <td>{{x.west_brk}}</td>
+                            <td>{{x.west_avli}} %</td>
+                            <td>{{x.west_utli}} %</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="shovel-perf-div">
+                    <table class="shovel-perf-table w3-table-all">
+                        <tr class="w3-green">
+                            <th>Shovel</th>
+                            <th>Avl hrs</th>
+                            <th>Idl hrs</th>
+                            <th>Run hrs</th>
+                            <th>Bdn hrs</th>
+                            <th>% Avl</th>
+                            <th>% Utl</th>
+                        </tr>
+                        <tr ng-repeat="s in machines" ng-hide="s.type!='shovel'">
+
+                            <td>{{s.name}}</td>
+                            <td>{{s.avlhms}}</td>
+                            <td>{{s.idlhms}}</td>
+                            <td>{{s.runhms}}</td>
+                            <td>{{s.brkhms}}</td>
+                            <td>{{s.avlstr}}</td>
+                            <td>{{s.utlstr}}</td>
+                        </tr>
+                        <tr class="total w3-green">
+                            <td>TOTAL</td>
+                            <td>{{shovelTotal.avlhms}}</td>
+                            <td>{{shovelTotal.idlhms}}</td>
+                            <td>{{shovelTotal.runhms}}</td>
+                            <td>{{shovelTotal.brkhms}}</td>
+                            <td>{{shovelTotal.avlstr}}</td>
+                            <td>{{shovelTotal.utlstr}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="crusher-perf-div">
+                    <table class="crusher-perf-table w3-table-all">
+                        <tr class="w3-green">
+                            <th>Crusher</th>
+                            <th>Avl hrs</th>
+                            <th>Idl hrs</th>
+                            <th>Run hrs</th>
+                            <th>Bdn hrs</th>
+                            <th>% Avl</th>
+                            <th>% Utl</th>
+                        </tr>
+                        <tr ng-repeat="s in machines" ng-hide="s.type!='crusher'">
+
+                            <td>{{s.name}}</td>
+                            <td>{{s.avlhms}}</td>
+                            <td>{{s.idlhms}}</td>
+                            <td>{{s.runhms}}</td>
+                            <td>{{s.brkhms}}</td>
+                            <td>{{s.avlstr}}</td>
+                            <td>{{s.utlstr}}</td>
+                        </tr>
+                        <tr class="total w3-green">
+                            <td>TOTAL</td>
+                            <td>{{crusherTotal.avlhms}}</td>
+                            <td>{{crusherTotal.idlhms}}</td>
+                            <td>{{crusherTotal.runhms}}</td>
+                            <td>{{crusherTotal.brkhms}}</td>
+                            <td>{{crusherTotal.avlstr}}</td>
+                            <td>{{crusherTotal.utlstr}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="dragline-perf-div">
+                    <table class="dragline-perf-table w3-table-all">
+                        <tr class="w3-green">
+                            <th>Dragline</th>
+                            <th>Avl hrs</th>
+                            <th>Idl hrs</th>
+                            <th>Run hrs</th>
+                            <th>Bdn hrs</th>
+                            <th>% Avl</th>
+                            <th>% Utl</th>
+                        </tr>
+                        <tr ng-repeat="s in machines" ng-hide="s.type!='dragline'">
+
+                            <td>{{s.name}}</td>
+                            <td>{{s.avlhms}}</td>
+                            <td>{{s.idlhms}}</td>
+                            <td>{{s.runhms}}</td>
+                            <td>{{s.brkhms}}</td>
+                            <td>{{s.avlstr}}</td>
+                            <td>{{s.utlstr}}</td>
+                        </tr>
+                        <tr class="total w3-green">
+                            <td>TOTAL</td>
+                            <td>{{draglineTotal.avlhms}}</td>
+                            <td>{{draglineTotal.idlhms}}</td>
+                            <td>{{draglineTotal.runhms}}</td>
+                            <td>{{draglineTotal.brkhms}}</td>
+                            <td>{{draglineTotal.avlstr}}</td>
+                            <td>{{draglineTotal.utlstr}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
         </div>
-        <div class="silo-remark">
-          <input type="text" ng-model="silo.remark" ng-change="update()">
+
+        <div class="w3-container w3-content w3-padding-64" style="max-width:1300px" id="graphs">
+            <div class="section" id="graphs-sec">
+                <div ng-repeat="mach in machines" class="perf-mach" ng-hide="mach.type=='shovel'">
+                    <div class="perf-mcname">
+                        <p>{{mach.name}}</p>
+                    </div>
+                    <div>
+                        <table class="inner-perf-table">
+                            <tr>
+                                <td> Idle</td>
+                                <td>{{mach.idlhms}}</td>
+                            </tr>
+                            <tr>
+                                <td> Rung</td>
+                                <td>{{mach.runhms}}</td>
+                            </tr>
+                            <tr>
+                                <td> Brdn</td>
+                                <td>{{mach.brkhms}}</td>
+                            </tr>
+                            <tr>
+                                <td> Avlb</td>
+                                <td>{{mach.avlhms}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table class="inner-perf-table">
+                            <tr>
+                                <td>Availability</td>
+                                <td>{{mach.avlstr}}</td>
+                            </tr>
+                            <tr>
+                                <td>Utilization</td>
+                                <td>{{mach.utlstr}}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+            </div>
         </div>
-      </div>
+
 
 
 
     </div>
 
-    <div class="live-sub">
-      <div class="machine card" ng-repeat="x in machines" ng-hide="x.type!='shovel'">
-        <div class="inner">
-          <div class="front {{ statusStrings[x.status] }}">
-            <p class="machine-title">{{ x.name }}</p>
-            <p class="machine-remark">{{ x.remark }}</p>
-          </div>
-
-          <div class="back">
-            <p class="machine-title-back">{{ x.name }}</p>
-            <select ng-model="x.status" ng-change="update()"
-              ng-options="statusStrings[s] for s in statusCodes"></select>
-            <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark" type="text" />
-          </div>
-        </div>
-      </div>
-    </div>
 
 
 
 
-    <div class="live-sub">
-      <div class="machine card" ng-repeat="x in machines" ng-hide="x.type!='dragline'">
-        <div class="inner">
-          <div class="front {{ statusStrings[x.status] }}">
-            <p class="machine-title">{{ x.name }}</p>
-            <p class="machine-remark">{{ x.remark }}</p>
-          </div>
+    <!-- Footer -->
+    <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
 
-          <div class="back">
-            <p class="machine-title-back">{{ x.name }}</p>
-            <select ng-model="x.status" ng-change="update()"
-              ng-options="statusStrings[s] for s in statusCodes"></select>
-            <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark" type="text" />
-          </div>
-        </div>
-      </div>
+    </footer>
 
-      <div class="card live-dumper">
-        <p>EAST DUMPERS</p>
-        <table>
-          <tr>
-            <td>Avl</td>
-            <td> <button ng-click="dumperCounter(1)">-</button></td>
-            <td class="dumper-counter">{{dumper.east_avl}}</td>
-            <td><button ng-click="dumperCounter(2)">+</button></td>
-          </tr>
-          <tr>
-            <td>Run</td>
-            <td><button ng-click="dumperCounter(3)">-</button></td>
-            <td class="dumper-counter">{{dumper.east_run}}</td>
-            <td><button ng-click="dumperCounter(4)">+</button></td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="card live-dumper">
-        <p>WEST DUMPERS</p>
-        <table>
-          <tr>
-            <td>Avl</td>
-            <td> <button ng-click="dumperCounter(5)">-</button></td>
-            <td class="dumper-counter">{{dumper.west_avl}}</td>
-            <td><button ng-click="dumperCounter(6)">+</button></td>
-          </tr>
-          <tr>
-            <td>Run</td>
-            <td><button ng-click="dumperCounter(7)">-</button></td>
-            <td class="dumper-counter">{{dumper.west_run}}</td>
-            <td><button ng-click="dumperCounter(8)">+</button></td>
-          </tr>
-        </table>
-      </div>
+    <script>
+        // Automatic Slideshow - change image every 4 seconds
+        var myIndex = 0;
 
 
 
-    </div>
-  </div>
+        // Used to toggle the menu on small screens when clicking on the menu button
+        function myFunction() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
 
-  <div class="section" id="trends-sec">
-    <div class="trend-row" ng-repeat="x in machines">
-      <div class="mcname">
-        {{x.name}}
-      </div>
-      <div class="mctrend">
-        <div ng-repeat="y in x.logs track by $index" class="tooltip trend-block {{statusStrings[y]}}-block"
-          ng-click=" y=y+1; y=y%3; x.logs[$index]=y; update()">
-          <span class="tooltiptext">{{timef($index)}}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section" id="stats-sec">
-
-        <div class="east-dumper-table">
-          <table class="w3-table-all">
-            <tr class="w3-green">
-              <td>HOUR</td>
-              <td>AVL</td>
-              <td>RUN</td>
-              <td>IDL</td>
-              <td>BRK</td>
-              <td>AVLI</td>
-              <td>UTLI</td>
-            </tr>
-            <tr ng-repeat="x in dumpers">
-              <td>{{x.hour+1}}</td>
-              <td>{{x.east_avl}}</td>
-              <td>{{x.east_run}}</td>
-              <td>{{x.east_idl}}</td>
-              <td>{{x.east_brk}}</td>
-              <td>{{x.east_avli}} %</td>
-              <td>{{x.east_utli}} %</td>
-            </tr>
-          </table>
-        </div>
-        
-        <div class="west-dumper-table">
-          <table class="w3-table-all">
-            <tr class="w3-green">
-              <td>HOUR</td>
-              <td>AVL</td>
-              <td>RUN</td>
-              <td>IDL</td>
-              <td>BRK</td>
-              <td>AVLI</td>
-              <td>UTLI</td>
-            </tr>
-            <tr ng-repeat="x in dumpers">
-              <td>{{x.hour+1}}</td>
-              <td>{{x.west_avl}}</td>
-              <td>{{x.west_run}}</td>
-              <td>{{x.west_idl}}</td>
-              <td>{{x.west_brk}}</td>
-              <td>{{x.west_avli}} %</td>
-              <td>{{x.west_utli}} %</td>
-            </tr>
-          </table>
-        </div>
-    <div class="shovel-perf-div">
-      <table class="shovel-perf-table w3-table-all">
-        <tr class="w3-green">
-          <th>Shovel</th>
-          <th>Avl hrs</th>
-          <th>Idl hrs</th>
-          <th>Run hrs</th>
-          <th>Bdn hrs</th>
-          <th>% Avl</th>
-          <th>% Utl</th>
-        </tr>
-        <tr ng-repeat="s in machines" ng-hide="s.type!='shovel'">
-
-          <td>{{s.name}}</td>
-          <td>{{s.avlhms}}</td>
-          <td>{{s.idlhms}}</td>
-          <td>{{s.runhms}}</td>
-          <td>{{s.brkhms}}</td>
-          <td>{{s.avlstr}}</td>
-          <td>{{s.utlstr}}</td>
-        </tr>
-        <tr class="total w3-green">
-          <td>TOTAL</td>
-          <td>{{shovelTotal.avlhms}}</td>
-          <td>{{shovelTotal.idlhms}}</td>
-          <td>{{shovelTotal.runhms}}</td>
-          <td>{{shovelTotal.brkhms}}</td>
-          <td>{{shovelTotal.avlstr}}</td>
-          <td>{{shovelTotal.utlstr}}</td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="crusher-perf-div">
-      <table class="crusher-perf-table w3-table-all">
-        <tr class="w3-green">
-          <th>Crusher</th>
-          <th>Avl hrs</th>
-          <th>Idl hrs</th>
-          <th>Run hrs</th>
-          <th>Bdn hrs</th>
-          <th>% Avl</th>
-          <th>% Utl</th>
-        </tr>
-        <tr ng-repeat="s in machines" ng-hide="s.type!='crusher'">
-
-          <td>{{s.name}}</td>
-          <td>{{s.avlhms}}</td>
-          <td>{{s.idlhms}}</td>
-          <td>{{s.runhms}}</td>
-          <td>{{s.brkhms}}</td>
-          <td>{{s.avlstr}}</td>
-          <td>{{s.utlstr}}</td>
-        </tr>
-        <tr class="total w3-green">
-          <td>TOTAL</td>
-          <td>{{crusherTotal.avlhms}}</td>
-          <td>{{crusherTotal.idlhms}}</td>
-          <td>{{crusherTotal.runhms}}</td>
-          <td>{{crusherTotal.brkhms}}</td>
-          <td>{{crusherTotal.avlstr}}</td>
-          <td>{{crusherTotal.utlstr}}</td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="dragline-perf-div">
-      <table class="dragline-perf-table w3-table-all">
-        <tr class="w3-green">
-          <th>Dragline</th>
-          <th>Avl hrs</th>
-          <th>Idl hrs</th>
-          <th>Run hrs</th>
-          <th>Bdn hrs</th>
-          <th>% Avl</th>
-          <th>% Utl</th>
-        </tr>
-        <tr ng-repeat="s in machines" ng-hide="s.type!='dragline'">
-
-          <td>{{s.name}}</td>
-          <td>{{s.avlhms}}</td>
-          <td>{{s.idlhms}}</td>
-          <td>{{s.runhms}}</td>
-          <td>{{s.brkhms}}</td>
-          <td>{{s.avlstr}}</td>
-          <td>{{s.utlstr}}</td>
-        </tr>
-        <tr class="total w3-green">
-          <td>TOTAL</td>
-          <td>{{draglineTotal.avlhms}}</td>
-          <td>{{draglineTotal.idlhms}}</td>
-          <td>{{draglineTotal.runhms}}</td>
-          <td>{{draglineTotal.brkhms}}</td>
-          <td>{{draglineTotal.avlstr}}</td>
-          <td>{{draglineTotal.utlstr}}</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-
-  <div class="section" id="graphs-sec">
-    <div ng-repeat="mach in machines" class="perf-mach" ng-hide="mach.type=='shovel'">
-      <div class="perf-mcname">
-        <p>{{mach.name}}</p>
-      </div>
-      <div>
-        <table class="inner-perf-table">
-          <tr>
-            <td> Idle</td>
-            <td>{{mach.idlhms}}</td>
-          </tr>
-          <tr>
-            <td> Rung</td>
-            <td>{{mach.runhms}}</td>
-          </tr>
-          <tr>
-            <td> Brdn</td>
-            <td>{{mach.brkhms}}</td>
-          </tr>
-          <tr>
-            <td> Avlb</td>
-            <td>{{mach.avlhms}}</td>
-          </tr>
-        </table>
-      </div>
-      <div>
-        <table class="inner-perf-table">
-          <tr>
-            <td>Availability</td>
-            <td>{{mach.avlstr}}</td>
-          </tr>
-          <tr>
-            <td>Utilization</td>
-            <td>{{mach.utlstr}}</td>
-          </tr>
-        </table>
-
-      </div>
-
-
-    </div>
-
-  </div>
-
-  <!-- <style>
-  .mctrend div:nth-child( {{block+1}}) {
-    border-radius: 0 50% 50% 0;
-  }
-</style> -->
-
-
+        // When the user clicks anywhere outside of the modal, close it
+        var modal = document.getElementById('ticketModal');
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 
