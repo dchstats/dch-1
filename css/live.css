@@ -434,12 +434,12 @@ input, select:disabled{
 }
 
 #tables-sec input{
-	padding:2px 5px;
+	max-width:50px;
+	padding:2px 2px;
 	border:1px solid lightgrey;
 }
 
 #tables-sec input:disabled{
-	padding:2px 5px;
 	border:none;
 
 }
