@@ -27,7 +27,7 @@ app.controller("myController", function ($scope, $http) {
     $scope.stamp = ""  // time of fetched status
 
     $scope.pin = "";
-    $scope.auth = false;
+
     $scope.user = "Guest";
     $scope.status = "Please user PIN:1234 to login as Viewpoint";
     $scope.upUrl = 'https://sushanttiwari.in/serv/upLive.php';
@@ -43,6 +43,7 @@ app.controller("myController", function ($scope, $http) {
 
     // CONFIGS ////////
     $scope.changed = false;
+    $scope.auth = false;
     ///////////////////
 
     class Machine {
@@ -463,6 +464,17 @@ app.controller("myController", function ($scope, $http) {
         }
 
         $scope.update();
+    }
+
+
+    $scope.trendToggle = function (mach, i) {
+        if ($scope.auth) {
+            k = mach.logs[i];
+            k += 1;
+            k %= 3;
+            mach.logs[i] = k;
+            $scope.changed = true;
+        }
     }
 
     $scope.timef=function(block) {

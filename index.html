@@ -67,7 +67,7 @@
     <div class="w3-content" style="max-width:2000px;margin-top:48px">
 
 
-       
+
         <div class="w3-container w3-content w3-center w3-padding" style="max-width:1350px;" id="live">
             <div class="section" id="live-sec">
 
@@ -201,7 +201,7 @@
 
         </div>
 
-      
+
         <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:1350px" id="trends">
             <div class="section" id="trends-sec">
                 <div class="trend-row" ng-repeat="x in machines">
@@ -211,7 +211,7 @@
                     <div class="mctrend">
                         <div ng-repeat="y in x.logs track by $index"
                             class="tooltip trend-block {{statusStrings[y]}}-block"
-                            ng-click=" y=y+1; y=y%3; x.logs[$index]=y; update()">
+                            ng-click=" trendToggle(x,$index)">
                             <span class="tooltiptext">{{timef($index)}}</span>
                         </div>
                     </div>
@@ -221,8 +221,8 @@
         </div>
 
 
-       
-     
+
+
 
         <div class="w3-container w3-content w3-padding-64" style="max-width:1350px" id="graphs">
 
@@ -238,7 +238,7 @@
                             <div class="bar-parent">
                                 <div class="avl-bar" style="height:{{mach.avlstr}}">
                                     <span>{{mach.avlstr}}</span>
-                                    
+
                                 </div>
                             </div>
                         </td>
@@ -246,7 +246,7 @@
                             <div class="bar-parent">
                                 <div class="utl-bar" style="height:{{mach.utlstr}};">
                                     <span>{{mach.utlstr}}</span>
-                                    
+
                                 </div>
                             </div>
 
