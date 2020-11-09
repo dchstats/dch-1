@@ -11,6 +11,15 @@ body {
 	 background: rgb(47, 47, 47);
 }
 
+input, select{
+	padding:2px 5px;
+	border:1px solid lightgrey;
+}
+
+
+input, select:disabled{
+	outline:none;
+}
 
 
 /* HEADER /////////////////////////////// */
@@ -196,25 +205,24 @@ body {
 }
 
 .trend-row {
-	width: 96%;
-	height: 30px;
-	display: flex;
+	/* display: flex; */
 	color: white;
-	margin: 30px 0;
+	margin-bottom: 20px;
 }
 
 .mcname {
+	width: 200px;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	color: white;
-	min-width: 100px;
+	
 }
 
 .mctrend {
+	height:30px;
 	display: flex;
 	flex-grow: 1;
-	border: 1px solid rgb(188, 188, 188, 0.2);
 	border-radius: 5px;
 	/* overflow: hidden; */
 }
@@ -222,6 +230,15 @@ body {
 .trend-block {
 	height: 100%;
 	flex-grow: 1;
+	cursor:pointer;
+}
+
+.trend-block:last-of-type{
+	border-right: 1px solid rgb(188, 188, 188, 0.2);
+}
+
+.trend-block:hover{
+	border:1px solid yellow;
 }
 
 .Idle-block {
@@ -241,6 +258,8 @@ body {
 
 .Undef-block {
 	background: rgba(163, 163, 163, 0);
+	border-top: 1px solid rgb(188, 188, 188, 0.2);
+	border-bottom: 1px solid rgb(188, 188, 188, 0.2);
 }
 
 
@@ -396,7 +415,7 @@ body {
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: #555 transparent transparent transparent;
+  border-color: yellow transparent transparent transparent;
 }
 
 .tooltip:hover .tooltiptext {
@@ -410,8 +429,19 @@ body {
 
 #tables-sec > div{
 		margin-bottom:100px;
-		background:yellow;
+		
 	
+}
+
+#tables-sec input{
+	padding:2px 5px;
+	border:1px solid lightgrey;
+}
+
+#tables-sec input:disabled{
+	padding:2px 5px;
+	border:none;
+
 }
 
 /* //////////////////////////////////////////////// */

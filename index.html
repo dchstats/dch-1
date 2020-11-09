@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
+
     <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
         <a href="#live" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">LIVE</a>
         <a href="#trends" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">TRENDS</a>
@@ -210,8 +210,7 @@
                     </div>
                     <div class="mctrend">
                         <div ng-repeat="y in x.logs track by $index"
-                            class="tooltip trend-block {{statusStrings[y]}}-block"
-                            ng-click=" trendToggle(x,$index)">
+                            class="tooltip trend-block {{statusStrings[y]}}-block" ng-click=" trendToggle(x,$index)">
                             <span class="tooltiptext">{{timef($index)}}</span>
                         </div>
                     </div>
@@ -287,13 +286,24 @@
                         </tr>
                         <tr ng-repeat="x in dumpers">
                             <td>{{x.hour+1}}</td>
-                            <td>{{x.east_avl}}</td>
-                            <td>{{x.east_run}}</td>
+                            <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour"
+                                    ng-change="update()"></td>
+                            <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour"
+                                    ng-change="update()"></td>
                             <td>{{x.east_idl}}</td>
                             <td>{{x.east_brk}}</td>
                             <td>{{x.east_avli}} %</td>
                             <td>{{x.east_utli}} %</td>
                         </tr>
+                            <tr class="w3-green">
+                                <td>TOTAL</td>
+                                <td>{{dumperTotal.east_avl}} Hrs</td>
+                                <td>{{dumperTotal.east_run}} Hrs</td>
+                                <td>{{dumperTotal.east_idl}} Hrs</td>
+                                <td>{{dumperTotal.east_brk}} Hrs</td>
+                                <td>{{dumperTotal.east_avli}} %</td>
+                                <td>{{dumperTotal.east_utli}} %</td>
+                            </tr>
                     </table>
                 </div>
 
@@ -311,12 +321,23 @@
                         </tr>
                         <tr ng-repeat="x in dumpers">
                             <td>{{x.hour+1}}</td>
-                            <td>{{x.west_avl}}</td>
-                            <td>{{x.west_run}}</td>
+                            <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour"
+                                    ng-change="update()"></td>
+                            <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour"
+                                    ng-change="update()"></td>
                             <td>{{x.west_idl}}</td>
                             <td>{{x.west_brk}}</td>
                             <td>{{x.west_avli}} %</td>
                             <td>{{x.west_utli}} %</td>
+                        </tr>
+                        <tr class="w3-green">
+                            <td>TOTAL</td>
+                            <td>{{dumperTotal.west_avl}} Hrs</td>
+                            <td>{{dumperTotal.west_run}} Hrs</td>
+                            <td>{{dumperTotal.west_idl}} Hrs</td>
+                            <td>{{dumperTotal.west_brk}} Hrs</td>
+                            <td>{{dumperTotal.west_avli}} %</td>
+                            <td>{{dumperTotal.west_utli}} %</td>
                         </tr>
                     </table>
                 </div>
@@ -332,6 +353,8 @@
                             <th>% Avl</th>
                             <th>% Utl</th>
                         </tr>
+
+
                         <tr ng-repeat="s in machines" ng-hide="s.type!='shovel'">
 
                             <td>{{s.name}}</td>
