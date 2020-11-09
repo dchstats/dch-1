@@ -4,9 +4,9 @@ app.controller("myController", function ($scope, $http) {
     $scope.subSections = ['live', 'dumpers']
 
     $scope.crushers = ['Crusher-01', 'Crusher-02', 'Crusher-03'];
-    $scope.shovels = ['P&H-06', 'P&H-07', 'P&H-09', 'P&H-10',
+    $scope.shovels = ['P&H-06', 'P&H-07', 'P&H-10',
         'P&H-11', 'P&H-12', 'P&H-13', 'P&H-14', 'P&H-15',
-        'P&H-16', 'P&H-17', 'P&H-18', 'P&H-19', 'HIM-20', 'PC-TATA', 'PL-06', 'PL-07', 'SM-L&T'];
+        'P&H-16', 'P&H-17', 'P&H-18', 'P&H-19', 'HIM-20', 'PC-TATA', 'KOMATSU-PC','LAXMAN-PC','PL-06', 'PL-07', 'SM-L&T'];
     $scope.draglines = ['Jyoti', 'Pawan', 'Vindhya', 'Jwala'];
     $scope.siloNames = ['OLD SILO', 'NEW SILO', 'WHARF WALL'];
     $scope.dumperNames = ['EAST', 'WEST'];
@@ -134,7 +134,7 @@ app.controller("myController", function ($scope, $http) {
         console.log('block:', $scope.block, '  hour:', $scope.hour);
 
 
-        if ($scope.changed) {
+        if ($scope.changed && $scope.auth) {
             // console.log('Uploading on status change...');
             upload();
         }
@@ -338,8 +338,8 @@ app.controller("myController", function ($scope, $http) {
             mach.brkhms = tohhmm(mach.brkmins);
             mach.avlhms = tohhmm(mach.avlmins);
 
-            mach.avlstr = `${mach.avl} %`;
-            mach.utlstr = `${mach.utl} %`;
+            mach.avlstr = `${mach.avl}%`;
+            mach.utlstr = `${mach.utl}%`;
 
             $scope.changed = true;
 

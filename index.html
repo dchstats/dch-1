@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<title>W3.CSS Template</title>
+<title>DCH Live</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -44,7 +44,7 @@
             </div>
             <div class="w3-bar-item w3-hide-small w3-right" ng-hide="auth">
                 <button class="w3-right w3-black w3-padding-small" ng-click="login()">LOGIN</button>
-                <input type="text" name="" id="" class=" w3-left w3-padding-small" ng-model="pin">
+                <input type="password" name="" id="" class=" w3-left w3-padding-small" ng-model="pin">
             </div>
             <div class="w3-bar-item w3-hide-small w3-right " ng-hide="!auth">
                 <span class=" w3-left w3-padding-small">{{user}}</span>
@@ -65,7 +65,7 @@
     </div>
 
     <!-- Page content -->
-    <div class="w3-content" style="max-width:2000px;margin-top:46px">
+    <div class="w3-content" style="max-width:2000px;margin-top:32px">
 
 
 
@@ -137,9 +137,9 @@
                             <div class="back">
 
                                 <select ng-model="x.status" ng-change="update()"
-                                    ng-options="statusStrings[s] for s in statusCodes"></select>
+                                    ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
                                 <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
-                                    type="text" />
+                                    type="text" ng-disabled="!auth" />
                             </div>
                         </div>
                     </div>
@@ -160,9 +160,9 @@
                             <div class="back">
 
                                 <select ng-model="x.status" ng-change="update()"
-                                    ng-options="statusStrings[s] for s in statusCodes"></select>
+                                    ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
                                 <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
-                                    type="text" />
+                                    type="text" ng-disabled="!auth" />
                             </div>
                         </div>
                     </div>
@@ -184,9 +184,9 @@
                             <div class="back">
 
                                 <select ng-model="x.status" ng-change="update()"
-                                    ng-options="statusStrings[s] for s in statusCodes"></select>
+                                    ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
                                 <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
-                                    type="text" />
+                                    type="text" ng-disabled="!auth" />
                             </div>
                         </div>
                     </div>
@@ -385,48 +385,48 @@
         </div>
 
         <div class="w3-container w3-content w3-padding-64" style="max-width:1300px" id="graphs">
+
             <div class="section" id="graphs-sec">
-                <div ng-repeat="mach in machines" class="perf-mach" ng-hide="mach.type=='shovel'">
-                    <div class="perf-mcname">
-                        <p>{{mach.name}}</p>
-                    </div>
-                    <div>
-                        <table class="inner-perf-table">
-                            <tr>
-                                <td> Idle</td>
-                                <td>{{mach.idlhms}}</td>
-                            </tr>
-                            <tr>
-                                <td> Rung</td>
-                                <td>{{mach.runhms}}</td>
-                            </tr>
-                            <tr>
-                                <td> Brdn</td>
-                                <td>{{mach.brkhms}}</td>
-                            </tr>
-                            <tr>
-                                <td> Avlb</td>
-                                <td>{{mach.avlhms}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div>
-                        <table class="inner-perf-table">
-                            <tr>
-                                <td>Availability</td>
-                                <td>{{mach.avlstr}}</td>
-                            </tr>
-                            <tr>
-                                <td>Utilization</td>
-                                <td>{{mach.utlstr}}</td>
-                            </tr>
-                        </table>
+                <table class="graphs-tbl" ng-repeat="mach in machines" ng-hide="mach.type=='shovel'">
+                    <tr class="tbl-hdr">
+                        <td colspan="4">{{mach.name}}</td>
+                    </tr>
+                    <tr>
+                        <td> Idle</td>
+                        <td>{{mach.idlhms}}</td>
+                        <td rowspan="3" class="bar-td">
+                            <div class="bar-parent">
+                                <div class="avl-bar" style="height:{{mach.avlstr}}">
+                                    <span>{{mach.avlstr}}</span>
+                                    
+                                </div>
+                            </div>
+                        </td>
+                        <td rowspan="3" class="bar-td">
+                            <div class="bar-parent">
+                                <div class="utl-bar" style="height:{{mach.utlstr}};">
+                                    <span>{{mach.utlstr}}</span>
+                                    
+                                </div>
+                            </div>
 
-                    </div>
-
-
-                </div>
-
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Rung</td>
+                        <td>{{mach.runhms}}</td>
+                    </tr>
+                    <tr>
+                        <td> Brdn</td>
+                        <td>{{mach.brkhms}}</td>
+                    </tr>
+                    <tr>
+                        <td> Avlb</td>
+                        <td>{{mach.avlhms}}</td>
+                        <td>AVLI</td>
+                        <td>UTLI</td>
+                    </tr>
+                </table>
             </div>
         </div>
 

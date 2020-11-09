@@ -19,12 +19,12 @@ body {
 
 .live-sub{
 	width:100%;
-	margin:20px;
+	margin:10px 0px;
 }
 
 .mach{
-	width: 200px;
-	height: 120px;
+	width: 160px;
+	height: 90px;
 	margin: 5px;
 	border-radius:3px;
 	overflow:hidden;
@@ -64,12 +64,12 @@ body {
 .rake-incrementer{
 	padding:0px 10px;
 	display:flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 }
 
 .rake-incrementer span{
-	font-size:35px;
+	font-size:30px;
 }
 
 
@@ -98,7 +98,7 @@ body {
 	height:30%;
 	padding:0px 10px;
 	display:flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 }
 
@@ -261,54 +261,81 @@ body {
 
 /* /////////////////////////////////////////////////////// */
 
-.perf-section {
-	width: 100vw;
-	padding: 20px 0;
-	background: rgb(47, 47, 47);
-	color: white;
-	display: flex;
-	flex-wrap: wrap;
-}
 
-.perf-mach {
-	width: 400px;
-	height: 250px;
-	margin: 10px;
-	display: grid;
-	grid-template-rows: 1fr auto;
-	grid-template-columns: 2fr 3fr;
-	border: 1px solid grey;
-}
 
-.perf-mcname {
-	grid-row: 1;
-	grid-column: 1/-1;
-	background: rgb(84, 84, 84);
-}
-
-.perf-mach div {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 10px;
-}
-
-.perf-section td {
-	border: 1px solid grey;
-	padding: 10px;
-}
-
-/* .perf-section .machine{
+#graphs-sec{
 	display:flex;
-} */
+	flex-wrap:wrap;
+}
 
-table {
+.graphs-tbl{
+	width:350px;
+	height:250px;
+	color:white;
+	margin:10px;
 	border-collapse: collapse;
 }
 
-.mcperf {
-	padding: 10px;
+.tbl-hdr td {
+	background:rgb(80, 79, 79);
 }
+
+
+
+.graphs-tbl td{
+	border:1px solid rgb(128, 126, 126);
+	width:25%;
+	padding:10px;
+}
+
+.graphs-tbl .bar-td{
+	padding:5px 20px 0px;
+}
+
+.bar-parent{
+	border:1px solid rgb(65, 64, 64);
+	height:100%;
+	/* background:yellow; */
+	display:flex;
+	align-items: flex-end;
+	position: relative;
+}
+
+.avl-bar{
+	background: rgb(0, 225, 50);
+	width:100%;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.utl-bar{
+	background:rgb(87, 87, 233);
+	width:100%;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.bar-parent span{
+	position:absolute;
+	bottom:50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ///////////////////////////////////////////////////////////// */
 
@@ -343,19 +370,9 @@ table {
 
 
 
-
-
-
-
-
-
-
-
-
 .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black;
 }
 
 .tooltip .tooltiptext {
