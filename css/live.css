@@ -68,6 +68,7 @@ input, select:disabled{
 	color:white;
 	border:1px solid #666;
 	background:rgb(53, 52, 52);
+	padding-top:5px;
 }
 
 .rake-incrementer{
