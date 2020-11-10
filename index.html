@@ -226,25 +226,26 @@
         <div class="w3-container w3-content w3-padding-64" style="max-width:1350px" id="graphs">
 
             <div class="section" id="graphs-sec">
-                <table class="graphs-tbl" ng-repeat="mach in machines" ng-hide="mach.type=='shovel'">
+
+                <table class="graphs-tbl">
                     <tr class="tbl-hdr">
-                        <td colspan="4">{{mach.name}}</td>
+                        <td colspan="4">CRUSHERS</td>
                     </tr>
                     <tr>
-                        <td> Idle</td>
-                        <td>{{mach.idlhms}}</td>
+                        <td>IDL</td>
+                        <td>{{crusherTotal.idlhms}}</td>
                         <td rowspan="3" class="bar-td">
                             <div class="bar-parent">
-                                <div class="avl-bar" style="height:{{mach.avlstr}}">
-                                    <span>{{mach.avlstr}}</span>
+                                <div class="avl-bar" style="height:{{crusherTotal.avlstr}}">
+                                    <span>{{crusherTotal.avlstr}}</span>
 
                                 </div>
                             </div>
                         </td>
                         <td rowspan="3" class="bar-td">
                             <div class="bar-parent">
-                                <div class="utl-bar" style="height:{{mach.utlstr}};">
-                                    <span>{{mach.utlstr}}</span>
+                                <div class="utl-bar" style="height:{{crusherTotal.utlstr}};">
+                                    <span>{{crusherTotal.utlstr}}</span>
 
                                 </div>
                             </div>
@@ -252,22 +253,154 @@
                         </td>
                     </tr>
                     <tr>
-                        <td> Rung</td>
-                        <td>{{mach.runhms}}</td>
+                        <td>RUN</td>
+                        <td>{{crusherTotal.runhms}}</td>
                     </tr>
                     <tr>
-                        <td> Brdn</td>
-                        <td>{{mach.brkhms}}</td>
+                        <td>BDN</td>
+                        <td>{{crusherTotal.brkhms}}</td>
                     </tr>
                     <tr>
-                        <td> Avlb</td>
-                        <td>{{mach.avlhms}}</td>
-                        <td>AVLI</td>
-                        <td>UTLI</td>
+                        <td>AVL</td>
+                        <td>{{crusherTotal.avlhms}}</td>
+                        <td>% AVL</td>
+                        <td>% UTL</td>
                     </tr>
                 </table>
+
+                <table class="graphs-tbl">
+                    <tr class="tbl-hdr">
+                        <td colspan="4">SHOVEL</td>
+                    </tr>
+                    <tr>
+                        <td>IDL</td>
+                        <td>{{shovelTotal.idlhms}}</td>
+                        <td rowspan="3" class="bar-td">
+                            <div class="bar-parent">
+                                <div class="avl-bar" style="height:{{shovelTotal.avlstr}}">
+                                    <span>{{shovelTotal.avlstr}}</span>
+
+                                </div>
+                            </div>
+                        </td>
+                        <td rowspan="3" class="bar-td">
+                            <div class="bar-parent">
+                                <div class="utl-bar" style="height:{{shovelTotal.utlstr}};">
+                                    <span>{{shovelTotal.utlstr}}</span>
+
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>RUN</td>
+                        <td>{{shovelTotal.runhms}}</td>
+                    </tr>
+                    <tr>
+                        <td>BDN</td>
+                        <td>{{shovelTotal.brkhms}}</td>
+                    </tr>
+                    <tr>
+                        <td>AVL</td>
+                        <td>{{shovelTotal.avlhms}}</td>
+                        <td>% AVL</td>
+                        <td>% UTL</td>
+                    </tr>
+                </table>
+
+                <table class="graphs-tbl">
+                    <tr class="tbl-hdr">
+                        <td colspan="4">DRAGLINES</td>
+                    </tr>
+                    <tr>
+                        <td>IDL</td>
+                        <td>{{draglineTotal.idlhms}}</td>
+                        <td rowspan="3" class="bar-td">
+                            <div class="bar-parent">
+                                <div class="avl-bar" style="height:{{draglineTotal.avlstr}}">
+                                    <span>{{draglineTotal.avlstr}}</span>
+
+                                </div>
+                            </div>
+                        </td>
+                        <td rowspan="3" class="bar-td">
+                            <div class="bar-parent">
+                                <div class="utl-bar" style="height:{{draglineTotal.utlstr}};">
+                                    <span>{{draglineTotal.utlstr}}</span>
+
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>RUN</td>
+                        <td>{{draglineTotal.runhms}}</td>
+                    </tr>
+                    <tr>
+                        <td>BDN</td>
+                        <td>{{draglineTotal.brkhms}}</td>
+                    </tr>
+                    <tr>
+                        <td>AVL</td>
+                        <td>{{draglineTotal.avlhms}}</td>
+                        <td>% AVL</td>
+                        <td>% UTL</td>
+                    </tr>
+                </table>
+                
+
+
+                <table class="graphs-tbl">
+                    <tr class="tbl-hdr">
+                        <td colspan="4">DUMPERS</td>
+                    </tr>
+                    <tr>
+                        <td>IDL</td>
+                        <td>{{dumperTotal.idlhms}}</td>
+                        <td rowspan="3" class="bar-td">
+                            <div class="bar-parent">
+                                <div class="avl-bar" style="height:{{dumperTotal.avlstr}}">
+                                    <span>{{dumperTotal.avlstr}}</span>
+
+                                </div>
+                            </div>
+                        </td>
+                        <td rowspan="3" class="bar-td">
+                            <div class="bar-parent">
+                                <div class="utl-bar" style="height:{{dumperTotal.utlstr}};">
+                                    <span>{{dumperTotal.utlstr}}</span>
+
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>RUN</td>
+                        <td>{{dumperTotal.runhms}}</td>
+                    </tr>
+                    <tr>
+                        <td>BDN</td>
+                        <td>{{dumperTotal.brkhms}}</td>
+                    </tr>
+                    <tr>
+                        <td>AVL</td>
+                        <td>{{dumperTotal.avlhms}}</td>
+                        <td>% AVL</td>
+                        <td>% UTL</td>
+                    </tr>
+                </table>
+
+
+
             </div>
         </div>
+
+
+
+
 
         <div class="w3-container w3-content w3-padding-64" style="max-width:1350px" id="tables">
             <div class="section" id="tables-sec">

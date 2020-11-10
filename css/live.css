@@ -309,7 +309,7 @@ input, select:disabled{
 }
 
 .avl-bar{
-	background: rgb(0, 225, 50);
+	background: rgb(0, 124, 225);
 	width:100%;
 	display:flex;
 	justify-content: center;
@@ -317,7 +317,7 @@ input, select:disabled{
 }
 
 .utl-bar{
-	background:rgb(87, 87, 233);
+	background:rgb(15, 223, 50);
 	width:100%;
 	display:flex;
 	justify-content: center;
@@ -328,17 +328,6 @@ input, select:disabled{
 	position:absolute;
 	bottom:50%;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

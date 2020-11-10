@@ -185,9 +185,6 @@ app.controller("myController", function ($scope, $http) {
 
 
 
-
-
-
     $scope.update = function () {
         $scope.changed = true;
         performanceLog();
@@ -227,7 +224,14 @@ app.controller("myController", function ($scope, $http) {
                 $scope.machines = e.machines;
                 $scope.silos = e.silos;
                 $scope.dumper = e.dumper;
-                $scope.dumpers = e.dumpers;
+                angular.forEach(e.dumpers,function(x,i){
+                    console.log(x);
+                    if(x){
+                        console.log('yay')
+                        $scope.dumpers[i]=x;
+                    }
+                })
+                // $scope.dumpers = e.dumpers;
                 $scope.stamp = stamp;
 
 
@@ -373,6 +377,7 @@ app.controller("myController", function ($scope, $http) {
 
         $scope.dumper.hour = $scope.hour;
         $scope.dumpers[$scope.hour] = { ...$scope.dumper };
+        console.log($scope.dumpers);
 
         angular.forEach($scope.dumpers, function (d, i) {
             d.east_idl = d.east_avl - d.east_run;
@@ -405,6 +410,25 @@ app.controller("myController", function ($scope, $http) {
             $scope.dumperTotal.west_brk = $scope.dumperTotal.west_total - $scope.dumperTotal.west_avl;
             $scope.dumperTotal.west_avli = Math.round($scope.dumperTotal.west_avl * 100 / $scope.dumperTotal.west_total);
             $scope.dumperTotal.west_utli = Math.round($scope.dumperTotal.west_run * 100 / $scope.dumperTotal.west_total);
+
+            $scope.dumperTotal.idl = $scope.dumperTotal.east_idl+$scope.dumperTotal.west_idl;
+            $scope.dumperTotal.run = $scope.dumperTotal.east_run+$scope.dumperTotal.west_run;
+            $scope.dumperTotal.brk = $scope.dumperTotal.east_brk+$scope.dumperTotal.west_brk;
+            $scope.dumperTotal.avl = $scope.dumperTotal.east_avl+$scope.dumperTotal.west_avl;
+            $scope.dumperTotal.total = $scope.dumperTotal.east_total+$scope.dumperTotal.west_total;
+           
+            $scope.dumperTotal.avli = Math.round($scope.dumperTotal.avl * 100 / $scope.dumperTotal.total);
+            $scope.dumperTotal.utli = Math.round($scope.dumperTotal.run * 100 / $scope.dumperTotal.total);
+
+            
+            $scope.dumperTotal.idlhms = ""+$scope.dumperTotal.idl+":00"
+            $scope.dumperTotal.runhms = ""+$scope.dumperTotal.run+":00"
+            $scope.dumperTotal.brkhms = ""+$scope.dumperTotal.brk+":00"
+            $scope.dumperTotal.avlhms = ""+$scope.dumperTotal.avl+":00"
+
+            $scope.dumperTotal.avlstr = `${$scope.dumperTotal.avli}%`;
+            $scope.dumperTotal.utlstr = `${$scope.dumperTotal.utli}%`;
+            
         });
 
 
@@ -471,8 +495,8 @@ app.controller("myController", function ($scope, $http) {
                 $scope.crusherTotal.brkhms = tohhmm($scope.crusherTotal.brkmins);
                 $scope.crusherTotal.avlhms = tohhmm($scope.crusherTotal.avlmins);
 
-                $scope.crusherTotal.avlstr = `${$scope.crusherTotal.avl} %`;
-                $scope.crusherTotal.utlstr = `${$scope.crusherTotal.utl} %`;
+                $scope.crusherTotal.avlstr = `${$scope.crusherTotal.avl}%`;
+                $scope.crusherTotal.utlstr = `${$scope.crusherTotal.utl}%`;
             }
 
             else if (mach.type == 'shovel') {
@@ -490,8 +514,8 @@ app.controller("myController", function ($scope, $http) {
                 $scope.shovelTotal.brkhms = tohhmm($scope.shovelTotal.brkmins);
                 $scope.shovelTotal.avlhms = tohhmm($scope.shovelTotal.avlmins);
 
-                $scope.shovelTotal.avlstr = `${$scope.shovelTotal.avl} %`;
-                $scope.shovelTotal.utlstr = `${$scope.shovelTotal.utl} %`;
+                $scope.shovelTotal.avlstr = `${$scope.shovelTotal.avl}%`;
+                $scope.shovelTotal.utlstr = `${$scope.shovelTotal.utl}%`;
             }
 
             else if (mach.type == 'dragline') {
@@ -509,8 +533,8 @@ app.controller("myController", function ($scope, $http) {
                 $scope.draglineTotal.brkhms = tohhmm($scope.draglineTotal.brkmins);
                 $scope.draglineTotal.avlhms = tohhmm($scope.draglineTotal.avlmins);
 
-                $scope.draglineTotal.avlstr = `${$scope.draglineTotal.avl} %`;
-                $scope.draglineTotal.utlstr = `${$scope.draglineTotal.utl} %`;
+                $scope.draglineTotal.avlstr = `${$scope.draglineTotal.avl}%`;
+                $scope.draglineTotal.utlstr = `${$scope.draglineTotal.utl}%`;
             }
         });
     }
