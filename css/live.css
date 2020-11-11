@@ -1,5 +1,6 @@
 /* GENERICS //////////////////////////// */
 * {
+	box-sizing:border-box;
 	margin: 0px;
 	padding: 0px;
 	font:inherit;
@@ -78,22 +79,29 @@ header {
 	align-items: center;
 }
 
-
+.login input{
+	max-width:150px;
+}
 .section{
-	height:95vh;   
+	height:90vh;   
 }
 
 
 /* LIVE  ///////////////////////////////// */
 
 #live-sec{
-	width:100%;
-	height:100%;
+	width:98vw;
+	height:95vh;
 	display:flex;
-	flex-wrap: wrap;
 	justify-content: center;
-	align-items: center;
-	background:yellow;
+	align-items: flex-start;
+}
+
+#live-sec .content{
+	width:90%;
+	display:flex;
+	justify-content: center;
+	flex-wrap:wrap;
 }
 
 
@@ -105,45 +113,10 @@ header {
 	align-items: center;
 }
 
-
-/* SILO SECTION  ///////////////////////////////// */
-
-.silo {
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	justify-content: space-evenly;
-	color: white;
-	border: 1px solid #666;
-	background: rgb(53, 52, 52);
-	padding-top: 5px;
-}
-
-.rake-incrementer {
-	padding: 0px 10px;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-}
-
-.rake-incrementer span {
-	font-size: 30px;
-}
-
-.silo input {
-	background: transparent;
-	border: none;
-	outline: none;
-	color: #aaa;
-	text-align: center;
-}
-
-
-/* MACHINES //////////////////// */
-
 .mach {
-	width: 11vw;
-	height: 8vw;
+	width: clamp(85px,12vw,150px);
+	height: clamp(55px,8vw,100px);
+	font-size:clamp(10px,1vw, 20px);
 	margin: 5px;
 	border-radius: 3px;
 	overflow: hidden;
@@ -168,6 +141,37 @@ header {
 }
 
 
+/* SILO SECTION  ///////////////////////////////// */
+
+.silo {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: space-evenly;
+	color: white;
+	border: 1px solid #666;
+	background: rgb(53, 52, 52);
+	/* padding-top: 5px; */
+}
+
+.rake-incrementer {
+	/* padding: 0px 10px; */
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.rake-incrementer span {
+	font-size: 20px;
+}
+
+.silo input {
+	background: transparent;
+	border: none;
+	outline: none;
+	color: #aaa;
+	text-align: center;
+}
 /* DUMPER  ///////////////////////////////// */
 .live-dumper {
 	display: flex;
@@ -376,17 +380,7 @@ header {
 
 /* ///////////////////////////////////////////////////////////// */
 
-@media (max-width: 600px) {
-	.card {
-		width: 30vw;
-		height: 20vw;
-		margin: 0.5vw;
-	}
 
-	.header-title {
-		display: none;
-	}
-}
 
 .Idle {
 	background: rgb(100, 100, 100);
@@ -466,4 +460,16 @@ header {
 	border: none;
 }
 
-/* //////////////////////////////////////////////// */
+/* MOBILE //////////////////////////////////////////////// */
+@media (max-width: 700px) {
+
+	.login{
+		display:none;
+	}
+	
+	.header-title {
+		display: none;
+	}
+
+
+}

@@ -37,100 +37,104 @@
 
 
         <div class="section" id="live-sec">
-
-            <div class="silo mach" ng-repeat="silo in silos">
-                <p clas="silo-name"> {{silo.name}}</p>
-                <div class="rake-incrementer">
-                    <button ng-click="silo.rakes=silo.rakes-1; update()" ng-hide="!auth">-</button>
-                    <span>{{silo.rakes}}</span>
-                    <button ng-click="silo.rakes=silo.rakes+1; update()" ng-hide="!auth">+</button>
-                </div>
-
-                <input type="text" ng-model="silo.remark" ng-change="update()">
-            </div>
-
-            <div class="mach live-dumper">
-                <p> EAST DUMPERS</p>
-                <div>
-                    <button ng-click="dumperCounter(1)" ng-hide="!auth">-</button>
-                    <p class="dumper-param">AVL</p>
-                    <p>{{dumper. east_avl}}</p>
-                    <button ng-click="dumperCounter(2)" ng-hide="!auth">+</button>
-                </div>
-                <div>
-                    <button ng-click="dumperCounter(3)" ng-hide="!auth">-</button>
-                    <p class="dumper-param">RUN</p>
-                    <p>{{dumper. east_run}}</p>
-                    <button ng-click="dumperCounter(4)" ng-hide="!auth">+</button>
-                </div>
-            </div>
+            <div class="content">
 
 
-            <div class="mach live-dumper">
-                <p>WEST DUMPERS</p>
-                <div>
-                    <button ng-click="dumperCounter(5)" ng-hide="!auth">-</button>
-                    <p class="dumper-param">AVL</p>
-                    <p>{{dumper.west_avl}}</p>
-                    <button ng-click="dumperCounter(6)" ng-hide="!auth">+</button>
-                </div>
-                <div>
-                    <button ng-click="dumperCounter(7)" ng-hide="!auth">-</button>
-                    <p class="dumper-param">RUN</p>
-                    <p>{{dumper.west_run}}</p>
-                    <button ng-click="dumperCounter(8)" ng-hide="!auth">+</button>
-                </div>
-            </div>
-
-            <div class="machine mach" ng-repeat="x in machines" ng-hide="x.type!='crusher'">
-                <div class="inner">
-                    <div class="front {{ statusStrings[x.status] }}">
-                        <p class="machine-title">{{ x.name }}</p>
-                        <p class="machine-remark">{{ x.remark }}</p>
+                <div class="silo mach" ng-repeat="silo in silos">
+                    <p clas="silo-name"> {{silo.name}}</p>
+                    <div class="rake-incrementer">
+                        <button ng-click="silo.rakes=silo.rakes-1; update()" ng-hide="!auth">-</button>
+                        <span>{{silo.rakes}}</span>
+                        <button ng-click="silo.rakes=silo.rakes+1; update()" ng-hide="!auth">+</button>
                     </div>
 
-                    <div class="back">
+                    <input type="text" ng-model="silo.remark" ng-change="update()">
+                </div>
 
-                        <select ng-model="x.status" ng-change="update()"
-                            ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
-                        <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
-                            type="text" ng-disabled="!auth" />
+                <div class="mach live-dumper">
+                    <p> EAST DUMPERS</p>
+                    <div>
+                        <button ng-click="dumperCounter(1)" ng-hide="!auth">-</button>
+                        <p class="dumper-param">AVL</p>
+                        <p>{{dumper. east_avl}}</p>
+                        <button ng-click="dumperCounter(2)" ng-hide="!auth">+</button>
+                    </div>
+                    <div>
+                        <button ng-click="dumperCounter(3)" ng-hide="!auth">-</button>
+                        <p class="dumper-param">RUN</p>
+                        <p>{{dumper. east_run}}</p>
+                        <button ng-click="dumperCounter(4)" ng-hide="!auth">+</button>
                     </div>
                 </div>
-            </div>
 
-            <div class="machine mach" ng-repeat="x in machines" ng-hide="x.type!='shovel'">
-                <div class="inner">
-                    <div class="front {{ statusStrings[x.status] }}">
-                        <p class="machine-title">{{ x.name }}</p>
-                        <p class="machine-remark">{{ x.remark }}</p>
+
+                <div class="mach live-dumper">
+                    <p>WEST DUMPERS</p>
+                    <div>
+                        <button ng-click="dumperCounter(5)" ng-hide="!auth">-</button>
+                        <p class="dumper-param">AVL</p>
+                        <p>{{dumper.west_avl}}</p>
+                        <button ng-click="dumperCounter(6)" ng-hide="!auth">+</button>
                     </div>
-
-                    <div class="back">
-
-                        <select ng-model="x.status" ng-change="update()"
-                            ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
-                        <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
-                            type="text" ng-disabled="!auth" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="machine mach" ng-repeat="x in machines" ng-hide="x.type!='dragline'">
-                <div class="inner">
-                    <div class="front {{ statusStrings[x.status] }}">
-                        <p class="machine-title">{{ x.name }}</p>
-                        <p class="machine-remark">{{ x.remark }}</p>
-                    </div>
-
-                    <div class="back">
-
-                        <select ng-model="x.status" ng-change="update()"
-                            ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
-                        <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
-                            type="text" ng-disabled="!auth" />
+                    <div>
+                        <button ng-click="dumperCounter(7)" ng-hide="!auth">-</button>
+                        <p class="dumper-param">RUN</p>
+                        <p>{{dumper.west_run}}</p>
+                        <button ng-click="dumperCounter(8)" ng-hide="!auth">+</button>
                     </div>
                 </div>
+
+                <div class="machine mach" ng-repeat="x in machines" ng-hide="x.type!='crusher'">
+                    <div class="inner">
+                        <div class="front {{ statusStrings[x.status] }}">
+                            <p class="machine-title">{{ x.name }}</p>
+                            <p class="machine-remark">{{ x.remark }}</p>
+                        </div>
+
+                        <div class="back">
+
+                            <select ng-model="x.status" ng-change="update()"
+                                ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
+                            <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
+                                type="text" ng-disabled="!auth" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine mach" ng-repeat="x in machines" ng-hide="x.type!='shovel'">
+                    <div class="inner">
+                        <div class="front {{ statusStrings[x.status] }}">
+                            <p class="machine-title">{{ x.name }}</p>
+                            <p class="machine-remark">{{ x.remark }}</p>
+                        </div>
+
+                        <div class="back">
+
+                            <select ng-model="x.status" ng-change="update()"
+                                ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
+                            <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
+                                type="text" ng-disabled="!auth" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine mach" ng-repeat="x in machines" ng-hide="x.type!='dragline'">
+                    <div class="inner">
+                        <div class="front {{ statusStrings[x.status] }}">
+                            <p class="machine-title">{{ x.name }}</p>
+                            <p class="machine-remark">{{ x.remark }}</p>
+                        </div>
+
+                        <div class="back">
+
+                            <select ng-model="x.status" ng-change="update()"
+                                ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
+                            <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
+                                type="text" ng-disabled="!auth" />
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -496,37 +500,6 @@
             </div>
         </div>
     </main>
-
-    <!-- Footer -->
-    <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
-
-    </footer>
-
-    <script>
-        // Automatic Slideshow - change image every 4 seconds
-        var myIndex = 0;
-
-
-
-        // Used to toggle the menu on small screens when clicking on the menu button
-        function myFunction() {
-            var x = document.getElementById("navDemo");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        var modal = document.getElementById('ticketModal');
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-
 </body>
 
 </html>

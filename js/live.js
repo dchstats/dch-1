@@ -37,8 +37,8 @@ app.controller("myController", function ($scope, $http) {
     $scope.downUrl = 'https://sushanttiwari.in/serv/downLive.php';
     $scope.upUrl = 'serv/upLive.php';
     $scope.downUrl = 'serv/downLive.php';
-    $scope.upUrl = 'http://localhost/dch/serv/upLive.php';
-    $scope.downUrl = 'http://localhost/dch/serv/downLive.php';
+    $scope.upUrl = 'http://localhost:8080/dch-1/serv/upLive.php';
+    $scope.downUrl = 'http://localhost:8080/dch-1/serv/downLive.php';
 
 
     $scope.block = 0;
