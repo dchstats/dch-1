@@ -37,120 +37,122 @@
 
 
         <div class="section" id="live-sec">
-            <div class="content">
-
-
-                <div class="silo mach" ng-repeat="silo in silos">
-                    <p clas="silo-name"> {{silo.name}}</p>
-                    <div class="rake-incrementer">
-                        <button ng-click="silo.rakes=silo.rakes-1; update()" ng-hide="!auth">-</button>
-                        <span>{{silo.rakes}}</span>
-                        <button ng-click="silo.rakes=silo.rakes+1; update()" ng-hide="!auth">+</button>
-                    </div>
-
-                    <input type="text" ng-model="silo.remark" ng-change="update()">
+            <div class="silo mach" ng-repeat="silo in silos">
+                <p clas="silo-name"> {{silo.name}}</p>
+                <div class="rake-incrementer">
+                    <button ng-click="silo.rakes=silo.rakes-1; update()" ng-hide="!auth">-</button>
+                    <span>{{silo.rakes}}</span>
+                    <button ng-click="silo.rakes=silo.rakes+1; update()" ng-hide="!auth">+</button>
                 </div>
+                <input type="text" ng-model="silo.remark" ng-change="update()">
+            </div>
 
-                <div class="mach live-dumper">
-                    <p> EAST DUMPERS</p>
-                    <div>
-                        <button ng-click="dumperCounter(1)" ng-hide="!auth">-</button>
-                        <p class="dumper-param">AVL</p>
-                        <p>{{dumper. east_avl}}</p>
-                        <button ng-click="dumperCounter(2)" ng-hide="!auth">+</button>
-                    </div>
-                    <div>
-                        <button ng-click="dumperCounter(3)" ng-hide="!auth">-</button>
-                        <p class="dumper-param">RUN</p>
-                        <p>{{dumper. east_run}}</p>
-                        <button ng-click="dumperCounter(4)" ng-hide="!auth">+</button>
-                    </div>
+            <div class="mach live-dumper">
+                <p> EAST DUMPERS</p>
+                <div>
+                    <button ng-click="dumperCounter(1)" ng-hide="!auth">-</button>
+                    <p class="dumper-param">AVL</p>
+                    <p>{{dumper. east_avl}}</p>
+                    <button ng-click="dumperCounter(2)" ng-hide="!auth">+</button>
                 </div>
-
-
-                <div class="mach live-dumper">
-                    <p>WEST DUMPERS</p>
-                    <div>
-                        <button ng-click="dumperCounter(5)" ng-hide="!auth">-</button>
-                        <p class="dumper-param">AVL</p>
-                        <p>{{dumper.west_avl}}</p>
-                        <button ng-click="dumperCounter(6)" ng-hide="!auth">+</button>
-                    </div>
-                    <div>
-                        <button ng-click="dumperCounter(7)" ng-hide="!auth">-</button>
-                        <p class="dumper-param">RUN</p>
-                        <p>{{dumper.west_run}}</p>
-                        <button ng-click="dumperCounter(8)" ng-hide="!auth">+</button>
-                    </div>
+                <div>
+                    <button ng-click="dumperCounter(3)" ng-hide="!auth">-</button>
+                    <p class="dumper-param">RUN</p>
+                    <p>{{dumper. east_run}}</p>
+                    <button ng-click="dumperCounter(4)" ng-hide="!auth">+</button>
                 </div>
+            </div>
 
-                <div class="machine mach" ng-repeat="x in machines" ng-hide="x.type!='crusher'">
-                    <div class="inner">
-                        <div class="front {{ statusStrings[x.status] }}">
-                            <p class="machine-title">{{ x.name }}</p>
-                            <p class="machine-remark">{{ x.remark }}</p>
-                        </div>
 
-                        <div class="back">
+            <div class="mach live-dumper">
+                <p>WEST DUMPERS</p>
+                <div>
+                    <button ng-click="dumperCounter(5)" ng-hide="!auth">-</button>
+                    <p class="dumper-param">AVL</p>
+                    <p>{{dumper.west_avl}}</p>
+                    <button ng-click="dumperCounter(6)" ng-hide="!auth">+</button>
+                </div>
+                <div>
+                    <button ng-click="dumperCounter(7)" ng-hide="!auth">-</button>
+                    <p class="dumper-param">RUN</p>
+                    <p>{{dumper.west_run}}</p>
+                    <button ng-click="dumperCounter(8)" ng-hide="!auth">+</button>
+                </div>
+            </div>
 
-                            <select ng-model="x.status" ng-change="update()"
-                                ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
-                            <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
-                                type="text" ng-disabled="!auth" />
-                        </div>
+            <div class=" mach" ng-repeat="x in machines" ng-hide="x.type!='crusher'">
+                <div class="inner">
+                    <div class="front {{ statusStrings[x.status] }}">
+                        <p class="machine-title">{{ x.name }}</p>
+                        <p class="machine-remark">{{ x.remark }}</p>
+                    </div>
+
+                    <div class="back">
+
+                        <select ng-model="x.status" ng-change="update()"
+                            ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
+                        <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
+                            type="text" ng-disabled="!auth" />
                     </div>
                 </div>
+            </div>
 
-                <div class="machine mach" ng-repeat="x in machines" ng-hide="x.type!='shovel'">
-                    <div class="inner">
-                        <div class="front {{ statusStrings[x.status] }}">
-                            <p class="machine-title">{{ x.name }}</p>
-                            <p class="machine-remark">{{ x.remark }}</p>
-                        </div>
+            <div class=" mach" ng-repeat="x in machines" ng-hide="x.type!='shovel'">
+                <div class="inner">
+                    <div class="front {{ statusStrings[x.status] }}">
+                        <p class="machine-title">{{ x.name }}</p>
+                        <p class="machine-remark">{{ x.remark }}</p>
+                    </div>
 
-                        <div class="back">
+                    <div class="back">
 
-                            <select ng-model="x.status" ng-change="update()"
-                                ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
-                            <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
-                                type="text" ng-disabled="!auth" />
-                        </div>
+                        <select ng-model="x.status" ng-change="update()"
+                            ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
+                        <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
+                            type="text" ng-disabled="!auth" />
                     </div>
                 </div>
+            </div>
 
-                <div class="machine mach" ng-repeat="x in machines" ng-hide="x.type!='dragline'">
-                    <div class="inner">
-                        <div class="front {{ statusStrings[x.status] }}">
-                            <p class="machine-title">{{ x.name }}</p>
-                            <p class="machine-remark">{{ x.remark }}</p>
-                        </div>
+            <div class=" mach" ng-repeat="x in machines" ng-hide="x.type!='dragline'">
+                <div class="inner">
+                    <div class="front {{ statusStrings[x.status] }}">
+                        <p class="machine-title">{{ x.name }}</p>
+                        <p class="machine-remark">{{ x.remark }}</p>
+                    </div>
 
-                        <div class="back">
+                    <div class="back">
 
-                            <select ng-model="x.status" ng-change="update()"
-                                ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
-                            <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
-                                type="text" ng-disabled="!auth" />
-                        </div>
+                        <select ng-model="x.status" ng-change="update()"
+                            ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
+                        <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
+                            type="text" ng-disabled="!auth" />
                     </div>
                 </div>
-
             </div>
         </div>
+
+
 
         <div class="section" id="trends-sec">
-            <div class="trend-row" ng-repeat="x in machines">
-                <div class="mcname">
-                    {{x.name}}
-                </div>
-                <div class="mctrend">
-                    <div ng-repeat="y in x.logs track by $index" class="tooltip trend-block {{statusStrings[y]}}-block"
-                        ng-click=" trendToggle(x,$index)">
-                        <span class="tooltiptext">{{timef($index)}}</span>
+            <div class="container">
+
+
+                <div class="trend-row" ng-repeat="x in machines">
+                    <div class="mcname">
+                        {{x.name}}
+                    </div>
+                    <div class="mctrend">
+                        <div ng-repeat="y in x.logs track by $index"
+                            class="tooltip trend-block {{statusStrings[y]}}-block" ng-click=" trendToggle(x,$index)">
+                            <span class="tooltiptext">{{timef($index)}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
 
         <div class="section" id="graphs-sec">
 
@@ -319,185 +321,187 @@
                     <td>% UTL</td>
                 </tr>
             </table>
-
-
-
         </div>
 
+
+
+
         <div class="section" id="tables-sec">
+            <table>
+                <tr class="head">
+                    <td colspan="7">EAST DUMPERS</td>
+                </tr>
+                <tr class="">
+                    <th>HOUR</th>
+                    <th>AVL</th>
+                    <th>RUN</th>
+                    <th>IDL</th>
+                    <th>BRK</th>
+                    <th>%AVL</th>
+                    <th>%UTL</th>
+                </tr>
+                <tr ng-repeat="x in dumpers track by $index">
+                    <td>{{x.hour+1}}</td>
+                    <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour"
+                            ng-change="update()"></td>
+                    <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour"
+                            ng-change="update()"></td>
+                    <td>{{x.east_idl}}</td>
+                    <td>{{x.east_brk}}</td>
+                    <td>{{x.east_avli}} %</td>
+                    <td>{{x.east_utli}} %</td>
+                </tr>
+                <tr class="total">
+                    <td>TOTAL</td>
+                    <td>{{dumperTotal.east_avl}} Hrs</td>
+                    <td>{{dumperTotal.east_run}} Hrs</td>
+                    <td>{{dumperTotal.east_idl}} Hrs</td>
+                    <td>{{dumperTotal.east_brk}} Hrs</td>
+                    <td>{{dumperTotal.east_avli}} %</td>
+                    <td>{{dumperTotal.east_utli}} %</td>
+                </tr>
+            </table>
 
-            <div class="east-dumper-table">
-                <p class="tbl-title w3-green w3-padding w3-xlarge">EAST DUMPERS</p>
-                <table class="w3-table-all">
-                    <tr class="w3-green">
-                        <td>HOUR</td>
-                        <td>AVL</td>
-                        <td>RUN</td>
-                        <td>IDL</td>
-                        <td>BRK</td>
-                        <td>AVLI</td>
-                        <td>UTLI</td>
-                    </tr>
-                    <tr ng-repeat="x in dumpers track by $index">
-                        <td>{{x.hour+1}}</td>
-                        <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour"
-                                ng-change="update()"></td>
-                        <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour"
-                                ng-change="update()"></td>
-                        <td>{{x.east_idl}}</td>
-                        <td>{{x.east_brk}}</td>
-                        <td>{{x.east_avli}} %</td>
-                        <td>{{x.east_utli}} %</td>
-                    </tr>
-                    <tr class="w3-green">
-                        <td>TOTAL</td>
-                        <td>{{dumperTotal.east_avl}} Hrs</td>
-                        <td>{{dumperTotal.east_run}} Hrs</td>
-                        <td>{{dumperTotal.east_idl}} Hrs</td>
-                        <td>{{dumperTotal.east_brk}} Hrs</td>
-                        <td>{{dumperTotal.east_avli}} %</td>
-                        <td>{{dumperTotal.east_utli}} %</td>
-                    </tr>
-                </table>
-            </div>
+            <table>
+                <tr class="head">
+                    <td colspan="7">WEST DUMPERS</td>
+                </tr>
+                <tr class="">
+                    <th>HOUR</th>
+                    <th>AVL</th>
+                    <th>RUN</th>
+                    <th>IDL</th>
+                    <th>BRK</th>
+                    <th>AVLI</th>
+                    <th>UTLI</th>
+                </tr>
+                <tr ng-repeat="x in dumpers track by $index">
+                    <td>{{x.hour+1}}</td>
+                    <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour"
+                            ng-change="update()"></td>
+                    <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour"
+                            ng-change="update()"></td>
+                    <td>{{x.west_idl}}</td>
+                    <td>{{x.west_brk}}</td>
+                    <td>{{x.west_avli}} %</td>
+                    <td>{{x.west_utli}} %</td>
+                </tr>
+                <tr class="total">
+                    <td>TOTAL</td>
+                    <td>{{dumperTotal.west_avl}} Hrs</td>
+                    <td>{{dumperTotal.west_run}} Hrs</td>
+                    <td>{{dumperTotal.west_idl}} Hrs</td>
+                    <td>{{dumperTotal.west_brk}} Hrs</td>
+                    <td>{{dumperTotal.west_avli}} %</td>
+                    <td>{{dumperTotal.west_utli}} %</td>
+                </tr>
+            </table>
 
-            <div class="west-dumper-table">
-                <p class="tbl-title w3-green w3-padding w3-xlarge">WEST DUMPERS</p>
-                <table class="w3-table-all">
-                    <tr class="w3-green">
-                        <td>HOUR</td>
-                        <td>AVL</td>
-                        <td>RUN</td>
-                        <td>IDL</td>
-                        <td>BRK</td>
-                        <td>AVLI</td>
-                        <td>UTLI</td>
-                    </tr>
-                    <tr ng-repeat="x in dumpers track by $index">
-                        <td>{{x.hour+1}}</td>
-                        <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour"
-                                ng-change="update()"></td>
-                        <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour"
-                                ng-change="update()"></td>
-                        <td>{{x.west_idl}}</td>
-                        <td>{{x.west_brk}}</td>
-                        <td>{{x.west_avli}} %</td>
-                        <td>{{x.west_utli}} %</td>
-                    </tr>
-                    <tr class="w3-green">
-                        <td>TOTAL</td>
-                        <td>{{dumperTotal.west_avl}} Hrs</td>
-                        <td>{{dumperTotal.west_run}} Hrs</td>
-                        <td>{{dumperTotal.west_idl}} Hrs</td>
-                        <td>{{dumperTotal.west_brk}} Hrs</td>
-                        <td>{{dumperTotal.west_avli}} %</td>
-                        <td>{{dumperTotal.west_utli}} %</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="shovel-perf-div">
-                <p class="tbl-title w3-green w3-padding w3-xlarge">SHOVELS</p>
-                <table class="shovel-perf-table w3-table-all">
-                    <tr class="w3-green">
-                        <th>Shovel</th>
-                        <th>Avl hrs</th>
-                        <th>Idl hrs</th>
-                        <th>Run hrs</th>
-                        <th>Bdn hrs</th>
-                        <th>% Avl</th>
-                        <th>% Utl</th>
-                    </tr>
+            <table>
+                <tr class="head">
+                    <td colspan="7">CRUSHERS</td>
+                </tr>
+                <tr class="">
+                    <th>GC</th>
+                    <th>AVL</th>
+                    <th>IDL</th>
+                    <th>RUN</th>
+                    <th>BDN</th>
+                    <th>%AVL</th>
+                    <th>%UTL</th>
+                </tr>
+                <tr ng-repeat="s in machines" ng-hide="s.type!='crusher'">
+
+                    <td>{{s.name}}</td>
+                    <td>{{s.avlhms}}</td>
+                    <td>{{s.idlhms}}</td>
+                    <td>{{s.runhms}}</td>
+                    <td>{{s.brkhms}}</td>
+                    <td>{{s.avlstr}}</td>
+                    <td>{{s.utlstr}}</td>
+                </tr>
+                <tr class="total">
+                    <td>TOTAL</td>
+                    <td>{{crusherTotal.avlhms}}</td>
+                    <td>{{crusherTotal.idlhms}}</td>
+                    <td>{{crusherTotal.runhms}}</td>
+                    <td>{{crusherTotal.brkhms}}</td>
+                    <td>{{crusherTotal.avlstr}}</td>
+                    <td>{{crusherTotal.utlstr}}</td>
+                </tr>
+            </table>
+
+            <table>
+                <tr class="head">
+                    <td colspan="7">DRAGLINES</td>
+                </tr>
+                <tr class="">
+                    <th>DRG</th>
+                    <th>AVL</th>
+                    <th>IDL</th>
+                    <th>RUN</th>
+                    <th>BDN</th>
+                    <th>%AVL</th>
+                    <th>%UTL</th>
+                </tr>
+                <tr ng-repeat="s in machines" ng-hide="s.type!='dragline'">
+
+                    <td>{{s.name}}</td>
+                    <td>{{s.avlhms}}</td>
+                    <td>{{s.idlhms}}</td>
+                    <td>{{s.runhms}}</td>
+                    <td>{{s.brkhms}}</td>
+                    <td>{{s.avlstr}}</td>
+                    <td>{{s.utlstr}}</td>
+                </tr>
+                <tr class="total">
+                    <td>TOTAL</td>
+                    <td>{{draglineTotal.avlhms}}</td>
+                    <td>{{draglineTotal.idlhms}}</td>
+                    <td>{{draglineTotal.runhms}}</td>
+                    <td>{{draglineTotal.brkhms}}</td>
+                    <td>{{draglineTotal.avlstr}}</td>
+                    <td>{{draglineTotal.utlstr}}</td>
+                </tr>
+            </table>
 
 
-                    <tr ng-repeat="s in machines" ng-hide="s.type!='shovel'">
+            <table>
+                <tr class="head">
+                    <td colspan="7">SHOVELS</td>
+                </tr>
+                <tr class="">
+                    <th>SVL</th>
+                    <th>AVL</th>
+                    <th>IDL</th>
+                    <th>RUN</th>
+                    <th>BDN</th>
+                    <th>%AVL</th>
+                    <th>%UTL</th>
+                </tr>
 
-                        <td>{{s.name}}</td>
-                        <td>{{s.avlhms}}</td>
-                        <td>{{s.idlhms}}</td>
-                        <td>{{s.runhms}}</td>
-                        <td>{{s.brkhms}}</td>
-                        <td>{{s.avlstr}}</td>
-                        <td>{{s.utlstr}}</td>
-                    </tr>
-                    <tr class="total w3-green">
-                        <td>TOTAL</td>
-                        <td>{{shovelTotal.avlhms}}</td>
-                        <td>{{shovelTotal.idlhms}}</td>
-                        <td>{{shovelTotal.runhms}}</td>
-                        <td>{{shovelTotal.brkhms}}</td>
-                        <td>{{shovelTotal.avlstr}}</td>
-                        <td>{{shovelTotal.utlstr}}</td>
-                    </tr>
-                </table>
-            </div>
 
-            <div class="crusher-perf-div">
-                <p class="tbl-title w3-green w3-padding w3-xlarge">CRUSHERS</p>
-                <table class="crusher-perf-table w3-table-all">
-                    <tr class="w3-green">
-                        <th>Crusher</th>
-                        <th>Avl hrs</th>
-                        <th>Idl hrs</th>
-                        <th>Run hrs</th>
-                        <th>Bdn hrs</th>
-                        <th>% Avl</th>
-                        <th>% Utl</th>
-                    </tr>
-                    <tr ng-repeat="s in machines" ng-hide="s.type!='crusher'">
+                <tr ng-repeat="s in machines" ng-hide="s.type!='shovel'">
 
-                        <td>{{s.name}}</td>
-                        <td>{{s.avlhms}}</td>
-                        <td>{{s.idlhms}}</td>
-                        <td>{{s.runhms}}</td>
-                        <td>{{s.brkhms}}</td>
-                        <td>{{s.avlstr}}</td>
-                        <td>{{s.utlstr}}</td>
-                    </tr>
-                    <tr class="total w3-green">
-                        <td>TOTAL</td>
-                        <td>{{crusherTotal.avlhms}}</td>
-                        <td>{{crusherTotal.idlhms}}</td>
-                        <td>{{crusherTotal.runhms}}</td>
-                        <td>{{crusherTotal.brkhms}}</td>
-                        <td>{{crusherTotal.avlstr}}</td>
-                        <td>{{crusherTotal.utlstr}}</td>
-                    </tr>
-                </table>
-            </div>
+                    <td>{{s.name}}</td>
+                    <td>{{s.avlhms}}</td>
+                    <td>{{s.idlhms}}</td>
+                    <td>{{s.runhms}}</td>
+                    <td>{{s.brkhms}}</td>
+                    <td>{{s.avlstr}}</td>
+                    <td>{{s.utlstr}}</td>
+                </tr>
+                <tr class="total">
+                    <td>TOTAL</td>
+                    <td>{{shovelTotal.avlhms}}</td>
+                    <td>{{shovelTotal.idlhms}}</td>
+                    <td>{{shovelTotal.runhms}}</td>
+                    <td>{{shovelTotal.brkhms}}</td>
+                    <td>{{shovelTotal.avlstr}}</td>
+                    <td>{{shovelTotal.utlstr}}</td>
+                </tr>
+            </table>
 
-            <div class="dragline-perf-div">
-                <p class="tbl-title w3-green w3-padding w3-xlarge">DRAGLINES</p>
-                <table class="dragline-perf-table w3-table-all">
-                    <tr class="w3-green">
-                        <th>Dragline</th>
-                        <th>Avl hrs</th>
-                        <th>Idl hrs</th>
-                        <th>Run hrs</th>
-                        <th>Bdn hrs</th>
-                        <th>% Avl</th>
-                        <th>% Utl</th>
-                    </tr>
-                    <tr ng-repeat="s in machines" ng-hide="s.type!='dragline'">
-
-                        <td>{{s.name}}</td>
-                        <td>{{s.avlhms}}</td>
-                        <td>{{s.idlhms}}</td>
-                        <td>{{s.runhms}}</td>
-                        <td>{{s.brkhms}}</td>
-                        <td>{{s.avlstr}}</td>
-                        <td>{{s.utlstr}}</td>
-                    </tr>
-                    <tr class="total w3-green">
-                        <td>TOTAL</td>
-                        <td>{{draglineTotal.avlhms}}</td>
-                        <td>{{draglineTotal.idlhms}}</td>
-                        <td>{{draglineTotal.runhms}}</td>
-                        <td>{{draglineTotal.brkhms}}</td>
-                        <td>{{draglineTotal.avlstr}}</td>
-                        <td>{{draglineTotal.utlstr}}</td>
-                    </tr>
-                </table>
-            </div>
         </div>
     </main>
 </body>

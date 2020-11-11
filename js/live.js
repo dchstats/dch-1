@@ -3,17 +3,15 @@ app.controller("myController", function ($scope, $http) {
 
     $scope.subSections = ['live', 'dumpers']
 
-    $scope.crushers = ['Crusher-01', 'Crusher-02', 'Crusher-03'];
+    $scope.crushers = ['CRUSHER-1', 'CRUSHER-2', 'CRUSHER-3'];
     $scope.shovels = ['P&H-06', 'P&H-07', 'P&H-10',
         'P&H-11', 'P&H-12', 'P&H-13', 'P&H-14', 'P&H-15',
         'P&H-16', 'P&H-17', 'P&H-18', 'P&H-19', 'HIM-20', 'PC-TATA', 'KOMATSU-PC', 'LAXMAN-PC', 'PL-06', 'PL-07', 'SM-L&T'];
-    $scope.draglines = ['Jyoti', 'Pawan', 'Vindhya', 'Jwala'];
+    $scope.draglines = ['JYOTI', 'PAWAN', 'VNDHYA', 'JWALA'];
     $scope.siloNames = ['OLD SILO', 'NEW SILO', 'WHARF WALL'];
-    $scope.dumperNames = ['EAST', 'WEST'];
-
     $scope.types = ['silo', 'crusher', 'shovel', 'dragline'];
     $scope.statusCodes = [0, 1, 2];
-    $scope.statusStrings = ['Idle', 'Running', 'BreakDown', 'Undef'];
+    $scope.statusStrings = ['IDL', 'RNG', 'BDN-MNT', 'UDF'];
 
 
     $scope.machines = [];
@@ -39,6 +37,8 @@ app.controller("myController", function ($scope, $http) {
     $scope.downUrl = 'serv/downLive.php';
     $scope.upUrl = 'http://localhost:8080/dch-1/serv/upLive.php';
     $scope.downUrl = 'http://localhost:8080/dch-1/serv/downLive.php';
+    $scope.upUrl = 'http://localhost/dch/serv/upLive.php';
+    $scope.downUrl = 'http://localhost/dch/serv/downLive.php';
 
 
     $scope.block = 0;

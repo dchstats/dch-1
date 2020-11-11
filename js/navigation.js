@@ -2,6 +2,7 @@ $(document).ready(begin());
 
 function begin() {
     $(".section").hide();
+    openSection('live');
 }
 
 
