@@ -104,7 +104,7 @@ header {
 .mach {
 	width: clamp(120px, 15vw, 180px);
 	height: clamp(72px, 9vw, 108px);
-	font-size: clamp(14px, 1vw, 24px);
+	font-size: clamp(12px, 1vw, 16px);
 	margin: 2px;
 	border-radius: 10px;
 	overflow: hidden;

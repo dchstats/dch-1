@@ -37,18 +37,21 @@ app.controller("myController", function ($scope, $http) {
     $scope.downUrl = 'serv/downLive.php';
     $scope.upUrl = 'http://localhost:8080/dch/serv/upLive.php';
     $scope.downUrl = 'http://localhost:8080/dch/serv/downLive.php';
-    // $scope.upUrl = 'http://localhost/dch/serv/upLive.php';
-    // $scope.downUrl = 'http://localhost/dch/serv/downLive.php';
+    $scope.upUrl = 'http://localhost/dch/serv/upLive.php';
+    $scope.downUrl = 'http://localhost/dch/serv/downLive.php';
 
 
     $scope.block = 0;
     $scope.hour = 0;
 
+    const blockWidth = 10;
+    const totalBlocks = 8 * 60 / blockWidth;
+
 
 
     // CONFIGS ////////
     $scope.changed = false;
-    $scope.auth = false;
+    $scope.auth = true;
     $scope.forceUpload = false;
     ///////////////////
 
@@ -59,19 +62,24 @@ app.controller("myController", function ($scope, $http) {
             this.status = 0;
             this.remark = "";
             this.logs = [];
-            this.idlmins = 0;
-            this.runmins = 0;
-            this.brkmins = 0;
             this.avlmins = 0;
+            this.runmins = 0;
+            this.idlmins = 0;
+            this.brkmins = 0;
+            this.mntmins = 0;
+
+
             this.defmins = 0;
-            this.avl = 0;
-            this.utl = 0;
-            this.idlhms = "";
-            this.runhms = "";
-            this.brkhms = "";
-            this.avlhms = "";
-            this.avlstr = "";
-            this.utlstr = "";
+
+            this.pavl = 0;
+            this.putl = 0;
+
+            // this.idlhms = "";
+            // this.runhms = "";
+            // this.brkhms = "";
+            // this.avlhms = "";
+            // this.avlstr = "";
+            // this.utlstr = "";
         }
     }
 
@@ -138,6 +146,7 @@ app.controller("myController", function ($scope, $http) {
             upload();
             setTimeout(download, 5000);
         }
+
         else {
             download();
         }
@@ -152,14 +161,10 @@ app.controller("myController", function ($scope, $http) {
         var d = Math.floor((c - b) / (8 * 3600 * 1000));
         var e = b + d * (8 * 3600 * 1000);
         $scope.start = e;
-        $scope.block = Math.floor((c - e) / (5 * 60 * 1000));
-        $scope.hour = Math.floor($scope.block / 12);
+        $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
+        $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
         console.log('block:', $scope.block, '  hour:', $scope.hour);
-
     }
-
-
-
 
 
 
@@ -175,8 +180,6 @@ app.controller("myController", function ($scope, $http) {
         }
 
     }
-
-
 
 
 
@@ -288,13 +291,13 @@ app.controller("myController", function ($scope, $http) {
     function reset() {
 
         angular.forEach($scope.machines, function (mach, i) {
-            if (mach.status != 2) {
+            if (mach.status < 2) {
                 mach.status = 0;
                 mach.remark = "";
             }
             mach.logs[0] = mach.status;
-            for (j = 1; j < 96; j++) {
-                mach.logs[j] = 3;
+            for (j = 1; j < totalBlocks; j++) {
+                mach.logs[j] = 4;
             }
         });
 
@@ -312,7 +315,7 @@ app.controller("myController", function ($scope, $http) {
         // INTERPOLATION ////////////////////////
 
         angular.forEach($scope.machines, function (mach, i) {
-            let valids = [0, 1, 2];
+            let valids = [0, 1, 2, 3];
             if (!valids.includes(mach.logs[0])) {
                 mach.logs[0] = mach.status;
             }
@@ -325,31 +328,34 @@ app.controller("myController", function ($scope, $http) {
 
             mach.logs[$scope.block] = mach.status;
 
-            for (j = $scope.block + 1; j < 96; j++) {
-                mach.logs[j] = 3;
+            for (j = $scope.block + 1; j < totalBlocks; j++) {
+                mach.logs[j] = 4;
             }
         });
 
 
         $scope.crusherTotal = {
-            idlmins: 0,
-            runmins: 0,
-            brkmins: 0,
             avlmins: 0,
+            runmins: 0,
+            idlmins: 0,
+            brkmins: 0,
+            mntmins: 0,
             defmins: 0
         };
         $scope.shovelTotal = {
-            idlmins: 0,
-            runmins: 0,
-            brkmins: 0,
             avlmins: 0,
+            runmins: 0,
+            idlmins: 0,
+            brkmins: 0,
+            mntmins: 0,
             defmins: 0
         };
         $scope.draglineTotal = {
-            idlmins: 0,
-            runmins: 0,
-            brkmins: 0,
             avlmins: 0,
+            runmins: 0,
+            idlmins: 0,
+            brkmins: 0,
+            mntmins: 0,
             defmins: 0
         };
 
@@ -418,13 +424,6 @@ app.controller("myController", function ($scope, $http) {
             $scope.dumperTotal.utlstr = `${$scope.dumperTotal.utli}%`;
 
         });
-
-
-
-        // console.log($scope.dumpers);
-
-
-
 
 
         angular.forEach($scope.machines, function (mach, i) {
@@ -545,7 +544,7 @@ app.controller("myController", function ($scope, $http) {
     }
 
 
-    $scope.machineStatus=function(mach){
+    $scope.machineStatus = function (mach) {
         if (mach.status == 3) {
             mach.status = 2;
             mach.remark = "MAINTENANCE";
