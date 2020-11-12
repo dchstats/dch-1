@@ -10,15 +10,15 @@ app.controller("myController", function ($scope, $http) {
     $scope.draglines = ['JYOTI', 'PAWAN', 'VNDHYA', 'JWALA'];
     $scope.siloNames = ['OLD SILO', 'NEW SILO', 'WHARF WALL'];
     $scope.types = ['silo', 'crusher', 'shovel', 'dragline'];
-    $scope.statusCodes = [0, 1, 2];
-    $scope.statusStrings = ['IDL', 'RNG', 'BDN-MNT', 'UDF'];
+    $scope.statusCodes = [0, 1, 2, 3];
+    $scope.statusStrings = ['IDL', 'RNG', 'BDN', 'MNT', 'UDF'];
 
 
     $scope.machines = [];
     $scope.silos = [];
     $scope.dumper = {};
     $scope.dumpers = [];  // stores hourly snapshots of dumper objects.
-    $scope.dumperTotal={ };
+    $scope.dumperTotal = {};
 
 
 
@@ -35,10 +35,10 @@ app.controller("myController", function ($scope, $http) {
     $scope.downUrl = 'https://sushanttiwari.in/serv/downLive.php';
     $scope.upUrl = 'serv/upLive.php';
     $scope.downUrl = 'serv/downLive.php';
-    $scope.upUrl = 'http://localhost:8080/dch-1/serv/upLive.php';
-    $scope.downUrl = 'http://localhost:8080/dch-1/serv/downLive.php';
-    $scope.upUrl = 'http://localhost/dch/serv/upLive.php';
-    $scope.downUrl = 'http://localhost/dch/serv/downLive.php';
+    $scope.upUrl = 'http://localhost:8080/dch/serv/upLive.php';
+    $scope.downUrl = 'http://localhost:8080/dch/serv/downLive.php';
+    // $scope.upUrl = 'http://localhost/dch/serv/upLive.php';
+    // $scope.downUrl = 'http://localhost/dch/serv/downLive.php';
 
 
     $scope.block = 0;
@@ -125,7 +125,7 @@ app.controller("myController", function ($scope, $http) {
         })
 
         $scope.dumper = new Dumper();
-    
+
 
 
         for (i = 0; i < $scope.hour; i++) {
@@ -144,13 +144,6 @@ app.controller("myController", function ($scope, $http) {
 
         setInterval(sync, 15000);
     }
-
-
-
-
-
-
-
 
     function timeBlock() {
         var a = new Date(2019, 9, 5, 5, 0, 0, 0);
@@ -193,10 +186,6 @@ app.controller("myController", function ($scope, $http) {
     }
 
 
-
-
-
-
     function download() {
 
         var payload = {};
@@ -226,11 +215,9 @@ app.controller("myController", function ($scope, $http) {
                 $scope.machines = e.machines;
                 $scope.silos = e.silos;
                 $scope.dumper = e.dumper;
-                angular.forEach(e.dumpers,function(x,i){
-                    console.log(x);
-                    if(x){
-                        console.log('yay')
-                        $scope.dumpers[i]=x;
+                angular.forEach(e.dumpers, function (x, i) {
+                    if (x) {
+                        $scope.dumpers[i] = x;
                     }
                 })
                 // $scope.dumpers = e.dumpers;
@@ -367,19 +354,18 @@ app.controller("myController", function ($scope, $http) {
         };
 
         $scope.dumperTotal = {
-            east_total : 0,
-            east_avl : 0,
-            east_run : 0,
+            east_total: 0,
+            east_avl: 0,
+            east_run: 0,
 
             west_total: 0,
             west_avl: 0,
-            west_run: 0    
+            west_run: 0
         }
 
 
         $scope.dumper.hour = $scope.hour;
         $scope.dumpers[$scope.hour] = { ...$scope.dumper };
-        console.log($scope.dumpers);
 
         angular.forEach($scope.dumpers, function (d, i) {
             d.east_idl = d.east_avl - d.east_run;
@@ -413,24 +399,24 @@ app.controller("myController", function ($scope, $http) {
             $scope.dumperTotal.west_avli = Math.round($scope.dumperTotal.west_avl * 100 / $scope.dumperTotal.west_total);
             $scope.dumperTotal.west_utli = Math.round($scope.dumperTotal.west_run * 100 / $scope.dumperTotal.west_total);
 
-            $scope.dumperTotal.idl = $scope.dumperTotal.east_idl+$scope.dumperTotal.west_idl;
-            $scope.dumperTotal.run = $scope.dumperTotal.east_run+$scope.dumperTotal.west_run;
-            $scope.dumperTotal.brk = $scope.dumperTotal.east_brk+$scope.dumperTotal.west_brk;
-            $scope.dumperTotal.avl = $scope.dumperTotal.east_avl+$scope.dumperTotal.west_avl;
-            $scope.dumperTotal.total = $scope.dumperTotal.east_total+$scope.dumperTotal.west_total;
-           
+            $scope.dumperTotal.idl = $scope.dumperTotal.east_idl + $scope.dumperTotal.west_idl;
+            $scope.dumperTotal.run = $scope.dumperTotal.east_run + $scope.dumperTotal.west_run;
+            $scope.dumperTotal.brk = $scope.dumperTotal.east_brk + $scope.dumperTotal.west_brk;
+            $scope.dumperTotal.avl = $scope.dumperTotal.east_avl + $scope.dumperTotal.west_avl;
+            $scope.dumperTotal.total = $scope.dumperTotal.east_total + $scope.dumperTotal.west_total;
+
             $scope.dumperTotal.avli = Math.round($scope.dumperTotal.avl * 100 / $scope.dumperTotal.total);
             $scope.dumperTotal.utli = Math.round($scope.dumperTotal.run * 100 / $scope.dumperTotal.total);
 
-            
-            $scope.dumperTotal.idlhms = ""+$scope.dumperTotal.idl+":00"
-            $scope.dumperTotal.runhms = ""+$scope.dumperTotal.run+":00"
-            $scope.dumperTotal.brkhms = ""+$scope.dumperTotal.brk+":00"
-            $scope.dumperTotal.avlhms = ""+$scope.dumperTotal.avl+":00"
+
+            $scope.dumperTotal.idlhms = "" + $scope.dumperTotal.idl + ":00"
+            $scope.dumperTotal.runhms = "" + $scope.dumperTotal.run + ":00"
+            $scope.dumperTotal.brkhms = "" + $scope.dumperTotal.brk + ":00"
+            $scope.dumperTotal.avlhms = "" + $scope.dumperTotal.avl + ":00"
 
             $scope.dumperTotal.avlstr = `${$scope.dumperTotal.avli}%`;
             $scope.dumperTotal.utlstr = `${$scope.dumperTotal.utli}%`;
-            
+
         });
 
 
@@ -559,6 +545,17 @@ app.controller("myController", function ($scope, $http) {
     }
 
 
+    $scope.machineStatus=function(mach){
+        if (mach.status == 3) {
+            mach.status = 2;
+            mach.remark = "MAINTENANCE";
+        }
+        else {
+            mach.remark = "";
+        }
+        $scope.update();
+
+    }
 
     $scope.dumperCounter = function (command) {
         if (command == 1) {
@@ -618,8 +615,8 @@ app.controller("myController", function ($scope, $http) {
         l = new Date(k);
         h = l.getHours();
         h = h % 12;
-        if (h == 0) { h = 12;}
-        t = "" + h + ":" + (l.getMinutes() < 10 ? "0" : "") + l.getMinutes()+(l.getHours()<12?" AM":" PM");
+        if (h == 0) { h = 12; }
+        t = "" + h + ":" + (l.getMinutes() < 10 ? "0" : "") + l.getMinutes() + (l.getHours() < 12 ? " AM" : " PM");
         return t;
     }
 

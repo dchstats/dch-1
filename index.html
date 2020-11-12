@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            <div class=" mach" ng-repeat="x in machines" ng-hide="x.type!='crusher'">
+            <div class=" mach" ng-repeat="x in machines">
                 <div class="inner">
                     <div class="front {{ statusStrings[x.status] }}">
                         <p class="machine-title">{{ x.name }}</p>
@@ -89,7 +89,7 @@
 
                     <div class="back">
 
-                        <select ng-model="x.status" ng-change="update()"
+                        <select ng-model="x.status" ng-change="machineStatus(x)"
                             ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
                         <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
                             type="text" ng-disabled="!auth" />
@@ -97,42 +97,7 @@
                 </div>
             </div>
 
-            <div class=" mach" ng-repeat="x in machines" ng-hide="x.type!='shovel'">
-                <div class="inner">
-                    <div class="front {{ statusStrings[x.status] }}">
-                        <p class="machine-title">{{ x.name }}</p>
-                        <p class="machine-remark">{{ x.remark }}</p>
-                    </div>
-
-                    <div class="back">
-
-                        <select ng-model="x.status" ng-change="update()"
-                            ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
-                        <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
-                            type="text" ng-disabled="!auth" />
-                    </div>
-                </div>
-            </div>
-
-            <div class=" mach" ng-repeat="x in machines" ng-hide="x.type!='dragline'">
-                <div class="inner">
-                    <div class="front {{ statusStrings[x.status] }}">
-                        <p class="machine-title">{{ x.name }}</p>
-                        <p class="machine-remark">{{ x.remark }}</p>
-                    </div>
-
-                    <div class="back">
-
-                        <select ng-model="x.status" ng-change="update()"
-                            ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
-                        <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
-                            type="text" ng-disabled="!auth" />
-                    </div>
-                </div>
-            </div>
         </div>
-
-
 
         <div class="section" id="trends-sec">
             <div class="container">
@@ -151,7 +116,6 @@
                 </div>
             </div>
         </div>
-
 
 
         <div class="section" id="graphs-sec">
@@ -323,81 +287,10 @@
             </table>
         </div>
 
-
-
-
         <div class="section" id="tables-sec">
-            <table>
-                <tr class="head">
-                    <td colspan="7">EAST DUMPERS</td>
-                </tr>
-                <tr class="">
-                    <th>HOUR</th>
-                    <th>AVL</th>
-                    <th>RUN</th>
-                    <th>IDL</th>
-                    <th>BRK</th>
-                    <th>%AVL</th>
-                    <th>%UTL</th>
-                </tr>
-                <tr ng-repeat="x in dumpers track by $index">
-                    <td>{{x.hour+1}}</td>
-                    <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()"></td>
-                    <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()"></td>
-                    <td>{{x.east_idl}}</td>
-                    <td>{{x.east_brk}}</td>
-                    <td>{{x.east_avli}} %</td>
-                    <td>{{x.east_utli}} %</td>
-                </tr>
-                <tr class="total">
-                    <td>TOTAL</td>
-                    <td>{{dumperTotal.east_avl}} Hrs</td>
-                    <td>{{dumperTotal.east_run}} Hrs</td>
-                    <td>{{dumperTotal.east_idl}} Hrs</td>
-                    <td>{{dumperTotal.east_brk}} Hrs</td>
-                    <td>{{dumperTotal.east_avli}} %</td>
-                    <td>{{dumperTotal.east_utli}} %</td>
-                </tr>
-            </table>
+          
 
-            <table>
-                <tr class="head">
-                    <td colspan="7">WEST DUMPERS</td>
-                </tr>
-                <tr class="">
-                    <th>HOUR</th>
-                    <th>AVL</th>
-                    <th>RUN</th>
-                    <th>IDL</th>
-                    <th>BRK</th>
-                    <th>AVLI</th>
-                    <th>UTLI</th>
-                </tr>
-                <tr ng-repeat="x in dumpers track by $index">
-                    <td>{{x.hour+1}}</td>
-                    <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()"></td>
-                    <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()"></td>
-                    <td>{{x.west_idl}}</td>
-                    <td>{{x.west_brk}}</td>
-                    <td>{{x.west_avli}} %</td>
-                    <td>{{x.west_utli}} %</td>
-                </tr>
-                <tr class="total">
-                    <td>TOTAL</td>
-                    <td>{{dumperTotal.west_avl}} Hrs</td>
-                    <td>{{dumperTotal.west_run}} Hrs</td>
-                    <td>{{dumperTotal.west_idl}} Hrs</td>
-                    <td>{{dumperTotal.west_brk}} Hrs</td>
-                    <td>{{dumperTotal.west_avli}} %</td>
-                    <td>{{dumperTotal.west_utli}} %</td>
-                </tr>
-            </table>
-
-            <table>
+            <table class="tbl-crushers">
                 <tr class="head">
                     <td colspan="7">CRUSHERS</td>
                 </tr>
@@ -431,7 +324,7 @@
                 </tr>
             </table>
 
-            <table>
+            <table class="tbl-draglines">
                 <tr class="head">
                     <td colspan="7">DRAGLINES</td>
                 </tr>
@@ -466,7 +359,7 @@
             </table>
 
 
-            <table>
+            <table class="tbl-shovels">
                 <tr class="head">
                     <td colspan="7">SHOVELS</td>
                 </tr>
@@ -502,7 +395,74 @@
                 </tr>
             </table>
 
+            <table class="tbl-east-dumpers">
+                <tr class="head">
+                    <td colspan="7">EAST DUMPERS</td>
+                </tr>
+                <tr class="">
+                    <th>HOUR</th>
+                    <th>AVL</th>
+                    <th>RUN</th>
+                    <th>IDL</th>
+                    <th>BRK</th>
+                    <th>%AVL</th>
+                    <th>%UTL</th>
+                </tr>
+                <tr ng-repeat="x in dumpers track by $index">
+                    <td>{{x.hour+1}}</td>
+                    <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour" ng-change="update()"></td>
+                    <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour" ng-change="update()"></td>
+                    <td>{{x.east_idl}}</td>
+                    <td>{{x.east_brk}}</td>
+                    <td>{{x.east_avli}} %</td>
+                    <td>{{x.east_utli}} %</td>
+                </tr>
+                <tr class="total">
+                    <td>TOTAL</td>
+                    <td>{{dumperTotal.east_avl}} Hrs</td>
+                    <td>{{dumperTotal.east_run}} Hrs</td>
+                    <td>{{dumperTotal.east_idl}} Hrs</td>
+                    <td>{{dumperTotal.east_brk}} Hrs</td>
+                    <td>{{dumperTotal.east_avli}} %</td>
+                    <td>{{dumperTotal.east_utli}} %</td>
+                </tr>
+            </table>
+
+            <table class="tbl-west-dumpers">
+                <tr class="head">
+                    <td colspan="7">WEST DUMPERS</td>
+                </tr>
+                <tr class="">
+                    <th>HOUR</th>
+                    <th>AVL</th>
+                    <th>RUN</th>
+                    <th>IDL</th>
+                    <th>BRK</th>
+                    <th>AVLI</th>
+                    <th>UTLI</th>
+                </tr>
+                <tr ng-repeat="x in dumpers track by $index">
+                    <td>{{x.hour+1}}</td>
+                    <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour" ng-change="update()"></td>
+                    <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour" ng-change="update()"></td>
+                    <td>{{x.west_idl}}</td>
+                    <td>{{x.west_brk}}</td>
+                    <td>{{x.west_avli}} %</td>
+                    <td>{{x.west_utli}} %</td>
+                </tr>
+                <tr class="total">
+                    <td>TOTAL</td>
+                    <td>{{dumperTotal.west_avl}} Hrs</td>
+                    <td>{{dumperTotal.west_run}} Hrs</td>
+                    <td>{{dumperTotal.west_idl}} Hrs</td>
+                    <td>{{dumperTotal.west_brk}} Hrs</td>
+                    <td>{{dumperTotal.west_avli}} %</td>
+                    <td>{{dumperTotal.west_utli}} %</td>
+                </tr>
+            </table>
+
         </div>
+
     </main>
 </body>
 
