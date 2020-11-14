@@ -96,26 +96,22 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
+
+
         <div class="section" id="trends-sec">
-            <div class="container">
-
-
-                <div class="trend-row" ng-repeat="x in machines">
-                    <div class="mcname">
-                        {{x.name}}
-                    </div>
-                    <div class="mctrend">
-                        <div ng-repeat="y in x.logs track by $index"
-                            class="tooltip trend-block {{statusStrings[y]}}-block" ng-click=" trendToggle(x,$index)">
-                            <span class="tooltiptext">{{timef($index)}}</span>
-                        </div>
+            <div class="trend-row" ng-repeat="x in machines">
+                <p class="mcname"> {{x.name}} </p>
+                <div class="mctrend">
+                    <div ng-repeat="y in x.logs track by $index" class="tooltip trend-block {{statusStrings[y]}}"
+                        ng-click=" trendToggle(x,$index)">
+                        <span class="tooltiptext">{{timef($index)}}</span>
                     </div>
                 </div>
             </div>
         </div>
+
 
 
         <div class="section" id="graphs-sec">
@@ -288,7 +284,7 @@
         </div>
 
         <div class="section" id="tables-sec">
-          
+
 
             <table class="tbl-crushers">
                 <tr class="head">
@@ -410,8 +406,10 @@
                 </tr>
                 <tr ng-repeat="x in dumpers track by $index">
                     <td>{{x.hour+1}}</td>
-                    <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour" ng-change="update()"></td>
-                    <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour" ng-change="update()"></td>
+                    <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour"
+                            ng-change="update()"></td>
+                    <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour"
+                            ng-change="update()"></td>
                     <td>{{x.east_idl}}</td>
                     <td>{{x.east_brk}}</td>
                     <td>{{x.east_avli}} %</td>
@@ -443,8 +441,10 @@
                 </tr>
                 <tr ng-repeat="x in dumpers track by $index">
                     <td>{{x.hour+1}}</td>
-                    <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour" ng-change="update()"></td>
-                    <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour" ng-change="update()"></td>
+                    <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour"
+                            ng-change="update()"></td>
+                    <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour"
+                            ng-change="update()"></td>
                     <td>{{x.west_idl}}</td>
                     <td>{{x.west_brk}}</td>
                     <td>{{x.west_avli}} %</td>

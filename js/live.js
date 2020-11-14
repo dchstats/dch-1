@@ -1,7 +1,7 @@
 var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
-    $scope.subSections = ['live', 'dumpers']
+
 
     $scope.crushers = ['CRUSHER-1', 'CRUSHER-2', 'CRUSHER-3'];
     $scope.shovels = ['P&H-06', 'P&H-07', 'P&H-10',
@@ -9,7 +9,7 @@ app.controller("myController", function ($scope, $http) {
         'P&H-16', 'P&H-17', 'P&H-18', 'P&H-19', 'HIM-20', 'PC-TATA', 'KOMATSU-PC', 'LAXMAN-PC', 'PL-06', 'PL-07', 'SM-L&T'];
     $scope.draglines = ['JYOTI', 'PAWAN', 'VNDHYA', 'JWALA'];
     $scope.siloNames = ['OLD SILO', 'NEW SILO', 'WHARF WALL'];
-    $scope.types = ['silo', 'crusher', 'shovel', 'dragline'];
+
     $scope.statusCodes = [0, 1, 2, 3];
     $scope.statusStrings = ['IDL', 'RNG', 'BDN', 'MNT', 'UDF'];
 
@@ -19,8 +19,6 @@ app.controller("myController", function ($scope, $http) {
     $scope.dumper = {};
     $scope.dumpers = [];  // stores hourly snapshots of dumper objects.
     $scope.dumperTotal = {};
-
-
 
 
     $scope.time = new Date().getTime();
@@ -41,8 +39,9 @@ app.controller("myController", function ($scope, $http) {
     $scope.downUrl = 'http://localhost/dch/serv/downLive.php';
 
 
-    $scope.block = 0;
-    $scope.hour = 0;
+    // GLOBALS /////
+    let block = 0;
+    let hour = 0;
 
     const blockWidth = 10;
     const totalBlocks = 8 * 60 / blockWidth;
@@ -62,25 +61,42 @@ app.controller("myController", function ($scope, $http) {
             this.status = 0;
             this.remark = "";
             this.logs = [];
-            this.avlmins = 0;
-            this.runmins = 0;
-            this.idlmins = 0;
-            this.brkmins = 0;
-            this.mntmins = 0;
-
-
-            this.defmins = 0;
-
-            this.pavl = 0;
-            this.putl = 0;
-
-            // this.idlhms = "";
-            // this.runhms = "";
-            // this.brkhms = "";
-            // this.avlhms = "";
-            // this.avlstr = "";
-            // this.utlstr = "";
         }
+
+        get = function () {
+            return {
+                name: this.name,
+                type: this.type,
+                status: this.status,
+                remark: this.remark,
+                logs: this.logs
+            }
+        }
+
+        set = function (obj) {
+            this.name = obj.name;
+            this.type = obj.type;
+            this.status = obj.status;
+            this.remark = obj.remark;
+            this.logs = obj.logs;
+        }
+
+        calculate = function () {
+            this.idl = this.logs.filter(x => x == 0).length;
+            this.run = this.logs.filter(x => x == 1).length;
+            this.brk = this.logs.filter(x => x == 2).length;
+            this.mnt = this.logs.filter(x => x == 3).length;
+
+
+            this.avl = this.idl + this.run;
+            this.navl = this.brk + this.mnt;
+            this.total = this.avl + this.navl;
+
+            this.pavl = Math.round(this.avl * 100 / this.total);
+            this.putl = Math.round(this.run * 100 / this.total);
+        }
+
+
     }
 
     class Silo {
@@ -88,6 +104,20 @@ app.controller("myController", function ($scope, $http) {
             this.name = name;
             this.rakes = 0;
             this.remark = "";
+        }
+
+        set = function (obj) {
+            this.name = obj.name;
+            this.rakes = obj.rakes;
+            this.remark = obj.remark;
+        }
+
+        get = function () {
+            return {
+                name: this.name,
+                rakes: this.rakes,
+                remark: this.remark
+            }
         }
     }
 
@@ -103,7 +133,33 @@ app.controller("myController", function ($scope, $http) {
             this.west_avl = 0;
             this.west_run = 0;
         }
+        set = function (arr) {
+            this.hour = arr[0];
+            this.east_total = arr[1];
+            this.east_avl = arr[2];
+            this.east_run = arr[3];
+            this.west_total = arr[4];
+            this.west_avl = arr[5];
+            this.west_run = arr[6];
+        }
+        get = function () {
+            let k = [];
+            k.push(this.hour);
+            k.push(this.east_total);
+            k.push(this.east_avl);
+            k.push(this.east_run);
+            k.push(this.west_total);
+            k.push(this.west_avl);
+            k.push(this.west_run);
+            return k;
+        }
 
+        calculate = function () {
+            this.east_pavl = Math.round(this.east_avl * 100 / (this.east_total));
+            this.east_utl = Math.round(this.east_run * 100 / (this.east_total));
+            this.west_pavl = Math.round(this.west_avl * 100 / (this.west_total))
+            this.west_utl = Math.round(this.west_run * 100 / (this.west_total));
+        }
     }
 
 
@@ -134,12 +190,18 @@ app.controller("myController", function ($scope, $http) {
 
         $scope.dumper = new Dumper();
 
+        angular.forEach($scope.machines, function (mach,i) {
+            for (j = 0; j < totalBlocks; j++){
+                mach.logs[j] = 4;
+            }
+        })
 
 
-        for (i = 0; i < $scope.hour; i++) {
+        for (i = 0; i < hour; i++) {
             k = new Dumper(i);
             $scope.dumpers.push(k);
         }
+
 
 
         if ($scope.forceUpload) {
@@ -151,7 +213,7 @@ app.controller("myController", function ($scope, $http) {
             download();
         }
 
-        setInterval(sync, 15000);
+        setInterval(sync, 5000);
     }
 
     function timeBlock() {
@@ -161,9 +223,9 @@ app.controller("myController", function ($scope, $http) {
         var d = Math.floor((c - b) / (8 * 3600 * 1000));
         var e = b + d * (8 * 3600 * 1000);
         $scope.start = e;
-        $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
-        $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
-        console.log('block:', $scope.block, '  hour:', $scope.hour);
+        block = Math.floor((c - e) / (blockWidth * 60 * 1000));
+        hour = Math.floor((c - e) / (60 * 60 * 1000));
+        console.log('block:', block, '  hour:', hour);
     }
 
 
@@ -208,33 +270,31 @@ app.controller("myController", function ($scope, $http) {
                 var c = a.lastIndexOf('}');
                 var d = a.slice(b, c + 1);
                 var e = JSON.parse(d);
-                var stamp = e.stamp;
-                var f = new Date(stamp);
-                var hh = f.getHours();
-                var mm = f.getMinutes();
-                var ss = f.getSeconds();
-                var t = hh + ':' + mm + ':' + ss;
 
-                $scope.machines = e.machines;
-                $scope.silos = e.silos;
-                $scope.dumper = e.dumper;
-                angular.forEach(e.dumpers, function (x, i) {
-                    if (x) {
-                        $scope.dumpers[i] = x;
-                    }
+                $scope.stamp = e.stamp;
+                t = e.time;
+
+                angular.forEach($scope.machines, function (x, i) {
+                    x.set(e.machines[i]);
+                    x.calculate();
                 })
-                // $scope.dumpers = e.dumpers;
-                $scope.stamp = stamp;
+                angular.forEach($scope.dumers, function (x, i) {
+                    x.set(e.dumpers[i]);
+                    x.calculate();
+                })
+                angular.forEach($scope.silos, function (x, i) {
+                    x.set(e.silos[i]);
+                })
 
 
                 console.log('Downloaded..', e.stamp, 'By:' + e.user + ' @ ' + t);
-                console.log(e);
+                // console.log(e);
 
                 if ($scope.stamp < $scope.start) {
                     console.log('Obsolete data detected. Resetting....');
                     reset();
                 }
-                performanceLog();
+                // performanceLog();
             },
             function () {
                 console.log("fetch failed");
@@ -245,18 +305,33 @@ app.controller("myController", function ($scope, $http) {
 
 
     function upload() {
-        $scope.obj = {
+
+        let obj = {
             user: $scope.user,
             stamp: new Date().getTime(),
-            machines: $scope.machines,
-            silos: $scope.silos,
+            time: new Date().toLocaleString(),
+            machines: [],
+            silos: [],
+            dumpers: [],
             dumper: $scope.dumper,
-            dumpers: $scope.dumpers
         };
 
-        $scope.objString = JSON.stringify($scope.obj);
-        var payload = { 'str': $scope.objString };
-        // console.log(JSON.parse(payload.str));
+
+        angular.forEach($scope.machines, function (x, i) {
+            obj.machines.push($scope.machines[i].get());
+        })
+        angular.forEach($scope.silos, function (x, i) {
+            obj.silos.push($scope.silos[i].get());
+        })
+    
+        angular.forEach($scope.dumpers, function (x, i) {
+            obj.dumpers.push($scope.dumpers[i].get());
+        })
+  
+        let objString = JSON.stringify(obj);
+        let payload = { 'str': objString };
+  
+
         var req = {
             method: 'POST',
             url: $scope.upUrl,
@@ -273,7 +348,7 @@ app.controller("myController", function ($scope, $http) {
                 var c = a.lastIndexOf('}');
                 var d = a.slice(b, c + 1);
                 var e = JSON.parse(d);
-                if (e.stamp == $scope.obj.stamp) {
+                if (e.stamp == obj.stamp) {
                     console.log('Uploaded...', e.stamp);
                     $scope.changed = false; // only when upload is successful.
                 }
@@ -309,6 +384,7 @@ app.controller("myController", function ($scope, $http) {
 
 
     function performanceLog() {
+        // console.log('logging................');
 
         timeBlock();
 
@@ -320,208 +396,16 @@ app.controller("myController", function ($scope, $http) {
                 mach.logs[0] = mach.status;
             }
 
-            for (j = 1; j < $scope.block; j++) {
+            for (j = 1; j < block; j++) {
                 if (!valids.includes(mach.logs[j])) {
                     mach.logs[j] = mach.logs[j - 1];
                 }
             }
 
-            mach.logs[$scope.block] = mach.status;
+            mach.logs[block] = mach.status;
 
-            for (j = $scope.block + 1; j < totalBlocks; j++) {
+            for (j = block + 1; j < totalBlocks; j++) {
                 mach.logs[j] = 4;
-            }
-        });
-
-
-        $scope.crusherTotal = {
-            avlmins: 0,
-            runmins: 0,
-            idlmins: 0,
-            brkmins: 0,
-            mntmins: 0,
-            defmins: 0
-        };
-        $scope.shovelTotal = {
-            avlmins: 0,
-            runmins: 0,
-            idlmins: 0,
-            brkmins: 0,
-            mntmins: 0,
-            defmins: 0
-        };
-        $scope.draglineTotal = {
-            avlmins: 0,
-            runmins: 0,
-            idlmins: 0,
-            brkmins: 0,
-            mntmins: 0,
-            defmins: 0
-        };
-
-        $scope.dumperTotal = {
-            east_total: 0,
-            east_avl: 0,
-            east_run: 0,
-
-            west_total: 0,
-            west_avl: 0,
-            west_run: 0
-        }
-
-
-        $scope.dumper.hour = $scope.hour;
-        $scope.dumpers[$scope.hour] = { ...$scope.dumper };
-
-        angular.forEach($scope.dumpers, function (d, i) {
-            d.east_idl = d.east_avl - d.east_run;
-            d.east_brk = d.east_total - d.east_avl;
-            d.east_avli = Math.round(d.east_avl * 100 / d.east_total);
-            d.east_utli = Math.round(d.east_run * 100 / d.east_total);
-
-
-            d.west_idl = d.west_avl - d.west_run;
-            d.west_brk = d.west_total - d.west_avl;
-            d.west_avli = Math.round(d.west_avl * 100 / d.west_total);
-            d.west_utli = Math.round(d.west_run * 100 / d.west_total);
-
-
-            $scope.dumperTotal.east_total += d.east_total;
-            $scope.dumperTotal.east_avl += d.east_avl;
-            $scope.dumperTotal.east_run += d.east_run;
-
-            $scope.dumperTotal.west_total += d.west_total;
-            $scope.dumperTotal.west_avl += d.west_avl;
-            $scope.dumperTotal.west_run += d.west_run;
-
-            $scope.dumperTotal.east_idl = $scope.dumperTotal.east_avl - $scope.dumperTotal.east_run;
-            $scope.dumperTotal.east_brk = $scope.dumperTotal.east_total - $scope.dumperTotal.east_avl;
-            $scope.dumperTotal.east_avli = Math.round($scope.dumperTotal.east_avl * 100 / $scope.dumperTotal.east_total);
-            $scope.dumperTotal.east_utli = Math.round($scope.dumperTotal.east_run * 100 / $scope.dumperTotal.east_total);
-
-
-            $scope.dumperTotal.west_idl = $scope.dumperTotal.west_avl - $scope.dumperTotal.west_run;
-            $scope.dumperTotal.west_brk = $scope.dumperTotal.west_total - $scope.dumperTotal.west_avl;
-            $scope.dumperTotal.west_avli = Math.round($scope.dumperTotal.west_avl * 100 / $scope.dumperTotal.west_total);
-            $scope.dumperTotal.west_utli = Math.round($scope.dumperTotal.west_run * 100 / $scope.dumperTotal.west_total);
-
-            $scope.dumperTotal.idl = $scope.dumperTotal.east_idl + $scope.dumperTotal.west_idl;
-            $scope.dumperTotal.run = $scope.dumperTotal.east_run + $scope.dumperTotal.west_run;
-            $scope.dumperTotal.brk = $scope.dumperTotal.east_brk + $scope.dumperTotal.west_brk;
-            $scope.dumperTotal.avl = $scope.dumperTotal.east_avl + $scope.dumperTotal.west_avl;
-            $scope.dumperTotal.total = $scope.dumperTotal.east_total + $scope.dumperTotal.west_total;
-
-            $scope.dumperTotal.avli = Math.round($scope.dumperTotal.avl * 100 / $scope.dumperTotal.total);
-            $scope.dumperTotal.utli = Math.round($scope.dumperTotal.run * 100 / $scope.dumperTotal.total);
-
-
-            $scope.dumperTotal.idlhms = "" + $scope.dumperTotal.idl + ":00"
-            $scope.dumperTotal.runhms = "" + $scope.dumperTotal.run + ":00"
-            $scope.dumperTotal.brkhms = "" + $scope.dumperTotal.brk + ":00"
-            $scope.dumperTotal.avlhms = "" + $scope.dumperTotal.avl + ":00"
-
-            $scope.dumperTotal.avlstr = `${$scope.dumperTotal.avli}%`;
-            $scope.dumperTotal.utlstr = `${$scope.dumperTotal.utli}%`;
-
-        });
-
-
-        angular.forEach($scope.machines, function (mach, i) {
-            mach.idlmins = 0;
-            mach.runmins = 0;
-            mach.brkmins = 0;
-
-            for (j = 0; j <= $scope.block; j++) {
-                s = mach.logs[j];
-                if (s === 0) {
-                    mach.idlmins += 5;
-                }
-                else if (s === 1) {
-                    mach.runmins += 5;
-                }
-                else if (s === 2) {
-                    mach.brkmins += 5;
-                }
-                else {
-                    console.log('Status error while performance counting...')
-                    console.log('index:', j, ' log:', s);
-                    break;
-                }
-            }
-            mach.defmins = mach.idlmins + mach.runmins + mach.brkmins;
-            mach.avlmins = mach.idlmins + mach.runmins;
-            mach.avl = Math.round(mach.avlmins * 100 / mach.defmins);
-            mach.utl = Math.round(mach.runmins * 100 / mach.defmins);
-
-            mach.idlhms = tohhmm(mach.idlmins);
-            mach.runhms = tohhmm(mach.runmins);
-            mach.brkhms = tohhmm(mach.brkmins);
-            mach.avlhms = tohhmm(mach.avlmins);
-
-            mach.avlstr = `${mach.avl}%`;
-            mach.utlstr = `${mach.utl}%`;
-
-            $scope.changed = true;
-
-
-            ////// TOTALING CALCULATIONS /////////
-
-
-            if (mach.type == 'crusher') {
-                $scope.crusherTotal.idlmins += mach.idlmins;
-                $scope.crusherTotal.runmins += mach.runmins;
-                $scope.crusherTotal.brkmins += mach.brkmins;
-                $scope.crusherTotal.avlmins += mach.avlmins;
-                $scope.crusherTotal.defmins += mach.defmins;
-
-                $scope.crusherTotal.avl = Math.round($scope.crusherTotal.avlmins * 100 / $scope.crusherTotal.defmins);
-                $scope.crusherTotal.utl = Math.round($scope.crusherTotal.runmins * 100 / $scope.crusherTotal.defmins);
-
-                $scope.crusherTotal.idlhms = tohhmm($scope.crusherTotal.idlmins);
-                $scope.crusherTotal.runhms = tohhmm($scope.crusherTotal.runmins);
-                $scope.crusherTotal.brkhms = tohhmm($scope.crusherTotal.brkmins);
-                $scope.crusherTotal.avlhms = tohhmm($scope.crusherTotal.avlmins);
-
-                $scope.crusherTotal.avlstr = `${$scope.crusherTotal.avl}%`;
-                $scope.crusherTotal.utlstr = `${$scope.crusherTotal.utl}%`;
-            }
-
-            else if (mach.type == 'shovel') {
-                $scope.shovelTotal.idlmins += mach.idlmins;
-                $scope.shovelTotal.runmins += mach.runmins;
-                $scope.shovelTotal.brkmins += mach.brkmins;
-                $scope.shovelTotal.avlmins += mach.avlmins;
-                $scope.shovelTotal.defmins += mach.defmins;
-
-                $scope.shovelTotal.avl = Math.round($scope.shovelTotal.avlmins * 100 / $scope.shovelTotal.defmins);
-                $scope.shovelTotal.utl = Math.round($scope.shovelTotal.runmins * 100 / $scope.shovelTotal.defmins);
-
-                $scope.shovelTotal.idlhms = tohhmm($scope.shovelTotal.idlmins);
-                $scope.shovelTotal.runhms = tohhmm($scope.shovelTotal.runmins);
-                $scope.shovelTotal.brkhms = tohhmm($scope.shovelTotal.brkmins);
-                $scope.shovelTotal.avlhms = tohhmm($scope.shovelTotal.avlmins);
-
-                $scope.shovelTotal.avlstr = `${$scope.shovelTotal.avl}%`;
-                $scope.shovelTotal.utlstr = `${$scope.shovelTotal.utl}%`;
-            }
-
-            else if (mach.type == 'dragline') {
-                $scope.draglineTotal.idlmins += mach.idlmins;
-                $scope.draglineTotal.runmins += mach.runmins;
-                $scope.draglineTotal.brkmins += mach.brkmins;
-                $scope.draglineTotal.avlmins += mach.avlmins;
-                $scope.draglineTotal.defmins += mach.defmins;
-
-                $scope.draglineTotal.avl = Math.round($scope.draglineTotal.avlmins * 100 / $scope.draglineTotal.defmins);
-                $scope.draglineTotal.utl = Math.round($scope.draglineTotal.runmins * 100 / $scope.draglineTotal.defmins);
-
-                $scope.draglineTotal.idlhms = tohhmm($scope.draglineTotal.idlmins);
-                $scope.draglineTotal.runhms = tohhmm($scope.draglineTotal.runmins);
-                $scope.draglineTotal.brkhms = tohhmm($scope.draglineTotal.brkmins);
-                $scope.draglineTotal.avlhms = tohhmm($scope.draglineTotal.avlmins);
-
-                $scope.draglineTotal.avlstr = `${$scope.draglineTotal.avl}%`;
-                $scope.draglineTotal.utlstr = `${$scope.draglineTotal.utl}%`;
             }
         });
     }
@@ -545,8 +429,9 @@ app.controller("myController", function ($scope, $http) {
 
 
     $scope.machineStatus = function (mach) {
+
         if (mach.status == 3) {
-            mach.status = 2;
+            // mach.status = 2;
             mach.remark = "MAINTENANCE";
         }
         else {
@@ -555,6 +440,13 @@ app.controller("myController", function ($scope, $http) {
         $scope.update();
 
     }
+
+    $scope.machStatus = function (mach, i) {
+        console.log(i);
+        mach.status = i;
+    }
+
+
 
     $scope.dumperCounter = function (command) {
         if (command == 1) {
@@ -600,7 +492,7 @@ app.controller("myController", function ($scope, $http) {
         if ($scope.auth) {
             k = mach.logs[i];
             k += 1;
-            k %= 3;
+            k %= 4;
             mach.logs[i] = k;
             $scope.changed = true;
         }
@@ -609,8 +501,11 @@ app.controller("myController", function ($scope, $http) {
 
 
 
+
+
+
     $scope.timef = function (block) {
-        k = $scope.start + block * 300 * 1000;
+        k = $scope.start + block * blockWidth * 60 * 1000;
         l = new Date(k);
         h = l.getHours();
         h = h % 12;
@@ -626,4 +521,6 @@ app.controller("myController", function ($scope, $http) {
         m = mins % 60;
         return h.toString() + " : " + (m < 10 ? "0" : "") + m.toString();
     }
+
+
 });  
