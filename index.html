@@ -288,108 +288,117 @@
 
             <table class="tbl-crushers">
                 <tr class="head">
-                    <td colspan="7">CRUSHERS</td>
+                    <td colspan="8">CRUSHERS</td>
                 </tr>
                 <tr class="">
                     <th>GC</th>
                     <th>AVL</th>
-                    <th>IDL</th>
                     <th>RUN</th>
                     <th>BDN</th>
+                    <th>MNT</th>
+                    <th>IDL</th>
                     <th>%AVL</th>
                     <th>%UTL</th>
                 </tr>
                 <tr ng-repeat="s in machines" ng-hide="s.type!='crusher'">
 
                     <td>{{s.name}}</td>
-                    <td>{{s.avlhms}}</td>
-                    <td>{{s.idlhms}}</td>
-                    <td>{{s.runhms}}</td>
-                    <td>{{s.brkhms}}</td>
-                    <td>{{s.avlstr}}</td>
-                    <td>{{s.utlstr}}</td>
+                    <td>{{hms(s.avl)}}</td>
+                    <td>{{hms(s.run)}}</td>
+                    <td>{{hms(s.brk)}}</td>
+                    <td>{{hms(s.mnt)}}</td>
+                    <td>{{hms(s.idl)}}</td>
+                    <td>{{s.pavl}}%</td>
+                    <td>{{s.putl}}%</td>
                 </tr>
                 <tr class="total">
                     <td>TOTAL</td>
-                    <td>{{crusherTotal.avlhms}}</td>
-                    <td>{{crusherTotal.idlhms}}</td>
-                    <td>{{crusherTotal.runhms}}</td>
-                    <td>{{crusherTotal.brkhms}}</td>
-                    <td>{{crusherTotal.avlstr}}</td>
-                    <td>{{crusherTotal.utlstr}}</td>
+                    <td>{{hms(crusherTotal.avl)}}</td>
+                    <td>{{hms(crusherTotal.run)}}</td>
+                    <td>{{hms(crusherTotal.brk)}}</td>
+                    <td>{{hms(crusherTotal.mnt)}}</td>
+                    <td>{{hms(crusherTotal.idl)}}</td>
+                    <td>{{crusherTotal.pavl}}%</td>
+                    <td>{{crusherTotal.putl}}%</td>
                 </tr>
             </table>
 
             <table class="tbl-draglines">
                 <tr class="head">
-                    <td colspan="7">DRAGLINES</td>
+                    <td colspan="8">DRAGLINES</td>
                 </tr>
                 <tr class="">
-                    <th>DRG</th>
+                    <th>DRAGLINE</th>
                     <th>AVL</th>
-                    <th>IDL</th>
                     <th>RUN</th>
                     <th>BDN</th>
+                    <th>MNT</th>
+                    <th>IDL</th>
                     <th>%AVL</th>
                     <th>%UTL</th>
                 </tr>
                 <tr ng-repeat="s in machines" ng-hide="s.type!='dragline'">
 
                     <td>{{s.name}}</td>
-                    <td>{{s.avlhms}}</td>
-                    <td>{{s.idlhms}}</td>
-                    <td>{{s.runhms}}</td>
-                    <td>{{s.brkhms}}</td>
-                    <td>{{s.avlstr}}</td>
-                    <td>{{s.utlstr}}</td>
+                    <td>{{hms(s.avl)}}</td>
+                    <td>{{hms(s.run)}}</td>
+                    <td>{{hms(s.brk)}}</td>
+                    <td>{{hms(s.mnt)}}</td>
+                    <td>{{hms(s.idl)}}</td>
+                    <td>{{s.pavl}}%</td>
+                    <td>{{s.putl}}%</td>
                 </tr>
                 <tr class="total">
                     <td>TOTAL</td>
-                    <td>{{draglineTotal.avlhms}}</td>
-                    <td>{{draglineTotal.idlhms}}</td>
-                    <td>{{draglineTotal.runhms}}</td>
-                    <td>{{draglineTotal.brkhms}}</td>
-                    <td>{{draglineTotal.avlstr}}</td>
-                    <td>{{draglineTotal.utlstr}}</td>
+                    <td>{{hms(draglineTotal.avl)}}</td>
+                    <td>{{hms(draglineTotal.run)}}</td>
+                    <td>{{hms(draglineTotal.brk)}}</td>
+                    <td>{{hms(draglineTotal.mnt)}}</td>
+                    <td>{{hms(draglineTotal.idl)}}</td>
+                    <td>{{draglineTotal.pavl}}%</td>
+                    <td>{{draglineTotal.putl}}%</td>
                 </tr>
             </table>
 
 
             <table class="tbl-shovels">
                 <tr class="head">
-                    <td colspan="7">SHOVELS</td>
+                    <td colspan="8">SHOVELS</td>
                 </tr>
                 <tr class="">
                     <th>SVL</th>
+
                     <th>AVL</th>
-                    <th>IDL</th>
                     <th>RUN</th>
                     <th>BDN</th>
+                    <th>MNT</th>
+                    <th>IDL</th>
                     <th>%AVL</th>
                     <th>%UTL</th>
                 </tr>
-
-
                 <tr ng-repeat="s in machines" ng-hide="s.type!='shovel'">
 
                     <td>{{s.name}}</td>
-                    <td>{{s.avlhms}}</td>
-                    <td>{{s.idlhms}}</td>
-                    <td>{{s.runhms}}</td>
-                    <td>{{s.brkhms}}</td>
-                    <td>{{s.avlstr}}</td>
-                    <td>{{s.utlstr}}</td>
+                    <td>{{hms(s.avl)}}</td>
+                    <td>{{hms(s.run)}}</td>
+                    <td>{{hms(s.brk)}}</td>
+                    <td>{{hms(s.mnt)}}</td>
+                    <td>{{hms(s.idl)}}</td>
+                    <td>{{s.pavl}}%</td>
+                    <td>{{s.putl}}%</td>
                 </tr>
                 <tr class="total">
                     <td>TOTAL</td>
-                    <td>{{shovelTotal.avlhms}}</td>
-                    <td>{{shovelTotal.idlhms}}</td>
-                    <td>{{shovelTotal.runhms}}</td>
-                    <td>{{shovelTotal.brkhms}}</td>
-                    <td>{{shovelTotal.avlstr}}</td>
-                    <td>{{shovelTotal.utlstr}}</td>
+                    <td>{{hms(shovelTotal.avl)}}</td>
+                    <td>{{hms(shovelTotal.run)}}</td>
+                    <td>{{hms(shovelTotal.brk)}}</td>
+                    <td>{{hms(shovelTotal.mnt)}}</td>
+                    <td>{{hms(shovelTotal.idl)}}</td>
+                    <td>{{shovelTotal.pavl}}%</td>
+                    <td>{{shovelTotal.putl}}%</td>
                 </tr>
             </table>
+
 
             <table class="tbl-east-dumpers">
                 <tr class="head">
@@ -399,8 +408,6 @@
                     <th>HOUR</th>
                     <th>AVL</th>
                     <th>RUN</th>
-                    <th>IDL</th>
-                    <th>BRK</th>
                     <th>%AVL</th>
                     <th>%UTL</th>
                 </tr>
@@ -410,19 +417,15 @@
                             ng-change="update()"></td>
                     <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour"
                             ng-change="update()"></td>
-                    <td>{{x.east_idl}}</td>
-                    <td>{{x.east_brk}}</td>
-                    <td>{{x.east_avli}} %</td>
-                    <td>{{x.east_utli}} %</td>
+                    <td>{{x.east_pavl}} %</td>
+                    <td>{{x.east_putl}} %</td>
                 </tr>
                 <tr class="total">
                     <td>TOTAL</td>
                     <td>{{dumperTotal.east_avl}} Hrs</td>
                     <td>{{dumperTotal.east_run}} Hrs</td>
-                    <td>{{dumperTotal.east_idl}} Hrs</td>
-                    <td>{{dumperTotal.east_brk}} Hrs</td>
-                    <td>{{dumperTotal.east_avli}} %</td>
-                    <td>{{dumperTotal.east_utli}} %</td>
+                    <td>{{dumperTotal.east_pavl}} %</td>
+                    <td>{{dumperTotal.east_putl}} %</td>
                 </tr>
             </table>
 
@@ -434,30 +437,22 @@
                     <th>HOUR</th>
                     <th>AVL</th>
                     <th>RUN</th>
-                    <th>IDL</th>
-                    <th>BRK</th>
-                    <th>AVLI</th>
-                    <th>UTLI</th>
+                    <th>%AVL</th>
+                    <th>%UTL</th>
                 </tr>
                 <tr ng-repeat="x in dumpers track by $index">
                     <td>{{x.hour+1}}</td>
-                    <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()"></td>
-                    <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()"></td>
-                    <td>{{x.west_idl}}</td>
-                    <td>{{x.west_brk}}</td>
-                    <td>{{x.west_avli}} %</td>
-                    <td>{{x.west_utli}} %</td>
+                    <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour" ng-change="update()"></td>
+                    <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour" ng-change="update()"></td>
+                    <td>{{x.west_pavl}} %</td>
+                    <td>{{x.west_putl}} %</td>
                 </tr>
                 <tr class="total">
                     <td>TOTAL</td>
                     <td>{{dumperTotal.west_avl}} Hrs</td>
                     <td>{{dumperTotal.west_run}} Hrs</td>
-                    <td>{{dumperTotal.west_idl}} Hrs</td>
-                    <td>{{dumperTotal.west_brk}} Hrs</td>
-                    <td>{{dumperTotal.west_avli}} %</td>
-                    <td>{{dumperTotal.west_utli}} %</td>
+                    <td>{{dumperTotal.west_pavl}} %</td>
+                    <td>{{dumperTotal.west_putl}} %</td>
                 </tr>
             </table>
 

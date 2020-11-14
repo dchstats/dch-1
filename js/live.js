@@ -48,10 +48,13 @@ app.controller("myController", function ($scope, $http) {
 
 
 
+
     // CONFIGS ////////
     $scope.changed = false;
     $scope.auth = true;
     $scope.forceUpload = false;
+
+    const syncDelay = 5000;
     ///////////////////
 
     class Machine {
@@ -82,10 +85,10 @@ app.controller("myController", function ($scope, $http) {
         }
 
         calculate = function () {
-            this.idl = this.logs.filter(x => x == 0).length;
-            this.run = this.logs.filter(x => x == 1).length;
-            this.brk = this.logs.filter(x => x == 2).length;
-            this.mnt = this.logs.filter(x => x == 3).length;
+            this.idl = this.logs.filter(x => x == 0).length * blockWidth;
+            this.run = this.logs.filter(x => x == 1).length * blockWidth;
+            this.brk = this.logs.filter(x => x == 2).length * blockWidth;
+            this.mnt = this.logs.filter(x => x == 3).length * blockWidth;
 
 
             this.avl = this.idl + this.run;
@@ -96,7 +99,14 @@ app.controller("myController", function ($scope, $http) {
             this.putl = Math.round(this.run * 100 / this.total);
         }
 
+        add = function (arr) {
 
+            this.logs = [];
+            arr.forEach((x, i) => {
+                this.logs = this.logs.concat(x.logs);
+            })
+            this.calculate();
+        }
     }
 
     class Silo {
@@ -156,9 +166,24 @@ app.controller("myController", function ($scope, $http) {
 
         calculate = function () {
             this.east_pavl = Math.round(this.east_avl * 100 / (this.east_total));
-            this.east_utl = Math.round(this.east_run * 100 / (this.east_total));
+            this.east_putl = Math.round(this.east_run * 100 / (this.east_total));
             this.west_pavl = Math.round(this.west_avl * 100 / (this.west_total))
-            this.west_utl = Math.round(this.west_run * 100 / (this.west_total));
+            this.west_putl = Math.round(this.west_run * 100 / (this.west_total));
+        }
+        add = function (arr) {
+            this.east_total = 0;
+            this.west_total = 0;
+
+            arr.forEach((x, i) => {
+                this.east_total += x.east_total;
+                this.east_avl += x.east_avl;
+                this.east_run += x.east_run;
+                this.west_total += x.west_total;
+                this.west_avl += x.west_avl;
+                this.west_run += x.west_run;
+            })
+            this.calculate();
+
         }
     }
 
@@ -167,10 +192,7 @@ app.controller("myController", function ($scope, $http) {
 
 
     function initialize() {
-
-
         timeBlock();
-
         angular.forEach($scope.crushers, function (x, i) {
             var k = new Machine(x, 'crusher');
             $scope.machines.push(k);
@@ -190,8 +212,8 @@ app.controller("myController", function ($scope, $http) {
 
         $scope.dumper = new Dumper();
 
-        angular.forEach($scope.machines, function (mach,i) {
-            for (j = 0; j < totalBlocks; j++){
+        angular.forEach($scope.machines, function (mach, i) {
+            for (j = 0; j < totalBlocks; j++) {
                 mach.logs[j] = 4;
             }
         })
@@ -203,7 +225,6 @@ app.controller("myController", function ($scope, $http) {
         }
 
 
-
         if ($scope.forceUpload) {
             upload();
             setTimeout(download, 5000);
@@ -213,7 +234,8 @@ app.controller("myController", function ($scope, $http) {
             download();
         }
 
-        setInterval(sync, 5000);
+        setInterval(sync, syncDelay);
+        console.log('block:', block, '  hour:', hour);
     }
 
     function timeBlock() {
@@ -225,7 +247,7 @@ app.controller("myController", function ($scope, $http) {
         $scope.start = e;
         block = Math.floor((c - e) / (blockWidth * 60 * 1000));
         hour = Math.floor((c - e) / (60 * 60 * 1000));
-        console.log('block:', block, '  hour:', hour);
+      
     }
 
 
@@ -236,7 +258,7 @@ app.controller("myController", function ($scope, $http) {
         if ($scope.changed && $scope.auth) {
             upload();
         }
-        else if ($scope.syncCounter % 4 == 0) {
+        else if ($scope.syncCounter % 1 == 0) {
             timeBlock();
             download();
         }
@@ -285,6 +307,14 @@ app.controller("myController", function ($scope, $http) {
                 angular.forEach($scope.silos, function (x, i) {
                     x.set(e.silos[i]);
                 })
+                angular.forEach(e.dumpers, function (x, i) {
+                    $scope.dumpers[i].set(e.dumpers[i]);
+                    $scope.dumpers[i].calculate();
+                })
+                $scope.dumper.set(e.dumper);
+                $scope.dumper.calculate();
+
+
 
 
                 console.log('Downloaded..', e.stamp, 'By:' + e.user + ' @ ' + t);
@@ -294,7 +324,7 @@ app.controller("myController", function ($scope, $http) {
                     console.log('Obsolete data detected. Resetting....');
                     reset();
                 }
-                // performanceLog();
+                performanceLog();
             },
             function () {
                 console.log("fetch failed");
@@ -313,8 +343,9 @@ app.controller("myController", function ($scope, $http) {
             machines: [],
             silos: [],
             dumpers: [],
-            dumper: $scope.dumper,
+            dumper: $scope.dumper.get()
         };
+        console.log(obj);
 
 
         angular.forEach($scope.machines, function (x, i) {
@@ -323,14 +354,14 @@ app.controller("myController", function ($scope, $http) {
         angular.forEach($scope.silos, function (x, i) {
             obj.silos.push($scope.silos[i].get());
         })
-    
+
         angular.forEach($scope.dumpers, function (x, i) {
             obj.dumpers.push($scope.dumpers[i].get());
         })
-  
+
         let objString = JSON.stringify(obj);
         let payload = { 'str': objString };
-  
+
 
         var req = {
             method: 'POST',
@@ -407,7 +438,25 @@ app.controller("myController", function ($scope, $http) {
             for (j = block + 1; j < totalBlocks; j++) {
                 mach.logs[j] = 4;
             }
+
+            mach.calculate();
         });
+
+        let crushers = $scope.machines.filter(x => x.type == 'crusher');
+        $scope.crusherTotal = new Machine('crusher total', 'crusher total');
+        $scope.crusherTotal.add(crushers);
+        let shovels = $scope.machines.filter(x => x.type == 'shovel');
+        $scope.shovelTotal = new Machine('shovel total', 'shovel total');
+        $scope.shovelTotal.add(shovels);
+        let draglines = $scope.machines.filter(x => x.type == 'dragline');
+        $scope.draglineTotal = new Machine('dragline total', 'dragline total');
+        $scope.draglineTotal.add(draglines);
+        $scope.dumperTotal = new Dumper(10);
+        $scope.dumperTotal.add($scope.dumpers);
+
+        angular.forEach($scope.dumpers, function (x, i) {
+            x.calculate();
+        })
     }
 
 
@@ -516,7 +565,7 @@ app.controller("myController", function ($scope, $http) {
 
 
 
-    function tohhmm(mins) {
+    $scope.hms = function (mins) {
         h = Math.floor(mins / 60);
         m = mins % 60;
         return h.toString() + " : " + (m < 10 ? "0" : "") + m.toString();

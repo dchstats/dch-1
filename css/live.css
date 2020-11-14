@@ -356,13 +356,16 @@ header {
 	display: grid;
 	grid-template-rows: auto auto auto auto;
 	grid-template-columns: 1fr 1fr;
-	grid-gap: 20px;
+	grid-gap: 50px;
+	padding:50px;
 	align-items: flex-start;
 	font-size: 0.7rem;
 }
 
-#tables-sec table {
+#tables-sec table{
+	min-width:400px;
 }
+
 
 .tbl-crushers {
 	grid-column: 1;
@@ -388,6 +391,8 @@ header {
 	grid-column: 2;
 	grid-row: 3;
 }
+
+
 
 #tables-sec td,
 th {
@@ -416,6 +421,12 @@ tr.total {
 
 #tables-sec input:disabled {
 	border: none;
+}
+
+@media(max-width:700px){
+	#tables-sec{
+		display:flex;
+	}
 }
 
 /* SPECIFICS /////////////// */
