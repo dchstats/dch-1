@@ -108,17 +108,74 @@ header {
 }
 
 .section {
-	padding: 2.5vw 1rem;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
+	width: 100%;
 }
 
 /* LIVE  ///////////////////////////////// */
 
 #live-sec {
-	padding: 2.5vw 0;
+}
+
+.live-bar {
+	width: 100%;
+	display:flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: wrap;
+
+}
+
+.live-bar input{
+	max-width:120px;
+	background:none;
+	color:white;
+	border:none;
+}
+
+.live-bar table{
+	width:400px;
+	margin:5px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+.live-bar table tr{
+background:#353535;
+}
+
+.live-bar table tr:nth-child(odd){
+	background:#404040;
+}
+
+.live-bar td{
+	padding:2px 5px;
+}
+
+.live-bar th{
+	padding:5px;
+	background:#444;
+}
+.live-bar button{
+	background:none;
+	border:none;
+	color:white;
+	outline:none;
+}
+button.incr{
+
+}
+
+.incrementor {
+	display: flex;
+	align-items: center;
+}
+.incrementor span{
+	flex-grow:1;
+	text-align: center;
+}
+
+
+
+.live-content {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -166,11 +223,6 @@ header {
 	color: white;
 }
 
-.rake-incrementer {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-}
 
 .silo input {
 	background: transparent;
@@ -230,6 +282,10 @@ header {
 
 /* TREND SECTION \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
 #trends-sec {
+	padding: 2.5vw 1rem;
+	display:flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	font-size: 12px;
@@ -284,6 +340,7 @@ header {
 /* GRAPHS /////////////////////////////////////////////////////// */
 
 #graphs-sec {
+	padding: 2.5vw 1rem;
 	display: flex;
 	flex-wrap: wrap;
 	color: white;
@@ -352,20 +409,20 @@ header {
 /* TABLES ///////////////////////////////////////////////////////////// */
 
 #tables-sec {
+	padding: 2.5vw 1rem;
 	color: white;
 	display: grid;
 	grid-template-rows: auto auto auto auto;
 	grid-template-columns: 1fr 1fr;
 	grid-gap: 50px;
-	padding:50px;
+	padding: 50px;
 	align-items: flex-start;
 	font-size: 0.7rem;
 }
 
-#tables-sec table{
-	min-width:400px;
+#tables-sec table {
+	min-width: 400px;
 }
-
 
 .tbl-crushers {
 	grid-column: 1;
@@ -392,10 +449,11 @@ header {
 	grid-row: 3;
 }
 
-
-
-#tables-sec td,
-th {
+#tables-sec td {
+	border: 1px solid #777;
+	padding: 1.2vh 0.5vw;
+}
+#tables-sec th {
 	border: 1px solid #777;
 	padding: 1.2vh 0.5vw;
 }
@@ -423,9 +481,9 @@ tr.total {
 	border: none;
 }
 
-@media(max-width:700px){
-	#tables-sec{
-		display:flex;
+@media (max-width: 700px) {
+	#tables-sec {
+		display: flex;
 	}
 }
 

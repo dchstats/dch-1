@@ -85,18 +85,18 @@ app.controller("myController", function ($scope, $http) {
         }
 
         calculate = function () {
-            this.idl = this.logs.filter(x => x == 0).length * blockWidth;
-            this.run = this.logs.filter(x => x == 1).length * blockWidth;
-            this.brk = this.logs.filter(x => x == 2).length * blockWidth;
-            this.mnt = this.logs.filter(x => x == 3).length * blockWidth;
+            this.idlm = this.logs.filter(x => x == 0).length * blockWidth;
+            this.runm = this.logs.filter(x => x == 1).length * blockWidth;
+            this.brkm = this.logs.filter(x => x == 2).length * blockWidth;
+            this.mntm = this.logs.filter(x => x == 3).length * blockWidth;
 
 
-            this.avl = this.idl + this.run;
-            this.navl = this.brk + this.mnt;
-            this.total = this.avl + this.navl;
+            this.avlm = this.idlm + this.runm;
+            this.navl = this.brkm + this.mntm;
+            this.total = this.avlm + this.navl;
 
-            this.pavl = Math.round(this.avl * 100 / this.total);
-            this.putl = Math.round(this.run * 100 / this.total);
+            this.pavl = Math.round(this.avlm * 100 / this.total);
+            this.putl = Math.round(this.runm * 100 / this.total);
         }
 
         add = function (arr) {
@@ -175,15 +175,18 @@ app.controller("myController", function ($scope, $http) {
             this.west_pavl = Math.round(this.west_avl * 100 / (this.west_total))
             this.west_putl = Math.round(this.west_run * 100 / (this.west_total));
 
-            this.avl = (this.east_avl + this.west_avl) * 60;
-            this.idl = (this.east_idl + this.west_idl) * 60;
-            this.run = (this.east_run + this.west_run) * 60;
-            this.brk = (this.east_brk + this.west_brk) * 60;
+            this.avl = this.east_avl + this.west_avl;
+            this.run = this.east_run + this.west_run;
+
+            this.avlm = (this.east_avl + this.west_avl) * 60;
+            this.idlm = (this.east_idl + this.west_idl) * 60;
+            this.runm = (this.east_run + this.west_run) * 60;
+            this.brkm = (this.east_brk + this.west_brk) * 60;
             this.total = (this.east_total + this.west_total) * 60;
-            
-            this.pavl = Math.round(this.avl * 100 / this.total);
-            this.putl = Math.round(this.run * 100 / this.total);
-            
+
+            this.pavl = Math.round(this.avlm * 100 / this.total);
+            this.putl = Math.round(this.runm * 100 / this.total);
+
         }
         add = function (arr) {
             this.east_total = 0;
@@ -457,7 +460,7 @@ app.controller("myController", function ($scope, $http) {
 
         });
 
-    
+
 
         let crushers = $scope.machines.filter(x => x.type == 'crusher');
         $scope.crusherTotal = new Machine('crusher total', 'crusher total');
@@ -475,6 +478,7 @@ app.controller("myController", function ($scope, $http) {
         angular.forEach($scope.dumpers, function (x, i) {
             x.calculate();
         })
+        $scope.dumper.calculate();
     }
 
 
