@@ -114,6 +114,7 @@ header {
 /* LIVE  ///////////////////////////////// */
 
 #live-sec {
+	font-size: clamp(10px, 1vw, 14px);
 }
 
 .live-bar {
@@ -148,11 +149,13 @@ background:#353535;
 
 .live-bar td{
 	padding:2px 5px;
+	border:0.5px solid rgb(255,255,255,0.1)
 }
 
 .live-bar th{
 	padding:5px;
 	background:#444;
+	border:0.5px solid rgb(255,255,255,0.1)
 }
 .live-bar button{
 	background:none;
@@ -185,7 +188,6 @@ button.incr{
 .mach {
 	width: clamp(120px, 15vw, 180px);
 	height: clamp(72px, 9vw, 108px);
-	font-size: clamp(12px, 1vw, 16px);
 	margin: 2px;
 	border-radius: 10px;
 	overflow: hidden;
