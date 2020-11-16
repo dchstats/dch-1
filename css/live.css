@@ -343,9 +343,13 @@ button.incr{
 
 #graphs-sec {
 	padding: 2.5vw 1rem;
-	display: flex;
-	flex-wrap: wrap;
 	color: white;
+}
+
+.chart-container{
+	/* background:yellow; */
+	height:400px;
+	position: relative;
 }
 
 .graphs-tbl {

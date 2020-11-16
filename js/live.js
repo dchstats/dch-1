@@ -1,8 +1,6 @@
 var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
-
-
     $scope.crushers = ['CRUSHER-1', 'CRUSHER-2', 'CRUSHER-3'];
     $scope.shovels = ['P&H-06', 'P&H-07', 'P&H-10',
         'P&H-11', 'P&H-12', 'P&H-13', 'P&H-14', 'P&H-15',
@@ -425,7 +423,9 @@ app.controller("myController", function ($scope, $http) {
         });
 
         $scope.dumper = new Dumper();
-        $scope.dumpers = [];
+        for (i = 0; i < 8; i++){
+            $scope.dumper[i] = new Dumper(i);
+        }
 
     }
 
@@ -591,6 +591,22 @@ app.controller("myController", function ($scope, $http) {
         h = Math.floor(mins / 60);
         m = mins % 60;
         return h.toString() + " : " + (m < 10 ? "0" : "") + m.toString();
+    }
+
+    $scope.chart = function (command) {
+        labels = [];
+        data1 = [];
+        data2 = [];
+        if (command == 'avl') {
+            labels = $scope.shovels;
+            angular.forEach($scope.machines, function (x, i) {
+                if (x.type == 'shovel') {
+                    data1.push(x.pavl);
+                    data2.push(x.putl);
+                }
+            })
+            plot(labels, data1, data2);
+        }
     }
 
 

@@ -9,9 +9,12 @@
 <script src="libs/jquery.js" defer></script>
 <script src="libs/angular.js"></script>
 
-<script src="js/live.js" defer></script>
 <script src="js/navigation.js" defer></script>
 
+<script src="js/exp.js" defer></script>
+<script src="js/live.js" defer></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" defer></script>
 
 
 <body ng-app="myApp" ng-controller="myController">
@@ -195,10 +198,20 @@
 
 
         <div class="section" id="graphs-sec">
+            <header class="graph-section-header">
+                <button ng-click="chart('avl')">Availibility</button>
+            </header>
+            <div class="chart-container">
 
 
-            <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
+                <canvas id="myChart" width="400" height="400">
+
+                </canvas>
+
+
+            </div>
             <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
             <table class="graphs-tbl">
