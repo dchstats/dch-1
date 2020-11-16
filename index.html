@@ -121,21 +121,19 @@
                     <td colspan="4">CRUSHERS</td>
                 </tr>
                 <tr>
-                    <td>IDL</td>
-                    <td>{{crusherTotal.idlhms}}</td>
-                    <td rowspan="3" class="bar-td">
+                    <td>AVL</td>
+                    <td>{{hms(crusherTotal.avl)}}</td>
+                    <td rowspan="4" class="bar-td">
                         <div class="bar-parent">
-                            <div class="avl-bar" style="height:{{crusherTotal.avlstr}}">
-                                <span>{{crusherTotal.avlstr}}</span>
-
+                            <div class="avl-bar" style="height:{{crusherTotal.pavl}}%">
+                                <span>{{crusherTotal.pavl}}%</span>
                             </div>
                         </div>
                     </td>
-                    <td rowspan="3" class="bar-td">
+                    <td rowspan="4" class="bar-td">
                         <div class="bar-parent">
-                            <div class="utl-bar" style="height:{{crusherTotal.utlstr}};">
-                                <span>{{crusherTotal.utlstr}}</span>
-
+                            <div class="utl-bar" style="height:{{crusherTotal.putl}}%;">
+                                <span>{{crusherTotal.putl}}%</span>
                             </div>
                         </div>
 
@@ -143,15 +141,20 @@
                 </tr>
                 <tr>
                     <td>RUN</td>
-                    <td>{{crusherTotal.runhms}}</td>
+                    <td>{{hms(crusherTotal.run)}}</td>
                 </tr>
                 <tr>
                     <td>BDN</td>
-                    <td>{{crusherTotal.brkhms}}</td>
+                    <td>{{hms(crusherTotal.brk)}}</td>
                 </tr>
                 <tr>
-                    <td>AVL</td>
-                    <td>{{crusherTotal.avlhms}}</td>
+                    <td>MNT</td>
+                    <td>{{hms(crusherTotal.mnt)}}</td>
+                </tr>
+            
+                <tr>
+                    <td>IDL</td>
+                    <td>{{hms(crusherTotal.idl)}}</td>
                     <td>% AVL</td>
                     <td>% UTL</td>
                 </tr>
@@ -159,85 +162,91 @@
 
             <table class="graphs-tbl">
                 <tr class="tbl-hdr">
-                    <td colspan="4">SHOVEL</td>
+                    <td colspan="4">SHOVELS</td>
                 </tr>
                 <tr>
-                    <td>IDL</td>
-                    <td>{{shovelTotal.idlhms}}</td>
-                    <td rowspan="3" class="bar-td">
+                    <td>AVL</td>
+                    <td>{{hms(shovelTotal.avl)}}</td>
+                    <td rowspan="4" class="bar-td">
                         <div class="bar-parent">
-                            <div class="avl-bar" style="height:{{shovelTotal.avlstr}}">
-                                <span>{{shovelTotal.avlstr}}</span>
-
+                            <div class="avl-bar" style="height:{{shovelTotal.pavl}}%">
+                                <span>{{shovelTotal.pavl}}%</span>
                             </div>
                         </div>
                     </td>
-                    <td rowspan="3" class="bar-td">
+                    <td rowspan="4" class="bar-td">
                         <div class="bar-parent">
-                            <div class="utl-bar" style="height:{{shovelTotal.utlstr}};">
-                                <span>{{shovelTotal.utlstr}}</span>
-
+                            <div class="utl-bar" style="height:{{shovelTotal.putl}}%;">
+                                <span>{{shovelTotal.putl}}%</span>
                             </div>
                         </div>
-
+            
                     </td>
                 </tr>
                 <tr>
                     <td>RUN</td>
-                    <td>{{shovelTotal.runhms}}</td>
+                    <td>{{hms(shovelTotal.run)}}</td>
                 </tr>
                 <tr>
                     <td>BDN</td>
-                    <td>{{shovelTotal.brkhms}}</td>
+                    <td>{{hms(shovelTotal.brk)}}</td>
                 </tr>
                 <tr>
-                    <td>AVL</td>
-                    <td>{{shovelTotal.avlhms}}</td>
+                    <td>MNT</td>
+                    <td>{{hms(shovelTotal.mnt)}}</td>
+                </tr>
+            
+                <tr>
+                    <td>IDL</td>
+                    <td>{{hms(shovelTotal.idl)}}</td>
                     <td>% AVL</td>
                     <td>% UTL</td>
                 </tr>
             </table>
 
-            <table class="graphs-tbl">
-                <tr class="tbl-hdr">
-                    <td colspan="4">DRAGLINES</td>
-                </tr>
-                <tr>
-                    <td>IDL</td>
-                    <td>{{draglineTotal.idlhms}}</td>
-                    <td rowspan="3" class="bar-td">
-                        <div class="bar-parent">
-                            <div class="avl-bar" style="height:{{draglineTotal.avlstr}}">
-                                <span>{{draglineTotal.avlstr}}</span>
-
-                            </div>
+        <table class="graphs-tbl">
+            <tr class="tbl-hdr">
+                <td colspan="4">DRAGLINES</td>
+            </tr>
+            <tr>
+                <td>AVL</td>
+                <td>{{hms(draglineTotal.avl)}}</td>
+                <td rowspan="4" class="bar-td">
+                    <div class="bar-parent">
+                        <div class="avl-bar" style="height:{{draglineTotal.pavl}}%">
+                            <span>{{draglineTotal.pavl}}%</span>
                         </div>
-                    </td>
-                    <td rowspan="3" class="bar-td">
-                        <div class="bar-parent">
-                            <div class="utl-bar" style="height:{{draglineTotal.utlstr}};">
-                                <span>{{draglineTotal.utlstr}}</span>
-
-                            </div>
+                    </div>
+                </td>
+                <td rowspan="4" class="bar-td">
+                    <div class="bar-parent">
+                        <div class="utl-bar" style="height:{{draglineTotal.putl}}%;">
+                            <span>{{draglineTotal.putl}}%</span>
                         </div>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td>RUN</td>
-                    <td>{{draglineTotal.runhms}}</td>
-                </tr>
-                <tr>
-                    <td>BDN</td>
-                    <td>{{draglineTotal.brkhms}}</td>
-                </tr>
-                <tr>
-                    <td>AVL</td>
-                    <td>{{draglineTotal.avlhms}}</td>
-                    <td>% AVL</td>
-                    <td>% UTL</td>
-                </tr>
-            </table>
+                    </div>
+        
+                </td>
+            </tr>
+            <tr>
+                <td>RUN</td>
+                <td>{{hms(draglineTotal.run)}}</td>
+            </tr>
+            <tr>
+                <td>BDN</td>
+                <td>{{hms(draglineTotal.brk)}}</td>
+            </tr>
+            <tr>
+                <td>MNT</td>
+                <td>{{hms(draglineTotal.mnt)}}</td>
+            </tr>
+        
+            <tr>
+                <td>IDL</td>
+                <td>{{hms(draglineTotal.idl)}}</td>
+                <td>% AVL</td>
+                <td>% UTL</td>
+            </tr>
+        </table>
 
 
 
@@ -246,41 +255,41 @@
                     <td colspan="4">DUMPERS</td>
                 </tr>
                 <tr>
-                    <td>IDL</td>
-                    <td>{{dumperTotal.idlhms}}</td>
+                    <td>AVL</td>
+                    <td>{{hms(dumperTotal.avl)}}</td>
                     <td rowspan="3" class="bar-td">
                         <div class="bar-parent">
-                            <div class="avl-bar" style="height:{{dumperTotal.avlstr}}">
-                                <span>{{dumperTotal.avlstr}}</span>
-
+                            <div class="avl-bar" style="height:{{dumperTotal.pavl}}%">
+                                <span>{{dumperTotal.pavl}}%</span>
                             </div>
                         </div>
                     </td>
                     <td rowspan="3" class="bar-td">
                         <div class="bar-parent">
-                            <div class="utl-bar" style="height:{{dumperTotal.utlstr}};">
-                                <span>{{dumperTotal.utlstr}}</span>
-
+                            <div class="utl-bar" style="height:{{dumperTotal.putl}}%;">
+                                <span>{{dumperTotal.putl}}%</span>
                             </div>
                         </div>
-
+            
                     </td>
                 </tr>
                 <tr>
                     <td>RUN</td>
-                    <td>{{dumperTotal.runhms}}</td>
+                    <td>{{hms(dumperTotal.run)}}</td>
                 </tr>
                 <tr>
                     <td>BDN</td>
-                    <td>{{dumperTotal.brkhms}}</td>
+                    <td>{{hms(dumperTotal.brk)}}</td>
                 </tr>
+            
                 <tr>
-                    <td>AVL</td>
-                    <td>{{dumperTotal.avlhms}}</td>
+                    <td>IDL</td>
+                    <td>{{hms(dumperTotal.idl)}}</td>
                     <td>% AVL</td>
                     <td>% UTL</td>
                 </tr>
             </table>
+
         </div>
 
         <div class="section" id="tables-sec">
@@ -411,7 +420,7 @@
                     <th>%AVL</th>
                     <th>%UTL</th>
                 </tr>
-                <tr ng-repeat="x in dumpers track by $index">
+                <tr ng-repeat="x in dumpers track by $index" ng-hide="x.hour > hour">
                     <td>{{x.hour+1}}</td>
                     <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour"
                             ng-change="update()"></td>
@@ -440,10 +449,12 @@
                     <th>%AVL</th>
                     <th>%UTL</th>
                 </tr>
-                <tr ng-repeat="x in dumpers track by $index">
+                <tr ng-repeat="x in dumpers track by $index" ng-hide="x.hour > hour">
                     <td>{{x.hour+1}}</td>
-                    <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour" ng-change="update()"></td>
-                    <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour" ng-change="update()"></td>
+                    <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour"
+                            ng-change="update()"></td>
+                    <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour"
+                            ng-change="update()"></td>
                     <td>{{x.west_pavl}} %</td>
                     <td>{{x.west_putl}} %</td>
                 </tr>

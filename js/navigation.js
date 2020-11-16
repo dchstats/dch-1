@@ -2,14 +2,14 @@ $(document).ready(begin());
 
 function begin() {
     $(".section").hide();
-    openSection('tables');
+    openSection('live');
 }
 
 
 function openSection(section) {
     $(".section").hide();
     var k = "#" + section+"-sec";
-    $(k).slideDown(100);
+    $(k).slideDown(50);
     $('.section-selector .tab').removeClass('active-tab');
     $('#' + section + '-tab').addClass('active-tab');
 }

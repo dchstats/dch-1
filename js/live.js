@@ -54,7 +54,7 @@ app.controller("myController", function ($scope, $http) {
     $scope.auth = true;
     $scope.forceUpload = false;
 
-    const syncDelay = 5000;
+    const syncDelay = 10000;
     ///////////////////
 
     class Machine {
@@ -165,10 +165,25 @@ app.controller("myController", function ($scope, $http) {
         }
 
         calculate = function () {
+            this.east_idl = this.east_avl - this.east_run;
+            this.east_brk = this.east_total - this.east_avl;
             this.east_pavl = Math.round(this.east_avl * 100 / (this.east_total));
             this.east_putl = Math.round(this.east_run * 100 / (this.east_total));
+
+            this.west_idl = this.west_avl - this.west_run;
+            this.west_brk = this.west_total - this.west_avl;
             this.west_pavl = Math.round(this.west_avl * 100 / (this.west_total))
             this.west_putl = Math.round(this.west_run * 100 / (this.west_total));
+
+            this.avl = (this.east_avl + this.west_avl) * 60;
+            this.idl = (this.east_idl + this.west_idl) * 60;
+            this.run = (this.east_run + this.west_run) * 60;
+            this.brk = (this.east_brk + this.west_brk) * 60;
+            this.total = (this.east_total + this.west_total) * 60;
+            
+            this.pavl = Math.round(this.avl * 100 / this.total);
+            this.putl = Math.round(this.run * 100 / this.total);
+            
         }
         add = function (arr) {
             this.east_total = 0;
@@ -219,7 +234,7 @@ app.controller("myController", function ($scope, $http) {
         })
 
 
-        for (i = 0; i < hour; i++) {
+        for (i = 0; i < 8; i++) {
             k = new Dumper(i);
             $scope.dumpers.push(k);
         }
@@ -247,7 +262,9 @@ app.controller("myController", function ($scope, $http) {
         $scope.start = e;
         block = Math.floor((c - e) / (blockWidth * 60 * 1000));
         hour = Math.floor((c - e) / (60 * 60 * 1000));
-      
+        $scope.block = block;
+        $scope.hour = hour;
+
     }
 
 
@@ -258,7 +275,7 @@ app.controller("myController", function ($scope, $http) {
         if ($scope.changed && $scope.auth) {
             upload();
         }
-        else if ($scope.syncCounter % 1 == 0) {
+        else if ($scope.syncCounter % 2 == 0) {
             timeBlock();
             download();
         }
@@ -307,9 +324,9 @@ app.controller("myController", function ($scope, $http) {
                 angular.forEach($scope.silos, function (x, i) {
                     x.set(e.silos[i]);
                 })
-                angular.forEach(e.dumpers, function (x, i) {
-                    $scope.dumpers[i].set(e.dumpers[i]);
-                    $scope.dumpers[i].calculate();
+                angular.forEach($scope.dumpers, function (x, i) {
+                    x.set(e.dumpers[i]);
+                    x.calculate();
                 })
                 $scope.dumper.set(e.dumper);
                 $scope.dumper.calculate();
@@ -391,9 +408,6 @@ app.controller("myController", function ($scope, $http) {
 
 
 
-
-
-
     function reset() {
 
         angular.forEach($scope.machines, function (mach, i) {
@@ -440,7 +454,10 @@ app.controller("myController", function ($scope, $http) {
             }
 
             mach.calculate();
+
         });
+
+    
 
         let crushers = $scope.machines.filter(x => x.type == 'crusher');
         $scope.crusherTotal = new Machine('crusher total', 'crusher total');
@@ -451,8 +468,9 @@ app.controller("myController", function ($scope, $http) {
         let draglines = $scope.machines.filter(x => x.type == 'dragline');
         $scope.draglineTotal = new Machine('dragline total', 'dragline total');
         $scope.draglineTotal.add(draglines);
+        let dumpers = $scope.dumpers.filter(x => x.hour <= hour);
         $scope.dumperTotal = new Dumper(10);
-        $scope.dumperTotal.add($scope.dumpers);
+        $scope.dumperTotal.add(dumpers);
 
         angular.forEach($scope.dumpers, function (x, i) {
             x.calculate();
