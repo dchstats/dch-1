@@ -1,4 +1,22 @@
-function plot(labels, data1, data2, data3, data4, data5) {
+function plot(obj) {
+    data1 = [];
+    data2 = [];
+    data3 = [];
+    data4 = [];
+    data5 = [];
+    labels = [];
+
+    machines = obj.machines;
+    machines.forEach(x => {
+        labels.push(x.name);
+        data1.push(x.avlm);
+        data2.push(x.runm);
+        data3.push(x.brkm);
+        data4.push(x.mntm);
+        data5.push(x.idlm);
+    });
+
+
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',

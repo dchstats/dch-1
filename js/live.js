@@ -38,8 +38,8 @@ app.controller("myController", function ($scope, $http) {
 
 
     // GLOBALS /////
-    let block = 0;
-    let hour = 0;
+    $scope.block = 0;
+    $scope.hour = 0;
 
     const blockWidth = 10;
     const totalBlocks = 8 * 60 / blockWidth;
@@ -209,6 +209,8 @@ app.controller("myController", function ($scope, $http) {
 
     function initialize() {
         timeBlock();
+        console.log('block:', $scope.block, '  hour:', $scope.hour);
+        
         angular.forEach($scope.crushers, function (x, i) {
             var k = new Machine(x, 'crusher');
             $scope.machines.push(k);
@@ -251,7 +253,7 @@ app.controller("myController", function ($scope, $http) {
         }
 
         setInterval(sync, syncDelay);
-        console.log('block:', block, '  hour:', hour);
+        
     }
 
     function timeBlock() {
@@ -261,11 +263,10 @@ app.controller("myController", function ($scope, $http) {
         var d = Math.floor((c - b) / (8 * 3600 * 1000));
         var e = b + d * (8 * 3600 * 1000);
         $scope.start = e;
-        block = Math.floor((c - e) / (blockWidth * 60 * 1000));
-        hour = Math.floor((c - e) / (60 * 60 * 1000));
-        $scope.block = block;
-        $scope.hour = hour;
-
+        $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
+        $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
+        $scope.block = 34;
+        
     }
 
 
@@ -436,23 +437,21 @@ app.controller("myController", function ($scope, $http) {
 
         timeBlock();
 
-        // INTERPOLATION ////////////////////////
-
         angular.forEach($scope.machines, function (mach, i) {
             let valids = [0, 1, 2, 3];
             if (!valids.includes(mach.logs[0])) {
                 mach.logs[0] = mach.status;
             }
 
-            for (j = 1; j < block; j++) {
+            for (j = 1; j < $scope.block; j++) {
                 if (!valids.includes(mach.logs[j])) {
                     mach.logs[j] = mach.logs[j - 1];
                 }
             }
 
-            mach.logs[block] = mach.status;
+            mach.logs[$scope.block] = mach.status;
 
-            for (j = block + 1; j < totalBlocks; j++) {
+            for (j = $scope.block + 1; j < totalBlocks; j++) {
                 mach.logs[j] = 4;
             }
 
@@ -473,7 +472,7 @@ app.controller("myController", function ($scope, $http) {
         let draglines = $scope.machines.filter(x => x.type == 'dragline');
         $scope.draglineTotal = new Machine('dragline total', 'dragline total');
         $scope.draglineTotal.add(draglines);
-        let dumpers = $scope.dumpers.filter(x => x.hour <= hour);
+        let dumpers = $scope.dumpers.filter(x => x.hour <= $scope.hour);
         $scope.dumperTotal = new Dumper(10);
         $scope.dumperTotal.add(dumpers);
 
@@ -481,6 +480,7 @@ app.controller("myController", function ($scope, $http) {
             x.calculate();
         })
         $scope.dumper.calculate();
+        $scope.chart();
     }
 
 
@@ -595,31 +595,10 @@ app.controller("myController", function ($scope, $http) {
         return h.toString() + " : " + (m < 10 ? "0" : "") + m.toString();
     }
 
-    $scope.chart = function (command) {
-        labels = [];
-        data1 = [];
-        data2 = [];
-        data3 = [];
-        data4 = [];
-        data5 = [];
     
-        if (command == 'avl') {
-            labels = $scope.shovels;
-            angular.forEach($scope.machines, function (x, i) {
-                if (x.type == 'shovel') {   
-                    data1.push(x.avlm);
-                    data2.push(x.runm);
-                    data3.push(x.brkm);
-                    data4.push(x.mntm);
-                    data5.push(x.idlm);
-                }
-            })
-            plot(labels, data1, data2, data3, data4, data5);
-        }
-    }
 
     $scope.randomize = function () {
-  
+
         angular.forEach($scope.machines, function (mach, i) {
             k = 0;
             for (i = 0; i < 5; i++) {
@@ -638,9 +617,14 @@ app.controller("myController", function ($scope, $http) {
             }
         })
         performanceLog();
-        $scope.chart('avl');
-
     }
 
+
+
+
+
+    $scope.chart = function () {
+        plot($scope);
+    }
 
 });  
