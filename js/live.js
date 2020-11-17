@@ -423,7 +423,7 @@ app.controller("myController", function ($scope, $http) {
         });
 
         $scope.dumper = new Dumper();
-        for (i = 0; i < 8; i++){
+        for (i = 0; i < 8; i++) {
             $scope.dumper[i] = new Dumper(i);
         }
 
@@ -459,6 +459,8 @@ app.controller("myController", function ($scope, $http) {
             mach.calculate();
 
         });
+
+
 
 
 
@@ -597,16 +599,47 @@ app.controller("myController", function ($scope, $http) {
         labels = [];
         data1 = [];
         data2 = [];
+        data3 = [];
+        data4 = [];
+        data5 = [];
+    
         if (command == 'avl') {
             labels = $scope.shovels;
             angular.forEach($scope.machines, function (x, i) {
-                if (x.type == 'shovel') {
-                    data1.push(x.pavl);
-                    data2.push(x.putl);
+                if (x.type == 'shovel') {   
+                    data1.push(x.avlm);
+                    data2.push(x.runm);
+                    data3.push(x.brkm);
+                    data4.push(x.mntm);
+                    data5.push(x.idlm);
                 }
             })
-            plot(labels, data1, data2);
+            plot(labels, data1, data2, data3, data4, data5);
         }
+    }
+
+    $scope.randomize = function () {
+  
+        angular.forEach($scope.machines, function (mach, i) {
+            k = 0;
+            for (i = 0; i < 5; i++) {
+                l = Math.floor(20 * Math.random());
+                v = Math.floor(4 * Math.random())
+                for (j = 0; j < l; j++) {
+                    if (k < $scope.block) {
+                        mach.logs[k] = v;
+                        k++;
+                    }
+                }
+                if (k == $scope.block) {
+                    mach.status = v;
+                    break;
+                }
+            }
+        })
+        performanceLog();
+        $scope.chart('avl');
+
     }
 
 

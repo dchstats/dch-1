@@ -74,6 +74,12 @@ header {
 	background: black;
 }
 
+.dev{
+	display:flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
 .section-selector {
 	display: flex;
 	color: white;
