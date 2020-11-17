@@ -43,16 +43,13 @@ app.controller("myController", function ($scope, $http) {
 
     const blockWidth = 10;
     const totalBlocks = 8 * 60 / blockWidth;
-
+    let uploadEvent = null;
 
 
 
     // CONFIGS ////////
-    $scope.changed = false;
     $scope.auth = true;
     $scope.forceUpload = false;
-
-    const syncDelay = 10000;
     ///////////////////
 
     class Machine {
@@ -210,7 +207,7 @@ app.controller("myController", function ($scope, $http) {
     function initialize() {
         timeBlock();
         console.log('block:', $scope.block, '  hour:', $scope.hour);
-        
+
         angular.forEach($scope.crushers, function (x, i) {
             var k = new Machine(x, 'crusher');
             $scope.machines.push(k);
@@ -252,8 +249,8 @@ app.controller("myController", function ($scope, $http) {
             download();
         }
 
-        setInterval(sync, syncDelay);
-        
+        setInterval(download, 15000);
+
     }
 
     function timeBlock() {
@@ -266,29 +263,23 @@ app.controller("myController", function ($scope, $http) {
         $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
         $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
         $scope.block = 34;
-        
+
     }
 
 
 
-    function sync() {
-        $scope.syncCounter++;
-
-        if ($scope.changed && $scope.auth) {
-            upload();
+    function upSync() {
+        if ($scope.auth) {
+            clearInterval(uploadEvent);
+            uploadEvent = setTimeout(upload, 5000);
         }
-        else if ($scope.syncCounter % 2 == 0) {
-            timeBlock();
-            download();
-        }
-
     }
 
 
 
     $scope.update = function () {
-        $scope.changed = true;
         performanceLog();
+        upSync();
     }
 
 
@@ -400,11 +391,11 @@ app.controller("myController", function ($scope, $http) {
                 var e = JSON.parse(d);
                 if (e.stamp == obj.stamp) {
                     console.log('Uploaded...', e.stamp);
-                    $scope.changed = false; // only when upload is successful.
                 }
             },
             function () {
                 console.log("upload failed....");
+                upSync();
             })
     }
 
@@ -567,7 +558,7 @@ app.controller("myController", function ($scope, $http) {
             k += 1;
             k %= 4;
             mach.logs[i] = k;
-            $scope.changed = true;
+            upSync();
         }
         $scope.update();
     }
@@ -595,7 +586,7 @@ app.controller("myController", function ($scope, $http) {
         return h.toString() + " : " + (m < 10 ? "0" : "") + m.toString();
     }
 
-    
+
 
     $scope.randomize = function () {
 
