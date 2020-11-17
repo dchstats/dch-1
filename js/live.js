@@ -43,7 +43,9 @@ app.controller("myController", function ($scope, $http) {
 
     const blockWidth = 10;
     const totalBlocks = 8 * 60 / blockWidth;
-    let uploadEvent = null;
+
+    let downEv = null;
+    let upEv = null;
 
 
 
@@ -242,15 +244,11 @@ app.controller("myController", function ($scope, $http) {
 
         if ($scope.forceUpload) {
             upload();
-            setTimeout(download, 5000);
-        }
-
-        else {
+        } else {
             download();
         }
 
-        setInterval(download, 15000);
-
+        sync();
     }
 
     function timeBlock() {
@@ -262,24 +260,26 @@ app.controller("myController", function ($scope, $http) {
         $scope.start = e;
         $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
         $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
-        $scope.block = 34;
 
     }
 
 
 
-    function upSync() {
+    function sync() {
+
+        clearInterval(downEv);
         if ($scope.auth) {
-            clearInterval(uploadEvent);
-            uploadEvent = setTimeout(upload, 5000);
+            clearTimeout(upEv);
+            upEv = setTimeout(upload, 2000);
         }
+        downEv = setInterval(download, 5000);
     }
 
 
 
     $scope.update = function () {
         performanceLog();
-        upSync();
+        sync();
     }
 
 
@@ -395,7 +395,7 @@ app.controller("myController", function ($scope, $http) {
             },
             function () {
                 console.log("upload failed....");
-                upSync();
+                sync();
             })
     }
 
@@ -558,7 +558,7 @@ app.controller("myController", function ($scope, $http) {
             k += 1;
             k %= 4;
             mach.logs[i] = k;
-            upSync();
+            sync();
         }
         $scope.update();
     }
@@ -589,6 +589,7 @@ app.controller("myController", function ($scope, $http) {
 
 
     $scope.randomize = function () {
+        reset();
 
         angular.forEach($scope.machines, function (mach, i) {
             k = 0;
