@@ -6,7 +6,7 @@ function plot(obj) {
     data5 = [];
     labels = [];
 
-    machines = obj.machines;
+    machines = obj.machines.filter(x=>x.type=='dragline');
     machines.forEach(x => {
         labels.push(x.name);
         data1.push(x.avlm);

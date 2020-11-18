@@ -478,11 +478,11 @@ app.controller("myController", function ($scope, $http) {
 
 
     $scope.login = function () {
-        if ($scope.pin == "8520") {
+        if (btoa($scope.pin) == "ODUyMA==") {
             $scope.user = "Viewpoint";
             $scope.auth = true;
         }
-        else if ($scope.pin == "4563") {
+        else if (btoa($scope.pin) == "NDU2Mw==") {
             $scope.user = "Admin";
             $scope.auth = true;
         }
