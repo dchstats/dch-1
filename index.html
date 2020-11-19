@@ -28,7 +28,7 @@
                 ng-click="detailsSection('shovels')" class="tab">Shovels</li>
             <li id="draglines-tab" href="#" onmouseDown="openSection('details','draglines-tab')"
                 ng-click="detailsSection('draglines')" class="tab">Draglines</li>
-                <li id="dumpers-tab" href="#" onmouseDown="openSection('dumpers','dumpers-tab')" class="tab">Dumpers</li>
+            <li id="dumpers-tab" href="#" onmouseDown="openSection('dumpers','dumpers-tab')" class="tab">Dumpers</li>
 
         </ul>
         <div class="dev">
@@ -50,84 +50,89 @@
 
 
         <div class="section" id="live-sec">
+
             <div class="live-bar">
-                <table>
-                    <tr>
-                        <th>SILO</th>
-                        <th>LOADED</th>
-                        <th>NEXT</th>
-                    </tr>
-                    <tr ng-repeat="silo in silos">
-                        <td clas="silo-name"> {{silo.name}}</td>
-                        <td>
-                            <div class="incrementor">
-                                <button ng-click="silo.rakes=silo.rakes-1; update()" ng-hide="!auth">-</button>
-                                <span>{{silo.rakes}}</span>
-                                <button ng-click="silo.rakes=silo.rakes+1; update()" ng-hide="!auth">+</button>
-                            </div>
-                        </td>
-                        <td>
-                            <input type="text" ng-model="silo.remark" ng-change="update()">
-                        </td>
-                    </tr>
-                </table>
-                <table>
-                    <tr>
-                        <th>DUMPERS</th>
-                        <th>AVL</th>
-                        <th>RNG</th>
-                    </tr>
-                    <tr>
-                        <td>EAST</td>
-                        <td>
-                            <div class="incrementor">
-                                <button ng-click="dumperCounter(1)" ng-hide="!auth">-</button>
-                                <span> {{dumper.east_avl}} </span>
-                                <button ng-click="dumperCounter(2)" ng-hide="!auth">+</button>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="incrementor">
-                                <button ng-click="dumperCounter(3)" ng-hide="!auth">-</button>
-                                <span> {{dumper.east_run}} </span>
-                                <button ng-click="dumperCounter(4)" ng-hide="!auth">+</button>
-                            </div>
-                        </td>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>SILO</th>
+                            <th>LOADED</th>
+                            <th>NEXT</th>
+                        </tr>
+                        <tr ng-repeat="silo in silos">
+                            <td clas="silo-name"> {{silo.name}}</td>
+                            <td>
+                                <div class="incrementor">
+                                    <button ng-click="silo.rakes=silo.rakes-1; update()" ng-hide="!auth">-</button>
+                                    <span>{{silo.rakes}}</span>
+                                    <button ng-click="silo.rakes=silo.rakes+1; update()" ng-hide="!auth">+</button>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" ng-model="silo.remark" ng-change="update()">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>DUMPERS</th>
+                            <th>AVL</th>
+                            <th>RNG</th>
+                        </tr>
+                        <tr>
+                            <td>EAST</td>
+                            <td>
+                                <div class="incrementor">
+                                    <button ng-click="dumperCounter(1)" ng-hide="!auth">-</button>
+                                    <span> {{dumper.east_avl}} </span>
+                                    <button ng-click="dumperCounter(2)" ng-hide="!auth">+</button>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="incrementor">
+                                    <button ng-click="dumperCounter(3)" ng-hide="!auth">-</button>
+                                    <span> {{dumper.east_run}} </span>
+                                    <button ng-click="dumperCounter(4)" ng-hide="!auth">+</button>
+                                </div>
+                            </td>
 
-                    </tr>
-                    <tr>
-                        <td>WEST</td>
-                        <td>
-                            <div class="incrementor">
-                                <button ng-click="dumperCounter(5)" ng-hide="!auth">-</button>
-                                <span> {{dumper.west_avl}} </span>
-                                <button ng-click="dumperCounter(6)" ng-hide="!auth">+</button>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="incrementor">
-                                <button ng-click="dumperCounter(7)" ng-hide="!auth">-</button>
-                                <span> {{dumper.west_run}} </span>
-                                <button ng-click="dumperCounter(8)" ng-hide="!auth">+</button>
-                            </div>
-                        </td>
-                    </tr>
+                        </tr>
+                        <tr>
+                            <td>WEST</td>
+                            <td>
+                                <div class="incrementor">
+                                    <button ng-click="dumperCounter(5)" ng-hide="!auth">-</button>
+                                    <span> {{dumper.west_avl}} </span>
+                                    <button ng-click="dumperCounter(6)" ng-hide="!auth">+</button>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="incrementor">
+                                    <button ng-click="dumperCounter(7)" ng-hide="!auth">-</button>
+                                    <span> {{dumper.west_run}} </span>
+                                    <button ng-click="dumperCounter(8)" ng-hide="!auth">+</button>
+                                </div>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>TOTAL</td>
-                        <td>
-                            <div class="incrementor">
-                                <span> {{dumper.avl}} </span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="incrementor">
-                                <span> {{dumper.run}} </span>
-                            </div>
-                        </td>
+                        <tr>
+                            <td>TOTAL</td>
+                            <td>
+                                <div class="incrementor">
+                                    <span> {{dumper.avl}} </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="incrementor">
+                                    <span> {{dumper.run}} </span>
+                                </div>
+                            </td>
 
-                    </tr>
-                </table>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div class="live-content">
                 <div class="silo mach" ng-repeat="silo in silos">

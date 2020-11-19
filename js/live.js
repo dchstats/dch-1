@@ -50,7 +50,7 @@ app.controller("myController", function ($scope, $http) {
 
 
     // CONFIGS ////////
-    $scope.auth = true;
+    $scope.auth = false;
     $scope.forceUpload = false;
     ///////////////////
 
@@ -271,9 +271,9 @@ app.controller("myController", function ($scope, $http) {
         clearInterval(downEv);
         if ($scope.auth) {
             clearTimeout(upEv);
-            upEv = setTimeout(upload, 2000);
+            upEv = setTimeout(upload, 200000);
         }
-        downEv = setInterval(download, 5000);
+        downEv = setInterval(download, 500000);
     }
 
 
