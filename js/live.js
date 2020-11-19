@@ -260,6 +260,7 @@ app.controller("myController", function ($scope, $http) {
         $scope.start = e;
         $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
         $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
+        $scope.block = 46;
 
     }
 
@@ -471,7 +472,6 @@ app.controller("myController", function ($scope, $http) {
             x.calculate();
         })
         $scope.dumper.calculate();
-        $scope.chart();
     }
 
 
@@ -612,11 +612,22 @@ app.controller("myController", function ($scope, $http) {
     }
 
 
-
-
-
-    $scope.chart = function () {
-        plot($scope);
+    $scope.detailsSection = function (command) {
+        $scope.mcns = {};
+        if (command == 'crushers') {
+            $scope.mcns = $scope.machines.filter(x => x.type == 'crusher');
+            $scope.mcnTotal = $scope.crusherTotal;
+        }
+        else if (command == 'shovels') {
+            $scope.mcns = $scope.machines.filter(x => x.type == 'shovel');
+            $scope.mcnTotal = $scope.shovelTotal;
+        }
+        else if (command == 'draglines') {
+            $scope.mcns = $scope.machines.filter(x => x.type == 'dragline');
+            $scope.mcnTotal = $scope.draglineTotal;
+        }
+        console.log($scope.mcnTotal);
+        plot($scope.mcns);
     }
 
 });  

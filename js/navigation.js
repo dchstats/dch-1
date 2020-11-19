@@ -6,12 +6,12 @@ function begin() {
 }
 
 
-function openSection(section) {
+function openSection(section,tab) {
     $(".section").hide();
     var k = "#" + section+"-sec";
     $(k).slideDown(50);
     $('.section-selector .tab').removeClass('active-tab');
-    $('#' + section + '-tab').addClass('active-tab');
+    $('#' + tab).addClass('active-tab');
 }
 
 

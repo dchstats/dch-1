@@ -1,4 +1,4 @@
-function plot(obj) {
+function plot(machines) {
     data1 = [];
     data2 = [];
     data3 = [];
@@ -6,7 +6,13 @@ function plot(obj) {
     data5 = [];
     labels = [];
 
-    machines = obj.machines.filter(x=>x.type=='dragline');
+    const color_avl = 'rgb(151, 151, 151)';
+    const color_run = 'rgb(76, 176, 80)';
+    const color_brk = 'rgb(167,0,26)';
+    const color_mnt = 'rgb(220, 220, 66)';
+    const color_idl = 'rgb(51, 87, 83)';
+
+
     machines.forEach(x => {
         labels.push(x.name);
         data1.push(x.avlm);
@@ -25,31 +31,31 @@ function plot(obj) {
             datasets: [{
                 label: 'Avl',
                 data: data1,
-                backgroundColor: 'green',
+                backgroundColor: color_avl,
                 borderWidth: 1
             },
             {
                 label: 'Run',
                 data: data2,
-                backgroundColor: 'blue',
+                backgroundColor: color_run,
                 borderWidth: 1
             },
             {
                 label: 'Brk',
                 data: data3,
-                backgroundColor: 'red',
+                backgroundColor: color_brk,
                 borderWidth: 1
             },
             {
                 label: 'Mnt',
                 data: data4,
-                backgroundColor: 'yellow',
+                backgroundColor: color_mnt,
                 borderWidth: 1
             },
             {
                 label: 'Idl',
                 data: data5,
-                backgroundColor: 'grey',
+                backgroundColor: color_idl,
                 borderWidth: 1
             },
             ]

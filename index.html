@@ -20,10 +20,17 @@
 <body ng-app="myApp" ng-controller="myController">
     <header>
         <ul class="section-selector">
-            <li id="live-tab" href="#" onmouseDown="openSection('live')" class="tab">Live</li>
-            <li id="trends-tab" href="#" onmouseDown="openSection('trends')" class="tab  ">Trends</li>
-            <li id="graphs-tab" href="#" onmouseDown="openSection('graphs')" class="tab  ">Graphs</li>
-            <li id="tables-tab" href="#" onmouseDown="openSection('tables')" class="tab  ">Tables</li>
+            <li id="live-tab" href="#" onmouseDown="openSection('live','live-tab')" class="tab">Live</li>
+            <li id="trends-tab" href="#" onmouseDown="openSection('trends','trends-tab')" class="tab">Trends</li>
+            <li id="graphs-tab" href="#" onmouseDown="openSection('graphs','graphs-tab')" class="tab">Graphs</li>
+            <li id="tables-tab" href="#" onmouseDown="openSection('tables','tables-tab')" class="tab">Tables</li>
+            <li id="crushers-tab" href="#" onmouseDown="openSection('details', 'crushers-tab')"
+                ng-click="detailsSection('crushers')" class="tab">Crushers</li>
+            <li id="shovels-tab" href="#" onmouseDown="openSection('details','shovels-tab')"
+                ng-click="detailsSection('shovels')" class="tab">Shovels</li>
+            <li id="draglines-tab" href="#" onmouseDown="openSection('details','draglines-tab')"
+                ng-click="detailsSection('draglines')" class="tab">Draglines</li>
+
         </ul>
         <div class="dev">
             <button ng-click="randomize()">Randomize</button>
@@ -200,10 +207,11 @@
 
 
 
-        <div class="section" id="graphs-sec">
+        <div class="section" id="details-sec">
             <header class="graph-section-header">
 
             </header>
+
             <div class="chart-container">
 
 
@@ -215,7 +223,46 @@
 
 
             </div>
-            <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <div class="table-container">
+                <table>
+                    <tr class="head">
+                        <td colspan="8">CRUSHERS</td>
+                    </tr>
+                    <tr class="">
+                        <th></th>
+                        <th>AVL</th>
+                        <th>RUN</th>
+                        <th>BDN</th>
+                        <th>MNT</th>
+                        <th>IDL</th>
+                        <th>%AVL</th>
+                        <th>%UTL</th>
+                    </tr>
+                    <tr ng-repeat="s in mcns">
+
+                        <td>{{s.name}}</td>
+                        <td>{{hms(s.avlm)}}</td>
+                        <td>{{hms(s.runm)}}</td>
+                        <td>{{hms(s.brkm)}}</td>
+                        <td>{{hms(s.mntm)}}</td>
+                        <td>{{hms(s.idlm)}}</td>
+                        <td>{{s.pavl}}%</td>
+                        <td>{{s.putl}}%</td>
+                    </tr>
+                    <tr class="total">
+                        <td>TOTAL</td>
+                        <td>{{hms(mcnTotal.avlm)}}</td>
+                        <td>{{hms(mcnTotal.runm)}}</td>
+                        <td>{{hms(mcnTotal.brkm)}}</td>
+                        <td>{{hms(mcnTotal.mntm)}}</td>
+                        <td>{{hms(mcnTotal.idlm)}}</td>
+                        <td>{{mcnTotal.pavl}}%</td>
+                        <td>{{mcnTotal.putl}}%</td>
+                    </tr>
+                </table>
+            </div>
+
+
 
             <table class="graphs-tbl">
                 <tr class="tbl-hdr">

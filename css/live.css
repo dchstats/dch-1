@@ -48,14 +48,14 @@ select:disabled {
 }
 
 .RNG {
-	background: RGB(76, 176, 80);
+	background: rgb(76, 176, 80);
 }
 
 .BDN {
-	background: RGB(167, 0, 26);
+	background: rgb(167, 0, 26);
 }
 .MNT {
-	background: rgb(220, 220, 66);
+	background: RGB(255, 151, 0);
 	color: #444;
 }
 
@@ -418,78 +418,50 @@ button.incr{
 	bottom: 50%;
 }
 
-/* TABLES ///////////////////////////////////////////////////////////// */
+/* DETAILS ///////////////////////////////////////////////////////////// */
 
-#tables-sec {
+#details-sec {
+	max-width:1200px;
 	padding: 2.5vw 1rem;
 	color: white;
-	display: grid;
-	grid-template-rows: auto auto auto auto;
-	grid-template-columns: 1fr 1fr;
-	grid-gap: 50px;
-	padding: 50px;
-	align-items: flex-start;
-	font-size: 0.7rem;
+	margin:auto;
 }
 
-#tables-sec table {
-	min-width: 400px;
+
+#details-sec table {
+	min-width: 100%;
 }
 
-.tbl-crushers {
-	grid-column: 1;
-	grid-row: 1;
-}
 
-.tbl-shovels {
-	grid-column: 1;
-	grid-row: 2/-1;
-}
-
-.tbl-draglines {
-	grid-column: 2;
-	grid-row: 1;
-}
-
-.tbl-east-dumpers {
-	grid-column: 2;
-	grid-row: 2;
-}
-
-.tbl-west-dumpers {
-	grid-column: 2;
-	grid-row: 3;
-}
-
-#tables-sec td {
+#details-sec td {
 	border: 1px solid #777;
 	padding: 1.2vh 0.5vw;
 }
-#tables-sec th {
+#details-sec th {
 	border: 1px solid #777;
 	padding: 1.2vh 0.5vw;
 }
 
-#tables-sec th {
+#details-sec th {
 	text-align: left;
 }
-#tables-sec tr:nth-child(even) {
+#details-sec tr:nth-child(even) {
 	background: #444;
 }
 
-#tables-sec tr.head,
+#details-sec tr.head,
 tr.total {
 	background: #666;
 }
 
-#tables-sec input {
+#details-sec input {
 	max-width: 10vw;
 	border: 1px solid #555;
 	background: transparent;
 	color: white;
 }
 
-#tables-sec input:disabled {
+#details-sec input:disabled {
 	border: none;
 }
 
