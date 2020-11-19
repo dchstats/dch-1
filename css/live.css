@@ -192,8 +192,8 @@ button.incr{
 }
 
 .mach {
-	width: clamp(120px, 15vw, 180px);
-	height: clamp(72px, 9vw, 108px);
+	width: clamp(120px, 15vw, 165px);
+	height: clamp(72px, 9vw, 99px);
 	margin: 2px;
 	border-radius: 10px;
 	overflow: hidden;
@@ -345,131 +345,72 @@ button.incr{
 	}
 }
 
-/* GRAPHS /////////////////////////////////////////////////////// */
+/* DUMPERS /////////////////////////////////////////////////////// */
 
-#graphs-sec {
-	padding: 2.5vw 1rem;
+#dumpers-sec {
+	padding: 5vw;
 	color: white;
 }
 
-.chart-container{
-	/* background:yellow; */
-	height:400px;
-	position: relative;
-}
 
-.graphs-tbl {
-	width: 350px;
-	height: 250px;
-	margin: 10px;
-	border-collapse: collapse;
-}
 
-.tbl-hdr td {
-	background: rgb(80, 79, 79);
-}
 
-.graphs-tbl td {
-	border: 1px solid rgb(128, 126, 126);
-	width: 25%;
-	padding: 10px;
-}
-
-.graphs-tbl td:first-child {
-	width: 15%;
-}
-
-.graphs-tbl td:nth-child(2) {
-	width: 35%;
-}
-
-.graphs-tbl .bar-td {
-	padding: 5px 20px 0px;
-	font-size: 0.7rem;
-}
-
-.bar-parent {
-	border: 1px solid rgb(65, 64, 64);
-	height: 100%;
-	/* background:yellow; */
-	display: flex;
-	align-items: flex-end;
-	position: relative;
-}
-
-.avl-bar {
-	background: rgb(0, 124, 225);
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.utl-bar {
-	background: rgb(15, 223, 50);
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.bar-parent span {
-	position: absolute;
-	bottom: 50%;
-}
 
 /* DETAILS ///////////////////////////////////////////////////////////// */
 
 #details-sec {
-	max-width:1200px;
-	padding: 2.5vw 1rem;
+	padding: 5vw 5vw;
 	color: white;
 	margin:auto;
 }
 
-
-#details-sec table {
-	min-width: 100%;
+.chart-container{
+	background:rgb(36, 36, 36);
+	height:500px;
+	padding:50px 20px;
+	position: relative;
+	margin-bottom:100px;
+	border-radius:50px;
 }
 
+table.perf-table{
+	width:100%;
+	margin-bottom:100px;
+}
 
-#details-sec td {
+.perf-table td {
 	border: 1px solid #777;
 	padding: 1.2vh 0.5vw;
 }
-#details-sec th {
+.perf-table th {
 	border: 1px solid #777;
 	padding: 1.2vh 0.5vw;
 }
 
-#details-sec th {
+.perf-table th {
 	text-align: left;
 }
-#details-sec tr:nth-child(even) {
+.perf-table tr:nth-child(even) {
 	background: #444;
 }
 
-#details-sec tr.head,
+.perf-table tr.head,
 tr.total {
 	background: #666;
 }
 
-#details-sec input {
+.perf-table input {
 	max-width: 10vw;
 	border: 1px solid #555;
 	background: transparent;
 	color: white;
 }
 
-#details-sec input:disabled {
+.perf-table input:disabled {
 	border: none;
 }
 
-@media (max-width: 700px) {
-	#tables-sec {
-		display: flex;
-	}
-}
+
 
 /* SPECIFICS /////////////// */
 
