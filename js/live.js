@@ -605,8 +605,8 @@ app.controller("myController", function ($scope, $http) {
 
         angular.forEach($scope.machines, function (mach, i) {
             k = 0;
-            for (i = 0; i < 2; i++) {
-                l = 20 + Math.floor(20 * Math.random());
+            for (i = 0; i < 4; i++) {
+                l = 10 + Math.floor(10 * Math.random());
                 v = Math.floor(4 * Math.random())
                 for (j = 0; j < l; j++) {
                     if (k < $scope.block) {
