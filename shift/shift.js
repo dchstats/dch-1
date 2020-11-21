@@ -1,7 +1,7 @@
 
 var app = angular.module('myApp', []);
-app.controller('myController', function ($scope, $http) {
 
+app.controller('myController', function ($scope, $http) {
 
 	$scope.login = function () {
 		console.log($scope.pin);
@@ -233,6 +233,7 @@ app.controller('myController', function ($scope, $http) {
 		}
 		shiftDecode();
 	}
+
 	function next() {
 		$scope.shift++;
 		shiftDecode();
@@ -284,6 +285,7 @@ app.controller('myController', function ($scope, $http) {
 		}
 
 	}
+
 	function sub() {
 		console.log('Submitting for' + $scope.shift);
 		localStorage.setItem($scope.shift, $scope.packet_string);
