@@ -260,7 +260,6 @@ app.controller("myController", function ($scope, $http) {
         $scope.start = e;
         $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
         $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
-        $scope.block = 46;
 
     }
 
@@ -271,9 +270,9 @@ app.controller("myController", function ($scope, $http) {
         clearInterval(downEv);
         if ($scope.auth) {
             clearTimeout(upEv);
-            upEv = setTimeout(upload, 200000);
+            upEv = setTimeout(upload, 2000);
         }
-        downEv = setInterval(download, 500000);
+        downEv = setInterval(download, 30000);
     }
 
 

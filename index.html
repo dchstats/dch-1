@@ -31,9 +31,9 @@
             <li id="dumpers-tab" href="#" onmouseDown="openSection('dumpers','dumpers-tab')" class="tab">Dumpers</li>
 
         </ul>
-        <div class="dev">
+        <!-- <div class="dev">
             <button ng-click="randomize()">Randomize</button>
-        </div>
+        </div> -->
         <div class="login">
             <div class="" ng-hide="auth">
                 <input type="password" name="" id="" class="" ng-model="pin">
@@ -134,7 +134,7 @@
                 </div>
             </div>
             <div class="live-content">
-                <div class="silo mach" ng-repeat="silo in silos">
+                <!-- <div class="silo mach" ng-repeat="silo in silos">
                     <p clas="silo-name"> {{silo.name}}</p>
                     <div class="incrementor">
                         <button ng-click="silo.rakes=silo.rakes-1; update()" ng-hide="!auth">-</button>
@@ -158,10 +158,10 @@
                         <p>{{dumper. east_run}}</p>
                         <button ng-click="dumperCounter(4)" ng-hide="!auth">+</button>
                     </div>
-                </div>
+                </div> -->
 
 
-                <div class="mach live-dumper">
+                <!-- <div class="mach live-dumper">
                     <p>WEST DUMPERS</p>
                     <div>
                         <button ng-click="dumperCounter(5)" ng-hide="!auth">-</button>
@@ -175,7 +175,7 @@
                         <p>{{dumper.west_run}}</p>
                         <button ng-click="dumperCounter(8)" ng-hide="!auth">+</button>
                     </div>
-                </div>
+                </div> -->
 
                 <div class=" mach" ng-repeat="x in machines">
                     <div class="inner">

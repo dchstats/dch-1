@@ -283,7 +283,6 @@ app.controller('myController', function ($scope, $http) {
 			$scope.obj = obj;
 			pop();
 		}
-
 	}
 
 	function sub() {
