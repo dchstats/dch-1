@@ -68,11 +68,9 @@ select:disabled {
 /* HEADER /////////////////////////////// */
 
 header {
-	padding: 0px 48px;
 	display: flex;
 	justify-content: space-between;
 	background: black;
-	overflow:scroll;
 }
 
 .dev{
@@ -82,16 +80,24 @@ header {
 }
 
 .section-selector {
+	display:flex;
+	margin:0 1rem;
+	flex-grow:1;
 	display: flex;
 	color: white;
+	flex-wrap: wrap;
+	justify-content: flex-end;
 }
 
 .tab {
-	padding: 5px 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	cursor: pointer;
 	text-decoration: none;
 	border-top: 0.5rem solid black;
 	border-bottom: 0.5rem solid black;
+	flex-grow:1;
 }
 
 .tab:hover {
@@ -106,6 +112,7 @@ header {
 
 .login {
 	display: flex;
+	margin:0 1rem;
 	justify-content: center;
 	align-items: center;
 }

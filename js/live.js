@@ -248,7 +248,7 @@ app.controller("myController", function ($scope, $http) {
             download();
         }
 
-        // sync();
+        sync();
     }
 
     function timeBlock() {
