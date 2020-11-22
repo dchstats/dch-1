@@ -87,24 +87,25 @@ class Dumper {
         this.west_avl = 0;
         this.west_run = 0;
     }
-    set = function (arr) {
-        this.hour = arr[0];
-        this.east_total = arr[1];
-        this.east_avl = arr[2];
-        this.east_run = arr[3];
-        this.west_total = arr[4];
-        this.west_avl = arr[5];
-        this.west_run = arr[6];
+    set = function (obj) {
+        this.east_total = obj.east_total;
+        this.east_avl = obj.east_avl;
+        this.east_run = obj.east_run;
+        this.west_total = obj.west_total;
+        this.west_avl = obj.west_avl;
+        this.west_run = obj.west_run;
     }
     get = function () {
-        let k = [];
-        k.push(this.hour);
-        k.push(this.east_total);
-        k.push(this.east_avl);
-        k.push(this.east_run);
-        k.push(this.west_total);
-        k.push(this.west_avl);
-        k.push(this.west_run);
+        let k = {
+            'hour': this.hour,
+            'east_total': this.east_total,
+            'east_avl': this.east_avl,
+            'east_run': this.east_run,
+            'west_total': this.west_total,
+            'west_avl': this.west_avl,
+            'west_run': this.west_run
+        }
+
         return k;
     }
 

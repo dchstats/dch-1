@@ -258,8 +258,6 @@ app.controller("myController", function ($scope, $http) {
 
 
     function reset() {
-        console.log('Resetting...');
-
         angular.forEach($scope.machines, function (mach, i) {
             if (mach.status < 2) {
                 mach.status = 0;
@@ -273,9 +271,11 @@ app.controller("myController", function ($scope, $http) {
         });
 
         $scope.dumper = new Dumper();
+        $scope.dumpers = [];
         for (i = 0; i < 8; i++) {
-            $scope.dumper[i] = new Dumper(i);
+            $scope.dumpers[i] = new Dumper(i);
         }
+        console.log('Reset...');
         performanceLog();
 
     }
@@ -327,6 +327,7 @@ app.controller("myController", function ($scope, $http) {
         $scope.dumperTotal = new Dumper(10);
         $scope.dumperTotal.add(dumpers);
 
+        $scope.dumpers[$scope.hour].set($scope.dumper.get());
         angular.forEach($scope.dumpers, function (x, i) {
             x.calculate();
         })
@@ -380,6 +381,7 @@ app.controller("myController", function ($scope, $http) {
 
 
     $scope.dumperCounter = function (command) {
+        console.log(command);
         if (command == 1) {
             if ($scope.dumper.east_avl > 0)
                 $scope.dumper.east_avl--;
