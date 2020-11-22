@@ -4,15 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="live.css">
+<link rel="stylesheet" href="css/live.css">
 
-<script src="libs/jquery.js" defer></script>
-<script src="libs/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script src="navigation.js" defer></script>
+<!-- <script src="libs/jquery.js" defer></script> -->
+<!-- <script src="libs/angular.js"></script> -->
 
-<script src="exp.js" defer></script>
-<script src="live.js" defer></script>
+<script src="js/navigation.js" defer></script>
+
+<script src="js/exp.js" defer></script>
+<script src="js/live.js" defer></script>
 
 
 
@@ -180,8 +183,8 @@
                 <div class=" mach" ng-repeat="x in machines">
                     <div class="inner">
                         <div class="front {{ statusStrings[x.status] }}">
-                            <p class="machine-title">{{ x.name }}</p>
-                            <p class="machine-remark">{{ x.remark }}</p>
+                            <p class="mach-title">{{ x.name }}</p>
+                            <p class="mach-remark">{{ x.remark }}</p>
                         </div>
 
                         <div class="back">

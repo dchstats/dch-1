@@ -31,10 +31,10 @@ app.controller("myController", function ($scope, $http) {
     $scope.downUrl = 'https://sushanttiwari.in/serv/downLive.php';
     $scope.upUrl = 'serv/upLive.php';
     $scope.downUrl = 'serv/downLive.php';
-    $scope.upUrl = 'http://localhost:8080/dch/serv/upLive.php';
-    $scope.downUrl = 'http://localhost:8080/dch/serv/downLive.php';
-    $scope.upUrl = 'http://localhost/dch/serv/upLive.php';
-    $scope.downUrl = 'http://localhost/dch/serv/downLive.php';
+    // $scope.upUrl = 'http://localhost:8080/dch/serv/upLive.php';
+    // $scope.downUrl = 'http://localhost:8080/dch/serv/downLive.php';
+    // $scope.upUrl = 'http://localhost/dch/serv/upLive.php';
+    // $scope.downUrl = 'http://localhost/dch/serv/downLive.php';
 
 
     // GLOBALS /////
@@ -248,7 +248,7 @@ app.controller("myController", function ($scope, $http) {
             download();
         }
 
-        sync();
+        // sync();
     }
 
     function timeBlock() {
