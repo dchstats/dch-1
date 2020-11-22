@@ -77,6 +77,8 @@ header {
 	display:flex;
 	justify-content: space-evenly;
 	align-items: center;
+	padding:5px;
+	background:#666;
 }
 
 .section-selector {
@@ -113,12 +115,38 @@ header {
 .login {
 	display: flex;
 	margin:0 1rem;
+	padding:0;
 	justify-content: center;
 	align-items: center;
+	
 }
 
-.login input {
-	max-width: 150px;
+.login .auth{
+width:250px;
+height:30px;
+border:0.5px solid white;
+display:flex;
+margin:5px;
+}
+
+.auth input {
+	width: 60%;
+	color:#777;
+	border:none;
+}
+
+.auth button{
+	width:40%;
+	background:black;
+	color:white;
+	outline:none;
+	border:none;
+}
+.login button:hover{
+background:rgb(56, 56, 56);
+}
+.login button:active{
+	transform: scale(0.9);
 }
 
 .section {
@@ -138,6 +166,7 @@ header {
 	flex-direction: row;
 	justify-content: center;
 	flex-wrap: wrap;
+	/* font-size:75%; */
 
 }
 
@@ -154,26 +183,41 @@ header {
 	background:none;
 	color:white;
 	border:none;
+	text-align: center;
+	padding:0;
 }
 
 .live-bar table{
 	width:100%;
 }
 
+.live-bar tr{
+	/* background:yellow; */
+	display:flex;
+}
+.live-bar th{
+	padding:7px 10px;
+	background:rgb(0,151,136);
+	width:33%;
+}
+.live-bar td{
+	padding:5px;
+	text-align: center;
+	width:33%;
+}
+
+
 .live-bar table tr:nth-child(odd){
 	background:#616161;
 }
 
-.live-bar td{
-	padding:5px;
-	text-align: center;
-}
 
-.live-bar tr td:first-child{
+
+/* .live-bar tr td:first-child{
 
 	min-width:120px;
 	
-}
+} */
 
 
 .live-bar tr td:nth-child(2){
@@ -182,11 +226,6 @@ header {
 }
 
 
-.live-bar th{
-	padding:7px 10px;
-	background:rgb(0,151,136);
-}
- 
 .live-bar tr th:nth-child(2){
 	border-right:0.5px solid rgb(255,255,255,0.1);
 	border-left:0.5px solid rgb(255,255,255,0.1);
@@ -320,7 +359,7 @@ header {
 }
 
 /* TREND SECTION \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
-#trends-sec {
+#trend-sec {
 	padding: 2.5vw 1rem;
 	display:flex;
 	flex-direction: row;
@@ -389,13 +428,13 @@ header {
 
 /* DETAILS ///////////////////////////////////////////////////////// */
 
-#details-sec {
+#crusher-graph, #shovel-graph, #dragline-graph{
 	padding: 5vw 5vw;
 	color: white;
 	margin:auto;
 }
 
-.chart-container{
+ .chart-container{
 	background:rgb(36, 36, 36);
 	height:500px;
 	padding:50px 20px;

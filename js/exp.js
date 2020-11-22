@@ -1,6 +1,5 @@
-function plot(machines) {
+function plot(machines, id) {
     labels = [];
-
     avlm = [];
     runm = [];
     brkm = [];
@@ -8,7 +7,7 @@ function plot(machines) {
     idlm = [];
     pavl = [];
     putl = [];
-   
+
 
     const color_avl = 'purple';
     const color_run = 'rgb(76, 176, 80)';
@@ -29,7 +28,7 @@ function plot(machines) {
     });
 
 
-    var ctx = document.getElementById('details-time').getContext('2d');
+    var ctx = document.getElementById(id + '-time').getContext('2d');
     var detailsTime = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -87,7 +86,8 @@ function plot(machines) {
 
 
 
-    var ctx = document.getElementById('details-perf').getContext('2d');
+    var ctx = document.getElementById(id + '-perf').getContext('2d');
+    
     var detailsPerf = new Chart(ctx, {
         type: 'bar',
         data: {

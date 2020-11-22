@@ -2,13 +2,13 @@ $(document).ready(begin());
 
 function begin() {
     $(".section").hide();
-    openSection('live');
+    openSection('live-sec');
 }
 
 
 function openSection(section,tab) {
     $(".section").hide();
-    var k = "#" + section+"-sec";
+    var k = "#" + section;
     $(k).slideDown(50);
     $('.section-selector .tab').removeClass('active-tab');
     $('#' + tab).addClass('active-tab');
