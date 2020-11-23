@@ -68,38 +68,44 @@ select:disabled {
 
 header {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	background: black;
-	height:clamp(50px,8vh,70px);
+	height: clamp(45px, 6vh, 30px);
 }
 
-.dev{
-	display:flex;
-	justify-content: space-evenly;
+.dev {
+	display: flex;
+	justify-content: flex-start;
 	align-items: center;
-	padding:5px;
-	background:#666;
+	padding: 5px;
+	background: #666;
 }
 
 .section-selector {
-	display:flex;
-	margin:0 1rem;
-	flex-grow:1;
+	margin: 0 1rem;
+	flex-grow: 1;
 	display: flex;
-	color: white;
-	flex-wrap: wrap;
-	justify-content: flex-end;
+	justify-content: flex-start;
+	align-items: center;
 }
 
 .tab {
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	cursor: pointer;
 	text-decoration: none;
-	border-top: 0.5rem solid black;
-	border-bottom: 0.5rem solid black;
-	flex-grow:1;
+	border-radius: 20px;
+	padding: 0.25rem 0.5rem;
+	display: flex;
+	justify-content: center;
+}
+@media (min-width: 500px) {
+	.tab {
+		width: 120px;
+		cursor: pointer;
+		text-decoration: none;
+		border-radius: 20px;
+		margin: 0px 1rem;
+		padding: 0.25rem auto;
+	}
 }
 
 .tab:hover {
@@ -108,146 +114,139 @@ header {
 
 .active-tab,
 .active-tab:hover {
-	background: rgb(47, 47, 47);
-	border-bottom-color: transparent;
+	background:gold;
+	color:#333;
 }
 
 .login {
 	display: flex;
-	margin:0 1rem;
-	padding:0;
+	margin: 0 1rem;
+	padding: 0;
 	justify-content: center;
 	align-items: center;
-	
 }
 
-.login .auth{
-width:250px;
-height:30px;
-border:0.5px solid white;
-display:flex;
-margin:5px;
+.login .auth {
+	width: 250px;
+	height: 30px;
+	border: 0.5px solid white;
+	display: flex;
+	margin: 5px;
 }
 
 .auth input {
 	width: 60%;
-	color:#777;
-	border:none;
+	color: #777;
+	border: none;
 }
 
-.auth button{
-	width:40%;
-	background:black;
-	color:white;
-	outline:none;
-	border:none;
+.auth button {
+	width: 40%;
+	background: black;
+	color: white;
+	outline: none;
+	border: none;
 }
-.login button:hover{
-background:rgb(56, 56, 56);
+.login button:hover {
+	background: rgb(56, 56, 56);
 }
-.login button:active{
+.login button:active {
 	transform: scale(0.9);
 }
 
 .section {
 	width: 100%;
+	min-height: 95vh;
+	flex-grow: 1;
 }
 
 /* LIVE  ///////////////////////////////// */
 
 #live-sec {
 	font-size: clamp(14px, 1vw, 16px);
-	font-size:15px;
-	min-height:90vh;
+	font-size: 15px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
-	background:rgb(35,35,35);
+	background: rgb(35, 35, 35);
 }
 
 .live-bar {
 	width: 100%;
-	display:flex;
+	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	flex-wrap: wrap;
 	/* font-size:75%; */
-
 }
 
-.live-bar .table-container{
-	width:400px;
-	margin:5px;
+.live-bar .table-container {
+	width: 400px;
+	margin: 5px;
 	border-radius: 15px;
 	overflow: hidden;
-	background:rgb(255,255,255,0.1);
+	background: rgb(255, 255, 255, 0.1);
 }
 
-.live-bar input{
-	max-width:100%;
-	background:none;
-	color:white;
-	border:none;
+.live-bar input {
+	max-width: 100%;
+	background: none;
+	color: white;
+	border: none;
 	text-align: center;
-	padding:0;
+	padding: 0;
 }
 
-.live-bar table{
-	width:100%;
+.live-bar table {
+	width: 100%;
 }
 
-.live-bar tr{
+.live-bar tr {
 	/* background:yellow; */
-	display:flex;
+	display: flex;
 }
-.live-bar th{
-	padding:7px 10px;
-	width:33%;
+.live-bar th {
+	padding: 7px 10px;
+	width: 33%;
 }
-.live-bar td{
-	padding:5px;
+.live-bar td {
+	padding: 5px;
 	text-align: center;
-	width:33%;
+	width: 33%;
 }
 
-
-.live-bar table tr:nth-child(odd){
-	background:#616161;
+.live-bar table tr:nth-child(odd) {
+	background: #616161;
 }
-.live-bar table tr:nth-child(even){
-	background:#383838;
-}
-
-
-.live-bar tr td:nth-child(2){
-	border-right:0.5px solid rgb(255,255,255,0.1);
-	border-left:0.5px solid rgb(255,255,255,0.1);
+.live-bar table tr:nth-child(even) {
+	background: #383838;
 }
 
-
-.live-bar tr th:nth-child(2){
-	border-right:0.5px solid rgb(255,255,255,0.1);
-	border-left:0.5px solid rgb(255,255,255,0.1);
+.live-bar tr td:nth-child(2) {
+	border-right: 0.5px solid rgb(255, 255, 255, 0.1);
+	border-left: 0.5px solid rgb(255, 255, 255, 0.1);
 }
 
-.live-bar button{
-	background:none;
-	border:none;
-	color:white;
-	outline:none;
+.live-bar tr th:nth-child(2) {
+	border-right: 0.5px solid rgb(255, 255, 255, 0.1);
+	border-left: 0.5px solid rgb(255, 255, 255, 0.1);
 }
 
+.live-bar button {
+	background: none;
+	border: none;
+	color: white;
+	outline: none;
+}
 
 .incrementor {
 	display: flex;
 	align-items: center;
 }
-.incrementor span{
-	flex-grow:1;
+.incrementor span {
+	flex-grow: 1;
 	text-align: center;
 }
-
-
 
 .live-content {
 	display: flex;
@@ -272,8 +271,8 @@ background:rgb(56, 56, 56);
 	text-align: center;
 }
 
-.mach-remark{
-	font-size:10px;
+.mach-remark {
+	font-size: 10px;
 }
 
 .mach button {
@@ -299,7 +298,6 @@ background:rgb(56, 56, 56);
 	border: 1px solid #666;
 	color: white;
 }
-
 
 .silo input {
 	background: transparent;
@@ -360,13 +358,13 @@ background:rgb(56, 56, 56);
 /* TREND SECTION \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
 #trend-sec {
 	padding: 2.5vw 1rem;
-	display:flex;
+	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	font-size: 12px;
-	background:rgb(35,35,35);
+	background: rgb(35, 35, 35);
 }
 
 .trend-row {
@@ -422,29 +420,27 @@ background:rgb(56, 56, 56);
 	color: white;
 }
 
-
-
-
-
 /* DETAILS ///////////////////////////////////////////////////////// */
 
-#crusher-graph, #shovel-graph, #dragline-graph{
+#crusher-graph,
+#shovel-graph,
+#dragline-graph {
 	padding: 5vw 5vw;
 	color: white;
-	margin:auto;
+	margin: auto;
 }
 
- .chart-container{
-	height:500px;
-	padding:50px 20px;
+.chart-container {
+	height: 500px;
+	padding: 50px 20px;
 	position: relative;
-	margin-bottom:100px;
-	border-radius:50px;
+	margin-bottom: 100px;
+	border-radius: 50px;
 }
 
-table.perf-table{
-	width:100%;
-	margin-bottom:100px;
+table.perf-table {
+	width: 100%;
+	margin-bottom: 100px;
 }
 
 .perf-table td {
@@ -478,8 +474,6 @@ tr.total {
 .perf-table input:disabled {
 	border: none;
 }
-
-
 
 /* SPECIFICS /////////////// */
 

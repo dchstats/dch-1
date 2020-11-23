@@ -2,7 +2,7 @@ $(document).ready(begin());
 
 function begin() {
     $(".section").hide();
-    openSection('live-sec');
+    openSection('crusher-graph','crusher-tab');
 }
 
 

@@ -115,6 +115,7 @@ app.controller("myController", function ($scope, $http) {
         $scope.start = e;
         $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
         $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
+        $scope.block = 30;
 
     }
 
@@ -474,8 +475,8 @@ app.controller("myController", function ($scope, $http) {
 
         angular.forEach($scope.machines, function (mach, i) {
             k = 0;
-            for (i = 0; i < 4; i++) {
-                l = 10 + Math.floor(10 * Math.random());
+            for (i = 0; i < 5; i++) {
+                l = 5 + Math.floor(10 * Math.random());
                 v = Math.floor(4 * Math.random())
                 for (j = 0; j < l; j++) {
                     if (k < $scope.block) {

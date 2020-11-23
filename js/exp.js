@@ -9,11 +9,11 @@ function plot(machines, id) {
     putl = [];
 
 
-    const color_avl = 'purple';
-    const color_run = 'rgb(76, 176, 80)';
-    const color_brk = 'rgb(167,0,26)';
-    const color_mnt = 'rgb(255, 151, 0)';
-    const color_idl = 'rgb(51, 87, 83)';
+    const color_avl = '#1e75f2';
+    const color_run = '#22ee3d';
+    const color_brk = '#f44336';
+    const color_mnt = 'yellow';
+    const color_idl = 'rgb(200, 200, 200)';
 
 
     machines.forEach(x => {
@@ -67,6 +67,7 @@ function plot(machines, id) {
         },
         options: {
             maintainAspectRatio: false,
+      
             scales: {
                 xAxes: [{
                     stacked: false,
