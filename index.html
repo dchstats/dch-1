@@ -11,11 +11,11 @@
 <!-- <script src="libs/jquery.js" defer></script> -->
 <!-- <script src="libs/angular.js"></script> -->
 
-<link rel="stylesheet" href="css/live.css?v2">
-<script src="js/navigation.js?v2" defer></script>
-<script src="js/class.js?v2" defer></script>
-<script src="js/exp.js?v2" defer></script>
-<script src="js/live.js?v2" defer></script>
+<link rel="stylesheet" href="css/live.css?v201">
+<script src="js/navigation.js?v201" defer></script>
+<script src="js/class.js?v201" defer></script>
+<script src="js/exp.js?v201" defer></script>
+<script src="js/live.js?v201" defer></script>
 
 
 <body>
@@ -47,9 +47,14 @@
     </header>
     <div class="dev" ng-show="user=='Dev'">
         <button ng-click="indirect('randomize()')">Randomize</button>
-        <button ng-click="indirect('upload()')">Upload</button>
-        <button ng-click="indirect('download()')">Download</button>
+        <!-- <button ng-click="indirect('upload()')">Upload</button>
+        <button ng-click="indirect('download()')">Download</button> -->
+        <button ng-click="rebase()">Rebase</button>
         <button ng-click="indirect('reset()')">Reset</button>
+        <button ng-click="dnLocal()">dnLocal</button>
+        <button ng-click="upLocal()">upLocal</button>
+        <button ng-click="dnRemote()">dnRemote</button>
+        <!-- <button ng-click="upRemote()">upRemote</button> -->
     </div>
     <main>
 
@@ -216,10 +221,7 @@
 
 
         <div class="section" id="crusher-graph">
-            <p>hello</p>
-            <header class="graph-section-header">
-
-            </header>
+        
 
             <div class="chart-container">
                 <canvas id="crusher-time" width="400" height="400">
@@ -270,9 +272,7 @@
         </div>
 
         <div class="section" id="shovel-graph">
-            <header class="graph-section-header">
-
-            </header>
+     
 
             <div class="chart-container">
                 <canvas id="shovel-time" width="400" height="400">
@@ -324,10 +324,6 @@
         </div>
 
         <div class="section" id="dragline-graph">
-            <header class="graph-section-header">
-
-            </header>
-
             <div class="chart-container">
                 <canvas id="dragline-time" width="400" height="400">
                 </canvas>

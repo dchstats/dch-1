@@ -12,7 +12,6 @@ html {
 }
 
 body {
-	background: rgb(47, 47, 47);
 	color: white;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -71,6 +70,7 @@ header {
 	display: flex;
 	justify-content: space-between;
 	background: black;
+	height:clamp(50px,8vh,70px);
 }
 
 .dev{
@@ -158,6 +158,11 @@ background:rgb(56, 56, 56);
 #live-sec {
 	font-size: clamp(14px, 1vw, 16px);
 	font-size:15px;
+	min-height:90vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	background:rgb(35,35,35);
 }
 
 .live-bar {
@@ -197,7 +202,6 @@ background:rgb(56, 56, 56);
 }
 .live-bar th{
 	padding:7px 10px;
-	background:rgb(0,151,136);
 	width:33%;
 }
 .live-bar td{
@@ -210,14 +214,9 @@ background:rgb(56, 56, 56);
 .live-bar table tr:nth-child(odd){
 	background:#616161;
 }
-
-
-
-/* .live-bar tr td:first-child{
-
-	min-width:120px;
-	
-} */
+.live-bar table tr:nth-child(even){
+	background:#383838;
+}
 
 
 .live-bar tr td:nth-child(2){
@@ -254,7 +253,7 @@ background:rgb(56, 56, 56);
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	align-items: flex-start;
+	align-items: center;
 }
 
 .mach {
@@ -367,6 +366,7 @@ background:rgb(56, 56, 56);
 	justify-content: center;
 	align-items: center;
 	font-size: 12px;
+	background:rgb(35,35,35);
 }
 
 .trend-row {
@@ -435,7 +435,6 @@ background:rgb(56, 56, 56);
 }
 
  .chart-container{
-	background:rgb(36, 36, 36);
 	height:500px;
 	padding:50px 20px;
 	position: relative;

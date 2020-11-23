@@ -88,12 +88,18 @@ class Dumper {
         this.west_run = 0;
     }
     set = function (obj) {
-        this.east_total = obj.east_total;
-        this.east_avl = obj.east_avl;
-        this.east_run = obj.east_run;
-        this.west_total = obj.west_total;
-        this.west_avl = obj.west_avl;
-        this.west_run = obj.west_run;
+        if (obj.east_avl > 0) {
+            this.east_avl = obj.east_avl;
+        }
+        if (obj.east_run > 0) {
+            this.east_run = obj.east_run;
+        }
+        if (obj.west_avl > 0) {
+            this.west_avl = obj.west_avl;
+        }
+        if (obj.west_run > 0) {
+            this.west_run = obj.west_run;
+        }
     }
     get = function () {
         let k = {

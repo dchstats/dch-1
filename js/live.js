@@ -492,8 +492,76 @@ app.controller("myController", function ($scope, $http) {
         $scope.update();
     }
 
+    $scope.rebase = function () {
+        $scope.machines = [];
+        $scope.silos = [];
+        $scope.dumper = {};
+        $scope.dumpers = [];
+
+
+        angular.forEach($scope.crusherNames, function (x, i) {
+            var k = new Machine(x, 'crusher');
+            $scope.machines.push(k);
+        })
+        angular.forEach($scope.shovelNames, function (x, i) {
+            var k = new Machine(x, 'shovel');
+            $scope.machines.push(k);
+        })
+        angular.forEach($scope.draglineNames, function (x, i) {
+            var k = new Machine(x, 'dragline');
+            $scope.machines.push(k);
+        })
+        angular.forEach($scope.siloNames, function (x, i) {
+            var k = new Silo(x)
+            $scope.silos.push(k);
+        })
+
+        $scope.dumper = new Dumper();
+
+        angular.forEach($scope.machines, function (mach, i) {
+            for (j = 0; j < totalBlocks; j++) {
+                mach.logs[j] = 4;
+            }
+        })
+
+
+        for (i = 0; i < 8; i++) {
+            k = new Dumper(i);
+            $scope.dumpers.push(k);
+        }
+
+        performanceLog();
+
+
+    }
+
     $scope.indirect = function (js) {
         return eval(js);
+    }
+
+    $scope.dnLocal = function () {
+        let temp = $scope.downUrl;
+        $scope.downUrl = 'serv/downLive.php';
+        download();
+        $scope.downUrl = temp;
+    }
+    $scope.upLocal = function () {
+        let temp = $scope.upUrl;
+        $scope.upUrl = 'serv/upLive.php';
+        upload();
+        $scope.upUrl = temp;
+    }
+    $scope.dnRemote = function () {
+        let temp = $scope.downUrl;
+        $scope.downUrl = 'https://sushanttiwari.in/dch/serv/downLive.php';
+        download();
+        $scope.downUrl = temp;
+    }
+    $scope.upRemote = function () {
+        let temp = $scope.upUrl;
+        $scope.upUrl = 'https://sushanttiwari.in/dch/serv/upLive.php';
+        upload();
+        $scope.upUrl = temp;
     }
 });
 
