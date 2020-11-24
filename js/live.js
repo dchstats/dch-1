@@ -116,7 +116,9 @@ app.controller("myController", function ($scope, $http) {
         $scope.start = e;
         $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
         $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
-        $scope.block = 30;
+
+        // $scope.block = 30;
+        // $scope.hour = 4;
 
     }
 
@@ -330,6 +332,11 @@ app.controller("myController", function ($scope, $http) {
 
         $scope.dumperTotal = new Dumper(10);
         $scope.dumperTotal.add($scope.activeDumpers);
+
+        // $scope.graph('crusher');
+        // $scope.graph('shovel');
+        // $scope.graph('dragline');
+        // $scope.graph('dumper');
     }
 
 
@@ -566,6 +573,7 @@ app.controller("myController", function ($scope, $http) {
         }
 
         performanceLog();
+        receiver($scope);
 
 
     }

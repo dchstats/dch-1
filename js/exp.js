@@ -1,4 +1,21 @@
-function type1(id, mcns) {
+let scope = {};
+function receiver(s) {
+    scope = s;
+}
+
+function hourf(hour) {
+    let s = new Date(scope.start + hour * 3600 * 1000).getHours();
+    sh = s % 12;
+    if (sh == 0) sh = 12;
+
+    let e = new Date(scope.start + (hour + 1) * 3600 * 1000).getHours();
+    eh = e % 12;
+    if (eh == 0) eh = 12;
+    return "" + sh + (s < 12 ? "AM" : "PM") + " - " + eh + (e < 12 ? "AM" : "PM");
+}
+
+
+function type1(id, mcns, title) {
 
     let labels = [];
     let avlm = [];
@@ -22,6 +39,10 @@ function type1(id, mcns) {
         putl.push(x.putl);
     });
 
+    if (title) {
+        labels[0] = title;
+    }
+
     const color_avl = '#1e75f2';
     const color_run = '#22ee3d';
     const color_brk = '#f44336';
@@ -39,31 +60,31 @@ function type1(id, mcns) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Avl',
+                label: 'AVL HRS',
                 data: avlm,
                 backgroundColor: color_avl,
                 borderWidth: 1
             },
             {
-                label: 'Run',
+                label: 'RUN HRS',
                 data: runm,
                 backgroundColor: color_run,
                 borderWidth: 1
             },
             {
-                label: 'Brk',
+                label: 'BDN HRS',
                 data: brkm,
                 backgroundColor: color_brk,
                 borderWidth: 1
             },
             {
-                label: 'Mnt',
+                label: 'MNT HRS',
                 data: mntm,
                 backgroundColor: color_mnt,
                 borderWidth: 1
             },
             {
-                label: 'Idl',
+                label: 'IDL HRS',
                 data: idlm,
                 backgroundColor: color_idl,
                 borderWidth: 1
@@ -93,7 +114,7 @@ function type1(id, mcns) {
 }
 
 
-function type2(id, mcns) {
+function type2(id, mcns, title) {
 
     let labels = [];
     let avlm = [];
@@ -116,6 +137,9 @@ function type2(id, mcns) {
         pavl.push(x.pavl);
         putl.push(x.putl);
     });
+    if (title) {
+        labels[0] = title;
+    }
 
     const color_avl = '#1e75f2';
     const color_run = '#22ee3d';
@@ -135,13 +159,13 @@ function type2(id, mcns) {
         data: {
             labels: labels,
             datasets: [{
-                label: '%Avl',
+                label: '% AVAILIBILITY',
                 data: pavl,
                 backgroundColor: color_avl,
                 borderWidth: 1
             },
             {
-                label: '%Utl',
+                label: '% UTILIZATION',
                 data: putl,
                 backgroundColor: color_run,
                 borderWidth: 1
@@ -266,8 +290,8 @@ function crusherGraph(obj) {
 
     type1('#crusher-time', crushers);
     type2('#crusher-perf', crushers);
-    type1('#crusher-total-time', [crusherTotal]);
-    type2('#crusher-total-perf', [crusherTotal]);
+    type1('#crusher-total-time', [crusherTotal], 'ALL CRUSHERS');
+    type2('#crusher-total-perf', [crusherTotal], 'ALL CRUSHERS');
 }
 
 function draglineGraph(obj) {
@@ -280,8 +304,8 @@ function draglineGraph(obj) {
 
     type1('#dragline-time', draglines);
     type2('#dragline-perf', draglines);
-    type1('#dragline-total-time', [draglineTotal]);
-    type2('#dragline-total-perf', [draglineTotal]);
+    type1('#dragline-total-time', [draglineTotal],'DRAGLINE TOTAL');
+    type2('#dragline-total-perf', [draglineTotal],'DRAGLINE TOTAL');
 }
 
 function dumperGraph(obj) {
@@ -291,6 +315,9 @@ function dumperGraph(obj) {
 
     let section = document.querySelector('#dumper-sec');
     section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
+    dumpers.forEach(x => {
+        x.name = hourf(x);
+    })
 
     type1('#dumper-time', dumpers);
     type2('#dumper-perf', dumpers);
@@ -311,5 +338,7 @@ function shovelGraph(obj) {
     type3('#shovel-runm', shovels, 'RUNNING HOURS');
     type3('#shovel-pavl', shovels, '% AVAILABILITY');
     type3('#shovel-putl', shovels, '% UTILAZATION');
+    type1('#shovel-total-time', [shovelTotal], 'ALL SHOVELS');
+    type2('#shovel-total-perf', [shovelTotal], 'ALL SHOVELS');
     
 }

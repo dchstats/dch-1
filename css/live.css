@@ -27,6 +27,12 @@ table {
 	border-collapse: collapse;
 }
 
+tr.head td, tr.head th{
+	background:rgb(241,241,241);
+	text-align: center;
+	font-weight: bold;
+}
+
 input,
 select {
 	padding: 2px 0.5rem;
@@ -76,6 +82,8 @@ header {
 	height: 50px;
 	position: fixed;
 	width:100vw;
+	color:white;
+	z-index:100;
 }
 
 .dev {
@@ -84,6 +92,8 @@ header {
 	align-items: center;
 	padding: 5px;
 	background: #666;
+	position: absolute;
+	top:50px;
 }
 
 .section-selector {
@@ -432,8 +442,20 @@ header {
 .hourly-dumpers{
 	width:100%;
 }
+#dumper-se input {
+	max-width: 10vw;
+	border: 1px solid #ddd;
+	background: transparent;
+	text-align: right;
+}
+
+#dumper-sec input:disabled {
+	border: none;
+}
 
 /* GRAPHS ///////////////////////////////////////////////////////// */
+
+
 
 #crusher-sec,
 #dragline-sec,
@@ -458,6 +480,18 @@ header {
 	display:flex;
 	justify-content: center;
 	align-items: center;
+}
+
+@media(max-width:700px){
+.chart-container {
+
+	width:100%;
+
+}
+.table-container{
+	
+	width:100%;
+}
 }
 
 table.perf-table {
@@ -485,23 +519,14 @@ tr.total {
 	background: white;
 }
 
-.perf-table input {
-	max-width: 10vw;
-	border: 1px solid #555;
-	background: transparent;
-	text-align: right;
-}
 
-.perf-table input:disabled {
-	border: none;
-}
 
 
 /* SHOVEL /////////////////////////////////// */
-#shovel-sec > div{
-	flex-direction: column;
+
+#shovel-table{
 	width:100%;
-}
+} 
 
 /* SPECIFICS /////////////// */
 

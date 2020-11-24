@@ -11,11 +11,11 @@
 <!-- <script src="libs/jquery.js" defer></script> -->
 <!-- <script src="libs/angular.js"></script> -->
 
-<link rel="stylesheet" href="css/live.css?v201">
-<script src="js/navigation.js?v201" defer></script>
-<script src="js/class.js?v201" defer></script>
-<script src="js/exp.js?v201" defer></script>
-<script src="js/live.js?v201" defer></script>
+<link rel="stylesheet" href="css/live.css?v3">
+<script src="js/navigation.js?v3" defer></script>
+<script src="js/class.js?v3" defer></script>
+<script src="js/exp.js?v3" defer></script>
+<script src="js/live.js?v3" defer></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <body>
@@ -56,7 +56,7 @@
         <button ng-click="dnLocal()">dnLocal</button>
         <button ng-click="upLocal()">upLocal</button>
         <button ng-click="dnRemote()">dnRemote</button>
-        <!-- <button ng-click="upRemote()">upRemote</button> -->
+        <button ng-click="upRemote()">upRemote</button>
     </div>
     <main>
 
@@ -226,15 +226,15 @@
             <div class="table-container">
                 <table class="perf-table">
                     <tr class="head">
-                        <td colspan="8">CRUSHER</td>
+                        <td colspan="8">CRUSHERS</td>
                     </tr>
-                    <tr class="">
+                    <tr class="head">
                         <th></th>
-                        <th>AVL</th>
-                        <th>RUN</th>
-                        <th>BDN</th>
-                        <th>MNT</th>
-                        <th>IDL</th>
+                        <th>AVL HRS</th>
+                        <th>RUN HRS</th>
+                        <th>BDN HRS</th>
+                        <th>MNT HRS</th>
+                        <th>IDL HRS</th>
 
                     </tr>
                     <tr ng-repeat="s in crushers">
@@ -262,10 +262,10 @@
                     <tr class="head">
                         <td colspan="8">CRUSHERS</td>
                     </tr>
-                    <tr class="">
+                    <tr class="head">
                         <th></th>
-                        <th>%AVL</th>
-                        <th>%UTL</th>
+                        <th>% AVAILABILITY</th>
+                        <th>% UTILIZATION</th>
                     </tr>
                     <tr ng-repeat="s in crushers">
                         <td>{{s.name}}</td>
@@ -290,6 +290,7 @@
 
         <div class="section" id="shovel-sec">
 
+
             <div class="chart-container" id="shovel-avlm">
             </div>
             <div class="chart-container" id="shovel-runm">
@@ -298,20 +299,25 @@
             </div>
             <div class="chart-container" id="shovel-putl">
             </div>
-            <div class="table-container">
+            <div class="chart-container" id="shovel-total-time">
+            </div>
+            <div class="chart-container" id="shovel-total-perf">
+            </div>
+
+            <div class="table-container" id="shovel-table">
                 <table class="perf-table">
                     <tr class="head">
                         <td colspan="8">SHOVELS</td>
                     </tr>
-                    <tr class="">
+                    <tr class="head">
                         <th></th>
-                        <th>AVL</th>
-                        <th>RUN</th>
-                        <th>BDN</th>
-                        <th>MNT</th>
-                        <th>IDL</th>
-                        <th>%AVL</th>
-                        <th>%UTL</th>
+                        <th>AVL HRS</th>
+                        <th>RUN HRS</th>
+                        <th>BDN HRS</th>
+                        <th>MNT HRS</th>
+                        <th>IDL HRS</th>
+                        <th>% AVAILABILITY</th>
+                        <th>% UTILIZATION</th>
                     </tr>
                     <tr ng-repeat="s in shovels">
 
@@ -337,6 +343,8 @@
                 </table>
             </div>
 
+
+
         </div>
 
         <div class="section" id="dragline-sec">
@@ -345,15 +353,15 @@
             <div class="table-container">
                 <table class="perf-table">
                     <tr class="head">
-                        <td colspan="8">dragline</td>
+                        <td colspan="8">DRAGLINES</td>
                     </tr>
-                    <tr class="">
+                    <tr class="head">
                         <th></th>
-                        <th>AVL</th>
-                        <th>RUN</th>
-                        <th>BDN</th>
-                        <th>MNT</th>
-                        <th>IDL</th>
+                        <th>AVL HRS</th>
+                        <th>RUN HRS</th>
+                        <th>BDN HRS</th>
+                        <th>MNT HRS</th>
+                        <th>IDL HRS</th>
 
                     </tr>
                     <tr ng-repeat="s in draglines">
@@ -379,12 +387,12 @@
             <div class="table-container">
                 <table class="perf-table">
                     <tr class="head">
-                        <td colspan="8">draglineS</td>
+                        <td colspan="8">DRAGLINES</td>
                     </tr>
-                    <tr class="">
+                    <tr class="head">
                         <th></th>
-                        <th>%AVL</th>
-                        <th>%UTL</th>
+                        <th>% AVAILABILITY</th>
+                        <th>% UTILIZATION</th>
                     </tr>
                     <tr ng-repeat="s in draglines">
                         <td>{{s.name}}</td>
@@ -412,19 +420,18 @@
             <div class="table-container">
                 <table class="perf-table">
                     <tr class="head">
-                        <td colspan="8">dumper</td>
+                        <td colspan="8">DUMPERS</td>
                     </tr>
-                    <tr class="">
+                    <tr class="head">
                         <th></th>
-                        <th>AVL</th>
-                        <th>RUN</th>
-                        <th>BDN</th>
-
-                        <th>IDL</th>
+                        <th>AVL HRS</th>
+                        <th>RUN HRS</th>
+                        <th>BDN HRS</th>
+                        <th>IDL HRS</th>
 
                     </tr>
-                    <tr ng-repeat="s in dumpers">
-                        <td>{{s.hour}}</td>
+                    <tr ng-repeat="s in activeDumpers">
+                        <td>{{hourf(s.hour)}}</td>
                         <td>{{hms(s.avlm)}}</td>
                         <td>{{hms(s.runm)}}</td>
                         <td>{{hms(s.brkm)}}</td>
@@ -446,15 +453,15 @@
             <div class="table-container">
                 <table class="perf-table">
                     <tr class="head">
-                        <td colspan="8">dumperS</td>
+                        <td colspan="8">DUMPERS</td>
                     </tr>
-                    <tr class="">
+                    <tr class="head">
                         <th></th>
-                        <th>%AVL</th>
-                        <th>%UTL</th>
+                        <th>% AVAILABILITY</th>
+                        <th>% UTILIZATION</th>
                     </tr>
-                    <tr ng-repeat="s in dumpers">
-                        <td>{{s.name}}</td>
+                    <tr ng-repeat="s in activeDumpers">
+                        <td>{{hourf(s.name)}}</td>
                         <td>{{s.pavl}}%</td>
                         <td>{{s.putl}}%</td>
                     </tr>
@@ -474,14 +481,14 @@
             <div class="hourly-dumpers">
 
                 <table class="perf-table">
-                    <tr>
+                    <tr class="head">
                         <th></th>
                         <th colspan='2'>EAST SECTION</th>
                         <th></th>
                         <th colspan='2'>WEST SECTION</th>
                     </tr>
               
-                    <tr class="">
+                    <tr class="head">
                         <th>HOUR</th>
                         <th>AVL</th>
                         <th>RUN</th>
