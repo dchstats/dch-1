@@ -333,10 +333,33 @@ app.controller("myController", function ($scope, $http) {
             x.calculate();
         })
         $scope.dumper.calculate();
+    }
 
-        plot($scope.crushers, 'crusher');
-        plot($scope.shovels, 'shovel');
-        plot($scope.draglines, 'dragline');
+
+
+    $scope.graph = function (section) {
+        obj = {
+            crushers: JSON.parse(JSON.stringify($scope.crushers)),
+            crusherTotal: JSON.parse(JSON.stringify($scope.crusherTotal)),
+            shovels: JSON.parse(JSON.stringify($scope.shovels)),
+            shovelTotal: JSON.parse(JSON.stringify($scope.shovelTotal)),
+            draglines: JSON.parse(JSON.stringify($scope.draglines)),
+            draglinesTotal: JSON.parse(JSON.stringify($scope.draglineTotal)),
+            dumpers: JSON.parse(JSON.stringify($scope.dumpers)),
+            dumperTotal: JSON.parse(JSON.stringify($scope.dumperTotal))
+        }
+        if (section == 'crusher') {
+            crusherGraph(obj);
+        }
+        else if (section == 'shovel') {
+            shovelGraph(obj);
+        }
+        else if (section == 'dragline') {
+            draglineGraph(obj);
+        }
+        else if (section == 'dumper') {
+            dumperGraph(obj);
+        }
     }
 
 
@@ -564,5 +587,7 @@ app.controller("myController", function ($scope, $http) {
         upload();
         $scope.upUrl = temp;
     }
+
+
 });
 

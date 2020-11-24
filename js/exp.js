@@ -1,4 +1,13 @@
-function plot(machines, id) {
+function crusherGraph(obj) {
+    let crushers = obj.crushers;
+    let crusherTotal = obj.crusherTotal;
+
+    let section = document.querySelector('#crusher-sec');
+    section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
+
+
+  
+
     labels = [];
     avlm = [];
     runm = [];
@@ -16,7 +25,7 @@ function plot(machines, id) {
     const color_idl = 'rgb(200, 200, 200)';
 
 
-    machines.forEach(x => {
+    crushers.forEach(x => {
         labels.push(x.name);
         avlm.push(x.avlm);
         runm.push(x.runm);
@@ -28,8 +37,13 @@ function plot(machines, id) {
     });
 
 
-    var ctx = document.getElementById(id + '-time').getContext('2d');
-    var detailsTime = new Chart(ctx, {
+
+    let container = document.querySelector('#crusher-time');
+    let canvas = document.createElement('canvas');
+    container.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+
+    var chart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
@@ -67,7 +81,7 @@ function plot(machines, id) {
         },
         options: {
             maintainAspectRatio: false,
-      
+
             scales: {
                 xAxes: [{
                     stacked: false,
@@ -87,9 +101,12 @@ function plot(machines, id) {
 
 
 
-    var ctx = document.getElementById(id + '-perf').getContext('2d');
-    
-    var detailsPerf = new Chart(ctx, {
+    container = document.querySelector('#crusher-perf');
+    canvas = document.createElement('canvas');
+    container.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+
+    var chart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
@@ -126,5 +143,124 @@ function plot(machines, id) {
         }
     });
 
+
+
+    console.log(crusherTotal);
+
+    container = document.querySelector('#crusher-total-time');
+    canvas = document.createElement('canvas');
+    container.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Crusher Total'],
+            datasets: [{
+                label: 'Avl',
+                data: [crusherTotal.avlm],
+                backgroundColor: color_avl,
+                borderWidth: 1
+            },
+            {
+                label: 'Run',
+                data: [crusherTotal.runm],
+                backgroundColor: color_run,
+                borderWidth: 1
+            },
+            {
+                label: 'Brk',
+                data: [crusherTotal.brkm],
+                backgroundColor: color_brk,
+                borderWidth: 1
+            },
+            {
+                label: 'Mnt',
+                data: [crusherTotal.mntm],
+                backgroundColor: color_mnt,
+                borderWidth: 1
+            },
+            {
+                label: 'Idl',
+                data: [crusherTotal.idlm],
+                backgroundColor: color_idl,
+                borderWidth: 1
+            },
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+
+            scales: {
+                xAxes: [{
+                    stacked: false,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                yAxes: [{
+                    stacked: false,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+
+
+
+    container = document.querySelector('#crusher-total-perf');
+    canvas = document.createElement('canvas');
+    container.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Crusher Total'],
+            datasets: [{
+                label: '%Avl',
+                data: [crusherTotal.pavl],
+                backgroundColor: color_avl,
+                borderWidth: 1
+            },
+            {
+                label: '%Utl',
+                data: [crusherTotal.putl],
+                backgroundColor: color_run,
+                borderWidth: 1
+            },
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                    stacked: false,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                yAxes: [{
+                    stacked: false,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+
+
+
+
+
+
 }
+
+
+
 

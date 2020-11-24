@@ -2,16 +2,16 @@ $(document).ready(begin());
 
 function begin() {
     $(".section").hide();
-    openSection('crusher-graph','crusher-tab');
+    openSection('crusher');
 }
 
 
-function openSection(section,tab) {
+function openSection(section) {
     $(".section").hide();
-    var k = "#" + section;
+    var k = "#" + section + "-sec";
     $(k).slideDown(50);
     $('.section-selector .tab').removeClass('active-tab');
-    $('#' + tab).addClass('active-tab');
+    $('#' + section + "-tab").addClass('active-tab');
 }
 
 

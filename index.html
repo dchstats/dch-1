@@ -16,21 +16,23 @@
 <script src="js/class.js?v201" defer></script>
 <script src="js/exp.js?v201" defer></script>
 <script src="js/live.js?v201" defer></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <body>
     <header>
         <ul class="section-selector">
-            <li id="live-tab" href="#" onmouseDown="openSection('live-sec','live-tab')" class="tab">Live</li>
-            <li id="trend-tab" href="#" onmouseDown="openSection('trend-sec','trend-tab')" class="tab">Trends</li>
+            <li id="live-tab" href="#" onmouseDown="openSection('live')" class="tab">Live</li>
+            <li id="trend-tab" href="#" onmouseDown="openSection('trend')" class="tab">Trends</li>
 
-            <li id="crusher-tab" href="#" onmouseDown="openSection('crusher-graph', 'crusher-tab')" class="tab">
+            <li id="crusher-tab" href="#" onmouseDown="openSection('crusher')" ng-click="graph('crusher')" class="tab">
                 Crushers</li>
-            <li id="shovel-tab" href="#" onmouseDown="openSection('shovel-graph','shovel-tab')" class="tab">
+            <li id="shovel-tab" href="#" onmouseDown="openSection('shovel')" ng-click="graph('shovel')" class="tab">
                 Shovels</li>
-            <li id="dragline-tab" href="#" onmouseDown="openSection('dragline-graph','dragline-tab')" class="tab">
+            <li id="dragline-tab" href="#" onmouseDown="openSection('dragline')" ng-click="graph('dragline')"
+                class="tab">
                 Draglines</li>
-            <li id="dumper-tab" href="#" onmouseDown="openSection('dumper-graph','dumper-tab')" class="tab">Dumpers</li>
+            <li id="dumper-tab" href="#" onmouseDown="openSection('dumper')" ng-click="graph('dumper')" class="tab">
+                Dumpers</li>
 
         </ul>
 
@@ -218,23 +220,13 @@
             </div>
         </div>
 
-
-
-        <div class="section" id="crusher-graph">
-        
-
-            <div class="chart-container">
-                <canvas id="crusher-time" width="400" height="400">
-                </canvas>
-            </div>
-            <div class="chart-container">
-                <canvas id="crusher-perf" width="400" height="400">
-                </canvas>
+        <div class="section" id="crusher-sec">
+            <div class="chart-container" id="crusher-time">
             </div>
             <div class="table-container">
                 <table class="perf-table">
                     <tr class="head">
-                        <td colspan="8">CRUSHERS</td>
+                        <td colspan="8">CRUSHER</td>
                     </tr>
                     <tr class="">
                         <th></th>
@@ -243,8 +235,7 @@
                         <th>BDN</th>
                         <th>MNT</th>
                         <th>IDL</th>
-                        <th>%AVL</th>
-                        <th>%UTL</th>
+
                     </tr>
                     <tr ng-repeat="s in crushers">
                         <td>{{s.name}}</td>
@@ -253,26 +244,52 @@
                         <td>{{hms(s.brkm)}}</td>
                         <td>{{hms(s.mntm)}}</td>
                         <td>{{hms(s.idlm)}}</td>
+
+                    </tr>
+                    <tr class="total">
+                        <td>TOTAL</td>
+                        <td>{{hms(crusherTotal.avlm)}}</td>
+                        <td>{{hms(crusherTotal.runm)}}</td>
+                        <td>{{hms(crusherTotal.brkm)}}</td>
+                        <td>{{hms(crusherTotal.mntm)}}</td>
+                        <td>{{hms(crusherTotal.idlm)}}</td>
+
+                    </tr>
+                </table>
+            </div>
+            <div class="table-container">
+                <table class="perf-table">
+                    <tr class="head">
+                        <td colspan="8">CRUSHERS</td>
+                    </tr>
+                    <tr class="">
+                        <th></th>
+                        <th>%AVL</th>
+                        <th>%UTL</th>
+                    </tr>
+                    <tr ng-repeat="s in crushers">
+                        <td>{{s.name}}</td>
                         <td>{{s.pavl}}%</td>
                         <td>{{s.putl}}%</td>
                     </tr>
                     <tr class="total">
                         <td>TOTAL</td>
-                        <td>{{hms(mcnTotal.avlm)}}</td>
-                        <td>{{hms(mcnTotal.runm)}}</td>
-                        <td>{{hms(mcnTotal.brkm)}}</td>
-                        <td>{{hms(mcnTotal.mntm)}}</td>
-                        <td>{{hms(mcnTotal.idlm)}}</td>
-                        <td>{{mcnTotal.pavl}}%</td>
-                        <td>{{mcnTotal.putl}}%</td>
+                        <td>{{crusherTotal.pavl}}%</td>
+                        <td>{{crusherTotal.putl}}%</td>
                     </tr>
                 </table>
+            </div>
+            <div class="chart-container" id="crusher-perf">
+            </div>
+            <div class="chart-container" id="crusher-total-time">
+            </div>
+            <div class="chart-container" id="crusher-total-perf">
             </div>
 
         </div>
 
-        <div class="section" id="shovel-graph">
-     
+        <div class="section" id="shovel-sec">
+
 
             <div class="chart-container">
                 <canvas id="shovel-time" width="400" height="400">
@@ -323,7 +340,7 @@
 
         </div>
 
-        <div class="section" id="dragline-graph">
+        <div class="section" id="dragline-sec">
             <div class="chart-container">
                 <canvas id="dragline-time" width="400" height="400">
                 </canvas>
@@ -373,7 +390,7 @@
 
         </div>
 
-        <div class="section" id="dumper-graph">
+        <div class="section" id="dumper-sec">
 
 
             <table class="perf-table">
