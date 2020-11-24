@@ -514,12 +514,15 @@ app.controller("myController", function ($scope, $http) {
 
         angular.forEach($scope.dumpers, function (d, i) {
             let obj = {
-                east_avl: Math.floor(30 * Math.random()),
-                east_run: Math.floor(30 * Math.random()),
-                west_avl: Math.floor(30 * Math.random()),
-                west_run: Math.floor(30 * Math.random())
+                east_avl: 20+Math.floor(10 * Math.random()),
+                east_run: 20-Math.floor(10 * Math.random()),
+                west_avl: 20+Math.floor(10 * Math.random()),
+                west_run: 20-Math.floor(10 * Math.random())
             }
+            d.set(obj);
         })
+        $scope.dumper.set($scope.dumpers[$scope.hour].get());
+       
 
         $scope.update();
     }

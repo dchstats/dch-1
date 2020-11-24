@@ -1,5 +1,4 @@
 function type1(id, mcns) {
-    console.log(mcns);
 
     let labels = [];
     let avlm = [];
@@ -169,6 +168,94 @@ function type2(id, mcns) {
     });
 }
 
+function type3(id, mcns, param) {
+
+    let labels = [];
+    let avlm = [];
+    let runm = [];
+    let brkm = [];
+    let mntm = [];
+    let idlm = [];
+    let pavl = [];
+    let putl = [];
+
+
+
+    mcns.forEach(x => {
+        labels.push(x.name);
+        avlm.push(x.avlm);
+        runm.push(x.runm);
+        brkm.push(x.brkm);
+        mntm.push(x.mntm);
+        idlm.push(x.idlm);
+        pavl.push(x.pavl);
+        putl.push(x.putl);
+    });
+
+    const color_avl = '#1e75f2';
+    const color_run = '#22ee3d';
+    const color_brk = '#f44336';
+    const color_mnt = 'yellow';
+    const color_idl = 'rgb(200, 200, 200)';
+
+    let arr = [];
+    let color = 'black';
+
+    if (param == 'AVAILABLE HOURS') {
+        arr = avlm;
+        color = color_avl;
+    }
+    else if (param == 'RUNNING HOURS') {
+        arr = runm;
+        color = color_run;
+    }
+    else if (param == '% AVAILABILITY') {
+        arr = pavl;
+        color = color_avl;
+    }
+    else if (param == '% UTILAZATION') {
+        arr = putl;
+        color = color_mnt;
+    }
+
+    let container = document.querySelector(id);
+    let canvas = document.createElement('canvas');
+    container.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: param,
+                data: arr,
+                backgroundColor: color,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+
+            scales: {
+                xAxes: [{
+                    stacked: false,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                yAxes: [{
+                    stacked: false,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+}
+
 
 function crusherGraph(obj) {
     let crushers = obj.crushers;
@@ -184,7 +271,7 @@ function crusherGraph(obj) {
 }
 
 function draglineGraph(obj) {
-    console.log(obj);
+   
     let draglines = obj.draglines;
     let draglineTotal = obj.draglineTotal;
 
@@ -198,7 +285,7 @@ function draglineGraph(obj) {
 }
 
 function dumperGraph(obj) {
-    console.log(obj);
+    
     let dumpers = obj.dumpers;
     let dumperTotal = obj.dumperTotal;
 
@@ -211,3 +298,18 @@ function dumperGraph(obj) {
     type2('#dumper-total-perf', [dumperTotal]);
 }
 
+
+function shovelGraph(obj) {
+  
+    let shovels = obj.shovels;
+    let shovelTotal = obj.shovelTotal;
+
+    let section = document.querySelector('#shovel-sec');
+    section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
+
+    type3('#shovel-avlm', shovels, 'AVAILABLE HOURS');
+    type3('#shovel-runm', shovels, 'RUNNING HOURS');
+    type3('#shovel-pavl', shovels, '% AVAILABILITY');
+    type3('#shovel-putl', shovels, '% UTILAZATION');
+    
+}

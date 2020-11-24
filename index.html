@@ -290,14 +290,13 @@
 
         <div class="section" id="shovel-sec">
 
-
-            <div class="chart-container">
-                <canvas id="shovel-time" width="400" height="400">
-                </canvas>
+            <div class="chart-container" id="shovel-avlm">
             </div>
-            <div class="chart-container">
-                <canvas id="shovel-perf" width="400" height="400">
-                </canvas>
+            <div class="chart-container" id="shovel-runm">
+            </div>
+            <div class="chart-container" id="shovel-pavl">
+            </div>
+            <div class="chart-container" id="shovel-putl">
             </div>
             <div class="table-container">
                 <table class="perf-table">
@@ -327,13 +326,13 @@
                     </tr>
                     <tr class="total">
                         <td>TOTAL</td>
-                        <td>{{hms(mcnTotal.avlm)}}</td>
-                        <td>{{hms(mcnTotal.runm)}}</td>
-                        <td>{{hms(mcnTotal.brkm)}}</td>
-                        <td>{{hms(mcnTotal.mntm)}}</td>
-                        <td>{{hms(mcnTotal.idlm)}}</td>
-                        <td>{{mcnTotal.pavl}}%</td>
-                        <td>{{mcnTotal.putl}}%</td>
+                        <td>{{hms(shovelTotal.avlm)}}</td>
+                        <td>{{hms(shovelTotal.runm)}}</td>
+                        <td>{{hms(shovelTotal.brkm)}}</td>
+                        <td>{{hms(shovelTotal.mntm)}}</td>
+                        <td>{{hms(shovelTotal.idlm)}}</td>
+                        <td>{{shovelTotal.pavl}}%</td>
+                        <td>{{shovelTotal.putl}}%</td>
                     </tr>
                 </table>
             </div>
@@ -420,27 +419,27 @@
                         <th>AVL</th>
                         <th>RUN</th>
                         <th>BDN</th>
-                        <th>MNT</th>
+
                         <th>IDL</th>
-        
+
                     </tr>
                     <tr ng-repeat="s in dumpers">
                         <td>{{s.hour}}</td>
                         <td>{{hms(s.avlm)}}</td>
                         <td>{{hms(s.runm)}}</td>
                         <td>{{hms(s.brkm)}}</td>
-                        <td>{{hms(s.mntm)}}</td>
+
                         <td>{{hms(s.idlm)}}</td>
-        
+
                     </tr>
                     <tr class="total">
                         <td>TOTAL</td>
                         <td>{{hms(dumperTotal.avlm)}}</td>
                         <td>{{hms(dumperTotal.runm)}}</td>
                         <td>{{hms(dumperTotal.brkm)}}</td>
-                        <td>{{hms(dumperTotal.mntm)}}</td>
+
                         <td>{{hms(dumperTotal.idlm)}}</td>
-        
+
                     </tr>
                 </table>
             </div>
@@ -472,69 +471,49 @@
             </div>
             <div class="chart-container" id="dumper-total-perf">
             </div>
-<!-- 
-            <table class="perf-table">
-                <tr class="head">
-                    <td colspan="7">EAST DUMPERS</td>
-                </tr>
-                <tr class="">
-                    <th>HOUR</th>
-                    <th>AVL</th>
-                    <th>RUN</th>
-                    <th>%AVL</th>
-                    <th>%UTL</th>
-                </tr>
-                <tr ng-repeat="x in dumpers track by $index" ng-hide="x.hour > hour">
-                    <td>{{hourf(x.hour)}}</td>
-                    <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()">
-                    </td>
-                    <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()">
-                    </td>
-                    <td>{{x.east_pavl}} %</td>
-                    <td>{{x.east_putl}} %</td>
-                </tr>
-                <tr class="total">
-                    <td>TOTAL</td>
-                    <td>{{dumperTotal.east_avl}} Hrs</td>
-                    <td>{{dumperTotal.east_run}} Hrs</td>
-                    <td>{{dumperTotal.east_pavl}} %</td>
-                    <td>{{dumperTotal.east_putl}} %</td>
-                </tr>
-            </table>
+            <div class="hourly-dumpers">
 
-            <table class="perf-table">
-                <tr class="head">
-                    <td colspan="7">WEST DUMPERS</td>
-                </tr>
-                <tr class="">
-                    <th>HOUR</th>
-                    <th>AVL</th>
-                    <th>RUN</th>
-                    <th>%AVL</th>
-                    <th>%UTL</th>
-                </tr>
-                <tr ng-repeat="x in dumpers track by $index" ng-hide="x.hour > hour">
-                    <td>{{hourf(x.hour)}}</td>
-                    <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()">
-                    </td>
-                    <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()">
-                    </td>
-                    <td>{{x.west_pavl}} %</td>
-                    <td>{{x.west_putl}} %</td>
-                </tr>
-                <tr class="total">
-                    <td>TOTAL</td>
-                    <td>{{dumperTotal.west_avl}} Hrs</td>
-                    <td>{{dumperTotal.west_run}} Hrs</td>
-                    <td>{{dumperTotal.west_pavl}} %</td>
-                    <td>{{dumperTotal.west_putl}} %</td>
-                </tr>
-            </table> -->
+                <table class="perf-table">
+                    <tr>
+                        <th></th>
+                        <th colspan='2'>EAST SECTION</th>
+                        <th></th>
+                        <th colspan='2'>WEST SECTION</th>
+                    </tr>
+              
+                    <tr class="">
+                        <th>HOUR</th>
+                        <th>AVL</th>
+                        <th>RUN</th>
+                        <td></td>
+                        <th>AVL</th>
+                        <th>RUN</th>
+                    </tr>
+                    <tr ng-repeat="x in dumpers track by $index" ng-hide="x.hour > hour">
+                        <td>{{hourf(x.hour)}}</td>
+                        <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour"
+                                ng-change="update()">
+                        </td>
+                        <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour"
+                                ng-change="update()">
+                        </td>
+                        <td></td>
+                        <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour" ng-change="update()">
+                        </td>
+                        <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour" ng-change="update()">
+                        </td>
+                    </tr>
+                    <tr class="total">
+                        <td>TOTAL</td>
+                        <td>{{dumperTotal.east_avl}} Hrs</td>
+                        <td>{{dumperTotal.east_run}} Hrs</td>
+                        <td></td>
+                        <td>{{dumperTotal.west_avl}} Hrs</td>
+                        <td>{{dumperTotal.west_run}} Hrs</td>
+                    </tr>
+                </table>
 
+            </div>
         </div>
 
     </main>
