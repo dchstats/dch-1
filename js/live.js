@@ -16,6 +16,7 @@ app.controller("myController", function ($scope, $http) {
     $scope.silos = [];
     $scope.dumper = {};
     $scope.dumpers = [];  // stores hourly snapshots of dumper objects.
+    $scope.activeDumpers = [];
     $scope.dumperTotal = {};
 
 
@@ -168,10 +169,6 @@ app.controller("myController", function ($scope, $http) {
                     x.set(e.machines[i]);
                     x.calculate();
                 })
-                angular.forEach($scope.dumers, function (x, i) {
-                    x.set(e.dumpers[i]);
-                    x.calculate();
-                })
                 angular.forEach($scope.silos, function (x, i) {
                     x.set(e.silos[i]);
                 })
@@ -181,8 +178,6 @@ app.controller("myController", function ($scope, $http) {
                 })
                 $scope.dumper.set(e.dumper);
                 $scope.dumper.calculate();
-
-
 
 
                 console.log('Downloaded..', e.stamp, 'By:' + e.user + ' @ ' + t);
@@ -324,28 +319,31 @@ app.controller("myController", function ($scope, $http) {
         $scope.draglineTotal = new Machine('dragline total', 'dragline total');
         $scope.draglineTotal.add($scope.draglines);
 
-        let dumpers = $scope.dumpers.filter(x => x.hour <= $scope.hour);
-        $scope.dumperTotal = new Dumper(10);
-        $scope.dumperTotal.add(dumpers);
+        $scope.activeDumpers = $scope.dumpers.filter(x => x.hour <= $scope.hour);
+
 
         $scope.dumpers[$scope.hour].set($scope.dumper.get());
         angular.forEach($scope.dumpers, function (x, i) {
             x.calculate();
         })
         $scope.dumper.calculate();
+
+        $scope.dumperTotal = new Dumper(10);
+        $scope.dumperTotal.add($scope.activeDumpers);
     }
 
 
 
     $scope.graph = function (section) {
+
         obj = {
             crushers: JSON.parse(JSON.stringify($scope.crushers)),
             crusherTotal: JSON.parse(JSON.stringify($scope.crusherTotal)),
             shovels: JSON.parse(JSON.stringify($scope.shovels)),
             shovelTotal: JSON.parse(JSON.stringify($scope.shovelTotal)),
             draglines: JSON.parse(JSON.stringify($scope.draglines)),
-            draglinesTotal: JSON.parse(JSON.stringify($scope.draglineTotal)),
-            dumpers: JSON.parse(JSON.stringify($scope.dumpers)),
+            draglineTotal: JSON.parse(JSON.stringify($scope.draglineTotal)),
+            dumpers: JSON.parse(JSON.stringify($scope.activeDumpers)),
             dumperTotal: JSON.parse(JSON.stringify($scope.dumperTotal))
         }
         if (section == 'crusher') {
@@ -513,6 +511,16 @@ app.controller("myController", function ($scope, $http) {
                 }
             }
         })
+
+        angular.forEach($scope.dumpers, function (d, i) {
+            let obj = {
+                east_avl: Math.floor(30 * Math.random()),
+                east_run: Math.floor(30 * Math.random()),
+                west_avl: Math.floor(30 * Math.random()),
+                west_run: Math.floor(30 * Math.random())
+            }
+        })
+
         $scope.update();
     }
 

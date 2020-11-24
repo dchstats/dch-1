@@ -101,7 +101,7 @@ header {
 	display: flex;
 	justify-content: center;
 }
-@media (min-width: 500px) {
+@media (min-width: 900px) {
 	.tab {
 		width: 120px;
 		cursor: pointer;
@@ -184,7 +184,7 @@ header {
 	/* font-size:75%; */
 }
 
-.live-bar .table-container {
+.live-bar > div {
 	width: 400px;
 	margin: 5px;
 	border-radius: 15px;
@@ -353,7 +353,7 @@ header {
 	width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
 	.mach:hover .inner {
 		transform: rotateY(180deg);
 	}
@@ -405,7 +405,7 @@ header {
 	border: 1px solid yellow;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
 	.trend-row {
 		height: 5vh;
 		width: 100%;
@@ -428,7 +428,8 @@ header {
 
 #crusher-sec,
 #shovel-sec,
-#dragline-sec {
+#dragline-sec,
+#dumper-sec {
 	padding: 5vw 5vw;
 	color: white;
 	margin: auto;
@@ -537,7 +538,7 @@ tr.total {
 }
 
 /* MOBILE //////////////////////////////////////////////// */
-@media (max-width: 700px) {
+@media (max-width: 900px) {
 	.login {
 		display: none;
 	}

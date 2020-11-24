@@ -78,6 +78,7 @@ class Silo {
 class Dumper {
     constructor(hour) {
         this.hour = hour;
+        this.name = hour;
 
         this.east_total = 41;
         this.east_avl = 0;

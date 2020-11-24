@@ -64,7 +64,7 @@
         <div class="section" id="live-sec">
 
             <div class="live-bar">
-                <div class="table-container">
+                <div class="">
                     <table>
                         <tr>
                             <th>SILO</th>
@@ -86,7 +86,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="table-container">
+                <div class="">
                     <table>
                         <tr>
                             <th>DUMPERS</th>
@@ -341,18 +341,12 @@
         </div>
 
         <div class="section" id="dragline-sec">
-            <div class="chart-container">
-                <canvas id="dragline-time" width="400" height="400">
-                </canvas>
-            </div>
-            <div class="chart-container">
-                <canvas id="dragline-perf" width="400" height="400">
-                </canvas>
+            <div class="chart-container" id="dragline-time">
             </div>
             <div class="table-container">
                 <table class="perf-table">
                     <tr class="head">
-                        <td colspan="8">DRAGLINES</td>
+                        <td colspan="8">dragline</td>
                     </tr>
                     <tr class="">
                         <th></th>
@@ -361,38 +355,124 @@
                         <th>BDN</th>
                         <th>MNT</th>
                         <th>IDL</th>
-                        <th>%AVL</th>
-                        <th>%UTL</th>
+
                     </tr>
                     <tr ng-repeat="s in draglines">
-
                         <td>{{s.name}}</td>
                         <td>{{hms(s.avlm)}}</td>
                         <td>{{hms(s.runm)}}</td>
                         <td>{{hms(s.brkm)}}</td>
                         <td>{{hms(s.mntm)}}</td>
                         <td>{{hms(s.idlm)}}</td>
+
+                    </tr>
+                    <tr class="total">
+                        <td>TOTAL</td>
+                        <td>{{hms(draglineTotal.avlm)}}</td>
+                        <td>{{hms(draglineTotal.runm)}}</td>
+                        <td>{{hms(draglineTotal.brkm)}}</td>
+                        <td>{{hms(draglineTotal.mntm)}}</td>
+                        <td>{{hms(draglineTotal.idlm)}}</td>
+
+                    </tr>
+                </table>
+            </div>
+            <div class="table-container">
+                <table class="perf-table">
+                    <tr class="head">
+                        <td colspan="8">draglineS</td>
+                    </tr>
+                    <tr class="">
+                        <th></th>
+                        <th>%AVL</th>
+                        <th>%UTL</th>
+                    </tr>
+                    <tr ng-repeat="s in draglines">
+                        <td>{{s.name}}</td>
                         <td>{{s.pavl}}%</td>
                         <td>{{s.putl}}%</td>
                     </tr>
                     <tr class="total">
                         <td>TOTAL</td>
-                        <td>{{hms(mcnTotal.avlm)}}</td>
-                        <td>{{hms(mcnTotal.runm)}}</td>
-                        <td>{{hms(mcnTotal.brkm)}}</td>
-                        <td>{{hms(mcnTotal.mntm)}}</td>
-                        <td>{{hms(mcnTotal.idlm)}}</td>
-                        <td>{{mcnTotal.pavl}}%</td>
-                        <td>{{mcnTotal.putl}}%</td>
+                        <td>{{draglineTotal.pavl}}%</td>
+                        <td>{{draglineTotal.putl}}%</td>
                     </tr>
                 </table>
             </div>
-
+            <div class="chart-container" id="dragline-perf">
+            </div>
+            <div class="chart-container" id="dragline-total-time">
+            </div>
+            <div class="chart-container" id="dragline-total-perf">
+            </div>
         </div>
 
         <div class="section" id="dumper-sec">
-
-
+            <div class="chart-container" id="dumper-time">
+            </div>
+            <div class="table-container">
+                <table class="perf-table">
+                    <tr class="head">
+                        <td colspan="8">dumper</td>
+                    </tr>
+                    <tr class="">
+                        <th></th>
+                        <th>AVL</th>
+                        <th>RUN</th>
+                        <th>BDN</th>
+                        <th>MNT</th>
+                        <th>IDL</th>
+        
+                    </tr>
+                    <tr ng-repeat="s in dumpers">
+                        <td>{{s.hour}}</td>
+                        <td>{{hms(s.avlm)}}</td>
+                        <td>{{hms(s.runm)}}</td>
+                        <td>{{hms(s.brkm)}}</td>
+                        <td>{{hms(s.mntm)}}</td>
+                        <td>{{hms(s.idlm)}}</td>
+        
+                    </tr>
+                    <tr class="total">
+                        <td>TOTAL</td>
+                        <td>{{hms(dumperTotal.avlm)}}</td>
+                        <td>{{hms(dumperTotal.runm)}}</td>
+                        <td>{{hms(dumperTotal.brkm)}}</td>
+                        <td>{{hms(dumperTotal.mntm)}}</td>
+                        <td>{{hms(dumperTotal.idlm)}}</td>
+        
+                    </tr>
+                </table>
+            </div>
+            <div class="table-container">
+                <table class="perf-table">
+                    <tr class="head">
+                        <td colspan="8">dumperS</td>
+                    </tr>
+                    <tr class="">
+                        <th></th>
+                        <th>%AVL</th>
+                        <th>%UTL</th>
+                    </tr>
+                    <tr ng-repeat="s in dumpers">
+                        <td>{{s.name}}</td>
+                        <td>{{s.pavl}}%</td>
+                        <td>{{s.putl}}%</td>
+                    </tr>
+                    <tr class="total">
+                        <td>TOTAL</td>
+                        <td>{{dumperTotal.pavl}}%</td>
+                        <td>{{dumperTotal.putl}}%</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="chart-container" id="dumper-perf">
+            </div>
+            <div class="chart-container" id="dumper-total-time">
+            </div>
+            <div class="chart-container" id="dumper-total-perf">
+            </div>
+<!-- 
             <table class="perf-table">
                 <tr class="head">
                     <td colspan="7">EAST DUMPERS</td>
@@ -407,9 +487,11 @@
                 <tr ng-repeat="x in dumpers track by $index" ng-hide="x.hour > hour">
                     <td>{{hourf(x.hour)}}</td>
                     <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()"></td>
+                            ng-change="update()">
+                    </td>
                     <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()"></td>
+                            ng-change="update()">
+                    </td>
                     <td>{{x.east_pavl}} %</td>
                     <td>{{x.east_putl}} %</td>
                 </tr>
@@ -436,9 +518,11 @@
                 <tr ng-repeat="x in dumpers track by $index" ng-hide="x.hour > hour">
                     <td>{{hourf(x.hour)}}</td>
                     <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()"></td>
+                            ng-change="update()">
+                    </td>
                     <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour"
-                            ng-change="update()"></td>
+                            ng-change="update()">
+                    </td>
                     <td>{{x.west_pavl}} %</td>
                     <td>{{x.west_putl}} %</td>
                 </tr>
@@ -449,7 +533,7 @@
                     <td>{{dumperTotal.west_pavl}} %</td>
                     <td>{{dumperTotal.west_putl}} %</td>
                 </tr>
-            </table>
+            </table> -->
 
         </div>
 
