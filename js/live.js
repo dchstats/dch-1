@@ -117,8 +117,8 @@ app.controller("myController", function ($scope, $http) {
         $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
         $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
 
-        // $scope.block = 30;
-        // $scope.hour = 4;
+        // $scope.block = 32;
+        // $scope.hour = 6;
 
     }
 
@@ -346,7 +346,7 @@ app.controller("myController", function ($scope, $http) {
         $scope.dumpers.forEach(x => {
             hourStrings.push($scope.hourf(x.hour));
         })
-        console.log(hourStrings);
+     
 
         obj = {
             crushers: JSON.parse(JSON.stringify($scope.crushers)),
@@ -502,7 +502,7 @@ app.controller("myController", function ($scope, $http) {
     $scope.hms = function (mins) {
         h = Math.floor(mins / 60);
         m = mins % 60;
-        return h.toString() + " : " + (m < 10 ? "0" : "") + m.toString();
+        return h.toString().padStart(2,0) + " : "+ m.toString().padStart(2,0);
     }
 
 

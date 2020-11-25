@@ -11,12 +11,12 @@ function crusherGraph(obj) {
 
     type1('#crusher-time', crushers);
     type2('#crusher-perf', crushers);
-    type1('#crusher-total-time', [crusherTotal], 'ALL CRUSHERS');
-    type2('#crusher-total-perf', [crusherTotal], 'ALL CRUSHERS');
+    type1('#crusher-total-time', [crusherTotal], ['ALL CRUSHERS']);
+    type2('#crusher-total-perf', [crusherTotal], ['ALL CRUSHERS']);
 }
 
 function draglineGraph(obj) {
-   
+
     let draglines = obj.draglines;
     let draglineTotal = obj.draglineTotal;
 
@@ -25,27 +25,27 @@ function draglineGraph(obj) {
 
     type1('#dragline-time', draglines);
     type2('#dragline-perf', draglines);
-    type1('#dragline-total-time', [draglineTotal],'DRAGLINE TOTAL');
-    type2('#dragline-total-perf', [draglineTotal],'DRAGLINE TOTAL');
+    type1('#dragline-total-time', [draglineTotal], ['DRAGLINE TOTAL']);
+    type2('#dragline-total-perf', [draglineTotal], ['DRAGLINE TOTAL']);
 }
 
 function dumperGraph(obj) {
-    
+
     let dumpers = obj.dumpers;
     let dumperTotal = obj.dumperTotal;
     let hourStrings = obj.hourStrings;
 
     let section = document.querySelector('#dumper-sec');
     section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
-    type1('#dumper-time', dumpers, 'DUMPER', hourStrings);
-    type2('#dumper-perf', dumpers, 'DUMPER', hourStrings);
-    type1('#dumper-total-time', [dumperTotal],'DUMPER');
-    type2('#dumper-total-perf', [dumperTotal],'DUMPER');
+    type1('#dumper-time', dumpers, hourStrings);
+    type2('#dumper-perf', dumpers, hourStrings);
+    type1('#dumper-total-time', [dumperTotal], ['DUMPER']);
+    type2('#dumper-total-perf', [dumperTotal], ['DUMPER']);
 }
 
 
 function shovelGraph(obj) {
-  
+
     let shovels = obj.shovels;
     let shovelTotal = obj.shovelTotal;
 
@@ -56,14 +56,14 @@ function shovelGraph(obj) {
     type3('#shovel-runm', shovels, 'RUNNING HOURS');
     type3('#shovel-pavl', shovels, '% AVAILABILITY');
     type3('#shovel-putl', shovels, '% UTILAZATION');
-    type1('#shovel-total-time', [shovelTotal], 'ALL SHOVELS');
-    type2('#shovel-total-perf', [shovelTotal], 'ALL SHOVELS');
-    
+    type1('#shovel-total-time', [shovelTotal], ['ALL SHOVELS']);
+    type2('#shovel-total-perf', [shovelTotal], ['ALL SHOVELS']);
+
 }
 
 
 
-function type1(id, mcns, title, labs) {
+function type1(id, mcns, labs) {
 
     let labels = [];
     let avlm = [];
@@ -87,9 +87,7 @@ function type1(id, mcns, title, labs) {
         putl.push(x.putl);
     });
 
-    if (title) {
-        labels[0] = title;
-    }
+
     if (labs) {
         labels = labs;
     }
@@ -155,7 +153,14 @@ function type1(id, mcns, title, labs) {
                 yAxes: [{
                     stacked: false,
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        callback: function (value, index, values) {
+                            let m = value % 60;
+                            m = m.toString().padStart(2, 0);
+                            let h = (value - m) / 60;
+                            h = h.toString().padStart(2, 0);
+                            return `${h}:${m}`;
+                        }
                     }
                 }]
             }
@@ -165,7 +170,7 @@ function type1(id, mcns, title, labs) {
 }
 
 
-function type2(id, mcns, title, labs) {
+function type2(id, mcns, labs) {
 
     let labels = [];
     let avlm = [];
@@ -188,9 +193,7 @@ function type2(id, mcns, title, labs) {
         pavl.push(x.pavl);
         putl.push(x.putl);
     });
-    if (title) {
-        labels[0] = title;
-    }
+
     if (labs) {
         labels = labs;
     }
@@ -238,7 +241,10 @@ function type2(id, mcns, title, labs) {
                 yAxes: [{
                     stacked: false,
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        callback: function (value, index, values) {          
+                            return value+"%";
+                        }
                     }
                 }]
             }
@@ -327,7 +333,14 @@ function type3(id, mcns, param) {
                 yAxes: [{
                     stacked: false,
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        callback: function (value, index, values) {
+                            let m = value % 60;
+                            m = m.toString().padStart(2, 0);
+                            let h = (value - m) / 60;
+                            h = h.toString().padStart(2, 0);
+                            return `${h}:${m}`;
+                        }
                     }
                 }]
             }
