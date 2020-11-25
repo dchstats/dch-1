@@ -342,6 +342,11 @@ app.controller("myController", function ($scope, $http) {
 
 
     $scope.graph = function (section) {
+        let hourStrings = [];
+        $scope.dumpers.forEach(x => {
+            hourStrings.push($scope.hourf(x.hour));
+        })
+        console.log(hourStrings);
 
         obj = {
             crushers: JSON.parse(JSON.stringify($scope.crushers)),
@@ -351,7 +356,8 @@ app.controller("myController", function ($scope, $http) {
             draglines: JSON.parse(JSON.stringify($scope.draglines)),
             draglineTotal: JSON.parse(JSON.stringify($scope.draglineTotal)),
             dumpers: JSON.parse(JSON.stringify($scope.activeDumpers)),
-            dumperTotal: JSON.parse(JSON.stringify($scope.dumperTotal))
+            dumperTotal: JSON.parse(JSON.stringify($scope.dumperTotal)),
+            hourStrings:hourStrings
         }
         if (section == 'crusher') {
             crusherGraph(obj);
@@ -477,6 +483,7 @@ app.controller("myController", function ($scope, $http) {
     }
 
     $scope.hourf = function (hour) {
+        
         let s = new Date($scope.start + hour * 3600 * 1000).getHours();
         sh = s % 12;
         if (sh == 0) sh = 12;
@@ -484,8 +491,10 @@ app.controller("myController", function ($scope, $http) {
         let e = new Date($scope.start + (hour + 1) * 3600 * 1000).getHours();
         eh = e % 12;
         if (eh == 0) eh = 12;
+        let res = "" + sh + (s < 12 ? "AM" : "PM") + " - " + eh + (e < 12 ? "AM" : "PM");
+        // console.log('hourf:',hour, res);
+        return res;
 
-        return "" + sh + (s < 12 ? "AM" : "PM") + " - " + eh + (e < 12 ? "AM" : "PM");
     }
 
 
@@ -503,8 +512,8 @@ app.controller("myController", function ($scope, $http) {
 
         angular.forEach($scope.machines, function (mach, i) {
             k = 0;
-            for (i = 0; i < 5; i++) {
-                l = 5 + Math.floor(10 * Math.random());
+            for (i = 0; i < 3; i++) {
+                l = 20 + Math.floor(20 * Math.random());
                 v = Math.floor(4 * Math.random())
                 for (j = 0; j < l; j++) {
                     if (k < $scope.block) {
@@ -573,10 +582,10 @@ app.controller("myController", function ($scope, $http) {
         }
 
         performanceLog();
-        receiver($scope);
-
-
     }
+
+
+
 
     $scope.indirect = function (js) {
         return eval(js);

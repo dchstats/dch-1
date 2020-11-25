@@ -1,21 +1,69 @@
-let scope = {};
-function receiver(s) {
-    scope = s;
+
+
+
+
+function crusherGraph(obj) {
+    let crushers = obj.crushers;
+    let crusherTotal = obj.crusherTotal;
+
+    let section = document.querySelector('#crusher-sec');
+    section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
+
+    type1('#crusher-time', crushers);
+    type2('#crusher-perf', crushers);
+    type1('#crusher-total-time', [crusherTotal], 'ALL CRUSHERS');
+    type2('#crusher-total-perf', [crusherTotal], 'ALL CRUSHERS');
 }
 
-function hourf(hour) {
-    let s = new Date(scope.start + hour * 3600 * 1000).getHours();
-    sh = s % 12;
-    if (sh == 0) sh = 12;
+function draglineGraph(obj) {
+   
+    let draglines = obj.draglines;
+    let draglineTotal = obj.draglineTotal;
 
-    let e = new Date(scope.start + (hour + 1) * 3600 * 1000).getHours();
-    eh = e % 12;
-    if (eh == 0) eh = 12;
-    return "" + sh + (s < 12 ? "AM" : "PM") + " - " + eh + (e < 12 ? "AM" : "PM");
+    let section = document.querySelector('#dragline-sec');
+    section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
+
+    type1('#dragline-time', draglines);
+    type2('#dragline-perf', draglines);
+    type1('#dragline-total-time', [draglineTotal],'DRAGLINE TOTAL');
+    type2('#dragline-total-perf', [draglineTotal],'DRAGLINE TOTAL');
+}
+
+function dumperGraph(obj) {
+    
+    let dumpers = obj.dumpers;
+    let dumperTotal = obj.dumperTotal;
+    let hourStrings = obj.hourStrings;
+
+    let section = document.querySelector('#dumper-sec');
+    section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
+    type1('#dumper-time', dumpers, 'DUMPER', hourStrings);
+    type2('#dumper-perf', dumpers, 'DUMPER', hourStrings);
+    type1('#dumper-total-time', [dumperTotal],'DUMPER');
+    type2('#dumper-total-perf', [dumperTotal],'DUMPER');
 }
 
 
-function type1(id, mcns, title) {
+function shovelGraph(obj) {
+  
+    let shovels = obj.shovels;
+    let shovelTotal = obj.shovelTotal;
+
+    let section = document.querySelector('#shovel-sec');
+    section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
+
+    type3('#shovel-avlm', shovels, 'AVAILABLE HOURS');
+    type3('#shovel-runm', shovels, 'RUNNING HOURS');
+    type3('#shovel-pavl', shovels, '% AVAILABILITY');
+    type3('#shovel-putl', shovels, '% UTILAZATION');
+    type1('#shovel-total-time', [shovelTotal], 'ALL SHOVELS');
+    type2('#shovel-total-perf', [shovelTotal], 'ALL SHOVELS');
+    
+}
+
+
+
+function type1(id, mcns, title, labs) {
 
     let labels = [];
     let avlm = [];
@@ -41,6 +89,9 @@ function type1(id, mcns, title) {
 
     if (title) {
         labels[0] = title;
+    }
+    if (labs) {
+        labels = labs;
     }
 
     const color_avl = '#1e75f2';
@@ -114,7 +165,7 @@ function type1(id, mcns, title) {
 }
 
 
-function type2(id, mcns, title) {
+function type2(id, mcns, title, labs) {
 
     let labels = [];
     let avlm = [];
@@ -139,6 +190,9 @@ function type2(id, mcns, title) {
     });
     if (title) {
         labels[0] = title;
+    }
+    if (labs) {
+        labels = labs;
     }
 
     const color_avl = '#1e75f2';
@@ -221,6 +275,8 @@ function type3(id, mcns, param) {
     const color_brk = '#f44336';
     const color_mnt = 'yellow';
     const color_idl = 'rgb(200, 200, 200)';
+    const color_ong = 'RGB(255, 151, 0)';
+    const color_teal = 'RGB(0, 151, 135)';
 
     let arr = [];
     let color = 'black';
@@ -235,11 +291,11 @@ function type3(id, mcns, param) {
     }
     else if (param == '% AVAILABILITY') {
         arr = pavl;
-        color = color_avl;
+        color = color_teal;
     }
     else if (param == '% UTILAZATION') {
         arr = putl;
-        color = color_mnt;
+        color = color_ong;
     }
 
     let container = document.querySelector(id);
@@ -278,67 +334,4 @@ function type3(id, mcns, param) {
         }
     });
 
-}
-
-
-function crusherGraph(obj) {
-    let crushers = obj.crushers;
-    let crusherTotal = obj.crusherTotal;
-
-    let section = document.querySelector('#crusher-sec');
-    section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
-
-    type1('#crusher-time', crushers);
-    type2('#crusher-perf', crushers);
-    type1('#crusher-total-time', [crusherTotal], 'ALL CRUSHERS');
-    type2('#crusher-total-perf', [crusherTotal], 'ALL CRUSHERS');
-}
-
-function draglineGraph(obj) {
-   
-    let draglines = obj.draglines;
-    let draglineTotal = obj.draglineTotal;
-
-    let section = document.querySelector('#dragline-sec');
-    section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
-
-    type1('#dragline-time', draglines);
-    type2('#dragline-perf', draglines);
-    type1('#dragline-total-time', [draglineTotal],'DRAGLINE TOTAL');
-    type2('#dragline-total-perf', [draglineTotal],'DRAGLINE TOTAL');
-}
-
-function dumperGraph(obj) {
-    
-    let dumpers = obj.dumpers;
-    let dumperTotal = obj.dumperTotal;
-
-    let section = document.querySelector('#dumper-sec');
-    section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
-    dumpers.forEach(x => {
-        x.name = hourf(x);
-    })
-
-    type1('#dumper-time', dumpers);
-    type2('#dumper-perf', dumpers);
-    type1('#dumper-total-time', [dumperTotal]);
-    type2('#dumper-total-perf', [dumperTotal]);
-}
-
-
-function shovelGraph(obj) {
-  
-    let shovels = obj.shovels;
-    let shovelTotal = obj.shovelTotal;
-
-    let section = document.querySelector('#shovel-sec');
-    section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
-
-    type3('#shovel-avlm', shovels, 'AVAILABLE HOURS');
-    type3('#shovel-runm', shovels, 'RUNNING HOURS');
-    type3('#shovel-pavl', shovels, '% AVAILABILITY');
-    type3('#shovel-putl', shovels, '% UTILAZATION');
-    type1('#shovel-total-time', [shovelTotal], 'ALL SHOVELS');
-    type2('#shovel-total-perf', [shovelTotal], 'ALL SHOVELS');
-    
 }
