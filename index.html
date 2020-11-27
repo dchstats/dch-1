@@ -212,6 +212,7 @@
                 <div class="mctrend">
                     <div ng-repeat="y in x.logs track by $index" class="tooltip trend-block {{statusStrings[y]+'-block'}} invisible"
                         ng-click=" trendToggle(x,$index)">
+                      
                         <span class="tooltiptext">{{timef($index)}}</span>
                     </div>
                 </div>

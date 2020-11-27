@@ -1,6 +1,27 @@
 var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
+
+    const server = 'dev-local';
+
+    if (server == 'dev-local') {
+        $scope.upUrl = 'http://localhost/dch/serv/upLive.php';
+        $scope.downUrl = 'http://localhost/dch/serv/downLive.php';
+        // $scope.upUrl = 'http://localhost:8080/dch/serv/upLive.php';
+        // $scope.downUrl = 'http://localhost:8080/dch/serv/downLive.php';
+    }
+    else if (server == 'dev-remote') {
+        $scope.upUrl = 'https://sushanttiwari.in/dch/serv/upLive.php';
+        $scope.downUrl = 'https://sushanttiwari.in/dch/serv/downLive.php';
+    } else {
+        $scope.upUrl = 'serv/upLive.php';
+        $scope.downUrl = 'serv/downLive.php';
+    }
+
+
+
+
+
     $scope.crusherNames = ['CRUSHER-1', 'CRUSHER-2', 'CRUSHER-3'];
     $scope.shovelNames = ['P&H-06', 'P&H-07', 'P&H-10',
         'P&H-11', 'P&H-12', 'P&H-13', 'P&H-14', 'P&H-15',
@@ -27,15 +48,7 @@ app.controller("myController", function ($scope, $http) {
     $scope.pin = "";
 
     $scope.user = "Guest";
-    $scope.status = "Please user PIN:1234 to login as Viewpoint";
-    $scope.upUrl = 'https://sushanttiwari.in/dch/serv/upLive.php';
-    $scope.downUrl = 'https://sushanttiwari.in/dch/serv/downLive.php';
-    $scope.upUrl = 'serv/upLive.php';
-    $scope.downUrl = 'serv/downLive.php';
-    // $scope.upUrl = 'http://localhost:8080/dch/serv/upLive.php';
-    // $scope.downUrl = 'http://localhost:8080/dch/serv/downLive.php';
-    // $scope.upUrl = 'http://localhost/dch/serv/upLive.php';
-    // $scope.downUrl = 'http://localhost/dch/serv/downLive.php';
+
 
 
     // GLOBALS /////
@@ -346,7 +359,7 @@ app.controller("myController", function ($scope, $http) {
         $scope.dumpers.forEach(x => {
             hourStrings.push($scope.hourf(x.hour));
         })
-     
+
 
         obj = {
             crushers: JSON.parse(JSON.stringify($scope.crushers)),
@@ -357,7 +370,7 @@ app.controller("myController", function ($scope, $http) {
             draglineTotal: JSON.parse(JSON.stringify($scope.draglineTotal)),
             dumpers: JSON.parse(JSON.stringify($scope.activeDumpers)),
             dumperTotal: JSON.parse(JSON.stringify($scope.dumperTotal)),
-            hourStrings:hourStrings
+            hourStrings: hourStrings
         }
         if (section == 'crusher') {
             crusherGraph(obj);
@@ -483,7 +496,7 @@ app.controller("myController", function ($scope, $http) {
     }
 
     $scope.hourf = function (hour) {
-        
+
         let s = new Date($scope.start + hour * 3600 * 1000).getHours();
         sh = s % 12;
         if (sh == 0) sh = 12;
@@ -502,7 +515,7 @@ app.controller("myController", function ($scope, $http) {
     $scope.hms = function (mins) {
         h = Math.floor(mins / 60);
         m = mins % 60;
-        return h.toString().padStart(2,0) + " : "+ m.toString().padStart(2,0);
+        return h.toString().padStart(2, 0) + " : " + m.toString().padStart(2, 0);
     }
 
 
@@ -530,15 +543,15 @@ app.controller("myController", function ($scope, $http) {
 
         angular.forEach($scope.dumpers, function (d, i) {
             let obj = {
-                east_avl: 20+Math.floor(10 * Math.random()),
-                east_run: 20-Math.floor(10 * Math.random()),
-                west_avl: 20+Math.floor(10 * Math.random()),
-                west_run: 20-Math.floor(10 * Math.random())
+                east_avl: 20 + Math.floor(10 * Math.random()),
+                east_run: 20 - Math.floor(10 * Math.random()),
+                west_avl: 20 + Math.floor(10 * Math.random()),
+                west_run: 20 - Math.floor(10 * Math.random())
             }
             d.set(obj);
         })
         $scope.dumper.set($scope.dumpers[$scope.hour].get());
-       
+
 
         $scope.update();
     }
