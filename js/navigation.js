@@ -6,6 +6,11 @@ function begin() {
 }
 
 
+
+
+
+
+
 function openSection(section) {
     $(".section").hide();
     var k = "#" + section + "-sec";
@@ -15,6 +20,14 @@ function openSection(section) {
 }
 
 
+document.querySelector('#trend-tab').addEventListener('click', animBar);
+function animBar() {
+    k = document.querySelector('.invisible');
+    if (k) {
+        k.classList.toggle('invisible');
+        setTimeout(animBar, 1);
+    }
+}
 ////////////////////// vanila navigation
 
 // document.querySelector('.menu-icon').addEventListener('click', () => {

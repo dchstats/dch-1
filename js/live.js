@@ -117,8 +117,8 @@ app.controller("myController", function ($scope, $http) {
         $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
         $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
 
-        // $scope.block = 32;
-        // $scope.hour = 6;
+        $scope.block = 32;
+        $scope.hour = 6;
 
     }
 

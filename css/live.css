@@ -14,10 +14,6 @@ html {
 body {
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 
-
-
-
-
 	-webkit-user-select: none; /* Safari */
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* IE10+/Edge */
@@ -76,10 +72,33 @@ select:disabled {
 .UDF {
 	border-top: 1px solid rgb(188, 188, 188, 0.8);
 	border-bottom: 1px solid rgb(188, 188, 188, 0.8);
-	background:linear-gradient(0deg, #dcdada 0%,#f5f1f1 30%,#ffffff 65%,#e2e0e0 100% );
+	background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%);
 }
 
+.IDL-block {
+	/* background: rgb(51, 87, 83); */
+	background: linear-gradient(0deg, rgb(51, 87, 83) 0%, rgb(81, 97, 83, 0.9) 55%, rgb(119, 155, 151) 100%);
+}
 
+.RNG-block {
+	/* background: rgb(76, 176, 80); */
+	background: linear-gradient(0deg, rgb(76, 176, 80) 0%, rgb(76, 176, 80, 0.9) 55%, rgb(76, 176, 80) 100%);
+}
+
+.BDN-block {
+	background: rgb(167, 0, 26);
+	background: linear-gradient(0deg, rgb(167, 0, 26) 0%, rgb(167, 0, 26, 0.9) 55%, rgb(167, 0, 26) 100%);
+}
+.MNT-block {
+	background: RGB(255, 151, 0);
+	background: linear-gradient(0deg, rgb(255, 151, 0) 0%, rgb(255, 151, 0, 0.9) 55%, rgb(255, 151, 0) 100%);
+}
+
+.UDF-block {
+	/* border-top: 1px solid rgb(188, 188, 188, 0.8);
+	border-bottom: 1px solid rgb(188, 188, 188, 0.8); */
+	background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%);
+}
 
 /* HEADER /////////////////////////////// */
 
@@ -93,7 +112,6 @@ header {
 	color: white;
 	z-index: 100;
 }
-
 
 .dev {
 	display: flex;
@@ -242,7 +260,6 @@ header {
 .live-bar tr {
 	/* background:yellow; */
 	display: flex;
-
 }
 .live-bar th {
 	background: deepskyblue;
@@ -397,18 +414,17 @@ header {
 
 /* TREND SECTION \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
 #trend-sec {
-	padding-top:100px;
+	padding-top: 100px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	font-size: 12px;
-	background:#fdf5e6;
+	background: #fdf5e6;
 	color: #444;
 	/* background: #333; */
 	font-weight: bold;
-	
 }
 
 .trend-row {
@@ -428,7 +444,10 @@ header {
 .mctrend {
 	display: flex;
 	flex-grow: 1;
-	border-radius: 5px;
+	border-left:1px solid lightgrey;
+	border-right:1px solid lightgrey;
+
+	background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%);
 }
 
 .trend-block {
@@ -437,9 +456,9 @@ header {
 	cursor: pointer;
 }
 
-.trend-block:last-of-type {
+/* .trend-block:last-of-type {
 	border-right: 1px solid rgb(133, 131, 131);
-}
+} */
 
 .trend-block:hover {
 	border: 1px solid yellow;
@@ -572,7 +591,7 @@ tr.total {
 	margin-left: -40px;
 	opacity: 0;
 	transition: opacity 0.3s;
-	background:#222;
+	background: #222;
 	color: yellow;
 }
 
@@ -594,3 +613,6 @@ tr.total {
 
 /* MOBILE //////////////////////////////////////////////// */
 
+.invisible {
+	opacity: 0;
+}
