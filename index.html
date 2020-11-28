@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp" ng-controller="myController">
-<title>DCH Live</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+    <title>DCH Live</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- <script src="libs/jquery.js" defer></script> -->
-<!-- <script src="libs/angular.js"></script> -->
+    <!-- <script src="libs/jquery.js" defer></script> -->
+    <!-- <script src="libs/angular.js"></script> -->
 
-<link rel="stylesheet" href="css/live.css?v-b">
-<script src="js/navigation.js?v-b" defer></script>
-<script src="js/class.js?v-b" defer></script>
-<script src="js/exp.js?v-b" defer></script>
-<script src="js/live.js?v-b" defer></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/live.css?v1">
+    <link rel="stylesheet" href="css/exp.css?v1">
+    
+    <script src="js/navigation.js?v1" defer></script>
+    <script src="js/class.js?v1" defer></script>
+    <script src="js/exp.js?v1" defer></script>
+    <script src="js/live.js?v1" defer></script>
+</head>
 
 <body>
     <header>
@@ -208,11 +212,17 @@
 
         <div class="section" id="trend-sec">
             <div class="trend-row" ng-repeat="x in machines">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
                 <p class="mcname"> {{x.name}} </p>
                 <div class="mctrend">
-                    <div ng-repeat="y in x.logs track by $index" class="tooltip trend-block {{statusStrings[y]+'-block'}} invisible"
+                  
+                    <div ng-repeat="y in x.logs track by $index"
+                        class="tooltip trend-block {{statusStrings[y]+'-block'}} invisible"
                         ng-click=" trendToggle(x,$index)">
-                      
+
                         <span class="tooltiptext">{{timef($index)}}</span>
                     </div>
                 </div>
@@ -253,7 +263,7 @@
                         <td>{{hms(crusherTotal.mntm)}}</td>
                         <td>{{hms(crusherTotal.idlm)}}</td>
 
-                </tr>
+                    </tr>
                 </table>
             </div>
             <div class="table-container">
@@ -486,7 +496,7 @@
                         <th></th>
                         <th colspan='2'>WEST SECTION</th>
                     </tr>
-              
+
                     <tr class="head">
                         <th>HOUR</th>
                         <th>AVL</th>
@@ -504,9 +514,11 @@
                                 ng-change="update()">
                         </td>
                         <td></td>
-                        <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour" ng-change="update()">
+                        <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour"
+                                ng-change="update()">
                         </td>
-                        <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour" ng-change="update()">
+                        <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour"
+                                ng-change="update()">
                         </td>
                     </tr>
                     <tr class="total">
