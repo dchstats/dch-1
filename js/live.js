@@ -2,13 +2,11 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'default';
+    const server = 'home';
 
-    if (server == 'live-server') {
-        $scope.upUrl = 'http://localhost/dch/serv/upLive.php';
-        $scope.downUrl = 'http://localhost/dch/serv/downLive.php';
-        // $scope.upUrl = 'http://localhost:8080/dch/serv/upLive.php';
-        // $scope.downUrl = 'http://localhost:8080/dch/serv/downLive.php';
+    if (server == 'home') {
+        $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
+        $scope.downUrl = 'http://192.168.1.6/dch/serv/downLive.php';
     }
     else if (server == 'remote') {
         $scope.upUrl = 'https://sushanttiwari.in/dch/serv/upLive.php';
