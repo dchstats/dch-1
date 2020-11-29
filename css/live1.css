@@ -55,6 +55,10 @@ select:disabled {
 
 .IDL {
 	background: rgb(51, 87, 83);
+	background: rgb(236, 231, 231);
+	background:rgb(255, 255, 0,0.4);
+	background:rgb(0,151,136);
+	color:white;
 }
 
 .RNG {
@@ -69,35 +73,7 @@ select:disabled {
 	color: #555;
 }
 
-.UDF {
-	border-top: 1px solid rgb(188, 188, 188, 0.8);
-	border-bottom: 1px solid rgb(188, 188, 188, 0.8);
-	background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%);
-}
 
-.IDL-block {
-	/* background: rgb(51, 87, 83); */
-	background: linear-gradient(0deg, rgb(51, 87, 83) 0%, rgb(81, 97, 83, 0.9) 55%, rgb(119, 155, 151) 100%);
-	background:none;
-}
-
-.RNG-block {
-	/* background: rgb(76, 176, 80); */
-	background: linear-gradient(0deg, rgb(76, 176, 80) 0%, rgb(76, 176, 80, 0.7) 55%, rgb(76, 176, 80) 100%);
-}
-
-.BDN-block {
-	background: rgb(167, 0, 26);
-	background: linear-gradient(0deg, rgb(167, 0, 26) 0%, rgb(167, 0, 26, 0.7) 55%, rgb(167, 0, 26) 100%);
-}
-.MNT-block {
-	background: RGB(255, 151, 0);
-	background: linear-gradient(0deg, rgb(255, 151, 0) 0%, rgb(255, 151, 0, 0.7) 55%, rgb(255, 151, 0) 100%);
-}
-
-.UDF-block {
-	background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%);
-}
 
 /* HEADER /////////////////////////////// */
 
@@ -222,7 +198,7 @@ header {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
-	/* background: rgb(35, 35, 35); */
+	background:rgb(255, 255, 0,0.2);
 	color: white;
 }
 
@@ -413,7 +389,7 @@ header {
 
 /* TREND SECTION \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
 #trend-sec {
-	padding-top: 75px;
+	padding-top: 100px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -422,34 +398,32 @@ header {
 	font-size: 12px;
 	background: #fdf5e6;
 	color: #444;
-	/* background: #333; */
+	background: rgb(214, 214, 214);
 	font-weight: bold;
 }
 
 .trend-row {
-	height: 2.5vh;
+	height: 5vh;
 	width: 48%;
 	padding: 0px 1vw;
 	display: flex;
 	flex-direction: column;
-	margin:10px 0;
+	margin: 10px 0;
 	position: relative;
 }
 
 .trend-row .mcname {
-
 	position: absolute;
 	z-index: 100;
-	margin:2px 5px;
-	pointer-events: none;
-
+	margin: 2px 5px;
+	color:#333;
 }
 
 .mctrend {
 	display: flex;
 	flex-grow: 1;
-	background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%);
-	box-shadow: 0 5px 5px rgba(150,150,150,0.9);
+	/* background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%); */
+	box-shadow: 0 5px 5px 0px rgba(150, 150, 150, 0.9);
 }
 
 .trend-block {
@@ -458,20 +432,49 @@ header {
 	cursor: pointer;
 }
 
-
 .trend-block:hover {
 	/* border: 1px solid yellow; */
 }
 
 @media (max-width: 1100px) {
 	.trend-row {
+		height: 3vh;
 		width: 100%;
 		padding: 0px 1vw;
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 1.2vh;
 		/* border:1px solid; */
+		
 	}
+}
+
+
+.IDL-block {
+	/* background: rgb(51, 87, 83); */
+	background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%);
+	/* background: linear-gradient(0deg, rgb(0,151,136) 0%, rgba(0, 151,136, 0.7) 55%, rgb(0,151,136) 100%); */
+}
+
+.RNG-block {
+	
+	background: linear-gradient(0deg, rgb(76, 176, 80) 0%, rgb(76, 176, 80, 0.7) 55%, rgb(76, 176, 80) 100%);
+	/* background: linear-gradient(0deg, rgb(43, 243, 146) 0%, rgb(46, 176, 80, 0.7) 55%, rgb(76, 176, 80) 100%); */
+}
+
+.BDN-block {
+	background: rgb(167, 0, 26);
+	background: linear-gradient(0deg, rgb(200, 0, 26) 0%, rgb(167, 0, 26, 0.7) 55%, rgb(167, 0, 26) 100%);
+}
+.MNT-block {
+	background: RGB(255, 151, 0);
+	background: linear-gradient(0deg, rgb(255, 151, 0) 0%, rgb(255, 151, 0, 0.7) 55%, rgb(255, 151, 0) 100%);
+	background: linear-gradient(0deg, rgb(255, 208, 0) 0%, rgb(255, 151, 0, 0.7) 55%, rgb(255, 151, 0) 100%);
+}
+
+.UDF-block {
+	background: linear-gradient(0deg, rgb(204, 199, 199,0.1) 0%, rgb(245, 241, 241,0.2) 30%, rgb(255, 255, 255,0.3) 65%, rgb(226, 224, 224,0.3) 100%);
+	background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%);
 }
 
 /* DUMPERS /////////////////////////////////////////////////////// */

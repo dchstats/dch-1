@@ -2,11 +2,15 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'home';
+    const server = 'chp';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
         $scope.downUrl = 'http://192.168.1.6/dch/serv/downLive.php';
+    }
+    if (server == 'chp') {
+        $scope.upUrl = 'http://192.168.10.200/dch/serv/upLive.php';
+        $scope.downUrl = 'http://192.168.10.200/dch/serv/downLive.php';
     }
     else if (server == 'remote') {
         $scope.upUrl = 'https://sushanttiwari.in/dch/serv/upLive.php';
