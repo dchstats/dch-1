@@ -40,16 +40,16 @@
 
         </ul>
 
-        <div class="login">
-            <div class="auth" ng-hide="auth">
+       
+            <div class="login" ng-hide="auth">
                 <input type="password" name="" id="" class="" ng-model="pin" placeholder="PIN">
                 <button class="" ng-click="login()">LOGIN</button>
             </div>
-            <div class=" " ng-hide="!auth">
+            <div class="user" ng-hide="!auth">
                 <span class="">{{user}}</span>
                 <button class="" ng-click="auth=false; user='Guest'; pin=''">LOGOUT</button>
             </div>
-        </div>
+            
     </header>
     <div class="dev" ng-show="user=='Dev'">
         <button ng-click="indirect('randomize()')">Randomize</button>

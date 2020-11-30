@@ -156,3 +156,11 @@ class Dumper {
 
     }
 }
+
+
+class MachEvent{
+    constructor(start, status) {
+        this.start = start;
+        this.status = status;
+    }
+}

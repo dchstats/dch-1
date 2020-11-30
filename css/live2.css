@@ -8,12 +8,10 @@
 
 html {
 	font-size: 16px;
-	font-size: clamp(14px, 1.2vw, 20px);
+	font-size: clamp(14px, 1.4vw, 20px);
 }
 
 body {
-	width:100vw;
-	/* overflow:hidden;   */
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 
 	-webkit-user-select: none; /* Safari */
@@ -61,30 +59,26 @@ select:disabled {
 
 .RNG {
 	background: rgb(76, 176, 80);
-	/* background: linear-gradient(0deg, rgb(76, 176, 80) 0%, rgb(76, 176, 80, 0.7) 55%, rgb(76, 176, 80) 100%); */
 }
 
 .BDN {
 	background: rgb(167, 0, 26);
-		/* background: linear-gradient(0deg, rgb(167, 0, 26) 0%, rgb(167, 0, 26, 0.7) 55%, rgb(167, 0, 26) 100%); */
-		
 }
 .MNT {
 	background: RGB(255, 151, 0);
 	color: #555;
-	/* background: linear-gradient(0deg, rgb(255, 151, 0) 0%, rgb(255, 151, 0, 0.7) 55%, rgb(255, 151, 0) 100%); */
 }
 
 .UDF {
 	border-top: 1px solid rgb(188, 188, 188, 0.8);
 	border-bottom: 1px solid rgb(188, 188, 188, 0.8);
-	/* background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%); */
+	background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%);
 }
 
 .IDL-block {
 	/* background: rgb(51, 87, 83); */
-	/* background: linear-gradient(0deg, rgb(51, 87, 83) 0%, rgb(81, 97, 83, 0.9) 55%, rgb(119, 155, 151) 100%); */
-	background: linear-gradient(0deg, rgb(1,77,51) 0%, rgba(1,77,51, 0.5) 55%,rgb(1,77,51) 100%);
+	background: linear-gradient(0deg, rgb(51, 87, 83) 0%, rgb(81, 97, 83, 0.9) 55%, rgb(119, 155, 151) 100%);
+	background:none;
 }
 
 .RNG-block {
@@ -95,7 +89,6 @@ select:disabled {
 .BDN-block {
 	background: rgb(167, 0, 26);
 	background: linear-gradient(0deg, rgb(167, 0, 26) 0%, rgb(167, 0, 26, 0.7) 55%, rgb(167, 0, 26) 100%);
-	
 }
 .MNT-block {
 	background: RGB(255, 151, 0);
@@ -109,13 +102,12 @@ select:disabled {
 /* HEADER /////////////////////////////// */
 
 header {
-	width: 100vw;
-	height: 50px;
-	padding:0 2vw;
 	display: flex;
 	justify-content: space-around;
-	background:black;
+	background: black;
+	height: 50px;
 	position: fixed;
+	width: 100vw;
 	color: white;
 	z-index: 100;
 }
@@ -131,9 +123,10 @@ header {
 }
 
 .section-selector {
+	margin: 0 1rem;
 	flex-grow: 1;
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: flex-start;
 	align-items: center;
 }
 
@@ -146,7 +139,7 @@ header {
 	justify-content: center;
 	color: white;
 }
-@media (min-width: 900px) {
+@media (min-width: 600px) {
 	.tab {
 		width: 120px;
 		cursor: pointer;
@@ -167,31 +160,35 @@ header {
 	color: #333;
 }
 
-.login, .user {
-	width:200px;
+.login {
 	display: flex;
-	justify-content: space-between;
+	margin: 0 1rem;
+	padding: 0;
+	justify-content: center;
 	align-items: center;
-	border:1px solid white;
-	align-self: center;
 }
 @media (max-width: 600px) {
-	.login, .user {
+	.login {
 		display: none;
 	}
 }
 
+.login .auth {
+	width: 250px;
+	height: 30px;
+	border: 0.5px solid white;
+	display: flex;
+	margin: 5px;
+}
 
-.login input {
-	width:100px;
-	height:30px;
+.auth input {
+	width: 60%;
 	color: #777;
 	border: none;
 }
 
-.login button {
-	width:70px;
-	height:30px;
+.auth button {
+	width: 40%;
 	background: black;
 	color: white;
 	outline: none;
@@ -217,7 +214,7 @@ header {
 	}
 }
 
-/* LIVE  //////////////////////////// LIVE ////////////////////// LIVE //////// */
+/* LIVE  ///////////////////////////////// */
 
 #live-sec {
 	font-size: clamp(14px, 1vw, 16px);
@@ -225,7 +222,7 @@ header {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
-	background: rgb(35, 35, 35);
+	/* background: rgb(35, 35, 35); */
 	color: white;
 }
 
@@ -324,7 +321,6 @@ header {
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: stretch;
-	box-shadow: 1px 1px rgb(100, 99, 99)
 }
 
 .mach p {
@@ -335,7 +331,23 @@ header {
 	font-size: 10px;
 }
 
+.mach button {
+	height: 25px;
+	width: 25px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgb(255, 255, 255, 0.1);
+	color: #999;
+	border: none;
+	outline: none;
+	border-radius: 15px;
+	cursor: pointer;
 
+	perspective: 5000px;
+	perspective: 50000px;
+}
 
 .silo,
 .live-dumper {
@@ -368,8 +380,6 @@ header {
 	transition: transform 0.2s;
 	transform-style: preserve-3d;
 	color: white;
-
-		
 }
 
 .front,
@@ -383,7 +393,6 @@ header {
 	align-items: center;
 	backface-visibility: hidden;
 	padding: 10px;
-	
 }
 
 .back {
@@ -402,18 +411,18 @@ header {
 	}
 }
 
-/* TREND SECTION \\\\\\\\\\\\\\\ TREND \\\\\\\\\\\\\\\ TREND///////////////*/
+/* TREND SECTION \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
 #trend-sec {
-	padding-top: 75px;
+	padding-top: 100px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	font-size: 12px;
-	background: rgb(253, 245, 230);
+	background: #fdf5e6;
 	color: #444;
-	/* background: rgb(216, 213, 213); */
+	/* background: #333; */
 	font-weight: bold;
 }
 
@@ -431,19 +440,15 @@ header {
 
 	position: absolute;
 	z-index: 100;
-	margin:0px 5px;
-	pointer-events: none;
-	color:rgb(230, 227, 227);
-	color:white;
-	/* font-weight: 100; */
+	margin:2px 5px;
 
 }
 
 .mctrend {
 	display: flex;
 	flex-grow: 1;
-	/* background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%); */
-	box-shadow: 0px 5px 5px  rgba(150,150,150,0.5);
+	background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%);
+	box-shadow: 0 5px 5px rgba(150,150,150,0.9);
 }
 
 .trend-block {
@@ -454,11 +459,12 @@ header {
 
 
 .trend-block:hover {
-	/* border: 1px solid yellow; */
+	border: 1px solid yellow;
 }
 
 @media (max-width: 1100px) {
 	.trend-row {
+		height: 4vh;
 		width: 100%;
 		padding: 0px 1vw;
 		display: flex;
@@ -515,7 +521,7 @@ header {
 	align-items: center;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 600px) {
 	.chart-container {
 		width: 100%;
 	}
@@ -603,34 +609,8 @@ tr.total {
 	opacity: 1;
 }
 
-
+/* MOBILE //////////////////////////////////////////////// */
 
 .invisible {
 	opacity: 0;
-}
-
-
-
-
-
-/* /////// scrollbar ////////// */
-
-/* width */
-::-webkit-scrollbar {
-  width: 2px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }

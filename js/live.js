@@ -132,8 +132,8 @@ app.controller("myController", function ($scope, $http) {
         $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
         $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
 
-        $scope.block = 32;
-        $scope.hour = 6;
+        // $scope.block = 32;
+        // $scope.hour = 6;
 
     }
 
@@ -319,6 +319,15 @@ app.controller("myController", function ($scope, $http) {
             }
 
             mach.calculate();
+
+            mach.evs = [];
+            mach.evs.push(new MachEvent(0, mach.logs[0]));
+            for (j = 1; j < $scope.block; j++){
+                if (mach.logs[j] != mach.logs[j - 1]) {
+                    mach.evs.push(new MachEvent(j, mach.logs[j]));
+                }
+            }
+            console.log(mach.name, ":", mach.evs);
 
         });
 
