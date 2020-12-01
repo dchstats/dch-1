@@ -2,20 +2,21 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'chp';
+    const server = 'home';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
         $scope.downUrl = 'http://192.168.1.6/dch/serv/downLive.php';
     }
-    if (server == 'chp') {
+    else if (server == 'chp') {
         $scope.upUrl = 'http://192.168.10.200/dch/serv/upLive.php';
         $scope.downUrl = 'http://192.168.10.200/dch/serv/downLive.php';
     }
     else if (server == 'remote') {
         $scope.upUrl = 'https://sushanttiwari.in/dch/serv/upLive.php';
         $scope.downUrl = 'https://sushanttiwari.in/dch/serv/downLive.php';
-    } else {
+    }
+    else if (server == 'real') {
         $scope.upUrl = 'serv/upLive.php';
         $scope.downUrl = 'serv/downLive.php';
     }
@@ -322,7 +323,7 @@ app.controller("myController", function ($scope, $http) {
 
             mach.evs = [];
             mach.evs.push(new MachEvent(0, mach.logs[0]));
-            for (j = 1; j < $scope.block; j++){
+            for (j = 1; j < $scope.block; j++) {
                 if (mach.logs[j] != mach.logs[j - 1]) {
                     mach.evs.push(new MachEvent(j, mach.logs[j]));
                 }
@@ -617,18 +618,23 @@ app.controller("myController", function ($scope, $http) {
 
     $scope.dnLocal = function () {
         let temp = $scope.downUrl;
+        console.log(temp);
         $scope.downUrl = 'serv/downLive.php';
         download();
         $scope.downUrl = temp;
     }
     $scope.upLocal = function () {
         let temp = $scope.upUrl;
+        console.log(temp);
+
         $scope.upUrl = 'serv/upLive.php';
         upload();
         $scope.upUrl = temp;
     }
     $scope.dnRemote = function () {
+
         let temp = $scope.downUrl;
+        console.log(temp);
         $scope.downUrl = 'https://sushanttiwari.in/dch/serv/downLive.php';
         download();
         $scope.downUrl = temp;
