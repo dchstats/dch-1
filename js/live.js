@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'home';
+    const server = 'chp';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
@@ -123,21 +123,78 @@ app.controller("myController", function ($scope, $http) {
         setInterval(autoReloader, 4 * 3600 * 1000);
     }
 
-    function timeBlock() {
-        var a = new Date(2019, 9, 5, 5, 0, 0, 0);
-        var b = a.getTime();
-        var c = new Date().getTime();
-        var d = Math.floor((c - b) / (8 * 3600 * 1000));
-        var e = b + d * (8 * 3600 * 1000);
-        $scope.start = e;
-        $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
-        $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
 
-        // $scope.block = 32;
-        // $scope.hour = 6;
 
+    function performanceLog() {
+        // console.log('logging................');
+        timeBlock();
+
+
+        angular.forEach($scope.machines, function (mach, i) {
+            let valids = [0, 1, 2, 3];
+            if (!valids.includes(mach.logs[0])) {
+                mach.logs[0] = mach.status;
+            }
+
+            for (j = 1; j < $scope.block; j++) {
+                if (!valids.includes(mach.logs[j])) {
+                    mach.logs[j] = mach.logs[j - 1];
+                }
+            }
+
+            mach.logs[$scope.block] = mach.status;
+
+            for (j = $scope.block + 1; j < totalBlocks; j++) {
+                mach.logs[j] = 4;
+            }
+
+            mach.calculate();
+
+            mach.evs = [];
+            mach.evs.push(new MachEvent(0, mach.logs[0]));
+            for (j = 1; j < $scope.block; j++) {
+                if (mach.logs[j] != mach.logs[j - 1]) {
+                    mach.evs.push(new MachEvent(j, mach.logs[j]));
+                }
+            }
+            // console.log(mach.name, ":", mach.evs);
+            let lastev = mach.evs.pop();
+            mach.evs.push(lastev);
+            mach.statusSince = $scope.statusStrings[lastev.status] + " since " + $scope.timef(lastev.start);
+            mach.statusFor = $scope.durationSince(lastev.start);
+        });
+
+
+        $scope.crushers = $scope.machines.filter(x => x.type == 'crusher');
+        $scope.shovels = $scope.machines.filter(x => x.type == 'shovel');
+        $scope.draglines = $scope.machines.filter(x => x.type == 'dragline');
+
+        $scope.crusherTotal = new Machine('crusher total', 'crusher total');
+        $scope.crusherTotal.add($scope.crushers);
+
+        $scope.shovelTotal = new Machine('shovel total', 'shovel total');
+        $scope.shovelTotal.add($scope.shovels);
+
+        $scope.draglineTotal = new Machine('dragline total', 'dragline total');
+        $scope.draglineTotal.add($scope.draglines);
+
+        $scope.activeDumpers = $scope.dumpers.filter(x => x.hour <= $scope.hour);
+
+
+        $scope.dumpers[$scope.hour].set($scope.dumper.get());
+        angular.forEach($scope.dumpers, function (x, i) {
+            x.calculate();
+        })
+        $scope.dumper.calculate();
+
+        $scope.dumperTotal = new Dumper(10);
+        $scope.dumperTotal.add($scope.activeDumpers);
+
+        // $scope.graph('crusher');
+        // $scope.graph('shovel');
+        // $scope.graph('dragline');
+        // $scope.graph('dumper');
     }
-
 
 
     function sync() {
@@ -212,8 +269,6 @@ app.controller("myController", function ($scope, $http) {
     }
 
 
-
-
     function upload() {
 
         let obj = {
@@ -271,6 +326,7 @@ app.controller("myController", function ($scope, $http) {
 
 
 
+    /////////////////////////////////////////////// UTILITY FUNCTIONS //////
     function reset() {
         angular.forEach($scope.machines, function (mach, i) {
             if (mach.status < 2) {
@@ -293,78 +349,6 @@ app.controller("myController", function ($scope, $http) {
         performanceLog();
 
     }
-
-
-
-    function performanceLog() {
-        // console.log('logging................');
-        timeBlock();
-
-
-        angular.forEach($scope.machines, function (mach, i) {
-            let valids = [0, 1, 2, 3];
-            if (!valids.includes(mach.logs[0])) {
-                mach.logs[0] = mach.status;
-            }
-
-            for (j = 1; j < $scope.block; j++) {
-                if (!valids.includes(mach.logs[j])) {
-                    mach.logs[j] = mach.logs[j - 1];
-                }
-            }
-
-            mach.logs[$scope.block] = mach.status;
-
-            for (j = $scope.block + 1; j < totalBlocks; j++) {
-                mach.logs[j] = 4;
-            }
-
-            mach.calculate();
-
-            mach.evs = [];
-            mach.evs.push(new MachEvent(0, mach.logs[0]));
-            for (j = 1; j < $scope.block; j++) {
-                if (mach.logs[j] != mach.logs[j - 1]) {
-                    mach.evs.push(new MachEvent(j, mach.logs[j]));
-                }
-            }
-            console.log(mach.name, ":", mach.evs);
-
-        });
-
-
-        $scope.crushers = $scope.machines.filter(x => x.type == 'crusher');
-        $scope.shovels = $scope.machines.filter(x => x.type == 'shovel');
-        $scope.draglines = $scope.machines.filter(x => x.type == 'dragline');
-
-        $scope.crusherTotal = new Machine('crusher total', 'crusher total');
-        $scope.crusherTotal.add($scope.crushers);
-
-        $scope.shovelTotal = new Machine('shovel total', 'shovel total');
-        $scope.shovelTotal.add($scope.shovels);
-
-        $scope.draglineTotal = new Machine('dragline total', 'dragline total');
-        $scope.draglineTotal.add($scope.draglines);
-
-        $scope.activeDumpers = $scope.dumpers.filter(x => x.hour <= $scope.hour);
-
-
-        $scope.dumpers[$scope.hour].set($scope.dumper.get());
-        angular.forEach($scope.dumpers, function (x, i) {
-            x.calculate();
-        })
-        $scope.dumper.calculate();
-
-        $scope.dumperTotal = new Dumper(10);
-        $scope.dumperTotal.add($scope.activeDumpers);
-
-        // $scope.graph('crusher');
-        // $scope.graph('shovel');
-        // $scope.graph('dragline');
-        // $scope.graph('dumper');
-    }
-
-
 
     $scope.graph = function (section) {
         let hourStrings = [];
@@ -399,8 +383,6 @@ app.controller("myController", function ($scope, $http) {
     }
 
 
-
-
     $scope.login = function () {
         if (btoa($scope.pin) == "ODUyMA==") {
             $scope.user = "Viewpoint";
@@ -420,6 +402,8 @@ app.controller("myController", function ($scope, $http) {
     }
 
 
+
+    /////////////////////////////////////////////////// ACTION FUNCTIONS ////
     $scope.machineStatus = function (mach) {
 
         if (mach.status == 3) {
@@ -494,8 +478,21 @@ app.controller("myController", function ($scope, $http) {
 
 
 
+////////////////////////////////////////////////////// TIMING FUNCTIONS ////////////////
+    function timeBlock() {
+        var a = new Date(2019, 9, 5, 5, 0, 0, 0);
+        var b = a.getTime();
+        var c = new Date().getTime();
+        var d = Math.floor((c - b) / (8 * 3600 * 1000));
+        var e = b + d * (8 * 3600 * 1000);
+        $scope.start = e;
+        $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
+        $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
 
+        // $scope.block = 32;
+        // $scope.hour = 6;
 
+    }
 
     $scope.timef = function (block) {
         k = $scope.start + block * blockWidth * 60 * 1000;
@@ -508,6 +505,8 @@ app.controller("myController", function ($scope, $http) {
     }
 
     $scope.hourf = function (hour) {
+
+        // this format is useful for dumpers
 
         let s = new Date($scope.start + hour * 3600 * 1000).getHours();
         sh = s % 12;
@@ -530,7 +529,20 @@ app.controller("myController", function ($scope, $http) {
         return h.toString().padStart(2, 0) + " : " + m.toString().padStart(2, 0);
     }
 
+    $scope.durationSince = function (block) {
+        let st = $scope.start + block * blockWidth * 60 * 1000;
+        let d = new Date().getTime() - st;
+        let dm = Math.floor(d / (60 * 1000));
+        
+        let h = Math.floor(dm / 60);
+        let m = dm % 60;
+        m=m.toString().padStart(2, 0);
+        return h +  ":" + m +" hrs";
+    }
 
+
+
+    /////////////////////////////////////////// DEBUG FUNCTIONS //////////////
 
     randomize = function () {
         reset();

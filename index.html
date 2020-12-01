@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" href="css/live.css?v1">
     <link rel="stylesheet" href="css/exp.css?v1">
-    
+
     <script src="js/navigation.js?v1" defer></script>
     <script src="js/class.js?v1" defer></script>
     <script src="js/exp.js?v1" defer></script>
@@ -40,16 +40,16 @@
 
         </ul>
 
-       
-            <div class="login" ng-hide="auth">
-                <input type="password" name="" id="" class="" ng-model="pin" placeholder="PIN">
-                <button class="" ng-click="login()">LOGIN</button>
-            </div>
-            <div class="user" ng-hide="!auth">
-                <span class="">{{user}}</span>
-                <button class="" ng-click="auth=false; user='Guest'; pin=''">LOGOUT</button>
-            </div>
-            
+
+        <div class="login" ng-hide="auth">
+            <input type="password" name="" id="" class="" ng-model="pin" placeholder="PIN">
+            <button class="" ng-click="login()">LOGIN</button>
+        </div>
+        <div class="user" ng-hide="!auth">
+            <span class="">{{user}}</span>
+            <button class="" ng-click="auth=false; user='Guest'; pin=''">LOGOUT</button>
+        </div>
+
     </header>
     <div class="dev" ng-show="user=='Dev'">
         <button ng-click="indirect('randomize()')">Randomize</button>
@@ -199,11 +199,17 @@
                         </div>
 
                         <div class="back">
+                            <div class="mach-entry" ng-show="auth">
+                                <select ng-model="x.status" ng-change="machineStatus(x)"
+                                    ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
+                                <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
+                                    type="text" ng-disabled="!auth" />
+                            </div>
+                            <div class="mach-data" ng-hide="auth">
+                                <p class="status-since">{{x.statusSince}}</p>
+                                <p class="status-for">({{x.statusFor}})</p>
+                            </div>
 
-                            <select ng-model="x.status" ng-change="machineStatus(x)"
-                                ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
-                            <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
-                                type="text" ng-disabled="!auth" />
                         </div>
                     </div>
                 </div>
@@ -218,7 +224,7 @@
                 <span></span>
                 <p class="mcname"> {{x.name}} </p>
                 <div class="mctrend">
-                  
+
                     <div ng-repeat="y in x.logs track by $index"
                         class="tooltip trend-block {{statusStrings[y]+'-block'}} invisible"
                         ng-click=" trendToggle(x,$index)">
