@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'chp';
+    const server = 'real';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
@@ -557,12 +557,10 @@ app.controller("myController", function ($scope, $http) {
             mach.statusFor = `(${k})`;
         }
         else {
-            if (mach.status > 1) {
-                mach.statusSince += "last month";
+            if (mach.status == 2 && mach.lastev.start == 0) {
+                mach.statusSince = "Long Breakdown";
             }
             else {
-
-
                 mach.statusSince += $scope.timef(mach.lastev.start);
                 let st = $scope.start + mach.lastev.start * blockWidth * 60 * 1000;
                 let d = new Date().getTime() - st;
