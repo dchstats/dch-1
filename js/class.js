@@ -16,7 +16,8 @@ class Machine {
             type: this.type,
             status: this.status,
             remark: this.remark,
-            logs: this.logs
+            logs: this.logs,
+            timeStamp: this.timeStamp
         }
     }
 
@@ -26,6 +27,7 @@ class Machine {
         this.status = obj.status;
         this.remark = obj.remark;
         this.logs = obj.logs;
+        this.timeStamp = obj.timeStamp;
     }
 
     calculate = function () {

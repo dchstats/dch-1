@@ -9,6 +9,10 @@ function begin() {
 
 
 
+function flipOnMobile(x) {
+    x.classList.toggle('flip');
+}
+
 
 
 function openSection(section) {

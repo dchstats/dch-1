@@ -34,6 +34,7 @@ app.controller("myController", function ($scope, $http) {
 
     $scope.statusCodes = [0, 1, 2, 3];
     $scope.statusStrings = ['IDL', 'RNG', 'BDN', 'MNT', 'UDF'];
+    $scope.statusLongStrings = ['IDLE', 'RUNNING', 'BREAKDOWN', 'MAINTENANCE', 'UDF'];
 
 
     $scope.machines = [];
@@ -152,16 +153,13 @@ app.controller("myController", function ($scope, $http) {
 
             mach.evs = [];
             mach.evs.push(new MachEvent(0, mach.logs[0]));
-            for (j = 1; j < $scope.block; j++) {
+            for (j = 1; j <= $scope.block; j++) {
                 if (mach.logs[j] != mach.logs[j - 1]) {
                     mach.evs.push(new MachEvent(j, mach.logs[j]));
                 }
             }
             // console.log(mach.name, ":", mach.evs);
-            let lastev = mach.evs.pop();
-            mach.evs.push(lastev);
-            mach.statusSince = $scope.statusStrings[lastev.status] + " since " + $scope.timef(lastev.start);
-            mach.statusFor = $scope.durationSince(lastev.start);
+            statusTimings(mach);
         });
 
 
@@ -407,20 +405,16 @@ app.controller("myController", function ($scope, $http) {
     $scope.machineStatus = function (mach) {
 
         if (mach.status == 3) {
-            // mach.status = 2;
             mach.remark = "MAINTENANCE";
         }
         else {
             mach.remark = "";
         }
+        mach.timeStamp = new Date().getTime();
         $scope.update();
 
     }
 
-    $scope.machStatus = function (mach, i) {
-        console.log(i);
-        mach.status = i;
-    }
 
 
 
@@ -478,7 +472,7 @@ app.controller("myController", function ($scope, $http) {
 
 
 
-////////////////////////////////////////////////////// TIMING FUNCTIONS ////////////////
+    ////////////////////////////////////////////////////// TIMING FUNCTIONS ////////////////
     function timeBlock() {
         var a = new Date(2019, 9, 5, 5, 0, 0, 0);
         var b = a.getTime();
@@ -529,17 +523,64 @@ app.controller("myController", function ($scope, $http) {
         return h.toString().padStart(2, 0) + " : " + m.toString().padStart(2, 0);
     }
 
-    $scope.durationSince = function (block) {
-        let st = $scope.start + block * blockWidth * 60 * 1000;
-        let d = new Date().getTime() - st;
-        let dm = Math.floor(d / (60 * 1000));
-        
-        let h = Math.floor(dm / 60);
-        let m = dm % 60;
-        m=m.toString().padStart(2, 0);
-        return h +  ":" + m +" hrs";
-    }
+    // $scope.durationSince = function (block) {
+    //     let st = $scope.start + block * blockWidth * 60 * 1000;
+    //     let d = new Date().getTime() - st;
+    //     let dm = Math.floor(d / (60 * 1000));
 
+    //     let h = Math.floor(dm / 60);
+    //     let m = dm % 60;
+    //     m = m.toString().padStart(2, 0);
+    //     return h + ":" + m + " hrs";
+    // }
+
+    function statusTimings(mach) {
+
+        mach.lastev = mach.evs.pop();
+        mach.evs.push(mach.lastev);
+        mach.statusSince = $scope.statusStrings[mach.status] + " since ";
+
+        // if (mach.name == 'CRUSHER-1') {
+        //     console.log(mach);
+        //     console.log(mach.timeStamp);
+        // }
+
+
+        if (mach.timeStamp < $scope.start && mach.status > 1) {
+            const d = new Date(mach.timeStamp);
+            const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+            const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
+            const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+            mach.statusSince += `${da}-${mo}-${ye}`;
+            let k = Math.floor((new Date().getTime() - mach.timeStamp) / (24 * 3600 * 1000));
+            k += (k == 1 ? ' day' : ' days');
+            mach.statusFor = `(${k})`;
+        }
+        else {
+            if (mach.status > 1) {
+                mach.statusSince += "last month";
+            }
+            else {
+
+
+                mach.statusSince += $scope.timef(mach.lastev.start);
+                let st = $scope.start + mach.lastev.start * blockWidth * 60 * 1000;
+                let d = new Date().getTime() - st;
+                let dm = Math.floor(d / (60 * 1000));
+
+                let h = Math.floor(dm / 60);
+                let m = dm % 60;
+                m = m.toString().padStart(2, 0);
+                let k = h + ":" + m + " hrs";
+                mach.statusFor = `(${k})`;
+            }
+        }
+        // else {
+        //     mach.statusSince += "before";
+        //     mach.statusFor = "Unknown";
+        // }
+
+    }
 
 
     /////////////////////////////////////////// DEBUG FUNCTIONS //////////////

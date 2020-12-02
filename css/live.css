@@ -378,7 +378,7 @@ header {
 	justify-content: space-evenly;
 	align-items: center;
 	backface-visibility: hidden;
-	padding:0px 5px;
+	padding: 0px 5px;
 }
 
 .back {
@@ -391,24 +391,30 @@ header {
 	width: 100%;
 }
 
-.mach:hover .inner {
-	transform: rotateY(180deg);
+
+/* flipper for large screen */
+@media (min-width: 600px) {
+	.mach:hover .inner {
+		transform: rotateY(180deg);
+	}
 }
 
-.mach:active .inner {
-	transform: rotateY(-180deg);
+/* flipper for small screens */
+@media (max-width: 600px) {
+	.flip .inner {
+		transform: rotateY(180deg);
+	}
 }
 
 .mach-entry,
 .mach-data {
-	width:100%;
-	height:100%;
+	width: 100%;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
-	font-size:0.85rem;
-
+	font-size: 0.85rem;
 }
 
 /* @media (max-width: 600px) {
@@ -445,10 +451,9 @@ header {
 .trend-row .mcname {
 	position: absolute;
 	z-index: 100;
-	margin: 0px 5px;
+	margin: 2px 5px;
 	pointer-events: none;
-	color: rgb(230, 227, 227);
-	color: white;
+	color: rgb(65, 52, 92);
 	/* font-weight: 100; */
 }
 

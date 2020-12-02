@@ -10,16 +10,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!-- <script src="libs/jquery.js" defer></script> -->
-    <!-- <script src="libs/angular.js"></script> -->
+    <link rel="stylesheet" href="css/live.css?v2">
+    <link rel="stylesheet" href="css/exp.css?v2">
 
-    <link rel="stylesheet" href="css/live.css?v1">
-    <link rel="stylesheet" href="css/exp.css?v1">
-
-    <script src="js/navigation.js?v1" defer></script>
-    <script src="js/class.js?v1" defer></script>
-    <script src="js/exp.js?v1" defer></script>
-    <script src="js/live.js?v1" defer></script>
+    <script src="js/class.js?v2" defer></script>
+    <script src="js/exp.js?v2" defer></script>
+    <script src="js/live.js?v2" defer></script>
+    <script src="js/navigation.js?v2" defer></script>
 </head>
 
 <body>
@@ -191,7 +188,7 @@
                     </div>
                 </div> -->
 
-                <div class=" mach" ng-repeat="x in machines">
+                <div class=" mach" ng-repeat="x in machines" onclick="flipOnMobile(this)">
                     <div class="inner">
                         <div class="front {{ statusStrings[x.status] }}">
                             <p class="mach-title">{{ x.name }}</p>
@@ -201,13 +198,13 @@
                         <div class="back">
                             <div class="mach-entry" ng-show="auth">
                                 <select ng-model="x.status" ng-change="machineStatus(x)"
-                                    ng-options="statusStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
+                                    ng-options="statusLongStrings[s] for s in statusCodes" ng-disabled="!auth"></select>
                                 <input class="back-remark" ng-model="x.remark" ng-change="update()" placeholder="Remark"
                                     type="text" ng-disabled="!auth" />
                             </div>
                             <div class="mach-data" ng-hide="auth">
                                 <p class="status-since">{{x.statusSince}}</p>
-                                <p class="status-for">({{x.statusFor}})</p>
+                                <p class="status-for">{{x.statusFor}}</p>
                             </div>
 
                         </div>
