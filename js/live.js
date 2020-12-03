@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'real';
+    const server = 'chp';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
@@ -216,7 +216,7 @@ app.controller("myController", function ($scope, $http) {
 
 
     function download() {
-
+        console.log('Downloading from:', $scope.downUrl);
         var payload = {};
         var req = {
             method: 'POST',
@@ -419,7 +419,6 @@ app.controller("myController", function ($scope, $http) {
 
 
     $scope.dumperCounter = function (command) {
-        console.log(command);
         if (command == 1) {
             if ($scope.dumper.east_avl > 0)
                 $scope.dumper.east_avl--;
@@ -668,17 +667,25 @@ app.controller("myController", function ($scope, $http) {
     }
 
     $scope.dnLocal = function () {
+    
         let temp = $scope.downUrl;
-        console.log(temp);
-        $scope.downUrl = 'serv/downLive.php';
+
+        const origin = window.location.hostname;
+        const port = window.location.port||"";
+        const path = "/dch/";
+        $scope.downUrl = "http://" + origin + path + 'serv/downLive.php';
+
         download();
         $scope.downUrl = temp;
     }
     $scope.upLocal = function () {
         let temp = $scope.upUrl;
-        console.log(temp);
 
-        $scope.upUrl = 'serv/upLive.php';
+        const origin = window.location.hostname;
+        const port = window.location.port || "";
+        const path = "/dch/";
+        $scope.downUrl = "http://" + origin + path + 'serv/upLive.php';
+
         upload();
         $scope.upUrl = temp;
     }
