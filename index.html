@@ -187,14 +187,14 @@
                     </div>
                 </div> -->
 
-                <div class=" mach" ng-repeat="x in machines" onclick="flipOnMobile(this)">
+                <div class="mach" ng-repeat="x in machines">
                     <div class="inner">
-                        <div class="front {{ statusStrings[x.status] }}">
+                        <div class="front {{ statusStrings[x.status] }}" onclick="flipBack(this)">
                             <p class="mach-title">{{ x.name }}</p>
                             <p class="mach-remark">{{ x.remark }}</p>
                         </div>
 
-                        <div class="back">
+                        <div class="back" onclick="flipFront(this)">
                             <div class="mach-entry" ng-show="auth">
                                 <select ng-model="x.status" ng-change="machineStatus(x)"
                                     ng-options="statusLongStrings[s] for s in statusCodes" ng-disabled="!auth"></select>

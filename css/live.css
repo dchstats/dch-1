@@ -391,7 +391,6 @@ header {
 	width: 100%;
 }
 
-
 /* flipper for large screen */
 @media (min-width: 600px) {
 	.mach:hover .inner {
@@ -405,6 +404,7 @@ header {
 		transform: rotateY(180deg);
 	}
 }
+
 
 .mach-entry,
 .mach-data {

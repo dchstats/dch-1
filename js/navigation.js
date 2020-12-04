@@ -6,11 +6,18 @@ function begin() {
 }
 
 
+function flipBack(x) {
+    let mach = x.closest('.mach');
+    let ms = document.querySelectorAll('.mach');
+    ms.forEach(x => {
+        x.classList.remove('flip');
+    })
+    mach.classList.add('flip');
+}
 
-
-
-function flipOnMobile(x) {
-    x.classList.toggle('flip');
+function flipFront(x) {
+    let mach = x.closest('.mach');
+    mach.classList.remove('flip');
 }
 
 
