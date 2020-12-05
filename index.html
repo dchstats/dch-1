@@ -214,20 +214,16 @@
 
         <div class="section" id="trend-sec">
             <div class="trend-row" ng-repeat="x in machines">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
                 <p class="mcname"> {{x.name}} </p>
-                <div class="mctrend">
-
-                    <div ng-repeat="y in x.logs track by $index"
-                        class="tooltip trend-block {{statusStrings[y]+'-block'}} invisible"
-                        ng-click=" trendToggle(x,$index)">
-
-                        <span class="tooltiptext">{{timef($index)}}</span>
+                <div class="trend-bar-container">
+                    <div class="mctrend">
+                        <div ng-repeat="y in x.logs track by $index"
+                            class="tooltip trend-block {{statusStrings[y]+'-block'}}" ng-click=" trendToggle(x,$index)">
+                            <span class="tooltiptext">{{timef($index)}}</span>
+                        </div>
                     </div>
                 </div>
+               
             </div>
         </div>
 

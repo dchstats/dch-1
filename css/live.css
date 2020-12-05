@@ -57,6 +57,7 @@ select:disabled {
 
 .IDL {
 	background: rgb(51, 87, 83);
+	
 }
 
 .RNG {
@@ -84,6 +85,8 @@ select:disabled {
 	/* background: rgb(51, 87, 83); */
 	/* background: linear-gradient(0deg, rgb(51, 87, 83) 0%, rgb(81, 97, 83, 0.9) 55%, rgb(119, 155, 151) 100%); */
 	background: linear-gradient(0deg, #014d33 0%, #014d3380 55%, #014d33 100%);
+	background: linear-gradient(0deg, #666 0%, #aaa 55%, #666 100%);
+	/* background: linear-gradient(0deg, #c8c8c8 0%, #ffffffb3 55%, #c8c8c8 100%); */
 }
 
 .RNG-block {
@@ -102,6 +105,7 @@ select:disabled {
 
 .UDF-block {
 	background: linear-gradient(0deg, #c8c8c8 0%, #ffffffb3 55%, #c8c8c8 100%);
+	background: none;
 }
 
 /* HEADER /////////////////////////////// */
@@ -405,7 +409,6 @@ header {
 	}
 }
 
-
 .mach-entry,
 .mach-data {
 	width: 100%;
@@ -439,29 +442,33 @@ header {
 }
 
 .trend-row {
-	height: 3vh;
+	
 	width: 48%;
 	padding: 0px 1vw;
 	display: flex;
 	flex-direction: column;
 	margin: 10px 0;
-	position: relative;
 }
 
 .trend-row .mcname {
-	position: absolute;
-	z-index: 100;
-	margin: 2px 5px;
+	/* z-index: 100; */
+	margin: 3px 0px;
 	pointer-events: none;
 	color: rgb(65, 52, 92);
 	/* font-weight: 100; */
 }
 
+.trend-bar-container {
+	background: linear-gradient(0deg, #c8c8c8 0%, #ffffffb3 55%, #c8c8c8 100%);
+	box-shadow: 2px 5px 5px 0px rgb(172, 165, 155);
+}
+
 .mctrend {
+	height: 3vh;
 	display: flex;
 	flex-grow: 1;
-	background: linear-gradient(0deg, #dcdada 0%, #f5f1f1 30%, #ffffff 65%, #e2e0e0 100%);
-	box-shadow: 2px 5px 5px 0px rgb(172, 165, 155);
+
+	width: 0%;
 	/* border-right:5px solid white; */
 }
 
@@ -477,13 +484,10 @@ header {
 
 @media (max-width: 1100px) {
 	.trend-row {
-		height: 4vh;
 		width: 100%;
 		padding: 0px 1vw;
 		display: flex;
 		flex-direction: column;
-		margin-bottom: 1.2vh;
-		/* border:1px solid; */
 	}
 }
 
@@ -622,9 +626,7 @@ tr.total {
 	opacity: 1;
 }
 
-.invisible {
-	opacity: 0;
-}
+
 
 /* /////// scrollbar ////////// */
 

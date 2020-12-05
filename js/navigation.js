@@ -31,13 +31,31 @@ function openSection(section) {
 }
 
 
-document.querySelector('#trend-tab').addEventListener('click', animBar);
+
+
+document.querySelector('#trend-tab').addEventListener('click', animBar3);
 function animBar() {
     k = document.querySelector('.invisible');
     if (k) {
-        k.classList.toggle('invisible');
+        k.classList.remove('invisible');
         setTimeout(animBar, 1);
     }
+}
+
+function animBar2() {
+    for (i = 0; i < 48; i++){
+        for (j = 0; j < 5; j++){
+            let k =`.invisible:eq(${j*48+i})`
+            let l = $(k);
+            l.removeClass('invisible')
+            console.log(l);
+        }
+       
+    }
+}
+
+function animBar3() {
+    $('.mctrend').animate({width:'100%'},500)
 }
 ////////////////////// vanila navigation
 

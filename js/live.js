@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'chp';
+    const server = 'home';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
@@ -509,12 +509,22 @@ app.controller("myController", function ($scope, $http) {
 
 
     $scope.timef = function (block) {
-        k = $scope.start + block * blockWidth * 60 * 1000;
-        l = new Date(k);
-        h = l.getHours();
+        let k = $scope.start + block * blockWidth * 60 * 1000;
+        let l = new Date(k);
+        let h = l.getHours();
         h = h % 12;
         if (h == 0) { h = 12; }
-        t = "" + h + ":" + (l.getMinutes() < 10 ? "0" : "") + l.getMinutes() + (l.getHours() < 12 ? " AM" : " PM");
+        let t = "" + h + ":" + (l.getMinutes() < 10 ? "0" : "") + l.getMinutes() + (l.getHours() < 12 ? " AM" : " PM");
+        return t;
+    }
+
+
+    $scope.tsToClock = function (ts) {
+        let l = new Date(ts);
+        let h = l.getHours();
+        h = h % 12;
+        if (h == 0) { h = 12; }
+        let t = "" + h + ":" + (l.getMinutes() < 10 ? "0" : "") + l.getMinutes() + (l.getHours() < 12 ? " AM" : " PM");
         return t;
     }
 
@@ -574,18 +584,22 @@ app.controller("myController", function ($scope, $http) {
         mins = mins % 60;
         days = Math.floor(hrs / 24);
 
-        // if (mach.name == 'CRUSHER-1') {
+        // if (mach.name == 'P&H-17') {
         //     console.log('///////////////////////////////////////')
         //     console.log(mach.evs);
         //     console.log(ts);
         //     console.log($scope.start);
         //     console.log(ts >= $scope.start)
+        //     console.log(new Date(ts))
         // }
 
         if (ts >= $scope.start) {
-            console.log('cond1:', mach.name);
-            
-            mach.since += mach.time;
+            // console.log('cond1:', mach.name);
+
+            if (mach.lastev.start==0) {
+                mach.since+="Shift start, "
+            }
+            mach.since += time;
 
             let t = $scope.start + mach.lastev.start * blockWidth * 60 * 1000;
             let mins = Math.floor((now - t) / (60 * 1000));
@@ -595,17 +609,18 @@ app.controller("myController", function ($scope, $http) {
             mach.for = "(" + hrs.toString() + ":" + mins.toString().padStart(2, 0)+" hrs)";
         }
         else if (ts > prevStart) {
-            console.log('cond2:', mach.name);
-            mach.since  +="Previous Shift";
-            mach.for = "("+hrs.toString() + ":" + mins.toString().padStart(2, 0)+")";
+            // console.log('cond2:', mach.name);
+            mach.since += "Previous Shift, ";
+            mach.since += $scope.tsToClock(ts);
+            mach.for = "("+hrs.toString() + ":" + mins.toString().padStart(2, 0)+" hrs)";
         }
         else if (days < 365) {
-            console.log('cond3:', mach.name);
+            // console.log('cond3:', mach.name);
             mach.since += dt;
             mach.for = "("+days + (days==1?" day":" days")+")";
         }
         else {
-            console.log('cond4:', mach.name);
+            // console.log('cond4:', mach.name);
             mach.since = "Long breakdown";
         }
     }
