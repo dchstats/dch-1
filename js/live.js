@@ -25,6 +25,7 @@ app.controller("myController", function ($scope, $http) {
 
 
 
+    $scope.begin = new Date(2020, 3, 1, 5, 0, 0, 0);
     $scope.crusherNames = ['CRUSHER-1', 'CRUSHER-2', 'CRUSHER-3'];
     $scope.shovelNames = ['P&H-06', 'P&H-07', 'P&H-10',
         'P&H-11', 'P&H-12', 'P&H-13', 'P&H-14', 'P&H-15',
@@ -45,7 +46,6 @@ app.controller("myController", function ($scope, $http) {
     $scope.dumperTotal = {};
 
 
-    $scope.time = new Date().getTime();
     $scope.stamp = ""  // time of fetched status
     $scope.syncCounter = 0;
 
@@ -330,6 +330,7 @@ app.controller("myController", function ($scope, $http) {
             if (mach.status < 2) {
                 mach.status = 0;
                 mach.remark = "";
+                mach.timeStamp = $scope.start;
             }
             mach.logs = [];
             mach.logs[0] = mach.status;
@@ -473,7 +474,7 @@ app.controller("myController", function ($scope, $http) {
 
     ////////////////////////////////////////////////////// TIMING FUNCTIONS ////////////////
     function timeBlock() {
-        var a = new Date(2019, 9, 5, 5, 0, 0, 0);
+        var a = $scope.begin;
         var b = a.getTime();
         var c = new Date().getTime();
         var d = Math.floor((c - b) / (8 * 3600 * 1000));
@@ -482,10 +483,30 @@ app.controller("myController", function ($scope, $http) {
         $scope.block = Math.floor((c - e) / (blockWidth * 60 * 1000));
         $scope.hour = Math.floor((c - e) / (60 * 60 * 1000));
 
+        $scope.shift = Math.floor((c - b) / (8 * 3600 * 1000));
+        $scope.shiftString = shiftDecode($scope.shift);
+        console.log($scope.shiftString);
+
         // $scope.block = 32;
         // $scope.hour = 6;
-
     }
+
+    function shiftDecode(shift) {
+        var s = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+        shifts = ['First', 'Second', 'Night'];
+
+        var a = $scope.begin;
+        var b = a.getTime();
+        var c = shift;
+        var d = b + (c * 8 * 3600 * 1000) + 1;
+        var e = new Date(d);
+        var f = e.getDate() + '-' + months[e.getMonth()] + '-' + e.getFullYear();
+        var g = c % 3;
+        var h = shifts[g];
+        return i = h + " Shift, " + f;
+    }
+
 
     $scope.timef = function (block) {
         k = $scope.start + block * blockWidth * 60 * 1000;
@@ -500,7 +521,6 @@ app.controller("myController", function ($scope, $http) {
     $scope.hourf = function (hour) {
 
         // this format is useful for dumpers
-
         let s = new Date($scope.start + hour * 3600 * 1000).getHours();
         sh = s % 12;
         if (sh == 0) sh = 12;
@@ -513,7 +533,6 @@ app.controller("myController", function ($scope, $http) {
         return res;
 
     }
-
 
 
     $scope.hms = function (mins) {
@@ -534,49 +553,61 @@ app.controller("myController", function ($scope, $http) {
     // }
 
     function statusTimings(mach) {
+     
 
         mach.lastev = mach.evs.pop();
         mach.evs.push(mach.lastev);
-        mach.statusSince = $scope.statusStrings[mach.status] + " since ";
+        mach.since = $scope.statusStrings[mach.status] + " since ";
+
+        const ts = mach.timeStamp;
+        const time = $scope.timef(mach.lastev.start);
+        const now = new Date().getTime();
+        const prevStart = $scope.start - 8 * 3600 * 1000;
+
+        const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(ts);
+        const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(ts);
+        const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(ts);
+        const dt = `${da}-${mo}-${ye}`;
+
+        let mins = Math.floor((now - ts) / (60 * 1000));
+        let hrs = Math.floor(mins / 60);
+        mins = mins % 60;
+        days = Math.floor(hrs / 24);
 
         // if (mach.name == 'CRUSHER-1') {
-        //     console.log(mach);
-        //     console.log(mach.timeStamp);
+        //     console.log('///////////////////////////////////////')
+        //     console.log(mach.evs);
+        //     console.log(ts);
+        //     console.log($scope.start);
+        //     console.log(ts >= $scope.start)
         // }
 
+        if (ts >= $scope.start) {
+            console.log('cond1:', mach.name);
+            
+            mach.since += mach.time;
 
-        if (mach.timeStamp < $scope.start && mach.status > 1) {
-            const d = new Date(mach.timeStamp);
-            const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-            const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
-            const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-            mach.statusSince += `${da}-${mo}-${ye}`;
-            let k = Math.floor((new Date().getTime() - mach.timeStamp) / (24 * 3600 * 1000));
-            k += (k == 1 ? ' day' : ' days');
-            mach.statusFor = `(${k})`;
+            let t = $scope.start + mach.lastev.start * blockWidth * 60 * 1000;
+            let mins = Math.floor((now - t) / (60 * 1000));
+            let hrs = Math.floor(mins / 60);
+        
+            mins = mins % 60;
+            mach.for = "(" + hrs.toString() + ":" + mins.toString().padStart(2, 0)+" hrs)";
+        }
+        else if (ts > prevStart) {
+            console.log('cond2:', mach.name);
+            mach.since  +="Previous Shift";
+            mach.for = "("+hrs.toString() + ":" + mins.toString().padStart(2, 0)+")";
+        }
+        else if (days < 365) {
+            console.log('cond3:', mach.name);
+            mach.since += dt;
+            mach.for = "("+days + (days==1?" day":" days")+")";
         }
         else {
-            if (mach.status == 2 && mach.lastev.start == 0) {
-                mach.statusSince = "Long Breakdown";
-            }
-            else {
-                mach.statusSince += $scope.timef(mach.lastev.start);
-                let st = $scope.start + mach.lastev.start * blockWidth * 60 * 1000;
-                let d = new Date().getTime() - st;
-                let dm = Math.floor(d / (60 * 1000));
-
-                let h = Math.floor(dm / 60);
-                let m = dm % 60;
-                m = m.toString().padStart(2, 0);
-                let k = h + ":" + m + " hrs";
-                mach.statusFor = `(${k})`;
-            }
+            console.log('cond4:', mach.name);
+            mach.since = "Long breakdown";
         }
-        // else {
-        //     mach.statusSince += "before";
-        //     mach.statusFor = "Unknown";
-        // }
-
     }
 
 
@@ -667,11 +698,11 @@ app.controller("myController", function ($scope, $http) {
     }
 
     $scope.dnLocal = function () {
-    
+
         let temp = $scope.downUrl;
 
         const origin = window.location.hostname;
-        const port = window.location.port||"";
+        const port = window.location.port || "";
         const path = "/dch/";
         $scope.downUrl = "http://" + origin + path + 'serv/downLive.php';
 
