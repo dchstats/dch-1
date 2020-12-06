@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'home';
+    const server = 'real';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
@@ -582,7 +582,7 @@ app.controller("myController", function ($scope, $http) {
         let mins = Math.floor((now - ts) / (60 * 1000));
         let hrs = Math.floor(mins / 60);
         mins = mins % 60;
-        days = Math.floor(hrs / 24);
+        days = Math.floor(hrs / 24)+1;
 
         // if (mach.name == 'P&H-17') {
         //     console.log('///////////////////////////////////////')
@@ -730,7 +730,7 @@ app.controller("myController", function ($scope, $http) {
         const origin = window.location.hostname;
         const port = window.location.port || "";
         const path = "/dch/";
-        $scope.downUrl = "http://" + origin + path + 'serv/upLive.php';
+        $scope.upUrl = "http://" + origin + path + 'serv/upLive.php';
 
         upload();
         $scope.upUrl = temp;
