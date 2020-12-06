@@ -161,8 +161,9 @@ class Dumper {
 
 
 class MachEvent{
-    constructor(start, status) {
+    constructor(start, status, n) {
         this.start = start;
         this.status = status;
+        this.n = n;  // length of prev event;
     }
 }

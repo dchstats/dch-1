@@ -153,11 +153,28 @@ app.controller("myController", function ($scope, $http) {
 
             mach.evs = [];
             mach.evs.push(new MachEvent(0, mach.logs[0]));
+            let n = 0; // for counting lengh of event.
             for (j = 1; j <= $scope.block; j++) {
                 if (mach.logs[j] != mach.logs[j - 1]) {
-                    mach.evs.push(new MachEvent(j, mach.logs[j]));
+                    mach.evs.push(new MachEvent(j, mach.logs[j], n));
+                    n = 0;
                 }
+                n++;
             }
+
+        
+            mach.changes = [];
+            mach.evs.forEach((x, i) => {
+            
+                if (i % 2 == 0) {
+                    mach.changes[x.start] = 'top';
+                }
+                else if (i % 2 == 1){
+                    mach.changes[x.start] = 'bottom';
+                }
+                
+                
+            })
             // console.log(mach.name, ":", mach.evs);
             statusTimings(mach);
         });
@@ -508,23 +525,29 @@ app.controller("myController", function ($scope, $http) {
     }
 
 
-    $scope.timef = function (block) {
+    $scope.timef = function (block, isSimple) {
         let k = $scope.start + block * blockWidth * 60 * 1000;
         let l = new Date(k);
         let h = l.getHours();
         h = h % 12;
         if (h == 0) { h = 12; }
         let t = "" + h + ":" + (l.getMinutes() < 10 ? "0" : "") + l.getMinutes() + (l.getHours() < 12 ? " AM" : " PM");
+        if (isSimple) {
+            t = "" + h + ":" + (l.getMinutes() < 10 ? "0" : "") + l.getMinutes();
+        }
         return t;
     }
 
 
-    $scope.tsToClock = function (ts) {
+    $scope.tsToClock = function (ts,isSimple) {
         let l = new Date(ts);
         let h = l.getHours();
         h = h % 12;
         if (h == 0) { h = 12; }
         let t = "" + h + ":" + (l.getMinutes() < 10 ? "0" : "") + l.getMinutes() + (l.getHours() < 12 ? " AM" : " PM");
+        if (isSimple) {
+            t = "" + h + ":" + (l.getMinutes() < 10 ? "0" : "") + l.getMinutes();
+        }
         return t;
     }
 

@@ -33,7 +33,7 @@ function openSection(section) {
 
 
 
-document.querySelector('#trend-tab').addEventListener('click', animBar3);
+// document.querySelector('#trend-tab').addEventListener('click', animBar3);
 function animBar() {
     k = document.querySelector('.invisible');
     if (k) {
@@ -57,7 +57,7 @@ function animBar2() {
 function animBar3() {
     $('.mctrend').css({'width':0})
 
-    $('.mctrend').animate({width:'100%'},300)
+    $('.mctrend').animate({width:'100%'},"slow","linear" )
 }
 ////////////////////// vanila navigation
 
