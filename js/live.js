@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'real';
+    const server = 'home';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
@@ -563,7 +563,7 @@ app.controller("myController", function ($scope, $http) {
     // }
 
     function statusTimings(mach) {
-     
+
 
         mach.lastev = mach.evs.pop();
         mach.evs.push(mach.lastev);
@@ -582,7 +582,7 @@ app.controller("myController", function ($scope, $http) {
         let mins = Math.floor((now - ts) / (60 * 1000));
         let hrs = Math.floor(mins / 60);
         mins = mins % 60;
-        days = Math.floor(hrs / 24)+1;
+        days = Math.floor(hrs / 24) + 1;
 
         // if (mach.name == 'P&H-17') {
         //     console.log('///////////////////////////////////////')
@@ -596,28 +596,28 @@ app.controller("myController", function ($scope, $http) {
         if (ts >= $scope.start) {
             // console.log('cond1:', mach.name);
 
-            if (mach.lastev.start==0) {
-                mach.since+="Shift start, "
+            if (mach.lastev.start == 0) {
+                mach.since += "Shift start, "
             }
             mach.since += time;
 
             let t = $scope.start + mach.lastev.start * blockWidth * 60 * 1000;
             let mins = Math.floor((now - t) / (60 * 1000));
             let hrs = Math.floor(mins / 60);
-        
+
             mins = mins % 60;
-            mach.for = "(" + hrs.toString() + ":" + mins.toString().padStart(2, 0)+" hrs)";
+            mach.for = "(" + hrs.toString() + ":" + mins.toString().padStart(2, 0) + " hrs)";
         }
         else if (ts > prevStart) {
             // console.log('cond2:', mach.name);
             mach.since += "Previous Shift, ";
             mach.since += $scope.tsToClock(ts);
-            mach.for = "("+hrs.toString() + ":" + mins.toString().padStart(2, 0)+" hrs)";
+            mach.for = "(" + hrs.toString() + ":" + mins.toString().padStart(2, 0) + " hrs)";
         }
         else if (days < 365) {
             // console.log('cond3:', mach.name);
             mach.since += dt;
-            mach.for = "("+days + (days==1?" day":" days")+")";
+            mach.for = "(" + days + (days == 1 ? " day" : " days") + ")";
         }
         else {
             // console.log('cond4:', mach.name);
@@ -749,7 +749,5 @@ app.controller("myController", function ($scope, $http) {
         upload();
         $scope.upUrl = temp;
     }
-
-
 });
 

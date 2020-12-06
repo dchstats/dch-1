@@ -55,7 +55,9 @@ function animBar2() {
 }
 
 function animBar3() {
-    $('.mctrend').animate({width:'100%'},500)
+    $('.mctrend').css({'width':0})
+
+    $('.mctrend').animate({width:'100%'},300)
 }
 ////////////////////// vanila navigation
 
