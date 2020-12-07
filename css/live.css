@@ -85,26 +85,31 @@ select:disabled {
 	background: linear-gradient(0deg, rgb(51, 87, 83) 0%, rgba(195, 197, 195, 0.9) 55%, rgb(119, 155, 151) 100%);
 	/* background: linear-gradient(0deg, #014d33 0%, #014d3380 55%, #014d33 100%); */
 	background: linear-gradient(0deg, #444 0%, #777 55%, #444 100%);
+	color: #444;
 	/* background:none; */
 }
 
 .RNG-block {
 	/* background: rgb(76, 176, 80); */
 	background: linear-gradient(0deg, #4cb050 0%, #4cb050b3 55%, #4cb050 100%);
+	color: #4cb050;
 }
 
 .BDN-block {
 	background: rgb(167, 0, 26);
 	background: linear-gradient(0deg, #a7001a 0%, #a7001ab3 55%, #a7001a 100%);
+	color: #a7001a;
 }
 .MNT-block {
 	background: RGB(255, 151, 0);
 	background: linear-gradient(0deg, #ff9700 0%, #ff9700b3 55%, #ff9700 100%);
+	color: #ff9700;
 }
 
 .UDF-block {
 	background: linear-gradient(0deg, #c8c8c8 0%, #ffffffb3 55%, #c8c8c8 100%);
 	background: none;
+	color: #444;
 }
 
 /* HEADER /////////////////////////////// */
@@ -436,25 +441,39 @@ header {
 	font-size: 12px;
 	background: rgb(253, 245, 230);
 	color: #444;
-	/* background: rgb(216, 213, 213); */
 	font-weight: bold;
 }
 
 .trend-row {
-	width: 48%;
+	width: 100%;
 	padding: 0px 1vw;
 	display: flex;
 	flex-direction: column;
-	/* margin-top: 10px; */
+	margin-top: 50px;
 }
 
 .trend-row .mcname {
-	position: absolute;
-	z-index: 1;
-	margin: 3px 5px;
+	/* position: absolute; */
+	max-width: 150px;
+	padding: 5px 0px 10px 0px;
+
 	pointer-events: none;
-	color: white;
-	/* font-weight: 100; */
+	color: #444;
+	font-weight: 700;
+	background: linear-gradient(90deg, #c8c8c8 0%, #ffffffb3 55%, #c8c8c8 100%);
+	/* background: #b39090; */
+
+
+
+	/* background:none; */
+	color: #444;
+	/* border:1px solid #444;
+	border-width:1px 0 0 1px; */
+	text-align: center;
+	border-radius: 5px 5px 0px 0px;
+
+	background: steelblue; 
+	color:#fff;
 }
 
 .trend-bar-container {
@@ -477,18 +496,17 @@ header {
 
 .transition-times {
 	position: absolute;
-	width: 40px;
 	left: -10px;
-	font-size: 70%;
+	font-size: 10px;
 	color: #333;
-	font-weight: 500;
+
+	font-weight: 400;
 	display: none;
-	/* border:1px solid #999; */
 }
 
 .transition-times.top {
 	display: inline-block;
-	top: -15px;
+	bottom: 25px;
 }
 .transition-times.bottom {
 	display: inline-block;
@@ -499,18 +517,34 @@ header {
 	/* border: 1px solid yellow; */
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 600px) {
 	.trend-row {
 		width: 100%;
-
-		margin-top: 50px;
 		padding: 0px 1vw;
 		display: flex;
 		flex-direction: column;
+		margin-top: 35px;
+	}
+
+	.trend-row .mcname {
+		max-width: 70px;
 	}
 
 	.mctrend {
-		height: 20px;
+		height: 15px;
+	}
+
+	.transition-times {
+		transform: rotate(-45deg);
+	}
+
+	.transition-times.top {
+		bottom: 20px;
+		left:-5px;
+	}
+	.transition-times.bottom {
+		top: 20px;
+		left:-10px;
 	}
 }
 

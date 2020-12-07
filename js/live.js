@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'home';
+    const server = 'real';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
@@ -26,10 +26,10 @@ app.controller("myController", function ($scope, $http) {
 
 
     $scope.begin = new Date(2020, 3, 1, 5, 0, 0, 0);
-    $scope.crusherNames = ['CRUSHER-1', 'CRUSHER-2', 'CRUSHER-3'];
+    $scope.crusherNames = ['CRUSHER 1', 'CRUSHER 2', 'CRUSHER 3'];
     $scope.shovelNames = ['P&H-06', 'P&H-07', 'P&H-10',
         'P&H-11', 'P&H-12', 'P&H-13', 'P&H-14', 'P&H-15',
-        'P&H-16', 'P&H-17', 'P&H-18', 'P&H-19', 'HIM-20', 'PC-TATA', 'KOMATSU-PC', 'LAXMAN-PC', 'PL-06', 'PL-07', 'SM-L&T'];
+        'P&H-16', 'P&H-17', 'P&H-18', 'P&H-19', 'HIM-20', 'PC-TATA', 'KOMATSU PC', 'LAXMAN PC', 'PL-06', 'PL-07', 'SM-L&T'];
     $scope.draglineNames = ['JYOTI', 'PAWAN', 'VNDHYA', 'JWALA'];
     $scope.siloNames = ['OLD SILO', 'NEW SILO', 'WHARF WALL'];
 
@@ -166,11 +166,11 @@ app.controller("myController", function ($scope, $http) {
             mach.changes = [];
             mach.evs.forEach((x, i) => {
             
-                if (i % 2 == 0) {
-                    mach.changes[x.start] = 'top';
-                }
-                else if (i % 2 == 1){
+                if (i % 2 == 1) {
                     mach.changes[x.start] = 'bottom';
+                }
+                else if(i%2==0&& i>0){
+                    mach.changes[x.start] = 'top';
                 }
                 
                 
@@ -489,7 +489,7 @@ app.controller("myController", function ($scope, $http) {
 
 
 
-    ////////////////////////////////////////////////////// TIMING FUNCTIONS ////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////// TIMING FUNCTIONS ////////////////
     function timeBlock() {
         var a = $scope.begin;
         var b = a.getTime();
@@ -504,7 +504,7 @@ app.controller("myController", function ($scope, $http) {
         $scope.shiftString = shiftDecode($scope.shift);
         console.log($scope.shiftString);
 
-        // $scope.block = 32;
+        // $scope.block = 47;
         // $scope.hour = 6;
     }
 
@@ -656,8 +656,8 @@ app.controller("myController", function ($scope, $http) {
 
         angular.forEach($scope.machines, function (mach, i) {
             k = 0;
-            for (i = 0; i < 3; i++) {
-                l = 20 + Math.floor(20 * Math.random());
+            for (i = 0; i < 20; i++) {
+                l = 1+Math.floor(5 * Math.random());
                 v = Math.floor(4 * Math.random())
                 for (j = 0; j < l; j++) {
                     if (k < $scope.block) {

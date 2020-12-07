@@ -10,13 +10,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="css/live.css?v8">
-    <link rel="stylesheet" href="css/exp.css?v8">
+    <link rel="stylesheet" href="css/live.css?v10">
+    <link rel="stylesheet" href="css/exp.css?v10">
 
-    <script src="js/class.js?v8" defer></script>
-    <script src="js/exp.js?v8" defer></script>
-    <script src="js/live.js?v8" defer></script>
-    <script src="js/navigation.js?v8" defer></script>
+    <script src="js/class.js?v10" defer></script>
+    <script src="js/exp.js?v10" defer></script>
+    <script src="js/live.js?v10" defer></script>
+    <script src="js/navigation.js?v10" defer></script>
 </head>
 
 <body>
@@ -221,7 +221,7 @@
                         <div ng-repeat="y in x.logs track by $index"
                             class="tooltip trend-block {{statusStrings[y]+'-block'}}" ng-click=" trendToggle(x,$index)">
                             <span class="tooltiptext">{{timef($index)}}</span>
-                            <span class="transition-times" ng-class="x.changes[$index]">{{timef($index)}}</span>
+                            <span class="transition-times" ng-class="x.changes[$index]">{{timef($index,true)}}</span>
                         </div>
                     </div>
                 </div>
