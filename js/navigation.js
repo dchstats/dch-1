@@ -2,12 +2,13 @@ $(document).ready(begin());
 
 function begin() {
     $(".section").hide();
- 
+
 }
 
 function pageLoad() {
-    $('.splash').hide();
+
     openSection('live');
+    $('.splash').slideUp();
 }
 
 
@@ -48,21 +49,21 @@ function animBar() {
 }
 
 function animBar2() {
-    for (i = 0; i < 48; i++){
-        for (j = 0; j < 5; j++){
-            let k =`.invisible:eq(${j*48+i})`
+    for (i = 0; i < 48; i++) {
+        for (j = 0; j < 5; j++) {
+            let k = `.invisible:eq(${j * 48 + i})`
             let l = $(k);
             l.removeClass('invisible')
             console.log(l);
         }
-       
+
     }
 }
 
 function animBar3() {
-    $('.mctrend').css({'width':0})
+    $('.mctrend').css({ 'width': 0 })
 
-    $('.mctrend').animate({width:'100%'},"slow","linear" )
+    $('.mctrend').animate({ width: '100%' }, "slow", "linear")
 }
 ////////////////////// vanila navigation
 

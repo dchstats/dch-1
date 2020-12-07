@@ -123,7 +123,7 @@ header {
 	background: black;
 	position: fixed;
 	color: white;
-	z-index: 100;
+	z-index: 10;
 }
 
 .dev {
@@ -449,31 +449,20 @@ header {
 	padding: 0px 1vw;
 	display: flex;
 	flex-direction: column;
-	margin-top: 50px;
+	margin-top: 30px;
 }
 
 .trend-row .mcname {
 	/* position: absolute; */
 	max-width: 150px;
-	padding: 5px 0px 10px 0px;
-
-	pointer-events: none;
+	padding: 3px 0px;
+	/* pointer-events: none; */
 	color: #444;
 	font-weight: 700;
 	background: linear-gradient(90deg, #c8c8c8 0%, #ffffffb3 55%, #c8c8c8 100%);
-	/* background: #b39090; */
 
-
-
-	/* background:none; */
-	color: #444;
-	/* border:1px solid #444;
-	border-width:1px 0 0 1px; */
 	text-align: center;
 	border-radius: 5px 5px 0px 0px;
-
-	background: steelblue; 
-	color:#fff;
 }
 
 .trend-bar-container {
@@ -523,11 +512,11 @@ header {
 		padding: 0px 1vw;
 		display: flex;
 		flex-direction: column;
-		margin-top: 35px;
+		margin-top: 30px;
 	}
 
 	.trend-row .mcname {
-		max-width: 70px;
+		max-width: 80px;
 	}
 
 	.mctrend {
@@ -540,11 +529,11 @@ header {
 
 	.transition-times.top {
 		bottom: 20px;
-		left:-5px;
+		left: -5px;
 	}
 	.transition-times.bottom {
 		top: 20px;
-		left:-10px;
+		left: -10px;
 	}
 }
 
