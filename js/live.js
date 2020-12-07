@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'real';
+    const server = 'chp';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
@@ -122,6 +122,7 @@ app.controller("myController", function ($scope, $http) {
         sync();
 
         setInterval(autoReloader, 4 * 3600 * 1000);
+        pageLoad();
     }
 
 

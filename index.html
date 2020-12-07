@@ -17,6 +17,23 @@
     <script src="js/exp.js?v10" defer></script>
     <script src="js/live.js?v10" defer></script>
     <script src="js/navigation.js?v10" defer></script>
+    <style>
+        .splash{
+            position:absolute;
+            z-index:2 ;
+            width:100vw;
+            height:100vh;
+            background: rgb(35, 35, 35);
+        }
+
+        #live-sec{
+            display:none;
+        }
+
+        .dev{
+            /* display:none; */
+        }
+    </style>
 </head>
 
 <body>
@@ -57,6 +74,9 @@
         <!-- <button ng-click="upRemote()">upRemote</button> -->
     </div>
     <main>
+        <div class="splash">
+
+        </div>
 
 
         <div class="section" id="live-sec">

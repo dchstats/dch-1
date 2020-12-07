@@ -2,6 +2,11 @@ $(document).ready(begin());
 
 function begin() {
     $(".section").hide();
+ 
+}
+
+function pageLoad() {
+    $('.splash').hide();
     openSection('live');
 }
 
