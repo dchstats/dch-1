@@ -6,9 +6,9 @@ function begin() {
 }
 
 function pageLoad() {
-
-    openSection('live');
-    $('.splash').slideUp();
+   
+    $('.splash').hide();
+    openSection('trend');
 }
 
 

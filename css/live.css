@@ -12,7 +12,6 @@ html {
 }
 
 body {
-	width: 100vw;
 	/* overflow:hidden;   */
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 
@@ -213,17 +212,12 @@ header {
 }
 
 .section {
-	padding: 50px 5vw;
-	width: 100%;
-	min-height: 100vh;
-	flex-grow: 1;
+	padding: 50px 10px;
+	/* width: 100%; */
+	/* min-height: 100vh; */
+	/* flex-grow: 1; */
 }
 
-@media (max-width: 600px) {
-	.section {
-		padding: 50px 2vw;
-	}
-}
 
 /* LIVE  //////////////////////////// LIVE ////////////////////// LIVE //////// */
 
@@ -432,12 +426,10 @@ header {
 
 /* TREND SECTION \\\\\\\\\\\\\\\ TREND \\\\\\\\\\\\\\\ TREND///////////////*/
 #trend-sec {
-	padding-top: 75px;
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+	flex-direction: column;
 	justify-content: center;
-	align-items: center;
+	align-items: stretch;
 	font-size: 12px;
 	background: rgb(253, 245, 230);
 	color: #444;
@@ -445,11 +437,11 @@ header {
 }
 
 .trend-row {
-	width: 100%;
 	padding: 0px 1vw;
 	display: flex;
 	flex-direction: column;
 	margin-top: 30px;
+
 }
 
 .trend-row .mcname {
@@ -468,19 +460,21 @@ header {
 .trend-bar-container {
 	background: linear-gradient(0deg, #c8c8c8 0%, #ffffffb3 55%, #c8c8c8 100%);
 	box-shadow: 2px 5px 5px 0px rgb(172, 165, 155);
+	/* display:none; */
 }
 
 .mctrend {
 	height: 20px;
 	display: flex;
 	flex-grow: 1;
-	/* border-right:5px solid white; */
+
 }
 
 .trend-block {
 	height: 100%;
 	flex-grow: 1;
 	cursor: pointer;
+	
 }
 
 .transition-times {
@@ -497,13 +491,14 @@ header {
 	display: inline-block;
 	bottom: 25px;
 }
+
 .transition-times.bottom {
 	display: inline-block;
 	top: 25px;
 }
 
 .trend-block:hover {
-	/* border: 1px solid yellow; */
+	border: 1px solid yellow;
 }
 
 @media (max-width: 600px) {
@@ -638,24 +633,28 @@ tr.total {
 }
 
 .tooltip .tooltiptext {
+
 	visibility: hidden;
-	width: 80px;
+	max-width: 10vw;
 	background-color: #555;
 	color: #fff;
 	text-align: center;
-	border-radius: 6px;
-	padding: 5px 0;
+	border-radius: 3px;
+	padding: 2px;
 	position: absolute;
 	z-index: 1;
 	bottom: 125%;
-	left: 50%;
-	margin-left: -40px;
+	left: -2vw;
 	opacity: 0;
 	transition: opacity 0.3s;
 	background: #222;
 	color: yellow;
 }
 
+@media(max-width:600px){
+
+}
+/* 
 .tooltip .tooltiptext::after {
 	content: "";
 	position: absolute;
@@ -665,7 +664,7 @@ tr.total {
 	border-width: 5px;
 	border-style: solid;
 	border-color: #222 transparent transparent transparent;
-}
+} */
 
 .tooltip:hover .tooltiptext {
 	visibility: visible;
