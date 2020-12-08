@@ -6,9 +6,9 @@ function begin() {
 }
 
 function pageLoad() {
-
+   
+    $('.splash').hide();
     openSection('live');
-    $('.splash').slideUp();
 }
 
 
