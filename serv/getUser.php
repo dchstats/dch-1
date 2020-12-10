@@ -1,0 +1,1 @@
+$users=json_decode($readfile('users.txt'));

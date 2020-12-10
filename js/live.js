@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'real';
+    const server = 'home';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
@@ -112,17 +112,19 @@ app.controller("myController", function ($scope, $http) {
         }
 
 
-        if ($scope.forceUpload) {
-            upload();
-        }
-        else {
-            download();
-        }
 
+        download();
         sync();
 
         setInterval(autoReloader, 4 * 3600 * 1000);
         pageLoad();
+        analytics();
+    }
+
+    function analytics() {
+
+        let id = localStorage.getItem('dchliveuserid');
+        console.log(id);
     }
 
 
@@ -163,18 +165,18 @@ app.controller("myController", function ($scope, $http) {
                 n++;
             }
 
-        
+
             mach.changes = [];
             mach.evs.forEach((x, i) => {
-            
+
                 if (i % 2 == 1) {
                     mach.changes[x.start] = 'bottom';
                 }
-                else if(i%2==0&& i>0){
+                else if (i % 2 == 0 && i > 0) {
                     mach.changes[x.start] = 'top';
                 }
-                
-                
+
+
             })
             // console.log(mach.name, ":", mach.evs);
             statusTimings(mach);
@@ -278,10 +280,12 @@ app.controller("myController", function ($scope, $http) {
                     reset();
                 }
                 performanceLog();
+
             },
             function () {
                 console.log("fetch failed");
             })
+
     }
 
 
@@ -505,7 +509,7 @@ app.controller("myController", function ($scope, $http) {
         $scope.shiftString = shiftDecode($scope.shift);
         console.log($scope.shiftString);
 
-        // $scope.block = 47;
+        // $scope.block = 37;
         // $scope.hour = 6;
     }
 
@@ -540,7 +544,7 @@ app.controller("myController", function ($scope, $http) {
     }
 
 
-    $scope.tsToClock = function (ts,isSimple) {
+    $scope.tsToClock = function (ts, isSimple) {
         let l = new Date(ts);
         let h = l.getHours();
         h = h % 12;
@@ -657,8 +661,8 @@ app.controller("myController", function ($scope, $http) {
 
         angular.forEach($scope.machines, function (mach, i) {
             k = 0;
-            for (i = 0; i < 20; i++) {
-                l = 1+Math.floor(5 * Math.random());
+            for (i = 0; i < 7; i++) {
+                l = 5 + Math.floor(10 * Math.random());
                 v = Math.floor(4 * Math.random())
                 for (j = 0; j < l; j++) {
                     if (k < $scope.block) {

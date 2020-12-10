@@ -22,7 +22,7 @@ class Machine {
     }
 
     set = function (obj) {
-        this.name = obj.name;
+        // this.name = obj.name;
         this.type = obj.type;
         this.status = obj.status;
         this.remark = obj.remark;
