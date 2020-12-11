@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'chp';
+    const server = 'home';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
@@ -122,15 +122,20 @@ app.controller("myController", function ($scope, $http) {
     }
 
     function analytics() {
+        localStorage.clear();
+        let details = getUserProfile();
 
-        let uid = localStorage.getItem('dchliveuid');
+
+        let uid = localStorage.getItem('xxxx');
         console.log('uid:', uid);
         if (uid) {
             // log me
         }
         else {
             // give id 
-            var payload = {};
+            var payload = {
+                data:details
+            };
             var req = {
                 method: 'POST',
                 url: 'serv/get_user.php',
@@ -151,7 +156,7 @@ app.controller("myController", function ($scope, $http) {
                         console.log('Got invalid uid from server...', d);
                     }
                     else {
-                        localStorage.setItem('dchliveuid', d);
+                        localStorage.setItem('xxxx', d);
                     }
                     
                 })
