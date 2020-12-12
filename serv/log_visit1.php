@@ -12,10 +12,7 @@
     $inp = file_get_contents('logs.json');
     $tempArray = json_decode($inp);
     array_push($tempArray, $data);
-    echo $tempArray;
     $jsonData = json_encode($tempArray);
     file_put_contents('logs.json', $jsonData);
-    echo readfile('logs.json');
-    echo "------";
-    echo $inp;
-    ?>
+    echo file_get_contents('logs.json');
+?>

@@ -1,3 +1,30 @@
+
+
+
+const getUA = () => {
+    let device = "Unknown";
+    const ua = {
+        "Generic Linux": /Linux/i,
+        "Mobile": /Android/i,
+        "BlackBerry": /BlackBerry/i,
+        "Bluebird": /EF500/i,
+        "Chrome OS": /CrOS/i,
+        "Datalogic": /DL-AXIS/i,
+        "Honeywell": /CT50/i,
+        "iPad": /iPad/i,
+        "iPhone": /iPhone/i,
+        "iPod": /iPod/i,
+        "macOS": /Macintosh/i,
+        "PC": /IEMobile|Windows/i,
+        "Zebra": /TC70|TC55/i,
+    }
+    Object.keys(ua).map(v => navigator.userAgent.match(ua[v]) && (device = v));
+    return device;
+}
+
+console.log(getUA());
+
+
 function getUserProfile() {
     {
         var unknown = '-';
@@ -89,7 +116,7 @@ function getUserProfile() {
 
         // mobile version
         var mobile = /Mobile|mini|Fennec|Android|iP(ad|od|hone)/.test(nVer);
-        let device = mobile ? 'mobile' : 'pc';
+        let device = getUA();
 
         // system
         var os = unknown;
@@ -149,18 +176,25 @@ function getUserProfile() {
                 osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
                 break;
         }
-        let prof = {
-            os: os,
-            osVersion: osVersion,
-            browser: browser,
-            browserMajorVersion: majorVersion,
-            mobile: mobile,
+        // let prof = {
+        //     os: os,
+        //     osVersion: osVersion,
+        //     browser: browser,
+        //     browserMajorVersion: majorVersion,
+        //     mobile: mobile,
+        //     device: device,
+        //     screen: screenSize,
+        //     browserVersion: version,
+        // };
+        
+        prof = {
             device: device,
-            screen: screenSize,
-            browserVersion: version,
-        };
+            os: os + "-" + osVersion,
+            browser: browser + "-" + majorVersion,
+            screen:screenSize
+        }
         console.table(prof);
-        return `${os}-${osVersion}-${screenSize}-${browser}-${majorVersion}-${device}`;
+        return prof;
     }
 }
 

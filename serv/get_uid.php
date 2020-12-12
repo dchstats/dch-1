@@ -14,7 +14,12 @@
 
 
     $data=$qry['data'];
-    $sql="INSERT INTO users (data, os, browser) VALUES('$data', '$user_os', '$user_browser')";
+    echo $data;
+    $device=$data['device'];
+    $os=$data['os'];
+    $browser=$data['browser'];
+    $screen=$data['screen'];
+    $sql="INSERT INTO users (device, os, browser, screen ) VALUES('$device', '$os', '$browser','$screen')";
     if($conn->query($sql)===TRUE){
         $sql= "SELECT * FROM users ORDER BY id DESC LIMIT 0,1";
         $rows=array();

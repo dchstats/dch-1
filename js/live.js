@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'home';
+    const server = 'real';
 
     if (server == 'home') {
         $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
@@ -122,23 +122,19 @@ app.controller("myController", function ($scope, $http) {
     }
 
     function analytics() {
-        localStorage.clear();
-        let details = getUserProfile();
-
-
-        let uid = localStorage.getItem('xxxx');
+        let prof = getUserProfile();
+        let uid = localStorage.getItem('xxx');
         console.log('uid:', uid);
         if (uid) {
-            // log me
+            logVisit(uid);
         }
         else {
-            // give id 
             var payload = {
-                data:details
+                'data': prof
             };
             var req = {
                 method: 'POST',
-                url: 'serv/get_user.php',
+                url: 'serv/get_uid.php',
                 headers: {
                     'Content-Type': undefined
                 },
@@ -156,11 +152,40 @@ app.controller("myController", function ($scope, $http) {
                         console.log('Got invalid uid from server...', d);
                     }
                     else {
-                        localStorage.setItem('xxxx', d);
+                        localStorage.setItem('xxx', d);
+                        uid = localStorage.getItem('xxx');
+                        console.log('uid:', uid);
+                        if (uid) {
+                            logVisit(uid);
+                        }
                     }
-                    
                 })
         }
+    }
+
+
+    function logVisit(xid) {
+        var payload = {
+            'data': {
+                uid: xid,
+                uname: localStorage.getItem('logname')||'udf',
+                uts: new Date().toLocaleString()
+            }
+        };
+        var req = {
+            method: 'POST',
+            url: 'serv/log_visit.php',
+            headers: {
+                'Content-Type': undefined
+            },
+            data: payload
+        };
+
+        $http(req).then(
+            function (res) {
+                var a = res.data;
+                console.log(a);
+            })
     }
 
 
