@@ -2,21 +2,16 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const server = 'real';
+    const server = 'prod';    // dev or prod
 
-    if (server == 'home') {
-        $scope.upUrl = 'http://192.168.1.6/dch/serv/upLive.php';
-        $scope.downUrl = 'http://192.168.1.6/dch/serv/downLive.php';
+
+    if (server == 'dev') {
+        const origin = window.location.hostname;
+        const path = "/dch/";
+        $scope.downUrl = "http://" + origin + path + 'serv/downLive.php';
+        $scope.upUrl = "http://" + origin + path + 'serv/upLive.php';
     }
-    else if (server == 'chp') {
-        $scope.upUrl = 'http://192.168.10.200/dch/serv/upLive.php';
-        $scope.downUrl = 'http://192.168.10.200/dch/serv/downLive.php';
-    }
-    else if (server == 'remote') {
-        $scope.upUrl = 'https://sushanttiwari.in/dch/serv/upLive.php';
-        $scope.downUrl = 'https://sushanttiwari.in/dch/serv/downLive.php';
-    }
-    else if (server == 'real') {
+    else if (server == 'prod') {
         $scope.upUrl = 'serv/upLive.php';
         $scope.downUrl = 'serv/downLive.php';
     }
@@ -168,7 +163,7 @@ app.controller("myController", function ($scope, $http) {
         var payload = {
             'data': {
                 uid: xid,
-                uname: localStorage.getItem('logname')||'udf',
+                uname: localStorage.getItem('logname') || 'udf',
                 uts: new Date().toLocaleString()
             }
         };
@@ -351,6 +346,7 @@ app.controller("myController", function ($scope, $http) {
 
 
     function upload() {
+        console.log('Uploading to:', $scope.upUrl);
 
         let obj = {
             user: $scope.user,
@@ -555,7 +551,7 @@ app.controller("myController", function ($scope, $http) {
 
 
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////// TIMING FUNCTIONS ////////////////
+    ///////////////////////////////////////////////////////////////////////////// TIMING FUNCTIONS ////////////////
     function timeBlock() {
         var a = $scope.begin;
         var b = a.getTime();

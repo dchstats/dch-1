@@ -1,7 +1,7 @@
  <?php
  $server="localhost";
-    $user="root";
-    $pwd="";
+    $user="dch";
+    $pwd="kitkat";
     $db="dchlive";
     $conn = new mysqli($server,$user,$pwd,$db);
     if($conn->connect_error){
