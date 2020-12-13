@@ -4,7 +4,6 @@ app.controller("myController", function ($scope, $http) {
 
     const server = 'prod';    // dev or prod
 
-
     if (server == 'dev') {
         const origin = window.location.hostname;
         const path = "/dch/";
@@ -15,8 +14,6 @@ app.controller("myController", function ($scope, $http) {
         $scope.upUrl = 'serv/upLive.php';
         $scope.downUrl = 'serv/downLive.php';
     }
-
-
 
 
 
@@ -46,7 +43,6 @@ app.controller("myController", function ($scope, $http) {
 
     $scope.pin = "";
 
-    $scope.user = "Guest";
 
 
 
@@ -64,7 +60,10 @@ app.controller("myController", function ($scope, $http) {
 
     // CONFIGS ///////////////////////////////////
     $scope.auth = false;
-    $scope.forceUpload = false;
+    $scope.user = "Guest";
+
+    // $scope.auth = true;
+    // $scope.user = "Dev";
     /////////////////////////////////////////////
 
 
@@ -110,81 +109,18 @@ app.controller("myController", function ($scope, $http) {
 
         download();
         sync();
+       
 
         setInterval(autoReloader, 4 * 3600 * 1000);
         pageLoad();
-        analytics();
-    }
 
-    function analytics() {
-        let prof = getUserProfile();
-        let uid = localStorage.getItem('xxx');
-        console.log('uid:', uid);
-        if (uid) {
-            logVisit(uid);
+        if (server == 'prod') {
+            analytics();
         }
-        else {
-            var payload = {
-                'data': prof
-            };
-            var req = {
-                method: 'POST',
-                url: 'serv/get_uid.php',
-                headers: {
-                    'Content-Type': undefined
-                },
-                data: payload
-            };
-
-            $http(req).then(
-                function (res) {
-                    var a = res.data;
-                    console.log(a);
-                    var b = a.indexOf('#');
-                    var c = a.lastIndexOf('#');
-                    var d = +a.slice(b + 1, c);
-                    if (isNaN(d)) {
-                        console.log('Got invalid uid from server...', d);
-                    }
-                    else {
-                        localStorage.setItem('xxx', d);
-                        uid = localStorage.getItem('xxx');
-                        console.log('uid:', uid);
-                        if (uid) {
-                            logVisit(uid);
-                        }
-                    }
-                })
-        }
+        
     }
 
-
-    function logVisit(xid) {
-        var payload = {
-            'data': {
-                uid: xid,
-                uname: localStorage.getItem('logname') || 'udf',
-                uts: new Date().toLocaleString()
-            }
-        };
-        var req = {
-            method: 'POST',
-            url: 'serv/log_visit.php',
-            headers: {
-                'Content-Type': undefined
-            },
-            data: payload
-        };
-
-        $http(req).then(
-            function (res) {
-                var a = res.data;
-                console.log(a);
-            })
-    }
-
-
-
+  
     function performanceLog() {
         // console.log('logging................');
         timeBlock();
@@ -298,19 +234,15 @@ app.controller("myController", function ($scope, $http) {
             method: 'POST',
             url: $scope.downUrl,
             headers: {
-                'Content-Type': undefined
+                'Content-Type': 'application/json'
             },
             data: payload
         };
 
         $http(req).then(
             function (res) {
-                var a = res.data;
-                var b = a.indexOf('{');
-                var c = a.lastIndexOf('}');
-                var d = a.slice(b, c + 1);
-                var e = JSON.parse(d);
-
+                console.log(res.data);
+                e = res.data;
                 $scope.stamp = e.stamp;
                 t = e.time;
 
@@ -371,26 +303,19 @@ app.controller("myController", function ($scope, $http) {
             obj.dumpers.push($scope.dumpers[i].get());
         })
 
-        let objString = JSON.stringify(obj);
-        let payload = { 'str': objString };
-
 
         var req = {
-            method: 'POST',
+            method: 'PUT',
             url: $scope.upUrl,
             headers: {
-                'Content-Type': undefined
+                'Content-Type': 'application/json'
             },
-            data: payload
+            data: obj
         };
 
         $http(req).then(
             function (res) {
-                var a = res.data;
-                var b = a.indexOf('{');
-                var c = a.lastIndexOf('}');
-                var d = a.slice(b, c + 1);
-                var e = JSON.parse(d);
+                e = res.data;
                 if (e.stamp == obj.stamp) {
                     console.log('Uploaded...', e.stamp);
                 }
@@ -404,6 +329,75 @@ app.controller("myController", function ($scope, $http) {
 
 
     /////////////////////////////////////////////// UTILITY FUNCTIONS //////
+
+    function analytics() {
+        let prof = getUserProfile();
+        let uid = localStorage.getItem('xxx');
+        console.log('uid:', uid);
+        if (uid) {
+            logVisit(uid);
+        }
+        else {
+            var payload = {
+                'data': prof
+            };
+            var req = {
+                method: 'POST',
+                url: 'serv/get_uid.php',
+                headers: {
+                    'Content-Type': undefined
+                },
+                data: payload
+            };
+
+            $http(req).then(
+                function (res) {
+                    var a = res.data;
+                    console.log(a);
+                    var b = a.indexOf('#');
+                    var c = a.lastIndexOf('#');
+                    var d = +a.slice(b + 1, c);
+                    if (isNaN(d)) {
+                        console.log('Got invalid uid from server...', d);
+                    }
+                    else {
+                        localStorage.setItem('xxx', d);
+                        uid = localStorage.getItem('xxx');
+                        console.log('uid:', uid);
+                        if (uid) {
+                            logVisit(uid);
+                        }
+                    }
+                })
+        }
+    }
+
+
+    function logVisit(xid) {
+        var payload = {
+            'data': {
+                uid: xid,
+                uname: localStorage.getItem('logname') || 'udf',
+                uts: new Date().toLocaleString()
+            }
+        };
+        var req = {
+            method: 'POST',
+            url: 'serv/log_visit.php',
+            headers: {
+                'Content-Type': undefined
+            },
+            data: payload
+        };
+
+        $http(req).then(
+            function (res) {
+                var a = res.data;
+                console.log(a);
+            })
+    }
+
+    
     function reset() {
         angular.forEach($scope.machines, function (mach, i) {
             if (mach.status < 2) {

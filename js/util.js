@@ -22,8 +22,6 @@ const getUA = () => {
     return device;
 }
 
-console.log(getUA());
-
 
 function getUserProfile() {
     {
@@ -35,6 +33,7 @@ function getUserProfile() {
             height = (screen.height) ? screen.height : '';
             screenSize += '' + width + " x " + height;
         }
+   
 
         // browser
         var nVer = navigator.appVersion;
@@ -210,9 +209,6 @@ function getOS() {
     else if (window.navigator.userAgent.indexOf("X11") != -1) OSName = "UNIX";
     else if (window.navigator.userAgent.indexOf("Linux") != -1) OSName = "Linux";
     else OSName = 'Unknown';
-
-
-
     return OSName;
 }
 
