@@ -236,6 +236,7 @@ app.controller("myController", function ($scope, $http) {
             url: $scope.downUrl,
             headers: {
                 'Content-Type': 'application/json'
+                // 'content-type':'text/plain'
             },
             data: payload
         };
@@ -401,7 +402,7 @@ app.controller("myController", function ($scope, $http) {
         $http(req).then(
             function (res) {
                 var a = res.data;
-                console.log(a);
+                console.log('log#:',a);
             })
     }
 
