@@ -15,7 +15,7 @@
 
     $sql="INSERT INTO logs (uid, uname, uts) VALUES('$uid', '$uname', '$uts')";
     if($conn->query($sql)===TRUE){
-        echo "Welcome";
+        echo mysqli_insert_id($conn);
     }
     else{
         echo $conn->error;

@@ -2,6 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
+    const dataVersion = 1;
     const server = 'prod';    // dev or prod
 
     if (server == 'dev') {
@@ -109,18 +110,18 @@ app.controller("myController", function ($scope, $http) {
 
         download();
         sync();
-       
 
-        setInterval(autoReloader, 4 * 3600 * 1000);
+
+        setInterval(autoReload, 2 * 3600 * 1000);
         pageLoad();
 
         if (server == 'prod') {
             analytics();
         }
-        
+
     }
 
-  
+
     function performanceLog() {
         // console.log('logging................');
         timeBlock();
@@ -217,7 +218,7 @@ app.controller("myController", function ($scope, $http) {
         downEv = setInterval(download, 30000);
     }
 
-    function autoReloader() {
+    function autoReload() {
         location.reload();
     }
 
@@ -243,6 +244,12 @@ app.controller("myController", function ($scope, $http) {
             function (res) {
                 console.log(res.data);
                 e = res.data;
+                let remoteVer = +e.version || 0;
+                let localVer = +localStorage.getItem('localVer') || 0;
+                if (remoteVer != localVer) {
+                    localStorage.setItem('localVer', remoteVer);
+                    autoReload();
+                }
                 $scope.stamp = e.stamp;
                 t = e.time;
 
@@ -281,6 +288,7 @@ app.controller("myController", function ($scope, $http) {
         console.log('Uploading to:', $scope.upUrl);
 
         let obj = {
+            version:dataVersion,
             user: $scope.user,
             stamp: new Date().getTime(),
             time: new Date().toLocaleString(),
@@ -397,7 +405,7 @@ app.controller("myController", function ($scope, $http) {
             })
     }
 
-    
+
     function reset() {
         angular.forEach($scope.machines, function (mach, i) {
             if (mach.status < 2) {
