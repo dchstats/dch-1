@@ -257,7 +257,7 @@ header {
 
 .live-bar table {
 	width: 100%;
-	border-radius: 7px;
+	border-radius: 5px;
 	overflow: hidden;
 }
 
@@ -310,6 +310,7 @@ header {
 }
 
 .live-content {
+	margin-top:5px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -320,7 +321,7 @@ header {
 	width: clamp(120px, 15vw, 165px);
 	height: clamp(72px, 9vw, 99px);
 	margin: 2px;
-	border-radius: 10px;
+	border-radius: 5px;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;

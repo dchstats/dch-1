@@ -1,8 +1,10 @@
 libs
 liveData.txt
+liveData.json
 
 .sass-cache/
 *.css.map
 *.sass.map
 *.scss.map
 *.tmp
+

@@ -3,7 +3,7 @@ app.controller("myController", function ($scope, $http) {
 
 
     const dataVersion = 1;
-    const server = 'prod';    // dev or prod
+    const server = 'dev';    // dev or prod
 
     if (server == 'dev') {
         const origin = window.location.hostname;
@@ -249,7 +249,7 @@ app.controller("myController", function ($scope, $http) {
                 let localVer = +localStorage.getItem('localVer') || 0;
                 if (remoteVer != localVer) {
                     localStorage.setItem('localVer', remoteVer);
-                    autoReload();
+                    setTimeout(autoReload, 5000);
                 }
                 $scope.stamp = e.stamp;
                 t = e.time;
