@@ -1,6 +1,12 @@
 <?php
-    header("Access-Control-Allow-Origin:*");
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: content-type");
+    header(" Access-Control-Allow-Methods: POST, PUT, GET, OPTIONS");
+   
     $postdata = file_get_contents("php://input");
-    file_put_contents('liveData.json', $postdata);
-    echo file_get_contents('liveData.txt');
+    if($postdata){
+        file_put_contents('liveData.json', $postdata);
+    }
+   
+    echo file_get_contents('liveData.json');
 ?>
