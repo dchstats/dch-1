@@ -3,6 +3,7 @@
 
 
 function crusherGraph(obj) {
+    Chart.defaults.global.animation.duration = 0;
 
     let crushers = obj.crushers;
     let crusherTotal = obj.crusherTotal;
@@ -167,6 +168,10 @@ function plotTime(id, mcns, labs) {
             },
             tooltips: {
                 callbacks: {
+                    beforeLabel: function (tooltipItem, data) {
+                        // console.log(tooltipItem);
+                        var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                    },
                     label: function (tooltipItem, data) {
                         var label = data.datasets[tooltipItem.datasetIndex].label || '';
                         var value = tooltipItem.value;
@@ -174,7 +179,10 @@ function plotTime(id, mcns, labs) {
                         m = m.toString().padStart(2, 0);
                         let h = (value - m) / 60;
                         h = h.toString().padStart(2, 0);
-                        return `${h}:${m} Hrs`;
+                        return `${label}:  ${h}:${m}`;
+                    },
+                    labelTextColor: function (tooltipItem, chart) {
+                        return '#ffff00';
                     }
                 }
             }

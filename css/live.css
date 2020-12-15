@@ -432,7 +432,7 @@ header {
 	justify-content: center;
 	align-items: stretch;
 	font-size: 12px;
-	background: rgb(253, 245, 230);
+	/* background: rgb(253, 245, 230); */
 	color: #444;
 	font-weight: bold;
 }
@@ -460,7 +460,7 @@ header {
 
 .trend-bar-container {
 	background: linear-gradient(0deg, #c8c8c8 0%, #ffffffb3 55%, #c8c8c8 100%);
-	box-shadow: 2px 5px 5px 0px rgb(172, 165, 155);
+	/* box-shadow: 2px 5px 5px 0px rgb(172, 165, 155); */
 	/* display:none; */
 }
 

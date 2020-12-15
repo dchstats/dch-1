@@ -39,7 +39,7 @@ function openSection(section) {
 
 
 
-// document.querySelector('#trend-tab').addEventListener('click', animBar3);
+document.querySelector('#trend-tab').addEventListener('click', animBar);
 function animBar() {
     k = document.querySelector('.invisible');
     if (k) {
