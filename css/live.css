@@ -227,7 +227,7 @@ header {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
-	background: rgb(35, 35, 35);
+	/* background: rgb(35, 35, 35); */
 	color: white;
 }
 
@@ -336,6 +336,7 @@ header {
 
 .mach-remark {
 	font-size: 10px;
+	text-transform: capitalize;
 }
 
 .silo,

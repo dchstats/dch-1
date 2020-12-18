@@ -2,8 +2,8 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const dataVersion = 1;
-    const server = 'dev';    // dev or prod
+    const dataVer = 2;
+    const server = 'prod';    // dev or prod
 
     if (server == 'dev') {
         const origin = window.location.hostname;
@@ -173,6 +173,8 @@ app.controller("myController", function ($scope, $http) {
             })
             // console.log(mach.name, ":", mach.evs);
             statusTimings(mach);
+
+            mach.remark=mach.remark.toUpperCase();
         });
 
 
@@ -232,7 +234,7 @@ app.controller("myController", function ($scope, $http) {
         console.log('Downloading from:', $scope.downUrl);
         var payload = {};
         var req = {
-            method: 'POST',
+            method: 'PUT',
             url: $scope.downUrl,
             headers: {
                 'Content-Type': 'application/json'
@@ -245,7 +247,7 @@ app.controller("myController", function ($scope, $http) {
             function (res) {
                 console.log(res.data);
                 e = res.data;
-                let remoteVer = +e.version || 0;
+                let remoteVer = +e.ver || 0;
                 let localVer = +localStorage.getItem('localVer') || 0;
                 if (remoteVer != localVer) {
                     localStorage.setItem('localVer', remoteVer);
@@ -289,7 +291,7 @@ app.controller("myController", function ($scope, $http) {
         console.log('Uploading to:', $scope.upUrl);
 
         let obj = {
-            version:dataVersion,
+            ver: dataVer,
             user: $scope.user,
             stamp: new Date().getTime(),
             time: new Date().toLocaleString(),
@@ -314,7 +316,7 @@ app.controller("myController", function ($scope, $http) {
 
 
         var req = {
-            method: 'PUT',
+            method: 'POST',
             url: $scope.upUrl,
             headers: {
                 'Content-Type': 'application/json'
@@ -402,7 +404,7 @@ app.controller("myController", function ($scope, $http) {
         $http(req).then(
             function (res) {
                 var a = res.data;
-                console.log('log#:',a);
+                console.log('log#:', a);
             })
     }
 
@@ -836,6 +838,27 @@ app.controller("myController", function ($scope, $http) {
         $scope.upUrl = 'https://sushanttiwari.in/dch/serv/upLive.php';
         upload();
         $scope.upUrl = temp;
+    }
+
+    $scope.fixShovelDates = function () {
+        console.log('yay');
+        $scope.machines.forEach(x => {
+
+            if (x.name == 'P&H-06') {
+                x.timeStamp = new Date(2020, 7, 31).getTime();
+            }
+            if (x.name == 'P&H-07') {
+                x.timeStamp = new Date(2020, 2, 6).getTime();
+            }
+            if (x.name == 'P&H-10') {
+                x.timeStamp = new Date(2020, 8, 5).getTime();
+            }
+            if (x.name == 'P&H-11') {
+                x.timeStamp = new Date(2020, 7, 20).getTime();
+            }
+
+        })
+        performanceLog();
     }
 });
 
