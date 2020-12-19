@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const dataVer = 2;
+    const dataVer = 3;
     const server = 'prod';    // dev or prod
 
     if (server == 'dev') {
@@ -234,7 +234,7 @@ app.controller("myController", function ($scope, $http) {
         console.log('Downloading from:', $scope.downUrl);
         var payload = {};
         var req = {
-            method: 'PUT',
+            method: 'GET',
             url: $scope.downUrl,
             headers: {
                 'Content-Type': 'application/json'
@@ -250,6 +250,7 @@ app.controller("myController", function ($scope, $http) {
                 let remoteVer = +e.ver || 0;
                 let localVer = +localStorage.getItem('localVer') || 0;
                 if (remoteVer != localVer) {
+                    console.log('VERSION MISMATCH !... RELOADING')
                     localStorage.setItem('localVer', remoteVer);
                     setTimeout(autoReload, 5000);
                 }
@@ -293,6 +294,7 @@ app.controller("myController", function ($scope, $http) {
         let obj = {
             ver: dataVer,
             user: $scope.user,
+            uid: localStorage.getItem('xxx'),
             stamp: new Date().getTime(),
             time: new Date().toLocaleString(),
             machines: [],

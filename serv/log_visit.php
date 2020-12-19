@@ -13,7 +13,7 @@
     $uname=$data['uname'];
     $uts=$data['uts'];
 
-    $sql="INSERT INTO logs (uid, uname, uts) VALUES('$uid', '$uname', '$uts')";
+    $sql="INSERT INTO visits (uid, uname, uts) VALUES('$uid', '$uname', '$uts')";
     if($conn->query($sql)===TRUE){
         echo mysqli_insert_id($conn);
     }

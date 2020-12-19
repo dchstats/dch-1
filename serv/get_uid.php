@@ -15,9 +15,9 @@
     $os=$data['os'];
     $browser=$data['browser'];
     $screen=$data['screen'];
-    $sql="INSERT INTO users (device, os, browser, screen ) VALUES('$device', '$os', '$browser','$screen')";
+    $sql="INSERT INTO devices (device, os, browser, screen ) VALUES('$device', '$os', '$browser','$screen')";
     if($conn->query($sql)===TRUE){
-        $sql= "SELECT * FROM users ORDER BY id DESC LIMIT 0,1";
+        $sql= "SELECT * FROM devices ORDER BY id DESC LIMIT 0,1";
         $rows=array();
         $res=$conn->query($sql);
         $id = mysqli_fetch_assoc($res)['id'];
