@@ -1,22 +1,20 @@
-# https://www.sushanttiwari.in/dch
+# Mine Monitoring and Reporting System.
+This is a web application to facilitate communication of real-time mine status and production reports.
 
-# Overview
-It's a PWA (progressive web app) to facilitate real-time reporting and monitoring of live status of machines and production data of Duchichua coal mine.
-This app implements a pub-sub architecture served by a centralized server. 
+[www.dudhichua.live](https://www.sushanttiwari.in/dch)
 
-# Features
-Usable on both desktop and mobile.
-User interface  is intitutive, fluid and responsive. It adjusts to look good on all screen sizes.
-Data is presented on a intuitive interface.
-Real time charts and tables for easy analysis.
-Data reporting interfaces have various features to minimize reporting errors. 
-Encryped and secured data exchange to ensure data intigrity.
-New modules are being added regularly.
+The green color pallet indicates that the equipment is presently running. Red indicates breakdown, orange indicates maintenance and grey indicates that the equipment is idle. A remark is also displayed which provides additional information like breakdown detail if the equipment is under breakdown. 
 
-# Technologies used.
+More information is present on the back side of the pallet which can be revealed by tapping or hovering the pointer over it.
+
+The back end (server side) is an apache server running PHP and MySQL on a Linux machine. While the front end (client-side) has been made with HTML, CSS and Javascript. 
+The server-client data exchange can happen asynchronously over XHR. The format of data exchange is JSON. 
+
+# Tech-Stack
 HTML, CSS, JavaScript, AngularJS, PHP.
-
 
 # Developer
 Sushant Tiwari
+Email: sushant4032@gmail.com 
+https://www.sushanttiwari.in/dch
 
