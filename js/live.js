@@ -71,6 +71,7 @@ app.controller("myController", function ($scope, $http) {
     initialize();
 
 
+
     function initialize() {
         timeBlock();
         console.log('block:', $scope.block, '  hour:', $scope.hour);
@@ -862,5 +863,6 @@ app.controller("myController", function ($scope, $http) {
         })
         performanceLog();
     }
+    randomize();
 });
 

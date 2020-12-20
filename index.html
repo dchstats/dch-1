@@ -246,312 +246,315 @@
 
             </div>
         </div>
+        <div class="performance">
 
-        <div class="section" id="crusher-sec">
-            <div class="chart-container" id="crusher-time">
-            </div>
-            <div class="table-container">
-                <table class="perf-table">
-                    <tr class="head">
-                        <td colspan="8">CRUSHERS</td>
-                    </tr>
-                    <tr class="head">
-                        <th></th>
-                        <th>AVL HRS</th>
-                        <th>RUN HRS</th>
-                        <th>BDN HRS</th>
-                        <th>MNT HRS</th>
-                        <th>IDL HRS</th>
 
-                    </tr>
-                    <tr ng-repeat="s in crushers">
-                        <td>{{s.name}}</td>
-                        <td>{{hms(s.avlm)}}</td>
-                        <td>{{hms(s.runm)}}</td>
-                        <td>{{hms(s.brkm)}}</td>
-                        <td>{{hms(s.mntm)}}</td>
-                        <td>{{hms(s.idlm)}}</td>
+            <div class="section" id="crusher-sec">
+                <div class="chart-container" id="crusher-time">
+                </div>
+                <div class="table-container">
+                    <table class="perf-table">
+                        <tr class="head">
+                            <td colspan="8">CRUSHERS</td>
+                        </tr>
+                        <tr class="head">
+                            <th class="name-col"></th>
+                            <th class="avl-col">AVL HRS</th>
+                            <th class="run-col">RUN HRS</th>
+                            <th class="bdn-col">BDN HRS</th>
+                            <th class="mnt-col">MNT HRS</th>
+                            <th class="idl-col">IDL HRS</th>
+                        </tr>
+                        <tr ng-repeat="s in crushers">
+                            <td class="name-col">{{s.name}}</td>
+                            <td class="avl-col">{{hms(s.avlm)}}</td>
+                            <td class="run-col">{{hms(s.runm)}}</td>
+                            <td class="brk-col">{{hms(s.brkm)}}</td>
+                            <td class="mnt-col">{{hms(s.mntm)}}</td>
+                            <td class="idl-col">{{hms(s.idlm)}}</td>
 
-                    </tr>
-                    <tr class="total">
-                        <td>TOTAL</td>
-                        <td>{{hms(crusherTotal.avlm)}}</td>
-                        <td>{{hms(crusherTotal.runm)}}</td>
-                        <td>{{hms(crusherTotal.brkm)}}</td>
-                        <td>{{hms(crusherTotal.mntm)}}</td>
-                        <td>{{hms(crusherTotal.idlm)}}</td>
+                        </tr>
+                        <tr class="total">
+                            <td class="name-col">TOTAL</td>
+                            <td class="avl-col">{{hms(crusherTotal.avlm)}}</td>
+                            <td class="run-col">{{hms(crusherTotal.runm)}}</td>
+                            <td class="brk-col">{{hms(crusherTotal.brkm)}}</td>
+                            <td class="mnt-col">{{hms(crusherTotal.mntm)}}</td>
+                            <td class="idl-col">{{hms(crusherTotal.idlm)}}</td>
 
-                    </tr>
-                </table>
-            </div>
-            <div class="table-container">
-                <table class="perf-table">
-                    <tr class="head">
-                        <td colspan="8">CRUSHERS</td>
-                    </tr>
-                    <tr class="head">
-                        <th></th>
-                        <th>% AVL</th>
-                        <th>% UTL</th>
-                    </tr>
-                    <tr ng-repeat="s in crushers">
-                        <td>{{s.name}}</td>
-                        <td>{{s.pavl}}%</td>
-                        <td>{{s.putl}}%</td>
-                    </tr>
-                    <tr class="total">
-                        <td>TOTAL</td>
-                        <td>{{crusherTotal.pavl}}%</td>
-                        <td>{{crusherTotal.putl}}%</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="chart-container" id="crusher-perf">
-            </div>
-            <div class="chart-container" id="crusher-total-time">
-            </div>
-            <div class="chart-container" id="crusher-total-perf">
+                        </tr>
+                    </table>
+                </div>
+                <div class="table-container">
+                    <table class="perf-table">
+                        <tr class="head">
+                            <td colspan="8">CRUSHERS</td>
+                        </tr>
+                        <tr class="head">
+                            <th class="name-col"></th>
+                            <th class="pavl-col">% AVL</th>
+                            <th class="putl-col">% UTL</th>
+                        </tr>
+                        <tr ng-repeat="s in crushers">
+                            <td class="name-col">{{s.name}}</td>
+                            <td class="pavl-col">{{s.pavl}}%</td>
+                            <td class="putl-col">{{s.putl}}%</td>
+                        </tr>
+                        <tr class="total">
+                            <td>TOTAL</td>
+                            <td>{{crusherTotal.pavl}}%</td>
+                            <td>{{crusherTotal.putl}}%</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="chart-container" id="crusher-perf">
+                </div>
+                <div class="chart-container" id="crusher-total-time">
+                </div>
+                <div class="chart-container" id="crusher-total-perf">
+                </div>
+
             </div>
 
+            <div class="section" id="shovel-sec">
+
+                <div class="chart-container" id="shovel-total-time">
+                </div>
+                <div class="chart-container" id="shovel-total-perf">
+
+                </div>
+                <div class="table-container" id="shovel-table">
+                    <table class="perf-table">
+                        <tr class="head">
+                            <td colspan="8">SHOVELS</td>
+                        </tr>
+                        <tr class="head">
+                            <th class="name-col"></th>
+                            <th class="avl-col">AVL HRS</th>
+                            <th class="run-col">RUN HRS</th>
+                            <th class="bdn-col">BDN HRS</th>
+                            <th class="mnt-col">MNT HRS</th>
+                            <th class="idl-col">IDL HRS</th>
+                            <th class="pavl-col">% AVL</th>
+                            <th class="putl-col">% UTL</th>
+                        </tr>
+                        <tr ng-repeat="s in shovels">
+
+                            <td class="name-col">{{s.name}}</td>
+                            <td class="avl-col">{{hms(s.avlm)}}</td>
+                            <td class="run-col">{{hms(s.runm)}}</td>
+                            <td class="brk-col">{{hms(s.brkm)}}</td>
+                            <td class="mnt-col">{{hms(s.mntm)}}</td>
+                            <td class="idl-col">{{hms(s.idlm)}}</td>
+                            <td class="pavl-col">{{s.pavl}}%</td>
+                            <td class="putl-col">{{s.putl}}%</td>
+                        </tr>
+                        <tr class="total">
+                            <td class="name-col">TOTAL</td>
+                            <td class="avl-col">{{hms(shovelTotal.avlm)}}</td>
+                            <td class="run-col">{{hms(shovelTotal.runm)}}</td>
+                            <td class="brk-col">{{hms(shovelTotal.brkm)}}</td>
+                            <td class="mnt-col">{{hms(shovelTotal.mntm)}}</td>
+                            <td class="idl-col">{{hms(shovelTotal.idlm)}}</td>
+                            <td class="pavl-col">{{shovelTotal.pavl}}%</td>
+                            <td class="putl-col">{{shovelTotal.putl}}%</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="chart-container" id="shovel-avlm">
+                </div>
+                <div class="chart-container" id="shovel-runm">
+                </div>
+                <div class="chart-container" id="shovel-pavl">
+                </div>
+                <div class="chart-container" id="shovel-putl">
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+
+            <div class="section" id="dragline-sec">
+                <div class="chart-container" id="dragline-time">
+                </div>
+                <div class="table-container">
+                    <table class="perf-table">
+                        <tr class="head">
+                            <td colspan="8">DRAGLINES</td>
+                        </tr>
+                        <tr class="head">
+                            <th class="name-col"></th>
+                            <th class="avl-col">AVL HRS</th>
+                            <th class="run-col">RUN HRS</th>
+                            <th class="bdn-col">BDN HRS</th>
+                            <th class="mnt-col">MNT HRS</th>
+                            <th class="idl-col">IDL HRS</th>
+
+                        </tr>
+                        <tr ng-repeat="s in draglines">
+                            <td class="name-col">{{s.name}}</td>
+                            <td class="avl-col">{{hms(s.avlm)}}</td>
+                            <td class="run-col">{{hms(s.runm)}}</td>
+                            <td class="brk-col">{{hms(s.brkm)}}</td>
+                            <td class="mnt-col">{{hms(s.mntm)}}</td>
+                            <td class="idl-col">{{hms(s.idlm)}}</td>
+
+                        </tr>
+                        <tr class="total">
+                            <td class="name-col">TOTAL</td>
+                            <td class="avl-col">{{hms(draglineTotal.avlm)}}</td>
+                            <td class="run-col">{{hms(draglineTotal.runm)}}</td>
+                            <td class="brk-col">{{hms(draglineTotal.brkm)}}</td>
+                            <td class="mnt-col">{{hms(draglineTotal.mntm)}}</td>
+                            <td class="idl-col">{{hms(draglineTotal.idlm)}}</td>
+
+                        </tr>
+                    </table>
+                </div>
+                <div class="table-container">
+                    <table class="perf-table">
+                        <tr class="head">
+                            <td colspan="8">DRAGLINES</td>
+                        </tr>
+                        <tr class="head">
+                            <th class="name-col"></th>
+                            <th class="pavl-col">% AVL</th>
+                            <th class="putl-col">% UTL</th>
+                        </tr>
+                        <tr ng-repeat="s in draglines">
+                            <td class="name-col">{{s.name}}</td>
+                            <td class="pavl-col">{{s.pavl}}%</td>
+                            <td class="putl-col">{{s.putl}}%</td>
+                        </tr>
+                        <tr class="total">
+                            <td class="name-col">TOTAL</td>
+                            <td class="pavl-col">{{draglineTotal.pavl}}%</td>
+                            <td class="putl-col">{{draglineTotal.putl}}%</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="chart-container" id="dragline-perf">
+                </div>
+                <div class="chart-container" id="dragline-total-time">
+                </div>
+                <div class="chart-container" id="dragline-total-perf">
+                </div>
+            </div>
+
+            <div class="section" id="dumper-sec">
+                <div class="chart-container" id="dumper-time">
+                </div>
+                <div class="table-container">
+                    <table class="perf-table">
+                        <tr class="head">
+                            <td colspan="8">DUMPERS</td>
+                        </tr>
+                        <tr class="head">
+                            <th class="name-col"></th>
+                            <th class="avl-col">AVL HRS</th>
+                            <th class="run-col">RUN HRS</th>
+                            <th class="mnt-col">BDN HRS</th>
+                            <th class="idl-col">IDL HRS</th>
+
+                        </tr>
+                        <tr ng-repeat="s in activeDumpers">
+                            <td class="name-col">{{hourf(s.hour)}}</td>
+                            <td class="avl-col">{{hms(s.avlm)}}</td>
+                            <td class="run-col">{{hms(s.runm)}}</td>
+                            <td class="mnt-col">{{hms(s.brkm)}}</td>
+                            <td class="idl-col">{{hms(s.idlm)}}</td>
+
+                        </tr>
+                        <tr class="total">
+                            <td class="name-col">TOTAL</td>
+                            <td class="avl-col">{{hms(dumperTotal.avlm)}}</td>
+                            <td class="run-col">{{hms(dumperTotal.runm)}}</td>
+                            <td class="mnt-col">{{hms(dumperTotal.brkm)}}</td>
+                            <td class="idl-col">{{hms(dumperTotal.idlm)}}</td>
+
+                        </tr>
+                    </table>
+                </div>
+                <div class="table-container">
+                    <table class="perf-table">
+                        <tr class="head">
+                            <td colspan="8">DUMPERS</td>
+                        </tr>
+                        <tr class="head">
+                            <th class="name-col"></th>
+                            <th class="pavl-col">% AVL</th>
+                            <th class="putl-col">% UTL</th>
+                        </tr>
+                        <tr ng-repeat="s in activeDumpers">
+                            <td class="name-col">{{hourf(s.name)}}</td>
+                            <td class="pavl-col">{{s.pavl}}%</td>
+                            <td class="putl-col">{{s.putl}}%</td>
+                        </tr>
+                        <tr class="total">
+                            <td class="name-col">TOTAL</td>
+                            <td class="pavl-col">{{dumperTotal.pavl}}%</td>
+                            <td class="putl-col">{{dumperTotal.putl}}%</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="chart-container" id="dumper-perf">
+                </div>
+                <div class="chart-container" id="dumper-total-time">
+                </div>
+                <div class="chart-container" id="dumper-total-perf">
+                </div>
+                <div class="hourly-dumpers">
+
+                    <table class="perf-table">
+                        <tr class="head">
+                            <th></th>
+                            <th colspan='2'>EAST SECTION</th>
+                            <th></th>
+                            <th colspan='2'>WEST SECTION</th>
+                        </tr>
+
+                        <tr class="head">
+                            <th>HOUR</th>
+                            <th>AVL</th>
+                            <th>RUN</th>
+                            <td></td>
+                            <th>AVL</th>
+                            <th>RUN</th>
+                        </tr>
+                        <tr ng-repeat="x in dumpers track by $index" ng-hide="x.hour > hour">
+                            <td>{{hourf(x.hour)}}</td>
+                            <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour"
+                                    ng-change="update()">
+                            </td>
+                            <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour"
+                                    ng-change="update()">
+                            </td>
+                            <td></td>
+                            <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour"
+                                    ng-change="update()">
+                            </td>
+                            <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour"
+                                    ng-change="update()">
+                            </td>
+                        </tr>
+                        <tr class="total">
+                            <td>TOTAL</td>
+                            <td>{{dumperTotal.east_avl}} Hrs</td>
+                            <td>{{dumperTotal.east_run}} Hrs</td>
+                            <td></td>
+                            <td>{{dumperTotal.west_avl}} Hrs</td>
+                            <td>{{dumperTotal.west_run}} Hrs</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
         </div>
-
-        <div class="section" id="shovel-sec">
-
-
-            <div class="chart-container" id="shovel-avlm">
-            </div>
-            <div class="chart-container" id="shovel-runm">
-            </div>
-            <div class="chart-container" id="shovel-pavl">
-            </div>
-            <div class="chart-container" id="shovel-putl">
-            </div>
-            <div class="chart-container" id="shovel-total-time">
-            </div>
-            <div class="chart-container" id="shovel-total-perf">
-            </div>
-
-            <div class="table-container" id="shovel-table">
-                <table class="perf-table">
-                    <tr class="head">
-                        <td colspan="8">SHOVELS</td>
-                    </tr>
-                    <tr class="head">
-                        <th></th>
-                        <th>AVL HRS</th>
-                        <th>RUN HRS</th>
-                        <th>BDN HRS</th>
-                        <th>MNT HRS</th>
-                        <th>IDL HRS</th>
-                        <th>% AVL</th>
-                        <th>% UTL</th>
-                    </tr>
-                    <tr ng-repeat="s in shovels">
-
-                        <td>{{s.name}}</td>
-                        <td>{{hms(s.avlm)}}</td>
-                        <td>{{hms(s.runm)}}</td>
-                        <td>{{hms(s.brkm)}}</td>
-                        <td>{{hms(s.mntm)}}</td>
-                        <td>{{hms(s.idlm)}}</td>
-                        <td>{{s.pavl}}%</td>
-                        <td>{{s.putl}}%</td>
-                    </tr>
-                    <tr class="total">
-                        <td>TOTAL</td>
-                        <td>{{hms(shovelTotal.avlm)}}</td>
-                        <td>{{hms(shovelTotal.runm)}}</td>
-                        <td>{{hms(shovelTotal.brkm)}}</td>
-                        <td>{{hms(shovelTotal.mntm)}}</td>
-                        <td>{{hms(shovelTotal.idlm)}}</td>
-                        <td>{{shovelTotal.pavl}}%</td>
-                        <td>{{shovelTotal.putl}}%</td>
-                    </tr>
-                </table>
-            </div>
-
-
-
-        </div>
-
-        <div class="section" id="dragline-sec">
-            <div class="chart-container" id="dragline-time">
-            </div>
-            <div class="table-container">
-                <table class="perf-table">
-                    <tr class="head">
-                        <td colspan="8">DRAGLINES</td>
-                    </tr>
-                    <tr class="head">
-                        <th></th>
-                        <th>AVL HRS</th>
-                        <th>RUN HRS</th>
-                        <th>BDN HRS</th>
-                        <th>MNT HRS</th>
-                        <th>IDL HRS</th>
-
-                    </tr>
-                    <tr ng-repeat="s in draglines">
-                        <td>{{s.name}}</td>
-                        <td>{{hms(s.avlm)}}</td>
-                        <td>{{hms(s.runm)}}</td>
-                        <td>{{hms(s.brkm)}}</td>
-                        <td>{{hms(s.mntm)}}</td>
-                        <td>{{hms(s.idlm)}}</td>
-
-                    </tr>
-                    <tr class="total">
-                        <td>TOTAL</td>
-                        <td>{{hms(draglineTotal.avlm)}}</td>
-                        <td>{{hms(draglineTotal.runm)}}</td>
-                        <td>{{hms(draglineTotal.brkm)}}</td>
-                        <td>{{hms(draglineTotal.mntm)}}</td>
-                        <td>{{hms(draglineTotal.idlm)}}</td>
-
-                    </tr>
-                </table>
-            </div>
-            <div class="table-container">
-                <table class="perf-table">
-                    <tr class="head">
-                        <td colspan="8">DRAGLINES</td>
-                    </tr>
-                    <tr class="head">
-                        <th></th>
-                        <th>% AVL</th>
-                        <th>% UTL</th>
-                    </tr>
-                    <tr ng-repeat="s in draglines">
-                        <td>{{s.name}}</td>
-                        <td>{{s.pavl}}%</td>
-                        <td>{{s.putl}}%</td>
-                    </tr>
-                    <tr class="total">
-                        <td>TOTAL</td>
-                        <td>{{draglineTotal.pavl}}%</td>
-                        <td>{{draglineTotal.putl}}%</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="chart-container" id="dragline-perf">
-            </div>
-            <div class="chart-container" id="dragline-total-time">
-            </div>
-            <div class="chart-container" id="dragline-total-perf">
-            </div>
-        </div>
-
-        <div class="section" id="dumper-sec">
-            <div class="chart-container" id="dumper-time">
-            </div>
-            <div class="table-container">
-                <table class="perf-table">
-                    <tr class="head">
-                        <td colspan="8">DUMPERS</td>
-                    </tr>
-                    <tr class="head">
-                        <th></th>
-                        <th>AVL HRS</th>
-                        <th>RUN HRS</th>
-                        <th>BDN HRS</th>
-                        <th>IDL HRS</th>
-
-                    </tr>
-                    <tr ng-repeat="s in activeDumpers">
-                        <td>{{hourf(s.hour)}}</td>
-                        <td>{{hms(s.avlm)}}</td>
-                        <td>{{hms(s.runm)}}</td>
-                        <td>{{hms(s.brkm)}}</td>
-
-                        <td>{{hms(s.idlm)}}</td>
-
-                    </tr>
-                    <tr class="total">
-                        <td>TOTAL</td>
-                        <td>{{hms(dumperTotal.avlm)}}</td>
-                        <td>{{hms(dumperTotal.runm)}}</td>
-                        <td>{{hms(dumperTotal.brkm)}}</td>
-
-                        <td>{{hms(dumperTotal.idlm)}}</td>
-
-                    </tr>
-                </table>
-            </div>
-            <div class="table-container">
-                <table class="perf-table">
-                    <tr class="head">
-                        <td colspan="8">DUMPERS</td>
-                    </tr>
-                    <tr class="head">
-                        <th></th>
-                        <th>% AVL</th>
-                        <th>% UTL</th>
-                    </tr>
-                    <tr ng-repeat="s in activeDumpers">
-                        <td>{{hourf(s.name)}}</td>
-                        <td>{{s.pavl}}%</td>
-                        <td>{{s.putl}}%</td>
-                    </tr>
-                    <tr class="total">
-                        <td>TOTAL</td>
-                        <td>{{dumperTotal.pavl}}%</td>
-                        <td>{{dumperTotal.putl}}%</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="chart-container" id="dumper-perf">
-            </div>
-            <div class="chart-container" id="dumper-total-time">
-            </div>
-            <div class="chart-container" id="dumper-total-perf">
-            </div>
-            <div class="hourly-dumpers">
-
-                <table class="perf-table">
-                    <tr class="head">
-                        <th></th>
-                        <th colspan='2'>EAST SECTION</th>
-                        <th></th>
-                        <th colspan='2'>WEST SECTION</th>
-                    </tr>
-
-                    <tr class="head">
-                        <th>HOUR</th>
-                        <th>AVL</th>
-                        <th>RUN</th>
-                        <td></td>
-                        <th>AVL</th>
-                        <th>RUN</th>
-                    </tr>
-                    <tr ng-repeat="x in dumpers track by $index" ng-hide="x.hour > hour">
-                        <td>{{hourf(x.hour)}}</td>
-                        <td><input type="number" ng-model="x.east_avl" ng-disabled="!auth || x.hour>=hour"
-                                ng-change="update()">
-                        </td>
-                        <td><input type="number" ng-model="x.east_run" ng-disabled="!auth || x.hour>=hour"
-                                ng-change="update()">
-                        </td>
-                        <td></td>
-                        <td><input type="number" ng-model="x.west_avl" ng-disabled="!auth || x.hour>=hour"
-                                ng-change="update()">
-                        </td>
-                        <td><input type="number" ng-model="x.west_run" ng-disabled="!auth || x.hour>=hour"
-                                ng-change="update()">
-                        </td>
-                    </tr>
-                    <tr class="total">
-                        <td>TOTAL</td>
-                        <td>{{dumperTotal.east_avl}} Hrs</td>
-                        <td>{{dumperTotal.east_run}} Hrs</td>
-                        <td></td>
-                        <td>{{dumperTotal.west_avl}} Hrs</td>
-                        <td>{{dumperTotal.west_run}} Hrs</td>
-                    </tr>
-                </table>
-
-            </div>
-        </div>
-
     </main>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" defer></script>
