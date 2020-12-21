@@ -1,4 +1,13 @@
+// Data is structured in a two dimensional table like this.
 
+// labels: ['crusher-1', 'cursher-2', 'crusher-3']
+// avl: [val1, val2, val3]
+// run:[val1,val2,val3]
+
+// Along the x axix are items
+// along the y axis are atrributes
+// in tooltip, x index is available as index
+// y index is available ia datasetIndex
 
 
 
@@ -54,8 +63,8 @@ function shovelGraph(obj) {
     let section = document.querySelector('#shovel-sec');
     section.querySelectorAll('.chart-container canvas').forEach(x => x.remove());
 
-    plotShovel('#shovel-avlm', shovels, 'AVAILABLE HOURS');
-    plotShovel('#shovel-runm', shovels, 'RUNNING HOURS');
+    plotShovel('#shovel-avlm', shovels, 'AVL HRS');
+    plotShovel('#shovel-runm', shovels, 'RUN HRS');
     plotShovel('#shovel-pavl', shovels, '% AVAILABILITY');
     plotShovel('#shovel-putl', shovels, '% UTILAZATION');
     plotTime('#shovel-total-time', [shovelTotal], ['ALL SHOVELS']);
@@ -173,6 +182,7 @@ function plotTime(id, mcns, labs) {
                         var label = data.datasets[tooltipItem.datasetIndex].label || '';
                     },
                     label: function (tooltipItem, data) {
+                        // console.table(tooltipItem);
                         var label = data.datasets[tooltipItem.datasetIndex].label || '';
                         var value = tooltipItem.value;
                         let m = value % 60;
@@ -275,7 +285,7 @@ function plotPerf(id, mcns, labs) {
                     label: function (tooltipItem, data) {
                         var label = data.datasets[tooltipItem.datasetIndex].label || '';
                         var value = tooltipItem.value;
-                        return value + "%";
+                        return label.slice(2) + ": " + value + "%";
                     }
                 }
             }
@@ -318,133 +328,11 @@ function plotShovel(id, mcns, param) {
     let arr = [];
     let color = 'black';
 
-    if (param == 'AVAILABLE HOURS') {
+    if (param == 'AVL HRS') {
         arr = avlm;
         color = color_avl;
     }
-    else if (param == 'RUNNING HOURS') {
-        arr = runm;
-        color = color_run;
-    }
-    else if (param == '% AVAILABILITY') {
-        arr = pavl;
-        color = color_teal;
-    }
-    else if (param == '% UTILAZATION') {
-        arr = putl;
-        color = color_ong;
-    }
-
-    let container = document.querySelector(id);
-    let canvas = document.createElement('canvas');
-    container.appendChild(canvas);
-    var ctx = canvas.getContext('2d');
-
-    var chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: param,
-                data: arr,
-                backgroundColor: color,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-
-            scales: {
-                xAxes: [{
-                    stacked: false,
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }],
-                yAxes: [{
-                    stacked: false,
-                    ticks: {
-                        beginAtZero: true,
-                        callback: function (value, index, values) {
-                            if (param.includes('%')) {
-                                return value + "%"
-                            }
-                            else {
-                                let m = value % 60;
-                                m = m.toString().padStart(2, 0);
-                                let h = (value - m) / 60;
-                                h = h.toString().padStart(2, 0);
-                                return `${h}:${m}`;
-                            }
-
-                        }
-                    }
-                }]
-            },
-            tooltips: {
-                callbacks: {
-                    label: function (tooltipItem, data) {
-                        var label = data.datasets[tooltipItem.datasetIndex].label || '';
-                        var value = tooltipItem.value;
-                        if (param.includes('%')) {
-                            return value + "%"
-                        }
-                        else {
-                            let m = value % 60;
-                            m = m.toString().padStart(2, 0);
-                            let h = (value - m) / 60;
-                            h = h.toString().padStart(2, 0);
-                            return `${h}:${m} Hrs`;
-                        }
-                    }
-                }
-            }
-
-        }
-    });
-
-}
-
-function plotShovelPerf(id, mcns, param) {
-
-    let labels = [];
-    let avlm = [];
-    let runm = [];
-    let brkm = [];
-    let mntm = [];
-    let idlm = [];
-    let pavl = [];
-    let putl = [];
-
-
-
-    mcns.forEach(x => {
-        labels.push(x.name);
-        avlm.push(x.avlm);
-        runm.push(x.runm);
-        brkm.push(x.brkm);
-        mntm.push(x.mntm);
-        idlm.push(x.idlm);
-        pavl.push(x.pavl);
-        putl.push(x.putl);
-    });
-
-    const color_avl = '#1e75f2';
-    const color_run = '#22ee3d';
-    const color_brk = '#f44336';
-    const color_mnt = 'yellow';
-    const color_idl = 'rgb(200, 200, 200)';
-    const color_ong = 'RGB(255, 151, 0)';
-    const color_teal = 'RGB(0, 151, 135)';
-
-    let arr = [];
-    let color = 'black';
-
-    if (param == 'AVAILABLE HOURS') {
-        arr = avlm;
-        color = color_avl;
-    }
-    else if (param == 'RUNNING HOURS') {
+    else if (param == 'RUN HRS') {
         arr = runm;
         color = color_run;
     }
@@ -496,8 +384,40 @@ function plotShovelPerf(id, mcns, param) {
                         }
                     }
                 }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                        var value = tooltipItem.value;
+                        if (param.includes('AVL')) {
+                            let m = value % 60;
+                            m = m.toString().padStart(2, 0);
+                            let h = (value - m) / 60;
+                            h = h.toString().padStart(2, 0);
+                            let val= `${h}:${m}`;
+                            return "Avl: " + val + "Hrs";
+                        }
+                        else if (param.includes('RUN')) {
+                            let m = value % 60;
+                            m = m.toString().padStart(2, 0);
+                            let h = (value - m) / 60;
+                            h = h.toString().padStart(2, 0);
+                            let val = `${h}:${m}`;
+                            return "Run: " + val + "Hrs";
+                        }
+                        else if (param.includes('% AVA')) {
+                            return "Availibility:" + value + "%";
+                        }
+                        else {
+                            return "Utilization:" + value + "%";
+                        }
+                    }
+                }
             }
+
         }
     });
 
 }
+

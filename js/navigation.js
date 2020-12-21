@@ -8,7 +8,7 @@ function begin() {
 function pageLoad() {
    
     $('.splash').hide();
-    openSection('crusher');
+    openSection('live');
 }
 
 

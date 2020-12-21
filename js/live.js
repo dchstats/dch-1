@@ -175,7 +175,7 @@ app.controller("myController", function ($scope, $http) {
             // console.log(mach.name, ":", mach.evs);
             statusTimings(mach);
 
-            mach.remark=mach.remark.toUpperCase();
+            mach.remark = mach.remark.toUpperCase();
         });
 
 
@@ -863,6 +863,5 @@ app.controller("myController", function ($scope, $http) {
         })
         performanceLog();
     }
-    randomize();
 });
 
