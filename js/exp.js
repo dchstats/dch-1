@@ -396,7 +396,7 @@ function plotShovel(id, mcns, param) {
                             let h = (value - m) / 60;
                             h = h.toString().padStart(2, 0);
                             let val= `${h}:${m}`;
-                            return "Avl: " + val + "Hrs";
+                            return "Avl:  " + val + "Hrs";
                         }
                         else if (param.includes('RUN')) {
                             let m = value % 60;

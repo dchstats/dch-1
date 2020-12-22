@@ -237,7 +237,7 @@
                     <!-- <div class="mctime" ng-repeat="y in x.logs track by $index" ng-show="x.changes.includes($index)">{{timef($index)}}</div> -->
                     <div class="mctrend">
                         <div ng-repeat="y in x.logs track by $index"
-                            class="tooltip trend-block {{statusStrings[y]+'-block'}}" ng-click=" trendToggle(x,$index)">
+                            class="tooltip trend-block {{statusStrings[y]+'-block'}} {{$index==block?'tip':''}}" ng-click=" trendToggle(x,$index)">
                             <span class="tooltiptext">{{timef($index)}}</span>
                             <span class="transition-times" ng-class="x.changes[$index]">{{timef($index,true)}}</span>
                         </div>
