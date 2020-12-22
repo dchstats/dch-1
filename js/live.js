@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const dataVer = 3;
+    const dataVer = 4;
     const server = 'prod';    // dev or prod
 
     if (server == 'dev') {
@@ -113,7 +113,7 @@ app.controller("myController", function ($scope, $http) {
         sync();
 
 
-        setInterval(autoReload, 2 * 3600 * 1000);
+        // setInterval(autoReload, 8 * 3600 * 1000);
         pageLoad();
 
         if (server == 'prod') {
