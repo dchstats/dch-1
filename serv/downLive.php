@@ -8,6 +8,5 @@
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers
 
     header("Access-Control-Allow-Headers: content-type");
-
     echo file_get_contents('liveData.json');
 ?>
