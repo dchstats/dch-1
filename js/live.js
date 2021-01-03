@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const dataVer = 4;
+    const dataVer = 5;
     const server = 'prod';    // dev or prod
 
     if (server == 'dev') {
@@ -30,7 +30,7 @@ app.controller("myController", function ($scope, $http) {
     $scope.statusStrings = ['IDL', 'RNG', 'BDN', 'MNT', 'UDF'];
     $scope.statusLongStrings = ['IDLE', 'RUNNING', 'BREAKDOWN', 'MAINTENANCE', 'UDF'];
 
-
+ 
     $scope.machines = [];
     $scope.silos = [];
     $scope.dumper = {};
@@ -707,7 +707,7 @@ app.controller("myController", function ($scope, $http) {
             mach.since += $scope.tsToClock(ts);
             mach.for = "(" + hrs.toString() + ":" + mins.toString().padStart(2, 0) + " hrs)";
         }
-        else if (days < 365) {
+        else if (days < 1365) {
             // console.log('cond3:', mach.name);
             mach.since += dt;
             mach.for = "(" + days + (days == 1 ? " day" : " days") + ")";
@@ -858,6 +858,9 @@ app.controller("myController", function ($scope, $http) {
             }
             if (x.name == 'P&H-11') {
                 x.timeStamp = new Date(2020, 7, 20).getTime();
+            }
+            if (x.name == 'JYOTI') {
+                x.timeStamp = new Date(2019, 7, 1).getTime();
             }
 
         })

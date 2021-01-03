@@ -226,7 +226,7 @@ header {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
-	background: rgb(35, 35, 35);
+	background: rgb(15, 15, 15);
 	color: white;
 }
 
