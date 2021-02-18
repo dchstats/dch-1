@@ -218,7 +218,7 @@ app.controller("myController", function ($scope, $http) {
             clearTimeout(upEv);
             upEv = setTimeout(upload, 5000);
         }
-        downEv = setInterval(download, 30000);
+        downEv = setInterval(download, 300000);
     }
 
     function autoReload() {
