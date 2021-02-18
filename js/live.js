@@ -30,7 +30,7 @@ app.controller("myController", function ($scope, $http) {
     $scope.statusStrings = ['IDL', 'RNG', 'BDN', 'MNT', 'UDF'];
     $scope.statusLongStrings = ['IDLE', 'RUNNING', 'BREAKDOWN', 'MAINTENANCE', 'UDF'];
 
- 
+
     $scope.machines = [];
     $scope.silos = [];
     $scope.dumper = {};
@@ -251,9 +251,15 @@ app.controller("myController", function ($scope, $http) {
                 let remoteVer = +e.ver || 0;
                 let localVer = +localStorage.getItem('localVer') || 0;
                 if (remoteVer != localVer) {
-                    console.log('VERSION MISMATCH !... RELOADING')
                     localStorage.setItem('localVer', remoteVer);
-                    setTimeout(autoReload, 5000);
+                    if (localVer == 0) {
+                        console.log('FIRST VISIT');
+                    }
+                    else {
+                        console.log('VERSION MISMATCH !... RELOADING')
+                        setTimeout(autoReload, 5000);
+                    }
+
                 }
                 $scope.stamp = e.stamp;
                 t = e.time;
