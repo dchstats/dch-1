@@ -2,18 +2,19 @@ var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
 
 
-    const dataVer = 5;
-    const server = 'prod';    // dev or prod
+    const dataVer = 5;        // Used for forced refresh on forntend code change.
+    const server = 'prod';    // dev or prod server
 
     if (server == 'dev') {
         const origin = window.location.hostname;
         const path = "/dch/";
-        $scope.downUrl = "http://" + origin + path + 'serv/downLive.php';
-        $scope.upUrl = "http://" + origin + path + 'serv/upLive.php';
+        $scope.upUrl = 'https://json.extendsclass.com/bin/da64c5379eb2';
+        $scope.downUrl = 'https://json.extendsclass.com/bin/da64c5379eb2';
     }
+
     else if (server == 'prod') {
-        $scope.upUrl = 'serv/upLive.php';
-        $scope.downUrl = 'serv/downLive.php';
+        $scope.upUrl = 'https://json.extendsclass.com/bin/da64c5379eb2';
+        $scope.downUrl = 'https://json.extendsclass.com/bin/da64c5379eb2';
     }
 
 
@@ -44,17 +45,14 @@ app.controller("myController", function ($scope, $http) {
 
     $scope.pin = "";
 
-
-
-
     // GLOBALS /////
-    $scope.block = 0;
+    $scope.block = 0;  // current block and current hour.
     $scope.hour = 0;
 
-    const blockWidth = 10;
-    const totalBlocks = 8 * 60 / blockWidth;
+    const blockWidth = 10;  // 10 minutes in each block
+    const totalBlocks = 8 * 60 / blockWidth;  // blocks in 8 hour shift.
 
-    let downEv = null;
+    let downEv = null;         // stores downsync and upsync events. 
     let upEv = null;
 
 
@@ -71,9 +69,8 @@ app.controller("myController", function ($scope, $http) {
     initialize();
 
 
-
     function initialize() {
-        timeBlock();
+        timeBlock();          // sets current block and hour                                                      
         console.log('block:', $scope.block, '  hour:', $scope.hour);
 
         angular.forEach($scope.crusherNames, function (x, i) {
@@ -107,18 +104,14 @@ app.controller("myController", function ($scope, $http) {
             $scope.dumpers.push(k);
         }
 
-
-
         download();
         sync();
 
+        pageLoad();  // splash screen to hide garbage data.
 
-        // setInterval(autoReload, 8 * 3600 * 1000);
-        pageLoad();
-
-        if (server == 'prod') {
-            analytics();
-        }
+        // if (server == 'prod') {
+        //     analytics();
+        // }
 
     }
 
@@ -126,6 +119,10 @@ app.controller("myController", function ($scope, $http) {
     function performanceLog() {
         // console.log('logging................');
         timeBlock();
+
+        // Missing or invalid block data is being interpolated here.
+        // If first block is missing it is set to Idle
+        // then progressively corrected up to current block.
 
 
         angular.forEach($scope.machines, function (mach, i) {
@@ -148,6 +145,8 @@ app.controller("myController", function ($scope, $http) {
 
             mach.calculate();
 
+
+            // Machine event points are calculated for diplaying time on trends
             mach.evs = [];
             mach.evs.push(new MachEvent(0, mach.logs[0]));
             let n = 0; // for counting lengh of event.
@@ -159,7 +158,7 @@ app.controller("myController", function ($scope, $http) {
                 n++;
             }
 
-
+            // For position of text on trends
             mach.changes = [];
             mach.evs.forEach((x, i) => {
 
@@ -218,7 +217,7 @@ app.controller("myController", function ($scope, $http) {
             clearTimeout(upEv);
             upEv = setTimeout(upload, 5000);
         }
-        downEv = setInterval(download, 300000);
+        downEv = setInterval(download, 10000);
     }
 
     function autoReload() {
@@ -315,6 +314,7 @@ app.controller("myController", function ($scope, $http) {
         angular.forEach($scope.machines, function (x, i) {
             obj.machines.push($scope.machines[i].get());
         })
+
         angular.forEach($scope.silos, function (x, i) {
             obj.silos.push($scope.silos[i].get());
         })
@@ -325,7 +325,7 @@ app.controller("myController", function ($scope, $http) {
 
 
         var req = {
-            method: 'POST',
+            method: 'PUT',
             url: $scope.upUrl,
             headers: {
                 'Content-Type': 'application/json'
@@ -758,8 +758,6 @@ app.controller("myController", function ($scope, $http) {
             d.set(obj);
         })
         $scope.dumper.set($scope.dumpers[$scope.hour].get());
-
-
         $scope.update();
     }
 
@@ -794,32 +792,23 @@ app.controller("myController", function ($scope, $http) {
                 mach.logs[j] = 4;
             }
         })
-
-
         for (i = 0; i < 8; i++) {
             k = new Dumper(i);
             $scope.dumpers.push(k);
         }
-
         performanceLog();
     }
-
-
-
 
     $scope.indirect = function (js) {
         return eval(js);
     }
 
     $scope.dnLocal = function () {
-
         let temp = $scope.downUrl;
-
         const origin = window.location.hostname;
         const port = window.location.port || "";
         const path = "/dch/";
         $scope.downUrl = "http://" + origin + path + 'serv/downLive.php';
-
         download();
         $scope.downUrl = temp;
     }
