@@ -21,9 +21,8 @@ app.controller("myController", function ($scope, $http) {
 
     $scope.begin = new Date(2020, 3, 1, 5, 0, 0, 0);
     $scope.crusherNames = ['CRUSHER 1', 'CRUSHER 2', 'CRUSHER 3'];
-    $scope.shovelNames = ['P&H-06', 'P&H-07', 'P&H-10',
-        'P&H-11', 'P&H-12', 'P&H-13', 'P&H-14', 'P&H-15',
-        'P&H-16', 'P&H-17', 'P&H-18', 'P&H-19', 'HIM-20', 'PC-TATA', 'KOMATSU PC', 'LAXMAN PC', 'PL-06', 'PL-07', 'SM-L&T'];
+    $scope.shovelNames = ['P&H-11', 'P&H-12', 'P&H-13', 'P&H-14', 'P&H-15',
+        'P&H-16', 'P&H-17', 'P&H-19', 'HIM-20', 'EKG-01','EKG-02','PC-TATA','TH-02','TH-03', 'KMPC-01', 'KMPC-02', 'PL-06', 'PL-07', 'SM-01','SM-02'];
     $scope.draglineNames = ['JYOTI', 'PAWAN', 'VNDHYA', 'JWALA'];
     $scope.siloNames = ['OLD SILO', 'NEW SILO', 'WHARF WALL'];
 
